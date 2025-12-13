@@ -15,9 +15,9 @@ public class AirportRunner {
 
         Airport airport = applicationContext.getBean(Airport.class);
 
-        airport.setAirportName(" Kempegouda International Airport ");
-        airport.setAId(101);
-        airport.setLoc("Bengalore");
+//        airport.setAirportName(" Kempegouda International Airport ");
+//        airport.setAId(101);
+//        airport.setLoc("Bengalore");
         System.out.println("airport default :"+airport);
 
         Airport airport1 = applicationContext.getBean(Airport.class);
@@ -27,12 +27,12 @@ public class AirportRunner {
 //        System.out.println("airport2 :"+airport2);
 
         Terminal terminal = new Terminal();
+        System.out.println("t1 :"+terminal);
 
 
         Terminal terminal2 = new Terminal();
         System.out.println("terminal 2 :"+terminal2);
 
-        System.out.println("terminal1 :"+terminal);
 
         System.out.println("main ended..");
     }
