@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Cloud {
 
     @Autowired
-    Helmate helmate;
+    Server server;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("AWS")
+    private String cloudName;
 
-    @Value("210")
-    private String cc;
+    @Value("22210")
+    private String premiumPrice;
 }

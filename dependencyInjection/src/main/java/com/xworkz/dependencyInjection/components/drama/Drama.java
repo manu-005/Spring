@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Drama {
 
     @Autowired
-    Helmate helmate;
+    Actor actor;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("KKMJ")
+    private String dramaName;
 
-    @Value("210")
-    private String cc;
+    @Value("120")
+    private int entryFees;
 }

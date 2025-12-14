@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Game {
     @Autowired
-    Helmate helmate;
+    Level level;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("bgmi")
+    private String gameName;
 
-    @Value("210")
-    private String cc;
+    @Value("india")
+    private String country;
 }

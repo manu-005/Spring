@@ -1,6 +1,7 @@
 package com.xworkz.dependencyInjection.components.hostel;
 
 import com.xworkz.dependencyInjection.components.bike.Helmate;
+import com.xworkz.dependencyInjection.components.hospital.Ward;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,11 +18,11 @@ import org.springframework.stereotype.Component;
 public class Hostel {
 
     @Autowired
-    Helmate helmate;
+    Warden warden;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("kambi hostel")
+    private String hostelName;
 
-    @Value("210")
-    private String cc;
+    @Value("bharath")
+    private String wardenName;
 }

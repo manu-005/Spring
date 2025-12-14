@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Forest {
 
     @Autowired
-    Helmate helmate;
+    Tree tree;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Amazon")
+    private String forestName;
 
-    @Value("210")
-    private String cc;
+    @Value("brazil")
+    private String country;
 }

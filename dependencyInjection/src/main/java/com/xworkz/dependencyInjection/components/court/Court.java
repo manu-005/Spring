@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Court {
 
     @Autowired
-    Helmate helmate;
+    Judge judge;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("highCourt")
+    private String courtName;
 
-    @Value("210")
-    private String cc;
+    @Value("2")
+    private String numberOfJudge;
 }

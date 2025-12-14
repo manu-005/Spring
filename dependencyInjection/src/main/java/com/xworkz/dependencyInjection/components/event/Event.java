@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Event {
 
     @Autowired
-    Helmate helmate;
+    Organizer organizer;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Dance Excellent")
+    private String EventName;
 
-    @Value("210")
-    private String cc;
+    @Value("mall of asia")
+    private String location;
 }

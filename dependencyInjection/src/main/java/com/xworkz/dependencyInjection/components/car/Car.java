@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Car {
 
     @Autowired
-    Helmate helmate;
+    Wheel wheel;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Toyota")
+    private String carName;
 
-    @Value("210")
-    private String cc;
+    @Value("CNG")
+    private String carType;
 }

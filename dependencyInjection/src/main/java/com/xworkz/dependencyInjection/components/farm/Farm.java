@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Farm {
     @Autowired
-    Helmate helmate;
+    Crop crop;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Vinayak")
+    private String farmerName;
 
-    @Value("210")
-    private String cc;
+    @Value("26")
+    private int age;
 }

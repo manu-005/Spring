@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Company {
 
     @Autowired
-    Helmate helmate;
+    Employee employee;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("BlueVendors")
+    private String companyName;
 
-    @Value("210")
-    private String cc;
+    @Value("chennai")
+    private String location;
 }

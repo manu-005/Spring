@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Laptop {
 
     @Autowired
-    Helmate helmate;
+    Processor processor;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("dell")
+    private String brand;
 
-    @Value("210")
-    private String cc;
+    @Value("10 th gen")
+    private String gen;
 }

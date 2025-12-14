@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class FireStation {
 
     @Autowired
-    Helmate helmate;
+    FireMan fireMan;
 
     @Value("Xpulse")
-    private String bikeName;
+    private String statinName;
 
-    @Value("210")
-    private String cc;
+    @Value("55")
+    private int numberOfFiremen;
 }

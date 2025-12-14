@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Library {
 
     @Autowired
-    Helmate helmate;
+    Book book;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("govt library")
+    private String libraryName;
 
-    @Value("210")
-    private String cc;
+    @Value("vijayanagar")
+    private String location;
 }

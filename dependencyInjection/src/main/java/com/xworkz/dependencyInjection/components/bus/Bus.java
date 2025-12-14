@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Bus {
     @Autowired
-    Helmate helmate;
+    Driver driver;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Red bus")
+    private String busName;
 
-    @Value("210")
-    private String cc;
+    @Value("57")
+    private String seat;
 }

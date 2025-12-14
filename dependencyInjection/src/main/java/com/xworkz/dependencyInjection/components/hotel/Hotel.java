@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Hotel {
 
     @Autowired
-    Helmate helmate;
+    Room room;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("address Inn")
+    private String hotelName;
 
-    @Value("210")
-    private String cc;
+    @Value("kempapura")
+    private String address;
 }

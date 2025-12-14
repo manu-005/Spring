@@ -19,7 +19,7 @@ public class Temple {
     @Autowired
     God god;
 
-    @Value("Dev")
+    @Value("Devi")
     private String godName;
 
     @Value("tanjavoor")

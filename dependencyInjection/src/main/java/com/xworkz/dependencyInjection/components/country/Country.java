@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Country {
     @Autowired
-    Helmate helmate;
+    Capital capital;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("india")
+    private String countryName;
 
-    @Value("210")
-    private String cc;
+    @Value("New Delhi")
+    private String capitalCity;
 }

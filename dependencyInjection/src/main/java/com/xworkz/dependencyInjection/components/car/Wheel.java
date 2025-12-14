@@ -3,6 +3,7 @@ package com.xworkz.dependencyInjection.components.car;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,4 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class Wheel {
+
+    @Value("Alloy wheel")
+    private String wheelName;
+
+    @Value("290")
+    private String wheelSize;
+
+
 }

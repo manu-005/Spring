@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Dam {
 
     @Autowired
-    Helmate helmate;
+    Gate gate;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("KRS dam")
+    private String damName;
 
-    @Value("210")
-    private String cc;
+    @Value("kaveri")
+    private String whichRiver;
 }

@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class College {
     @Autowired
-    Helmate helmate;
+    Department department;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("MDRS Svnr")
+    private String collegeName;
 
-    @Value("210")
-    private String cc;
+    @Value("science")
+    private String stream;
 }

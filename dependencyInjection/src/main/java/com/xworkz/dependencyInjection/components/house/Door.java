@@ -16,12 +16,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Door {
 
-    @Autowired
-    Helmate helmate;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("2")
+    private int doorNumber;
 
-    @Value("210")
-    private String cc;
+    @Value("backDoor")
+    private String type;
 }

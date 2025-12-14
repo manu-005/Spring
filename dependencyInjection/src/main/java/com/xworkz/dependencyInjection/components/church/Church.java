@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Church {
 
     @Autowired
-    Helmate helmate;
+    Pastor pastor;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("saint joseph")
+    private String name;
 
-    @Value("210")
-    private String cc;
+    @Value("mysore")
+    private String loc;
 }

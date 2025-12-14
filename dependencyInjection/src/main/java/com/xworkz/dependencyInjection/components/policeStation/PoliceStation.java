@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class PoliceStation {
 
     @Autowired
-    Helmate helmate;
+    Inspector inspector;
 
     @Value("local station")
     private String name;

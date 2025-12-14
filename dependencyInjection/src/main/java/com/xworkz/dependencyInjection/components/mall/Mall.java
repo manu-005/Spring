@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Mall {
 
     @Autowired
-    Helmate helmate;
+    Shop shop;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Mall of asia")
+    private String mallName;
 
-    @Value("210")
-    private String cc;
+    @Value("GKVK")
+    private String loc;
 }

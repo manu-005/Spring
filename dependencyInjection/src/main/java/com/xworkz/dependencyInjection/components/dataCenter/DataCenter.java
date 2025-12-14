@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class DataCenter {
 
     @Autowired
-    Helmate helmate;
+    Storage storage;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("china telecom data center")
+    private String dataCenterName;
 
-    @Value("210")
-    private String cc;
+    @Value("3 bilion doller")
+    private String constructionCost;
 }

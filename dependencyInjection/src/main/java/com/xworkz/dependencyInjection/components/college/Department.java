@@ -3,6 +3,7 @@ package com.xworkz.dependencyInjection.components.college;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,4 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class Department {
+    @Value("CS")
+    private String deptName;
+
+    @Value("80")
+    private int noOfStudents;
+
 }

@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class Hospital {
 
     @Autowired
-    Helmate helmate;
+    Ward ward;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Bapist")
+    private String hospitalName;
 
-    @Value("210")
-    private String cc;
+    @Value("8")
+    private String numberOfWards;
 }

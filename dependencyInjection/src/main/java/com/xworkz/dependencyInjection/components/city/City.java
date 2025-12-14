@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 public class City {
 
     @Autowired
-    Helmate helmate;
+    Road road;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Benglore")
+    private String cityName;
 
-    @Value("210")
-    private String cc;
+    @Value("State")
+    private String karnataka;
 }

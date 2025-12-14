@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Camera {
     @Autowired
-    Helmate helmate;
+    Lens lens;
 
-    @Value("Xpulse")
-    private String bikeName;
+    @Value("Canon")
+    private String cameraName;
 
-    @Value("210")
-    private String cc;
+    @Value("50210")
+    private String price;
 }

@@ -3,6 +3,7 @@ package com.xworkz.dependencyInjection.components.tvChannel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -11,5 +12,10 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 @Scope("prototype")
-public class Anchor {
+public class Anchor {  @Value("Anushree")
+private String name;
+
+    @Value("female")
+    private String gender;
+
 }
