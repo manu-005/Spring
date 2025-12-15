@@ -19,7 +19,7 @@ public class Storage {
     private String storageIn;
 
     @Value("NAS")
-    private int storageType;
+    private String storageType;
 
 
 }

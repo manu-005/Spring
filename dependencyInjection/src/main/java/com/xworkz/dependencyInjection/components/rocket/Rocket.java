@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class Rocket {
 
     @Autowired
-    Engine engine;
+    RocketEngine rocketEngine;
 
     @Value("rockey")
     private String rocketName;

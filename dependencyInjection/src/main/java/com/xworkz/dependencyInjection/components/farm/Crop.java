@@ -19,6 +19,6 @@ public class Crop {
     private String cropName;
 
     @Value("legume crop")
-    private int cropType;
+    private String cropType;
 
 }

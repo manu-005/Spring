@@ -19,6 +19,6 @@ public class Employee {
     private String empName;
 
     @Value("developer")
-    private int role;
+    private String role;
 
 }

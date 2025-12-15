@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Capital {
 
-    private String capitalName;
 
+    @Value("delhi")
     private String cName;
 
     @Value("30")

@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 @Scope("prototype")
-public class Engine {
+public class RocketEngine {
+
     @Value("liquid propellent engine")
     private String name;
 
