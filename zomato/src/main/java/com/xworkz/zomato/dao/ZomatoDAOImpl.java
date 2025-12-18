@@ -74,7 +74,6 @@ public class ZomatoDAOImpl implements ZomatoDAO {
             throw new RuntimeException(e);
         }
 
-
         return exist;
     }
 }
