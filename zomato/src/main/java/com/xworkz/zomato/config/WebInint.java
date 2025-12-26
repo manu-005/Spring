@@ -1,7 +1,8 @@
 package com.xworkz.zomato.config;
 
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 
 public class WebInint extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -19,3 +20,5 @@ public class WebInint extends AbstractAnnotationConfigDispatcherServletInitializ
         return new String[]{"/"};
     }
 }
+
+//DispatcherServlet

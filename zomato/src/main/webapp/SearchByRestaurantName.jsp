@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+ <%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,67 +51,65 @@
     </div>
 </nav>
 
-<!-- Content -->
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-body text-center">
-            <h5 class="card-title">Welcome</h5>
-            <p class="card-text">
-                Please click the button below to fill the form.
-            </p>
-            <a href="Form.jsp" class="btn btn-success">
-                Fill Form
-            </a>
-        </div>
+
+<form action="searchByName" method="get">
+
+    <div class="col-md-6">
+        <label class="form-label">Search By Restaurant Name</label>
+        <input type="text" class="form-control" name="searchByRestaurantName">
     </div>
-</div>
 
-
-<!-- Content -->
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-body text-center">
-            <h5 class="card-title">Search</h5>
-            <p class="card-text">
-                Please click the button below to check exist or not.
-            </p>
-            <a href="CheckExist.jsp" class="btn btn-success">
-               Search
-            </a>
-        </div>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-success px-5">Search</button>
     </div>
-</div>
+
+    <div class="mt-3 text-danger fw-bold"> </div>
 
 
-<!-- Content -->
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-body text-center">
-            <h5 class="card-title">Search by Restaurant Name</h5>
-            <p class="card-text">
-                Please click the button below to Search by Restaurant by Name.
-            </p>
-            <a href="SearchByRestaurantName.jsp" class="btn btn-success">
-               Search
-            </a>
-        </div>
-    </div>
-</div>
 
-<!-- Content -->
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-body text-center">
-            <h5 class="card-title">Search by Restaurant Name and Location</h5>
-            <p class="card-text">
-                Please click the button below to Search by Restaurant by Name and Location.
-            </p>
-            <a href="SearchByRestaurantNameAndLocation.jsp" class="btn btn-success">
-               Search
-            </a>
-        </div>
-    </div>
-</div>
+<table class="table table-bordered table-striped table-hover">
+    <tbody>
+        <tr>
+            <th>Restaurant Name</th>
+             <th>Restaurant Number</th>
+              <th>Location</th>
+                  <th>GST Number</th>
+                    <th>Opening Date</th>
+                     <th>Type</th>
+                           <th>Landmark</th>
+                             <th>Email</th>
+                               <th>Owner Number</th>
+                                         <th>Owner Name</th>
+                                             <th>Action</th>
+
+        </tr>
+        <tr>
+              <td>${dto.getRName()}</td>
+            <td >${dto.getRNo()} </td>
+             <td>${dto.getLoc()}</td>
+                  <td>${dto.getGstn()} </td>
+                     <td> ${dto.getOpenDate()}</td>
+                        <td>${dto.getType()} </td>
+                          <td>${dto.getLandmark()} </td>
+                            <td>${dto.getEmail()}</td>
+         <td>${dto.getONo()} </td>
+       <td>${dto.getOName()}</td>
+       <td>
+       <div class="text-center mt-3 btn-danger px-3 ">
+       <button      class="btn btn- px-3"> <a href="edit/${dto.getRName()}" > Edit</a></button>
+           </div>
+
+       </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+</form>
+
+
 
 <!-- Footer -->
 <footer class="bg-dark text-white text-center py-2 ">
@@ -119,3 +121,4 @@
 
 </body>
 </html>
+

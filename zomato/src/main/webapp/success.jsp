@@ -17,9 +17,30 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">MyApp</a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="Form.jsp">Fill Form</a>
+        <a class="navbar-brand" href="#">Add Restaurant</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.jsp">Home</a>
+                </li>
+
+                <li class="nav-item">
+                                    <a class="nav-link active" href="Form.jsp">Fill Form</a>
+                                </li>
+
+            <li class="nav-item">
+             <a class="nav-link active" href="SearchByRestaurantName.jsp">Search By Restaurant Name</a>
+               </li>
+      <li class="nav-item">
+                <a class="nav-link active" href="SearchByRestaurantNameAndLocation.jsp">Search By Restaurant Name And Location</a>
+                  </li>
+
+            </ul>
         </div>
     </div>
 </nav>

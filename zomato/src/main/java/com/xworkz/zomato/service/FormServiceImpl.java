@@ -6,6 +6,8 @@ import com.xworkz.zomato.dto.RestaurantDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class FormServiceImpl implements FormService {
     @Autowired
@@ -75,4 +77,69 @@ public class FormServiceImpl implements FormService {
 
         return valid;
     }
+
+    @Override
+    public Optional<RestaurantDTO> searchByName(String name) {
+
+        if (name.trim().isEmpty()){
+            return Optional.empty();
+        }else{
+
+          Optional<RestaurantDTO> dto =  zomatoDAO.getByName(name);
+
+            return  dto;
+        }
+
+    }
+
+    @Override
+    public Optional<RestaurantDTO> searchByNameAndLoc(String searchByRestaurantName, String searchByRestaurantLocation) {
+
+        if (searchByRestaurantName != null && searchByRestaurantLocation !=null){
+
+            Optional<RestaurantDTO> dto =   zomatoDAO.getByNameAndLoc(searchByRestaurantName,searchByRestaurantLocation);
+
+            return  dto;
+
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean updateById(RestaurantDTO restaurantDTO) {
+        boolean valid = true;
+        if (restaurantDTO != null) {
+
+            if (restaurantDTO.getRName() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getRNo() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getLoc() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getGstn() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getOpenDate() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getType() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getLandmark() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getEmail() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            } else if (restaurantDTO.getONo() <= 0) {
+                valid = false;
+            } else if (restaurantDTO.getOName() == null || restaurantDTO.getGstn().length() < 3) {
+                valid = false;
+            }
+
+        }
+        if (valid) {
+            boolean update = zomatoDAO.updateById(restaurantDTO);
+
+            return update;
+        }else {
+            return valid;
+        }}
+
 }
