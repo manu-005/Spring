@@ -45,72 +45,68 @@
                 <div class="card-body">
 
                     <h3 class="text-center text-danger fw-bold mb-2">
-                        Create My Account
+                       Update Details
                     </h3>
                     <p class="text-center text-muted mb-4">
                         Manage donations, schedule appointments, and track history
                     </p>
 
-                    <form action="createAccount" method="post"
+                    <form action="<%= request.getContextPath() %>/update" method="post"
                           autocomplete="off" onsubmit="return validate()">
 
 ${success}${error}
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">First Name</label>
-                                <input type="text" name="firstName" id="fn" class="form-control">
+                                <input type="text" name="firstName" value="${updateDto.getFirstName()}" id="fn" class="form-control">
                                 <small class="text-danger" id="fnErr"></small>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input type="text" name="lastName" id="ln" class="form-control">
+                                <input type="text" name="lastName" value="${updateDto.getLastName()}" id="ln" class="form-control">
                                 <small class="text-danger" id="lnErr"></small>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Email Address</label>
-                            <input type="email" name="email" id="em" class="form-control">
+                            <input type="email" name="email" id="em" value="${updateDto.getEmail()}" class="form-control">
                             <small class="text-danger" id="emErr"></small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Date of Birth</label>
-                            <input type="date" name="dob" id="dob" class="form-control">
+                            <input type="date" name="dob" id="dob" value="${updateDto.getDob()}" class="form-control">
                             <small class="text-danger" id="dobErr"></small>
                         </div>
 
                         <!-- USERNAME ADDED -->
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input type="text" name="userName" id="un" class="form-control">
+                            <input type="text" name="userName" id="un" value="${updateDto.getUserName()}" class="form-control">
                             <small class="text-danger" id="unErr"></small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" name="phone" id="ph" class="form-control">
+                            <input type="text" name="phone" id="ph" value="${updateDto.getPhone()}" class="form-control">
                             <small class="text-danger" id="phErr"></small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">ZIP Code</label>
-                            <input type="text" name="zipCode" id="zip" class="form-control">
+                            <input type="text" name="zipCode" id="zip" value="${updateDto.getZipCode()}" class="form-control">
                             <small class="text-danger" id="zipErr"></small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" name="password" id="pw" class="form-control">
+                            <input type="password" name="password" id="pw" value="${updateDto.getPassword()}" class="form-control" >
                             <small class="text-danger" id="pwErr"></small>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Repeat Password</label>
-                            <input type="password" name="repeatePassword" id="cpw" class="form-control">
-                            <small class="text-danger" id="cpwErr"></small>
-                        </div>
+
 
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="terms">
@@ -122,7 +118,7 @@ ${success}${error}
                         </div>
 
                         <button class="btn btn-danger w-100">
-                            Create Account
+                            Update Details
                         </button>
 
                     </form>
