@@ -13,7 +13,6 @@ public class FormServiceImpl implements FormService {
     @Autowired
     ZomatoDAO zomatoDAO;
 
-
     @Override
     public boolean valid(RestaurantDTO restaurantDTO) {
         boolean valid = true;
