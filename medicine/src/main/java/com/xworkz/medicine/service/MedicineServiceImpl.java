@@ -44,4 +44,10 @@ public class MedicineServiceImpl implements MedicineService{
         }
         return invalid;
     }
+
+    @Override
+    public boolean delete(String name) {
+        return medicineDAO.delete(name);
+
+    }
 }

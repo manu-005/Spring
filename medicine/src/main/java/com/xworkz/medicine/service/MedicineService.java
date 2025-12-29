@@ -6,4 +6,5 @@ public interface MedicineService {
 
 boolean validateAndSave(MedicineDTO medicineDTO);
 
+    boolean delete(String name);
 }
