@@ -22,4 +22,13 @@ public class PassPortServiceImpl implements  PassPortService{
         }
         return false;
     }
+
+    @Override
+    public boolean delete(int id) {
+
+       boolean deleted =  passPortDAO.delete(id);
+        if (deleted){
+            return true;
+        }else return false;
+    }
 }

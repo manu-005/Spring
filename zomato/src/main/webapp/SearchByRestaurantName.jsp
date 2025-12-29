@@ -58,7 +58,7 @@
         <label class="form-label">Search By Restaurant Name</label>
         <input type="text" class="form-control" name="searchByRestaurantName">
     </div>
-
+${success}${error}
     <div class="text-center mt-3">
         <button type="submit" class="btn btn-success px-5">Search</button>
     </div>
@@ -81,6 +81,7 @@
                                <th>Owner Number</th>
                                          <th>Owner Name</th>
                                              <th>Action</th>
+                                              <th>Action</th>
 
         </tr>
         <tr>
@@ -98,8 +99,13 @@
        <div class="text-center mt-3 btn-danger px-3 ">
        <button      class="btn btn- px-3"> <a href="edit/${dto.getRName()}" > Edit</a></button>
            </div>
-
        </td>
+
+        <td>
+              <div class="text-center mt-3 btn-danger px-3 ">
+              <button      class="btn btn- px-3"> <a href="delete/${dto.getRNo()}" > Delete</a></button>
+                  </div>
+              </td>
         </tr>
     </tbody>
 </table>

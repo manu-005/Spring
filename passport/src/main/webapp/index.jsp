@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="Search.jsp">Search</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
             </ul>
         </div>
@@ -40,15 +40,29 @@
 
 <!-- CONTENT -->
 <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row justify-content-center g-4">
 
-            <div class="card shadow">
+        <!-- REGISTRATION CARD -->
+        <div class="col-md-7">
+            <div class="card shadow h-100">
                 <div class="card-header bg-primary text-white fw-bold">
                     User Registration Form
                 </div>
-${success}${error}
+
                 <div class="card-body">
+
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success text-center fw-bold">
+                            ${success}
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger text-center fw-bold">
+                            ${error}
+                        </div>
+                    </c:if>
+
                     <form action="registerUser" method="post" onsubmit="return validateForm()">
 
                         <div class="row mb-3">
@@ -108,17 +122,31 @@ ${success}${error}
                         </div>
 
                     </form>
-
-                    <c:if test="${not empty error}">
-                        <div class="text-danger text-center mt-3 fw-bold">
-                            ${error}
-                        </div>
-                    </c:if>
-
                 </div>
             </div>
-
         </div>
+
+        <!-- DELETE CARD -->
+        <div class="col-md-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-danger fw-bold">Delete User</h5>
+
+                    <form action="deleteById" method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+
+                        <div class="mb-3">
+                            <label class="form-label">Enter ID</label>
+                            <input type="number" name="id" class="form-control"
+                                   placeholder="Enter id" required>
+                        </div>
+
+                        <button class="btn btn-danger w-100">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

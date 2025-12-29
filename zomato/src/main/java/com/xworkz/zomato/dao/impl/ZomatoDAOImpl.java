@@ -1,62 +1,45 @@
-package com.xworkz.zomato.dao;
+package com.xworkz.zomato.dao.impl;
 
 import com.xworkz.zomato.constants.DBConstants;
+import com.xworkz.zomato.dao.ZomatoDAO;
 import com.xworkz.zomato.dto.CheckExistEmailDTO;
 import com.xworkz.zomato.dto.RestaurantDTO;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.transaction.internal.TransactionImpl;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.springframework.stereotype.Repository;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.sql.*;
 import java.util.Optional;
 
-@Component
+@Repository
 public class ZomatoDAOImpl implements ZomatoDAO {
-
 
     static {
         try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-
-
     @Override
     public boolean save(RestaurantDTO restaurantDTO) {
-        boolean saved = false;
 
-        String sql = "insert into zomato(rName,rno,location,gstn,openDate,type,landmark,email,oNo,oName) values(?,?,?,?,?,?,?,?,?,?);";
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(RestaurantDTO.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
 
-        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        Transaction transaction = session.beginTransaction();
+        session.save(restaurantDTO);
+        transaction.commit();
 
-            statement.setString(1, restaurantDTO.getRName());
-            statement.setString(2, restaurantDTO.getRNo());
-            statement.setString(3, restaurantDTO.getLoc());
-            statement.setString(4, restaurantDTO.getGstn());
-            statement.setString(5, restaurantDTO.getOpenDate());
-
-            statement.setString(6, restaurantDTO.getType());
-            statement.setString(7, restaurantDTO.getLandmark());
-            statement.setString(8, restaurantDTO.getEmail());
-            statement.setLong(9, restaurantDTO.getONo());
-            statement.setString(10, restaurantDTO.getOName());
-
-            int rows = statement.executeUpdate();
-
-            if (rows == 1) {
-                saved = true;
-            } else {
-                saved = false;
-            }
-            return saved;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return true;
     }
 
     @Override
@@ -184,5 +167,26 @@ public class ZomatoDAOImpl implements ZomatoDAO {
         return false;
     }
 
+    @Override
+    public boolean delete(String rNo) {
+        boolean delete=false;
+
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(RestaurantDTO.class);
+
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+       Session session = sessionFactory.openSession();
+       Transaction transaction = session.beginTransaction();
+      RestaurantDTO dto = session.get(RestaurantDTO.class,rNo);
+        System.out.println("dao output get :");
+        System.out.println(dto);
+       if (dto != null){
+           session.delete(dto);
+           delete = true;
+           transaction.commit();
+       }
+        return delete;
+    }
 
 }

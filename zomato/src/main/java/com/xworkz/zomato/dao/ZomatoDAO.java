@@ -16,4 +16,9 @@ Optional<RestaurantDTO> getByName(String name);
      Optional<RestaurantDTO> getByNameAndLoc(String searchByRestaurantName, String searchByRestaurantLocation);
 
     boolean updateById(RestaurantDTO restaurantDTO);
+
+    boolean delete(String rNo);
 }
+
+
+

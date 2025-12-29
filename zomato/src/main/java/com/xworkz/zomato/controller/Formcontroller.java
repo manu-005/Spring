@@ -125,6 +125,20 @@ public class Formcontroller {
 //
 //        return "/UpdateByNameAndLoc.jsp";
 
+    @GetMapping("delete/{rNo}")
+    public String delete(@PathVariable("rNo") String rNo, Model model){
+
+
+      boolean deleted =  formService.delete(rNo);
+        System.out.println(rNo);
+
+        if (deleted){
+            model.addAttribute("success","Data Deleted Successfully..");
+        }else{
+            model.addAttribute("error","Try again later..");
+        }
+        return "SearchByRestaurantName";
+    }
 
     @Bean
     public ViewResolver viewResolver(){

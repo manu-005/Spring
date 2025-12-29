@@ -45,4 +45,18 @@ public String registerUser(PassPortRegisterDTO passPortRegisterDTO, Model model)
      }
         return "index";
     }
+
+    @PostMapping("deleteById")
+    public String deleteById(int id,Model model){
+
+      boolean deleted =  service.delete(id);
+
+        if (deleted){
+            model.addAttribute("success","Successfully deleted..!");
+        }else{
+            model.addAttribute("error","Try again some times ..!");
+
+        }
+        return "index";
+    }
 }

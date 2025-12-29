@@ -141,4 +141,10 @@ public class FormServiceImpl implements FormService {
             return valid;
         }}
 
+    @Override
+    public boolean delete(String rNo) {
+
+        return zomatoDAO.delete(rNo);
+    }
+
 }

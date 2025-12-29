@@ -16,4 +16,6 @@ public interface FormService {
     Optional<RestaurantDTO> searchByNameAndLoc(String searchByRestaurantName, String searchByRestaurantLocation);
 
     boolean updateById(RestaurantDTO restaurantDTO);
+
+    boolean delete(String rNo);
 }

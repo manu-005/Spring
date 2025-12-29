@@ -3,6 +3,10 @@ package com.xworkz.passport.dao;
 import com.xworkz.passport.DBConstants.DBConstants;
 import com.xworkz.passport.dto.PassPortRegisterDTO;
 import lombok.SneakyThrows;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -10,40 +14,57 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 @Repository
-public class PassPortDAOImpl implements PassPortDAO{
+public class PassPortDAOImpl implements PassPortDAO {
 
 
-    static{
+    static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     @SneakyThrows
     public boolean save(PassPortRegisterDTO passPortRegisterDTO) {
 
-        String sql ="INSERT INTO passport_user_registration(first_name, last_name, dob, user_name, email, password, hint_question, hint_answer)VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(PassPortRegisterDTO.class);
 
-        try(Connection connection = DriverManager.getConnection(DBConstants.URL.getS(),DBConstants.USERNAME.getS(),DBConstants.PWD.getS());
-        PreparedStatement statement = connection.prepareStatement(sql) ) {
-
-            statement.setString(1,passPortRegisterDTO.getFirstName());
-            statement.setString(2,passPortRegisterDTO.getLastName());
-            statement.setString(3,passPortRegisterDTO.getDob());
-            statement.setString(4,passPortRegisterDTO.getUserName());
-            statement.setString(5,passPortRegisterDTO.getEmail());
-            statement.setString(6,passPortRegisterDTO.getPassword());
-            statement.setString(7,passPortRegisterDTO.getHintQuestion());
-            statement.setString(8,passPortRegisterDTO.getHintAnswer());
-
-          int row =  statement.executeUpdate();
-
-          if (row==1){
-              return  true;
-          }
-        }
-        return false;
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(passPortRegisterDTO);
+        transaction.commit();
+        return true;
     }
+
+    @Override
+    public boolean delete(int id) {
+        boolean delete = false;
+
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(PassPortRegisterDTO.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+
+        Session session = sessionFactory.openSession();
+
+        Transaction transaction = session.beginTransaction();
+
+        PassPortRegisterDTO passPortRegisterDTO = session.get(PassPortRegisterDTO.class, id);
+
+        System.out.println("dao :"+passPortRegisterDTO);
+        if (passPortRegisterDTO != null) {
+
+            session.delete(passPortRegisterDTO);
+            transaction.commit();
+            delete = true;
+        }
+        return delete;
+    }
+
+
 }

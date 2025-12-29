@@ -6,4 +6,6 @@ public interface PassPortService {
 
 
     boolean validSave(PassPortRegisterDTO passPortRegisterDTO);
+
+    boolean delete(int id);
 }
