@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+//@Entity
 @Table(name = "passport_user_registration")
 public class PassPortRegisterDTO {
 
