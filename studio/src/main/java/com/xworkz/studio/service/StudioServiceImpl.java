@@ -20,4 +20,14 @@ public class StudioServiceImpl implements StudioService{
         return studioDAO.bookSlot(entity);
 
     }
+
+    @Override
+    public BookSlotDTO getBookedSlots(int id) {
+
+ StudioEntity entity = studioDAO.getBookedSlots(id);
+           BookSlotDTO dto = new BookSlotDTO();
+           BeanUtils.copyProperties(entity,dto);
+
+        return dto;
+    }
 }

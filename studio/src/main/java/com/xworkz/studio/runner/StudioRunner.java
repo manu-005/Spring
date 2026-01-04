@@ -1,4 +1,4 @@
-package com.xworkz.studio;
+package com.xworkz.studio.runner;
 
 import com.xworkz.studio.dto.BookSlotDTO;
 import com.xworkz.studio.service.StudioService;

@@ -18,15 +18,30 @@ public class StudioDAOImpl implements StudioDAO {
     @Override
     public boolean bookSlot(StudioEntity entity) {
 
-     Configuration configuration = new Configuration();
-configuration.configure();
-configuration.addAnnotatedClass(StudioEntity.class);
-SessionFactory sessionFactory =configuration.buildSessionFactory();
-Session session =sessionFactory.openSession();
-Transaction transaction =session.beginTransaction();
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(StudioEntity.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
- session.save(entity);
-transaction.commit();
-return true;
+        session.save(entity);
+        transaction.commit();
+        return true;
+    }
+
+    @Override
+    public StudioEntity getBookedSlots(int id) {
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        configuration.addAnnotatedClass(StudioEntity.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+       StudioEntity entity = session.get(StudioEntity.class,id);
+       transaction.commit();
+
+        return entity;
     }
 }
