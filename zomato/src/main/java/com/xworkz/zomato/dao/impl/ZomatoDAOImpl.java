@@ -143,6 +143,7 @@ public class ZomatoDAOImpl implements ZomatoDAO {
 
         String sql = "update zomato set rno=?,location=?,gstn=?,openDate=?,type=?,landmark=?,email=?,oNo=?,oName=? where rName=?;";
 
+
         try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
