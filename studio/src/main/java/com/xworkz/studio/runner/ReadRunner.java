@@ -11,8 +11,8 @@ public class ReadRunner {
         StudioService service = new StudioServiceImpl();
         BookSlotDTO dto = new BookSlotDTO();
         dto.setId(101);
-       int id = dto.getId();
-BookSlotDTO byId = service.getBookedSlots(id);
-        System.out.println("Data Bases on id :"+id+"->"+byId);
+        int id = dto.getId();
+        BookSlotDTO byId = service.getBookedSlots(id);
+        System.out.println("Data Bases on id :" + id + "->" + byId);
     }
 }
