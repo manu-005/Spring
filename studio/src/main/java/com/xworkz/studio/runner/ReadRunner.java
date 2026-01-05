@@ -7,6 +7,7 @@ import com.xworkz.studio.service.StudioServiceImpl;
 public class ReadRunner {
     public static void main(String[] args) {
 
+
         StudioService service = new StudioServiceImpl();
         BookSlotDTO dto = new BookSlotDTO();
         dto.setId(101);
