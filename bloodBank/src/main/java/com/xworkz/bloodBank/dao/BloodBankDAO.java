@@ -1,12 +1,13 @@
 package com.xworkz.bloodBank.dao;
 
 import com.xworkz.bloodBank.dto.BloodDonorDTO;
+import com.xworkz.bloodBank.entity.DonorEntity;
 
 import java.util.Optional;
 
 public interface BloodBankDAO {
 
-    boolean saved(BloodDonorDTO bloodDonorDTO);
+    boolean saved(DonorEntity entity);
 
     Optional<BloodDonorDTO> searchByEmail(String searchEmail);
 

@@ -2,9 +2,15 @@ package com.xworkz.bloodBank.dao;
 
 import com.xworkz.bloodBank.DBConstants;
 import com.xworkz.bloodBank.dto.BloodDonorDTO;
+
+import com.xworkz.bloodBank.entity.DonorEntity;
 import lombok.SneakyThrows;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,39 +27,23 @@ public class BloodBankDAOImpl implements BloodBankDAO {
         }
     }
 
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+
     @Override
     @SneakyThrows
-    public boolean saved(BloodDonorDTO bloodDonorDTO) {
+    public boolean saved(DonorEntity  entity) {
+        System.out.println(entity);
+        System.out.println(entityManagerFactory);
 
-        boolean saved = false;
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        manager.getTransaction().begin();
 
-        String sql = "INSERT INTO donorreg(donorAccountId, first_name, last_name, email, dob, userName, phone,zip_code, password, repeatePassword) " +
-                "VALUES (?, ?, ?, ?, ?, ?,?,?, ?, ?)";
+        manager.persist(entity);
 
-        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        manager.getTransaction().commit();
 
-            statement.setInt(1, bloodDonorDTO.getDonorAccountId());
-            statement.setString(2, bloodDonorDTO.getFirstName());
-            statement.setString(3, bloodDonorDTO.getLastName());
-            statement.setString(4, bloodDonorDTO.getEmail());
-            statement.setString(5, bloodDonorDTO.getDob());
-            statement.setString(6, bloodDonorDTO.getUserName());
-
-            statement.setString(7, bloodDonorDTO.getPhone());
-            statement.setString(8, bloodDonorDTO.getZipCode());
-            statement.setString(9, bloodDonorDTO.getPassword());
-            statement.setString(10, bloodDonorDTO.getRepeatePassword());
-
-            int rows = statement.executeUpdate();
-
-            if (rows == 1) {
-                saved = true;
-            }
-
-        }
-
-        return saved;
+        return true;
     }
 
     @Override
@@ -63,8 +53,7 @@ public class BloodBankDAOImpl implements BloodBankDAO {
 
         String sql = "select * from donorreg where email=?;";
 
-        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS()); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, searchEmail);
 
@@ -96,8 +85,7 @@ public class BloodBankDAOImpl implements BloodBankDAO {
     public Optional<BloodDonorDTO> getById(int id) {
         String sql = "select * from donorreg where donorAccountId=?;";
 
-        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS()); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, id);
 
@@ -129,8 +117,7 @@ public class BloodBankDAOImpl implements BloodBankDAO {
     public boolean update(BloodDonorDTO bloodDonorDTO) {
 
         String sql = "update donorreg set first_name=?, last_name=?, email=?, dob=?, userName=?, phone=?,zip_code=? where email=?  ";
-        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS()); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, bloodDonorDTO.getFirstName());
             statement.setString(2, bloodDonorDTO.getLastName());
@@ -155,15 +142,14 @@ public class BloodBankDAOImpl implements BloodBankDAO {
     public boolean delete(int id) {
         String sql = "delete from donorreg where donorAccountId=?;";
 
-        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS());
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DriverManager.getConnection(DBConstants.URL.getS(), DBConstants.USERNAME.getS(), DBConstants.PWD.getS()); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        statement.setInt(1,id);
-      int row=  statement.executeUpdate();
+            statement.setInt(1, id);
+            int row = statement.executeUpdate();
 
-      if (row ==1){
-          return true;
-      }
+            if (row == 1) {
+                return true;
+            }
         }
 
         return false;

@@ -12,6 +12,6 @@ public class ClothCompanyRunner
     {
         ClothDto dto = new ClothDto();
 
-        dto.set
+        dto.set/
     }
 }

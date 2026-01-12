@@ -2,6 +2,8 @@ package com.xworkz.bloodBank.service;
 
 import com.xworkz.bloodBank.dao.BloodBankDAO;
 import com.xworkz.bloodBank.dto.BloodDonorDTO;
+import com.xworkz.bloodBank.entity.DonorEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,14 @@ public class BloodBankServiceImpl implements BloodBankService{
     BloodBankDAO bloodBankDAO;
     @Override
     public boolean validAndSave(BloodDonorDTO bloodDonorDTO) {
-
+        DonorEntity entity = new DonorEntity();
         if (bloodDonorDTO != null){
+//            System.out.println(bloodDonorDTO);
+            BeanUtils.copyProperties(bloodDonorDTO,entity);
 
-         boolean saved =  bloodBankDAO.saved(bloodDonorDTO);
+            System.out.println("service--");
+            System.out.println(entity);
+         boolean saved =  bloodBankDAO.saved(entity);
          if (saved){
              return true;
          }
