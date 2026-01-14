@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,30 +40,55 @@ public class ClothCompanyController {
     }
 
     @GetMapping("/search")
-    public String getByName(String clothName,Model model){
+    public String getByName(String clothName, Model model) {
         System.out.println(clothName);
 
-       ClothDTO dto = clothService.getByName(clothName);
+        ClothDTO dto = clothService.getByName(clothName);
 
-       if (dto.isAvailable()){
-           model.addAttribute("list",dto);
-       }else{
-           model.addAttribute("error","Not found");
-       }
+        if (dto.isAvailable()) {
+            model.addAttribute("list", dto);
+        } else {
+            model.addAttribute("error", "Not found");
+        }
         return "Search";
     }
 
 
     @GetMapping("/searchById")
-    public String getById(int id,Model model){
+    public String getById(int id, Model model) {
 
-       ClothDTO dto =  clothService.getById(id);
+        ClothDTO dto = clothService.getById(id);
 
-       if (dto.isAvailable()){
-           model.addAttribute("list",dto);
-       }else{
-           model.addAttribute("error","Not found !");
-       }
+        if (dto.isAvailable()) {
+            model.addAttribute("list", dto);
+        } else {
+            model.addAttribute("error", "Not found !");
+        }
         return "SearchById";
     }
+
+    //save
+    //search by id
+    //search by cloth name
+    //update by id
+
+    @GetMapping("/updateById/{id}")
+    public String getToUpdateById(@PathVariable("id") int id,Model model){
+
+        System.out.println("controller --"+id);
+        ClothDTO dto =  clothService.getById(id);
+
+        if (dto.isAvailable()){
+            model.addAttribute("dto",dto);
+        }else{
+            model.addAttribute("error","Not found !");
+        }
+        return "UpdateForm";
+    }
+
+
+
+
+//    public String clothUpdate
+
 }

@@ -51,32 +51,42 @@ ${error}
 
 
 
- <table class="table table-bordered table-hover text-center mt-4">
-     <thead class="table-dark">
-         <tr>
-             <th>Cloth Name</th>
-             <th>Brand</th>
-             <th>Type</th>
-             <th>Size</th>
-             <th>Color</th>
-             <th>Price (₹)</th>
-             <th>Material</th>
-             <th>Available</th>
-         </tr>
-     </thead>
-     <tbody>
-         <tr>
-             <td>${list.clothName}</td>
-             <td>${list.brand}</td>
-             <td>${list.type}</td>
-             <td>${list.size}</td>
-             <td>${list.color}</td>
-             <td>${list.price}</td>
-             <td>${list.material}</td>
-             <td>${list.available}</td>
-         </tr>
-     </tbody>
- </table>
+ <c:if test="${not empty list}">
+     <table class="table table-bordered table-hover text-center mt-4">
+         <thead class="table-dark">
+             <tr>
+                 <th>Cloth Name</th>
+                 <th>Brand</th>
+                 <th>Type</th>
+                 <th>Size</th>
+                 <th>Color</th>
+                 <th>Price (₹)</th>
+                 <th>Material</th>
+                 <th>Available</th>
+                 <th>Action</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr>
+                 <td>${list.clothName}</td>
+                 <td>${list.brand}</td>
+                 <td>${list.type}</td>
+                 <td>${list.size}</td>
+                 <td>${list.color}</td>
+                 <td>${list.price}</td>
+                 <td>${list.material}</td>
+                 <td>${list.available}</td>
+                 <td>
+                     <a href="UpdateById.jsp"  class="btn btn-sm btn-warning">
+                         Update
+                     </a>
+                 </td>
+             </tr>
+         </tbody>
+     </table>
+ </c:if>
+
+
 
 <!-- ===== Footer ===== -->
 <footer class="bg-dark text-white text-center p-3 fixed-bottom">

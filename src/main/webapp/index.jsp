@@ -29,7 +29,37 @@
 <!-- ===== Main Content ===== -->
 <div class="container mt-5">
     <h2 class="text-center">Welcome to Cloth Store</h2>
-    <p class="text-center">Browse and shop your favorite clothes</p>
+    <p class="text-center">Browse And shop your favorite clothes</p>
+     <div class="container-fluid mt-3">
+       <div class="row g-3">
+
+         <div class="col-md-4">
+           <div class="card text-center shadow">
+             <div class="card-body">
+               <h5 class="card-title">Search & Update</h5>
+               <p class="card-text">Search record by ID and update details</p>
+               <a href="SearchById.jsp" class="btn btn-primary">
+                 Search By Id and Update
+               </a>
+             </div>
+           </div>
+         </div>
+
+         <div class="col-md-4">
+           <div class="card text-center shadow">
+             <div class="card-body">
+               <h5 class="card-title">More Actions</h5>
+               <p class="card-text">Additional operations</p>
+               <a href="SearchById.jsp" class="btn btn-secondary">
+
+               </a>
+             </div>
+           </div>
+         </div>
+
+       </div>
+     </div>
+
 </div>
 
 <!-- ===== Footer ===== -->
