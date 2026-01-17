@@ -6,4 +6,6 @@ import com.xworkz.xworkzModel.entity.UserEntity;
 public interface ModelDao {
 
     boolean save(UserEntity entity);
+
+    UserEntity checkEmailAndPassword(String email, String password);
 }

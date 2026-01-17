@@ -36,10 +36,29 @@ public class ModelController {
 
       boolean saved =  service.validAndSave(dto);
         if (saved){
-            model.addAttribute("susses","Successfully Sign Up..!");
+            model.addAttribute("success","Successfully Sign Up..!");
         }else{
             model.addAttribute("error","Try again Later ..!");
         }
         return "SignUp";
     }
+
+    @PostMapping("signInUser")
+    public String signInUser(String email, String password, Model model) {
+
+        boolean exists = service.signIn(email, password);
+        System.out.println("existss :"+exists);
+        if (exists) {
+            return "Home";   // Home.jsp
+        } else {
+            model.addAttribute("error", "Invalid Email or Password");
+            return "SignIn";
+        }
+    }
+
+    @GetMapping("logOut")
+    public String logOut(){
+        return "index";
+    }
+
 }

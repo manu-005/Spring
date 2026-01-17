@@ -45,6 +45,7 @@
       <version>5.6.15.Final</version>
     </dependency>
 
+
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>javax.persistence-api</artifactId>
@@ -57,11 +58,14 @@
       <version>5.3.32</version>
     </dependency>
 
+
+
     <dependency>
-      <groupId>jstl</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
+
 
   </dependencies>
   <build>

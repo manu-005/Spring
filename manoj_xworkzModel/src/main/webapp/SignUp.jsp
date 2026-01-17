@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Welcome</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,19 +15,44 @@
 
 <body class="bg-success-subtle">
 
-<!-- Header -->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-success bg-opacity-25 shadow-sm">
     <div class="container-fluid">
+
+        <!-- Left: Logo + Nav -->
         <div class="d-flex align-items-center">
+            <!-- Replace with your logo link -->
             <img src="#" alt="Logo" height="45" class="me-4">
+
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#">About Us</a></li>
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#">Contact Us</a></li>
+                <li class="nav-item">
+                    <a class="nav-link fw-medium text-success-emphasis" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-medium text-success-emphasis" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-medium text-success-emphasis" href="#">Contact Us</a>
+                </li>
             </ul>
         </div>
+
+        <!-- Right: Buttons -->
+        <div>
+
+         <form action="signUp" method="get" class="d-inline">
+             <button type="submit" class="btn btn-success">Sign Up</button>
+         </form>
+
+     <form action="signIn" method="get" class="d-inline">
+             <button type="submit" class="btn btn-outline-success me-2">Sign In</button>
+         </form>
+
+        </div>
+
     </div>
 </nav>
+
 
 <!-- Sign Up Form -->
 <div class="container mt-5 mb-5">
@@ -39,8 +64,20 @@
 
             <form onsubmit="return validateForm()" action="signUpUser" method="post">
 
-${success}
-${error}
+
+
+<c:if test="${not empty success}">
+    <div class="alert alert-success text-center">
+        ${success}
+    </div>
+</c:if>
+
+<c:if test="${not empty error}">
+    <div class="alert alert-danger text-center">
+        ${error}
+    </div>
+</c:if>
+
                 <!-- First Name -->
                 <div class="mb-3">
                     <label class="form-label">First Name</label>

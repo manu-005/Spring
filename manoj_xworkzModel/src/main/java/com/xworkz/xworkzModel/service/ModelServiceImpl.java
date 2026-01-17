@@ -83,6 +83,31 @@ public class ModelServiceImpl implements ModelService {
         return valid;
     }
 
+    @Override
+    public boolean signIn(String email, String password) {
+
+        if (email == null || password == null) {
+            return false;
+        }
+
+        if (email.trim().isEmpty() || password.trim().isEmpty()) {
+            return false;
+        }
+        String encryptedPassword = null;
+        try {
+            encryptedPassword = encryptPassword(password);
+
+           return dao.checkEmailAndPassword(email, encryptedPassword) != null;
+//            System.out.println("service "+entity.getPassword());
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
     private String encryptPassword(String password) throws Exception {
         SecretKeySpec key = new SecretKeySpec(keyValue, "AES");
         Cipher cipher = Cipher.getInstance("AES");

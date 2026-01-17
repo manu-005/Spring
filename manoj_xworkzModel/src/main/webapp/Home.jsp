@@ -40,56 +40,24 @@
         <!-- Right: Buttons -->
         <div>
 
-         <form action="signUp" method="get" class="d-inline">
-             <button type="submit" class="btn btn-success">Sign Up</button>
+         <form action="logOut" method="get" class="d-inline">
+             <button type="submit" class="btn btn-success">Log Out</button>
          </form>
 
-     <form action="signIn" method="get" class="d-inline">
-             <button type="submit" class="btn btn-outline-success me-2">Sign In</button>
-         </form>
+
 
         </div>
 
     </div>
 </nav>
 
-
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-
-            <h3 class="text-center text-success mb-3">Sign In</h3>
-
-            <form action="signInUser" method="post">
-
-                <c:if test="${not empty error}">
-                    <div class="alert alert-danger text-center">
-                        ${error}
-                    </div>
-                </c:if>
-
-                <!-- Email -->
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" required>
-                </div>
-
-                <!-- Password -->
-                <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-
-                <div class="d-grid">
-                    <button class="btn btn-success">Login</button>
-                </div>
-
-            </form>
-
-        </div>
-    </div>
+<!-- Main Content -->
+<div class="container text-center mt-5">
+    <h1 class="text-success fw-bold">Welcome to Our Website</h1>
+    <p class="text-muted mt-2">
+        Professional, clean and user-friendly platform
+    </p>
 </div>
-
 
 <!-- Footer -->
 <footer class="bg-success bg-opacity-25 text-center py-2 fixed-bottom">
@@ -97,6 +65,9 @@
         © 2026 Your Company Name. All rights reserved.
     </small>
 </footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
