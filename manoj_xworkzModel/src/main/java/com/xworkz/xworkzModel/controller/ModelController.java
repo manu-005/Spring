@@ -5,6 +5,7 @@ import com.xworkz.xworkzModel.service.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class ModelController {
         }
         return "SignUp";
     }
-
+@Validated
     @PostMapping("signInUser")
     public String signInUser(String email, String password, Model model) {
 
