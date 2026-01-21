@@ -22,7 +22,7 @@
         <!-- Left: Logo + Nav -->
         <div class="d-flex align-items-center">
             <!-- Replace with your logo link -->
-            <img src="#" alt="Logo" height="45" class="me-4">
+            <img src="Logo.png" alt="Logo" height="45" class="me-4">
 
             <ul class="navbar-nav">
                 <li class="nav-item">

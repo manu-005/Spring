@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@  page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -22,11 +22,11 @@
         <!-- Left: Logo + Nav -->
         <div class="d-flex align-items-center">
             <!-- Replace with your logo link -->
-            <img src="#" alt="Logo" height="45" class="me-4">
+            <img src="Logo.png" alt="Logo" height="45" class="me-4">
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link fw-medium text-success-emphasis" href="#">Home</a>
+                    <a class="nav-link fw-medium text-success-emphasis" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-medium text-success-emphasis" href="#">About Us</a>
@@ -67,7 +67,7 @@
 
 
 <c:if test="${not empty success}">
-    <div class="alert alert-success text-center">
+    <div class="alert alert-warning text-center">
         ${success}
     </div>
 </c:if>
@@ -78,11 +78,13 @@
     </div>
 </c:if>
 
+${errors}
+
                 <!-- First Name -->
                 <div class="mb-3">
                     <label class="form-label">First Name</label>
                     <input type="text" id="fname" class="form-control" name="fName" oninput="validateFirstName()">
-                    <small id="fnameError" class="text-danger"></small>
+                    <small id="fnameError" class="text-danger">${fNameError}</small>
                 </div>
 
                 <!-- Last Name -->
@@ -158,7 +160,7 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Real-time Validation JS -->
+<!-- Real-time Validation JS
 <script>
 const fname = document.getElementById("fname");
 const lname = document.getElementById("lname");
@@ -240,7 +242,7 @@ function validateForm() {
            validatePassword() &
            validateConfirmPassword();
 }
-</script>
+</script> -->
 
 </body>
 </html>

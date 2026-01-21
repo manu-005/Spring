@@ -17,7 +17,6 @@ public class ModelServiceImpl implements ModelService {
     @Autowired
     ModelDao dao;
 
-    private static final byte[] keyValue = "1234567890123456".getBytes();
 
 
     @Override
@@ -108,8 +107,11 @@ public class ModelServiceImpl implements ModelService {
 
     }
 
+    private static final byte[] keyValue = "1234567890123456".getBytes();
+
     private String encryptPassword(String password) throws Exception {
-        SecretKeySpec key = new SecretKeySpec(keyValue, "AES");
+        SecretKeySpec key = new SecretKeySpec(keyValue, "AES");//AES - 16 byte -->128 bits
+
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] encVal = cipher.doFinal(password.getBytes());
