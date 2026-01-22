@@ -127,27 +127,51 @@ public class ModelController {
 
     @PostMapping("signInUser")
     public String signInUser(String email, String password, Model model) {
+        System.out.println("controller started");
 
         if (email == null || email.trim().isEmpty()) {
             model.addAttribute("error", "Please enter valid email");
             return "SignIn";
         }
+         if (service.signIn(email, password)) {
 
-        System.out.println("controller started");
+             model.addAttribute("success", "Valid enter successful ");
+
+             return "SignIn";
+         }
+         else {
+            UserDto dto = service.findByEmail(email);
+
+            int attempts =dto.getFailedAttempts();
+             System.out.println("Attempts:"+attempts);
+
+            int updatedAttempts= attempts + 1;
+             System.out.println("updated attempts"+updatedAttempts);
+
+            dto.setFailedAttempts(updatedAttempts);
+             System.out.println("after set updated attempts"+dto);
+
+//            service.updateFailedAttempts(dto);
+
+             model.addAttribute("error", "Please enter valid email"+attempts);
+             return "SignIn";
+         }
+    }
+
         //find exist
-        UserDto user = service.findByEmail(email);
+//        UserDto user = service.findByEmail(email);
 
-        if (user.isPresent()) {
-            System.out.println("exist");
-            System.out.println("controller dto by mail " + user);
-            model.addAttribute("success", "valid Email or Password");
-            return "SignIn";
-        }
-       else{
-            System.out.println("not exist");
-            model.addAttribute("error", "Invalid Email or Password");
-            return "SignIn";
-        }
+//        if (user != null) {
+//            System.out.println("exist");
+//            System.out.println("controller dto by mail " + user);
+//            model.addAttribute("success", "valid Email or Password");
+//            return "SignIn";
+//        }
+//       else{
+//            System.out.println("not exist");
+//            model.addAttribute("error", "Invalid Email or Password");
+//            return "SignIn";
+//        }
 
 //        // password wrong
 //        if (!user.get().getPassword().equals(password)) {
@@ -179,8 +203,10 @@ public class ModelController {
 //        user.setFailedAttempts(0);
 //        service.updateFailedAttempts(user);
 //
+//
 //            return "Home";
-        }
+
+
 
 
     @GetMapping("logOut")

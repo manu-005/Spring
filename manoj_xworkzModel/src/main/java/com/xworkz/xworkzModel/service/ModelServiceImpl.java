@@ -112,11 +112,9 @@ public class ModelServiceImpl implements ModelService {
     public UserDto findByEmail(String email) {
 
        UserEntity entity = dao.findByEmail(email);
-
         try {
-
-                String decryptedPassword = decryptPassword(entity.getPassword());
-                entity.setPassword(decryptedPassword);
+//                String decryptedPassword = decryptPassword(entity.getPassword());
+                entity.setPassword(null);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
