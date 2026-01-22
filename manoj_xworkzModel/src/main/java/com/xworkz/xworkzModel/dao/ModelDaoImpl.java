@@ -69,8 +69,10 @@ public class ModelDaoImpl implements ModelDao {
         System.out.println("entity dao update  :"+entity);
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
+
         UserEntity updated = manager.merge(entity);
-        System.out.println("updatred :"+updated);
+
+        System.out.println("updated entity in dao :"+updated);
 
         manager.getTransaction().commit();
         return updated;

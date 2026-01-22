@@ -60,40 +60,40 @@ public class ModelController {
 
             }
 
-            if (bindingResult.hasFieldErrors("lName")){
+            if (bindingResult.hasFieldErrors("lName")) {
 
-                model.addObject("lNameError",bindingResult.getFieldError("lName").getDefaultMessage());
+                model.addObject("lNameError", bindingResult.getFieldError("lName").getDefaultMessage());
                 model.setViewName("SignUp");
             }
 
-            if (bindingResult.hasFieldErrors("age")){
+            if (bindingResult.hasFieldErrors("age")) {
                 System.out.println(bindingResult.getFieldError("age").getDefaultMessage());
-                model.addObject("ageError",bindingResult.getFieldError("age").getDefaultMessage());
+                model.addObject("ageError", bindingResult.getFieldError("age").getDefaultMessage());
                 model.setViewName("SignUp");
             }
 
-            if (bindingResult.hasFieldErrors("gender")){
-                model.addObject("genderError",bindingResult.getFieldError("gender").getDefaultMessage());
+            if (bindingResult.hasFieldErrors("gender")) {
+                model.addObject("genderError", bindingResult.getFieldError("gender").getDefaultMessage());
                 model.setViewName("SignUp");
             }
 
-            if (bindingResult.hasFieldErrors("email")){
-                model.addObject("emailError",bindingResult.getFieldError("email").getDefaultMessage());
+            if (bindingResult.hasFieldErrors("email")) {
+                model.addObject("emailError", bindingResult.getFieldError("email").getDefaultMessage());
                 model.setViewName("SignUp");
             }
 
-            if (bindingResult.hasFieldErrors("mobile")){
-                model.addObject("mobileError",bindingResult.getFieldError("mobile").getDefaultMessage());
+            if (bindingResult.hasFieldErrors("mobile")) {
+                model.addObject("mobileError", bindingResult.getFieldError("mobile").getDefaultMessage());
                 model.setViewName("SignUp");
             }
 
-            if (bindingResult.hasFieldErrors("password")){
-                model.addObject("passwordError",bindingResult.getFieldError("password").getDefaultMessage());
+            if (bindingResult.hasFieldErrors("password")) {
+                model.addObject("passwordError", bindingResult.getFieldError("password").getDefaultMessage());
                 model.setViewName("SignUp");
             }
 
-            if (!dto.getPassword().equals(dto.getConfirmPassword())){
-                model.addObject("confirmPasswordError","password and confirm password must be match");
+            if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+                model.addObject("confirmPasswordError", "password and confirm password must be match");
                 model.setViewName("SignUp");
             }
 
@@ -102,14 +102,14 @@ public class ModelController {
         } else {
             //save
             System.out.println("calling service--");
-            boolean saved =  service.validAndSave(dto);
+            boolean saved = service.validAndSave(dto);
 
-            System.out.println("Saved from service :"+saved);
-        if (saved){
-            model.addObject("success","Successfully Sign Up..!");
-        }else{
-            model.addObject("error","Try again Later ..!");
-        }
+            System.out.println("Saved from service :" + saved);
+            if (saved) {
+                model.addObject("success", "Successfully Sign Up..!");
+            } else {
+                model.addObject("error", "Try again Later ..!");
+            }
             model.setViewName("SignUp");
 
             return model;
@@ -133,32 +133,37 @@ public class ModelController {
             model.addAttribute("error", "Please enter valid email");
             return "SignIn";
         }
-         if (service.signIn(email, password)) {
+        if (service.signIn(email, password)) {
 
-             model.addAttribute("success", "Valid enter successful ");
+            model.addAttribute("success", "Valid enter successful ");
 
-             return "SignIn";
-         }
-         else {
+            return "SignIn";
+        } else {
             UserDto dto = service.findByEmail(email);
 
-            int attempts =dto.getFailedAttempts();
-             System.out.println("Attempts:"+attempts);
+            int attempts = dto.getFailedAttempts();
+            System.out.println("Attempts:" + attempts);
 
-            int updatedAttempts= attempts + 1;
-             System.out.println("updated attempts"+updatedAttempts);
+            int updatedAttempts = attempts + 1;
+            System.out.println("updated attempts" + updatedAttempts);
 
             dto.setFailedAttempts(updatedAttempts);
-             System.out.println("after set updated attempts"+dto);
+            System.out.println("after set updated attempts" + dto);
 
-//            service.updateFailedAttempts(dto);
+            UserDto updatedDto = service.updateFailedAttempts(dto);
+            System.out.println("updated dto after set attempps:" + updatedDto);
 
-             model.addAttribute("error", "Please enter valid email"+attempts);
-             return "SignIn";
-         }
+            if (updatedDto.getFailedAttempts() >= 3){
+                model.addAttribute("error", "already reached invalid  pwd limit");
+
+                return "SignIn";
+            }
+            model.addAttribute("error", "Please enter valid email");
+            return "SignIn";
+        }
     }
 
-        //find exist
+    //find exist
 //        UserDto user = service.findByEmail(email);
 
 //        if (user != null) {
@@ -178,7 +183,8 @@ public class ModelController {
 //
 //            System.out.println("attempts" + user.get().getFailedAttempts());
 //
-////            int attempts = service.getFailedAttemptsByDB(user.getId());
+
+    /// /            int attempts = service.getFailedAttemptsByDB(user.getId());
 //            int attempts = user.get().getFailedAttempts();
 //            attempts += 1;
 //
@@ -205,10 +211,6 @@ public class ModelController {
 //
 //
 //            return "Home";
-
-
-
-
     @GetMapping("logOut")
     public String logOut() {
         return "index";

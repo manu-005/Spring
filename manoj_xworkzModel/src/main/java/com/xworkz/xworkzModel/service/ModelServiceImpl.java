@@ -135,7 +135,7 @@ public class ModelServiceImpl implements ModelService {
 
        UserEntity updatedEntity = dao.updateFailedAttempts(entity);
        UserDto updatedDto = new UserDto();
-        BeanUtils.copyProperties(entity,updatedDto);
+        BeanUtils.copyProperties(updatedEntity,updatedDto);
         return updatedDto;
     }
 
