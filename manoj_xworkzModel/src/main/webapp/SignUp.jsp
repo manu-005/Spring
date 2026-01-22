@@ -91,54 +91,53 @@ ${errors}
                 <div class="mb-3">
                     <label class="form-label">Last Name</label>
                     <input type="text" id="lname" class="form-control" name="lName" oninput="validateLastName()">
-                    <small id="lnameError" class="text-danger"></small>
+                    <small id="lnameError" class="text-danger">${lNameError}</small>
                 </div>
 
                 <!-- Age -->
                 <div class="mb-3">
                     <label class="form-label">Age</label>
                     <input type="number" id="age" class="form-control" name="age" oninput="validateAge()">
-                    <small id="ageError" class="text-danger"></small>
+                    <small id="ageError" class="text-danger">${ageError}</small>
                 </div>
 
                 <!-- Gender -->
-                <div class="mb-3">
-                    <label class="form-label">Gender</label>
-                    <select id="gender" class="form-select" name="gender" onchange="validateGender()">
-                        <option value="">Select</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
-                    </select>
-                    <small id="genderError" class="text-danger"></small>
-                </div>
+              <select id="gender" class="form-select" name="gender">
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+              </select>
+
+              <small class="text-danger">${genderError}</small>
+
 
                 <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label">Email</label>
                     <input type="email" id="email" class="form-control" name="email" oninput="validateEmail()">
-                    <small id="emailError" class="text-danger"></small>
+                    <small id="emailError" class="text-danger">${emailError}</small>
                 </div>
 
                 <!-- Mobile -->
                 <div class="mb-3">
                     <label class="form-label">Mobile Number</label>
                     <input type="number" id="mobile" class="form-control" name="mobile" oninput="validateMobile()">
-                    <small id="mobileError" class="text-danger"></small>
+                    <small id="mobileError" class="text-danger">${mobileError}</small>
                 </div>
 
                 <!-- Password -->
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <input type="password" id="password" class="form-control" name="password" oninput="validatePassword()">
-                    <small id="passwordError" class="text-danger"></small>
+                    <small id="passwordError" class="text-danger">${passwordError}</small>
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="mb-3">
                     <label class="form-label">Confirm Password</label>
                     <input type="password" id="confirmPassword" class="form-control" oninput="validateConfirmPassword()">
-                    <small id="confirmPasswordError" class="text-danger"></small>
+                    <small id="confirmPasswordError" class="text-danger">${confirmPasswordError}</small>
                 </div>
 
                 <div class="d-grid">

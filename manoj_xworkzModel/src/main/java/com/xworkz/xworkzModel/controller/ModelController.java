@@ -52,19 +52,64 @@ public class ModelController {
 //            }
 //            model.addObject("errors", errors);
 //            model.addObject("errors",allErrors);
-            if(bindingResult.hasFieldErrors("fName")){
+            if (bindingResult.hasFieldErrors("fName")) {
                 System.out.println("------>" + bindingResult.getFieldError("fName").getDefaultMessage());
-
-              model.addObject("fNameError",bindingResult.getFieldError("fName").getDefaultMessage());
+                model.addObject("fNameError", bindingResult.getFieldError("fName").getDefaultMessage());
                 model.setViewName("SignUp");
 
+            }
+
+            if (bindingResult.hasFieldErrors("lName")){
+
+                model.addObject("lNameError",bindingResult.getFieldError("lName").getDefaultMessage());
+                model.setViewName("SignUp");
+            }
+
+            if (bindingResult.hasFieldErrors("age")){
+                System.out.println(bindingResult.getFieldError("age").getDefaultMessage());
+                model.addObject("ageError",bindingResult.getFieldError("age").getDefaultMessage());
+                model.setViewName("SignUp");
+            }
+
+            if (bindingResult.hasFieldErrors("gender")){
+                model.addObject("genderError",bindingResult.getFieldError("gender").getDefaultMessage());
+                model.setViewName("SignUp");
+            }
+
+            if (bindingResult.hasFieldErrors("email")){
+                model.addObject("emailError",bindingResult.getFieldError("email").getDefaultMessage());
+                model.setViewName("SignUp");
+            }
+
+            if (bindingResult.hasFieldErrors("mobile")){
+                model.addObject("mobileError",bindingResult.getFieldError("mobile").getDefaultMessage());
+                model.setViewName("SignUp");
+            }
+
+            if (bindingResult.hasFieldErrors("password")){
+                model.addObject("passwordError",bindingResult.getFieldError("password").getDefaultMessage());
+                model.setViewName("SignUp");
+            }
+
+            if (!dto.getPassword().equals(dto.getConfirmPassword())){
+                model.addObject("confirmPasswordError","password and confirm password must be match");
+                model.setViewName("SignUp");
             }
 
             model.setViewName("SignUp");
             return model;
         } else {
             //save
-            model.setViewName("SignIn");
+            System.out.println("calling service--");
+            boolean saved =  service.validAndSave(dto);
+
+            System.out.println("Saved from service :"+saved);
+        if (saved){
+            model.addObject("success","Successfully Sign Up..!");
+        }else{
+            model.addObject("error","Try again Later ..!");
+        }
+            model.setViewName("SignUp");
 
             return model;
 

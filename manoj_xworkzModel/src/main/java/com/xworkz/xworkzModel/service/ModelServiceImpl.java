@@ -22,7 +22,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public boolean validAndSave(UserDto dto) {
 
-
+        System.out.println("Service"+dto);
         boolean valid = true;
 
         if (dto == null) {
