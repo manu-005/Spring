@@ -134,12 +134,7 @@ public class ModelController {
             model.addAttribute("error", "Please enter valid email");
             return "SignIn";
         }
-        if (service.signIn(email, password)) {
 
-            model.addAttribute("success", "Valid enter successful ");
-            boolean updatedAttemptsToZero = service.setAttemptsZero(dto.getId(), 0);
-            return "Home";
-        }
 
         int attempts = dto.getFailedAttempts();
         System.out.println("Attempts:" + attempts);
@@ -150,72 +145,40 @@ public class ModelController {
         dto.setFailedAttempts(updatedAttempts);
         System.out.println("after set updated attempts" + dto);
 
-        UserDto updatedDto = service.updateFailedAttempts(dto);
+        boolean updatedDto = service.setAttemptsZero(dto.getId(),updatedAttempts);
         System.out.println("updated dto after set attempts:" + updatedDto);
 
-        if (updatedDto.getFailedAttempts() >= 3) {
+        UserDto afterSetAttempts = service.findByEmail(email);
+
+        if (afterSetAttempts.getFailedAttempts() >= 3) {
             model.addAttribute("error", "already reached invalid  pwd limit");
             model.addAttribute("showForgot", true);
-
-            boolean updatedAttemptsToZero = service.setAttemptsZero(updatedDto.getId(), 0);
-            System.out.println("attempts updated to zero " + updatedAttemptsToZero);
-
+//            model.addAttribute("showLogin", false);
+//            boolean updatedAttemptsToZero = service.setAttemptsZero(afterSetAttempts.getId(), 0);
+//            System.out.println("attempts updated to zero " + updatedAttemptsToZero);
+            model.addAttribute("error", "All attempts are over..! please click on Forgot password");
+            return "SignIn";
         }
 
+        if (service.signIn(email, password)) {
+
+            model.addAttribute("success", "Valid enter successful ");
+            boolean updatedAttemptsToZero = service.setAttemptsZero(dto.getId(), 0);
+            return "Home";
+        }
+        model.addAttribute("error", "Enter valid Credential");
         return "SignIn";
+
     }
 
-    //find exist
-//        UserDto user = service.findByEmail(email);
-
-//        if (user != null) {
-//            System.out.println("exist");
-//            System.out.println("controller dto by mail " + user);
-//            model.addAttribute("success", "valid Email or Password");
-//            return "SignIn";
-//        }
-//       else{
-//            System.out.println("not exist");
-//            model.addAttribute("error", "Invalid Email or Password");
-//            return "SignIn";
-//        }
-
-//        // password wrong
-//        if (!user.get().getPassword().equals(password)) {
-//
-//            System.out.println("attempts" + user.get().getFailedAttempts());
-//
-
-    /// /            int attempts = service.getFailedAttemptsByDB(user.getId());
-//            int attempts = user.get().getFailedAttempts();
-//            attempts += 1;
-//
-//            user.get().setFailedAttempts(attempts);
-//
-//            System.out.println("after setting attempts :" + user);
-//            System.out.println("Attempts in after +1  controller :"+attempts);
-//
-//            UserDto updatedDto = service.updateFailedAttempts(user);
-//
-//            model.addAttribute("error", "Invalid Email or Password");
-//
-//            // AFTER 3 WRONG ATTEMPTS
-//            if (attempts >= 3) {
-//
-//            }
-//
-//            return "SignIn";
-//        }
-//
-//        // SUCCESS LOGIN
-//        user.setFailedAttempts(0);
-//        service.updateFailedAttempts(user);
-//
-//
-//            return "Home";
     @GetMapping("logOut")
     public String logOut() {
         return "index";
+    }
+
+    @GetMapping("forgotPassword")
+    public String forgotPassword(){
+        return "ForgotPasswordForm";
     }
 
 

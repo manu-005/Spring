@@ -100,9 +100,9 @@ public class ModelDaoImpl implements ModelDao {
         query.setParameter("id", id);
         query.setParameter("failedAttempts", failedAttempts);
 
-        manager.getTransaction().commit();
-        int update = query.executeUpdate();
 
+        int update = query.executeUpdate();
+        manager.getTransaction().commit();
         return update == 1;
     }
 

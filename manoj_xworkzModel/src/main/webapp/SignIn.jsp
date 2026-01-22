@@ -53,7 +53,7 @@
     </div>
 </nav>
 
-
+<!--  body  -->
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-4">
@@ -84,10 +84,7 @@ ${success}
     <a href="forgotPassword">Forgot Password?</a>
 </c:if>
 
-<p class="text-danger">${error}</p>
-
-
-                <div class="d-grid">
+             <div class="d-grid">
                     <button class="btn btn-success">Login</button>
                 </div>
 
