@@ -128,6 +128,7 @@ public class ModelController {
     @PostMapping("signInUser")
     public String signInUser(String email, String password, Model model) {
         System.out.println("controller started");
+        UserDto dto = service.findByEmail(email);
 
         if (email == null || email.trim().isEmpty()) {
             model.addAttribute("error", "Please enter valid email");
@@ -136,31 +137,32 @@ public class ModelController {
         if (service.signIn(email, password)) {
 
             model.addAttribute("success", "Valid enter successful ");
-
-            return "SignIn";
-        } else {
-            UserDto dto = service.findByEmail(email);
-
-            int attempts = dto.getFailedAttempts();
-            System.out.println("Attempts:" + attempts);
-
-            int updatedAttempts = attempts + 1;
-            System.out.println("updated attempts" + updatedAttempts);
-
-            dto.setFailedAttempts(updatedAttempts);
-            System.out.println("after set updated attempts" + dto);
-
-            UserDto updatedDto = service.updateFailedAttempts(dto);
-            System.out.println("updated dto after set attempps:" + updatedDto);
-
-            if (updatedDto.getFailedAttempts() >= 3){
-                model.addAttribute("error", "already reached invalid  pwd limit");
-
-                return "SignIn";
-            }
-            model.addAttribute("error", "Please enter valid email");
-            return "SignIn";
+            boolean updatedAttemptsToZero = service.setAttemptsZero(dto.getId(), 0);
+            return "Home";
         }
+
+        int attempts = dto.getFailedAttempts();
+        System.out.println("Attempts:" + attempts);
+
+        int updatedAttempts = attempts + 1;
+        System.out.println("updated attempts" + updatedAttempts);
+
+        dto.setFailedAttempts(updatedAttempts);
+        System.out.println("after set updated attempts" + dto);
+
+        UserDto updatedDto = service.updateFailedAttempts(dto);
+        System.out.println("updated dto after set attempts:" + updatedDto);
+
+        if (updatedDto.getFailedAttempts() >= 3) {
+            model.addAttribute("error", "already reached invalid  pwd limit");
+            model.addAttribute("showForgot", true);
+
+            boolean updatedAttemptsToZero = service.setAttemptsZero(updatedDto.getId(), 0);
+            System.out.println("attempts updated to zero " + updatedAttemptsToZero);
+
+        }
+
+        return "SignIn";
     }
 
     //find exist
@@ -199,7 +201,7 @@ public class ModelController {
 //
 //            // AFTER 3 WRONG ATTEMPTS
 //            if (attempts >= 3) {
-//                model.addAttribute("showForgot", true);
+//
 //            }
 //
 //            return "SignIn";

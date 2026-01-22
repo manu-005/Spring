@@ -16,4 +16,6 @@ public interface ModelDao {
     UserEntity updateFailedAttempts(UserEntity entity);
 
     int getFailedAttemptsByDB(int id);
+
+    boolean setAttemptsZero(int id, int i);
 }

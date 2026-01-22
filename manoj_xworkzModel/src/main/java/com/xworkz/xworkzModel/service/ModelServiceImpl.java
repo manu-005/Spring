@@ -145,6 +145,12 @@ public class ModelServiceImpl implements ModelService {
         return  dao.getFailedAttemptsByDB(id);
     }
 
+    @Override
+    public boolean setAttemptsZero(int id, int i) {
+       return dao.setAttemptsZero(id,i);
+
+    }
+
     private static final byte[] keyValue = "1234567890123456".getBytes();
 
     private String encryptPassword(String password) throws Exception {

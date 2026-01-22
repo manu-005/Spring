@@ -56,7 +56,7 @@ public class ModelDaoImpl implements ModelDao {
         EntityManager manager = factory.createEntityManager();
         Query query = manager.createQuery("select entity from UserEntity entity where entity.email=:email");
         query.setParameter("email", email);
-   UserEntity entity = (UserEntity) query.getSingleResult();
+        UserEntity entity = (UserEntity) query.getSingleResult();
 
         System.out.println("dao entity :" + entity);
 
@@ -66,13 +66,13 @@ public class ModelDaoImpl implements ModelDao {
     @Override
     public UserEntity updateFailedAttempts(UserEntity entity) {
 
-        System.out.println("entity dao update  :"+entity);
+        System.out.println("entity dao update  :" + entity);
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
 
         UserEntity updated = manager.merge(entity);
 
-        System.out.println("updated entity in dao :"+updated);
+        System.out.println("updated entity in dao :" + updated);
 
         manager.getTransaction().commit();
         return updated;
@@ -83,11 +83,27 @@ public class ModelDaoImpl implements ModelDao {
 
         EntityManager manager = factory.createEntityManager();
         Query query = manager.createQuery("select user.failedAttempts from UserEntity user where user.id=:id");
-        query.setParameter("id",id);
+        query.setParameter("id", id);
 
-       int getId = (int) query.getSingleResult();
-        System.out.println("daoo get id:"+getId);
+        int getId = (int) query.getSingleResult();
+        System.out.println("dao get id:" + getId);
         return getId;
+    }
+
+    @Override
+    public boolean setAttemptsZero(int id, int failedAttempts) {
+
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+
+        Query query = manager.createQuery("update UserEntity user set user.failedAttempts=:failedAttempts where user.id=:id");
+        query.setParameter("id", id);
+        query.setParameter("failedAttempts", failedAttempts);
+
+        manager.getTransaction().commit();
+        int update = query.executeUpdate();
+
+        return update == 1;
     }
 
 }

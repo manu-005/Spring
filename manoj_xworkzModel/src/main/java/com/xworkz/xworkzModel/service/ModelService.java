@@ -15,4 +15,6 @@ public interface ModelService {
     UserDto updateFailedAttempts(UserDto user);
 
     int getFailedAttemptsByDB(int id);
+
+    boolean setAttemptsZero(int id, int i);
 }
