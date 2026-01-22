@@ -2,6 +2,7 @@ package com.xworkz.xworkzModel.controller;
 
 import com.xworkz.xworkzModel.dto.UserDto;
 import com.xworkz.xworkzModel.service.ModelService;
+import com.xworkz.xworkzModel.utility.EmailOTPSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -176,8 +177,13 @@ public class ModelController {
         return "index";
     }
 
+    @Autowired
+    EmailOTPSender otpSender;
+
     @GetMapping("forgotPassword")
     public String forgotPassword(){
+
+//        otpSender.sendOtp("manojbetadur005@gmail.com");
         return "ForgotPasswordForm";
     }
 
