@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
+import java.util.Optional;
 
 @Service
 public class ModelServiceImpl implements ModelService {
@@ -107,6 +108,45 @@ public class ModelServiceImpl implements ModelService {
 
     }
 
+    @Override
+    public UserDto findByEmail(String email) {
+
+       UserEntity entity = dao.findByEmail(email);
+
+        try {
+
+                String decryptedPassword = decryptPassword(entity.getPassword());
+                entity.setPassword(decryptedPassword);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        UserDto dto= new UserDto();
+        BeanUtils.copyProperties(entity,dto);
+        System.out.println("service dto:"+dto);
+        return dto;
+    }
+
+    @Override
+    public UserDto updateFailedAttempts(UserDto user) {
+
+        UserEntity entity = new UserEntity();
+
+        BeanUtils.copyProperties(user,entity);
+
+       UserEntity updatedEntity = dao.updateFailedAttempts(entity);
+       UserDto updatedDto = new UserDto();
+        BeanUtils.copyProperties(entity,updatedDto);
+        return updatedDto;
+    }
+
+    @Override
+    public int getFailedAttemptsByDB(int id) {
+
+        return  dao.getFailedAttemptsByDB(id);
+    }
+
     private static final byte[] keyValue = "1234567890123456".getBytes();
 
     private String encryptPassword(String password) throws Exception {
@@ -117,4 +157,20 @@ public class ModelServiceImpl implements ModelService {
         byte[] encVal = cipher.doFinal(password.getBytes());
         return Base64.getEncoder().encodeToString(encVal);
     }
+
+    // decryption of password
+
+    private String decryptPassword(String encryptedPassword) throws Exception {
+
+        SecretKeySpec key = new SecretKeySpec(keyValue, "AES");
+
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, key);
+
+        byte[] decodedBytes = Base64.getDecoder().decode(encryptedPassword);
+        byte[] decryptedBytes = cipher.doFinal(decodedBytes);
+
+        return new String(decryptedBytes);
+    }
+
 }

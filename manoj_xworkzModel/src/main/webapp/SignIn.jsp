@@ -80,6 +80,13 @@
                     <input type="password" name="password" class="form-control" required>
                 </div>
 
+<c:if test="${showForgot}">
+    <a href="forgotPassword">Forgot Password?</a>
+</c:if>
+
+<p class="text-danger">${error}</p>
+
+
                 <div class="d-grid">
                     <button class="btn btn-success">Login</button>
                 </div>

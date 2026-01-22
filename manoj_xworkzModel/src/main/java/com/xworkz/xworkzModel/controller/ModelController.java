@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/")
 @Controller
@@ -127,15 +128,60 @@ public class ModelController {
     @PostMapping("signInUser")
     public String signInUser(String email, String password, Model model) {
 
-        boolean exists = service.signIn(email, password);
-        System.out.println("existss :" + exists);
-        if (exists) {
-            return "Home";   // Home.jsp
-        } else {
+        if (email == null || email.trim().isEmpty()) {
+            model.addAttribute("error", "Please enter valid email");
+            return "SignIn";
+        }
+
+        System.out.println("controller started");
+        //find exist
+        UserDto user = service.findByEmail(email);
+
+        if (user.isPresent()) {
+            System.out.println("exist");
+            System.out.println("controller dto by mail " + user);
+            model.addAttribute("success", "valid Email or Password");
+            return "SignIn";
+        }
+       else{
+            System.out.println("not exist");
             model.addAttribute("error", "Invalid Email or Password");
             return "SignIn";
         }
-    }
+
+//        // password wrong
+//        if (!user.get().getPassword().equals(password)) {
+//
+//            System.out.println("attempts" + user.get().getFailedAttempts());
+//
+////            int attempts = service.getFailedAttemptsByDB(user.getId());
+//            int attempts = user.get().getFailedAttempts();
+//            attempts += 1;
+//
+//            user.get().setFailedAttempts(attempts);
+//
+//            System.out.println("after setting attempts :" + user);
+//            System.out.println("Attempts in after +1  controller :"+attempts);
+//
+//            UserDto updatedDto = service.updateFailedAttempts(user);
+//
+//            model.addAttribute("error", "Invalid Email or Password");
+//
+//            // AFTER 3 WRONG ATTEMPTS
+//            if (attempts >= 3) {
+//                model.addAttribute("showForgot", true);
+//            }
+//
+//            return "SignIn";
+//        }
+//
+//        // SUCCESS LOGIN
+//        user.setFailedAttempts(0);
+//        service.updateFailedAttempts(user);
+//
+//            return "Home";
+        }
+
 
     @GetMapping("logOut")
     public String logOut() {
