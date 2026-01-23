@@ -69,7 +69,6 @@
         <div class="card-header bg-success text-white text-center">
             <h5>My Profile</h5>
         </div>
-
         <div class="card-body text-start">
             <p><strong>First Name:</strong> ${user.getFName()}</p>
             <p><strong>Last Name:</strong> ${user.getLName()}</p>
