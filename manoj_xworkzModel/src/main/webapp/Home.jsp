@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@  page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -38,25 +38,47 @@
         </div>
 
         <!-- Right: Buttons -->
-        <div>
+      <div class="d-flex gap-2">
 
-         <form action="logOut" method="get" class="d-inline">
-             <button type="submit" class="btn btn-success">Log Out</button>
-         </form>
+          <!-- Profile Button -->
+          <button class="btn btn-outline-success" onclick="toggleProfile()">
+              Profile
+          </button>
 
+          <!-- Logout -->
+          <form action="logOut" method="get" class="d-inline">
+              <button type="submit" class="btn btn-success">Log Out</button>
+          </form>
 
+      </div>
 
-        </div>
 
     </div>
 </nav>
 
 <!-- Main Content -->
 <div class="container text-center mt-5">
-    <h1 class="text-success fw-bold">${success} Welcome to Our Website</h1>
+    <h1 class="text-success fw-bold">Welcome to Our Website</h1>
     <p class="text-muted mt-2">
         Professional, clean and user-friendly platform
     </p>
+</div>
+<!-- Profile Card -->
+<div class="container mt-6" id="profileCard" style="display:right;">
+    <div class="card shadow-lg mx-auto" style="max-width: 500px;">
+        <div class="card-header bg-success text-white text-center">
+            <h5>My Profile</h5>
+        </div>
+
+        <div class="card-body text-start">
+            <p><strong>First Name:</strong> ${user.getFName()}</p>
+            <p><strong>Last Name:</strong> ${user.getLName()}</p>
+            <p><strong>Age:</strong> ${user.age}</p>
+            <p><strong>Gender:</strong> ${user.gender}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Mobile:</strong> ${user.mobile}</p>
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->
@@ -68,6 +90,13 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function toggleProfile() {
+        const card = document.getElementById("profileCard");
+        card.style.display = (card.style.display === "none") ? "block" : "none";
+    }
+</script>
 
 </body>
 </html>

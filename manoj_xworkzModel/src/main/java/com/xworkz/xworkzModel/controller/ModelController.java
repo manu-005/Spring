@@ -135,7 +135,7 @@ public class ModelController {
     }}
 
     @PostMapping("signInUser")
-    public ModelAndView signInUser(String email, String password, ModelAndView model) {
+    public ModelAndView signInUser(HttpSession session,String email, String password, ModelAndView model) {
         System.out.println("controller started");
         UserDto dto = service.findByEmail(email);
 
@@ -171,6 +171,7 @@ public class ModelController {
         }
         if (service.signIn(email, password)) {
 
+            session.setAttribute("user",afterSetAttempts);
             model.addObject("success", "Valid enter successful ");
             boolean updatedAttemptsToZero = service.setAttemptsZero(dto.getId(), 0);
             model.setViewName("Home");
@@ -246,7 +247,7 @@ public class ModelController {
     }
 
     @PostMapping("resetPassword")
-    public ModelAndView resetPassword(String email,String newPassword,String confirmPassword,ModelAndView modelAndView){
+    public ModelAndView resetPassword(HttpSession session,String email,String newPassword,String confirmPassword,ModelAndView modelAndView){
 
         System.out.println("Email :"+email);
         System.out.println("Password :"+newPassword);

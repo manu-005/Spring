@@ -58,21 +58,21 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
- <c:if test="${not empty error}">
+ <c:if test="${not empty resetSuccess}">
                     <div class="alert alert-success text-center">
                         ${resetSuccess}
                     </div>
                 </c:if>
 
-                   <div class="alert alert-danger text-center">
+                    <c:if test="${not empty resetFail}">
+                                     <div class="alert alert-danger text-center">
                                          ${resetFail}
-                                         ${missMatch}
                                      </div>
+                                 </c:if>
 
-                <c:if test="${not empty error}">
+                <c:if test="${not empty resetFail}">
                     <div class="alert alert-danger text-center">
-                        ${resetFail}
-                        ${missMatch}
+                      ${missMatch}
                     </div>
                 </c:if>
             <div class="card shadow-sm">
