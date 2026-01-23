@@ -259,25 +259,25 @@ public class ModelController {
             return modelAndView;
 
         }
-//        //save reset pwd -- true
-//      boolean resetSuccess =  service.resetPassword(email,newPassword,confirmPassword);
+        //save reset pwd -- true
+      boolean resetSuccess =  service.resetPassword(email,newPassword,confirmPassword);
+
+        if (resetSuccess){
+
+            System.out.println("reset success :"+resetSuccess);
+            modelAndView.addObject("resetSuccess","Password reset successfully..!");
+            modelAndView.setViewName("ForgotPasswordForm");
+            return modelAndView;
+        } else{
 //
-//        if (resetSuccess){
-//
-//            System.out.println("reset success :"+resetSuccess);
-//            modelAndView.addObject("resetSuccess","Password reset successfully..!");
-//            modelAndView.setViewName("ForgotPasswordForm");
-//            return modelAndView;
-//        } else{
-//
-//            //false
-//            System.out.println("reset fail :"+resetSuccess);
-//
-//            modelAndView.addObject("resetFail","User does not exist..!(sign up first)");
-//            modelAndView.setViewName("ForgotPasswordForm");
-//            return modelAndView;
-//        }
-        return modelAndView;
+            //false
+            System.out.println("reset fail :"+resetSuccess);
+
+            modelAndView.addObject("resetFail","User does not exist..!(sign up first)");
+            modelAndView.setViewName("ForgotPasswordForm");
+            return modelAndView;
+        }
+//        return modelAndView;
     }
 
 }

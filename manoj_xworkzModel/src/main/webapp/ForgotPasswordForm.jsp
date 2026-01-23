@@ -63,9 +63,16 @@
                         ${resetSuccess}
                     </div>
                 </c:if>
+
+                   <div class="alert alert-danger text-center">
+                                         ${resetFail}
+                                         ${missMatch}
+                                     </div>
+
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger text-center">
                         ${resetFail}
+                        ${missMatch}
                     </div>
                 </c:if>
             <div class="card shadow-sm">
