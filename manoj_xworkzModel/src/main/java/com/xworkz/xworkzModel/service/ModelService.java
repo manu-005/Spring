@@ -1,5 +1,6 @@
 package com.xworkz.xworkzModel.service;
 
+import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
 import com.xworkz.xworkzModel.entity.UserEntity;
 
@@ -17,4 +18,12 @@ public interface ModelService {
     int getFailedAttemptsByDB(int id);
 
     boolean setAttemptsZero(int id, int i);
+
+    boolean svaeOtpWithEmail(EmailOTPDto emailOTPDto);
+
+    boolean getOtpBymail(String email, String otp);
+
+    boolean resetPassword(String email, String newPassword, String confirmPassword);
+
+
 }

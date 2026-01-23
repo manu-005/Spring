@@ -67,7 +67,7 @@
                         ${error}
                     </div>
                 </c:if>
-${success}
+${success}${error}
                 <!-- Email -->
                 <div class="mb-3">
                     <label>Email</label>

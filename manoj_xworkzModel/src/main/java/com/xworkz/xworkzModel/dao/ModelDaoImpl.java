@@ -1,14 +1,18 @@
 package com.xworkz.xworkzModel.dao;
 
 
+import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
+import com.xworkz.xworkzModel.entity.EmailOTPEntity;
 import com.xworkz.xworkzModel.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -53,15 +57,25 @@ public class ModelDaoImpl implements ModelDao {
     @Override
     public UserEntity findByEmail(String email) {
 
+        System.out.println("email in dao find by email :"+email);
         EntityManager manager = factory.createEntityManager();
-        Query query = manager.createQuery("select entity from UserEntity entity where entity.email=:email");
-        query.setParameter("email", email);
-        UserEntity entity = (UserEntity) query.getSingleResult();
+        try {
+            Query query = manager.createQuery(
+                            "select u from UserEntity u where u.email = :email");
 
-        System.out.println("dao entity :" + entity);
+                    query.setParameter("email", email);
+                UserEntity entity = (UserEntity) query.getSingleResult();
 
-        return entity;
+            System.out.println("dao result find by mail :"+entity);
+
+            return entity;
+        } catch (NoResultException e) {
+            return null; // ✅ handled
+        } finally {
+            manager.close();
+        }
     }
+
 
     @Override
     public UserEntity updateFailedAttempts(UserEntity entity) {
@@ -104,6 +118,72 @@ public class ModelDaoImpl implements ModelDao {
         int update = query.executeUpdate();
         manager.getTransaction().commit();
         return update == 1;
+    }
+
+    @Override
+    public boolean svaeOtpWithEmail(EmailOTPEntity emailOTPEntity) {
+
+        EntityManager manager =factory.createEntityManager();
+        manager.getTransaction().begin();
+
+        manager.persist(emailOTPEntity);
+        manager.getTransaction().commit();
+
+        return true;
+    }
+
+    @Override
+    public EmailOTPEntity getOtpBymail(String email) {
+
+        EntityManager manager = factory.createEntityManager();
+        try {
+            List<EmailOTPEntity> list = manager.createQuery(
+                            "select e from EmailOTPEntity e where e.email = :email order by e.id desc",
+                            EmailOTPEntity.class)
+                    .setParameter("email", email)
+                    .setMaxResults(1)   // ✅ VERY IMPORTANT
+                    .getResultList();
+
+            return list.isEmpty() ? null : list.get(0);
+
+        } finally {
+            manager.close();
+        }
+    }
+
+@Override
+    public boolean resetPassword(int id, String password) {
+
+        EntityManager manager = factory.createEntityManager();
+        try {
+            manager.getTransaction().begin();
+
+            UserEntity entity = manager.find(UserEntity.class, id);
+            if (entity == null) {
+                return false;
+            }
+
+            entity.setPassword(password);
+            manager.merge(entity);
+
+            manager.getTransaction().commit();
+            return true;
+
+        } finally {
+            manager.close();
+        }
+    }
+
+    @Override
+    public void deleteOtp(EmailOTPEntity entity) {
+
+        EntityManager manager =factory.createEntityManager();
+        manager.getTransaction().begin();
+
+       EmailOTPEntity merged = manager.merge(entity);
+        manager.remove(merged);
+        manager.getTransaction().commit();
+        manager.close();
     }
 
 }

@@ -53,7 +53,7 @@
 
 <!-- Main Content -->
 <div class="container text-center mt-5">
-    <h1 class="text-success fw-bold">Welcome to Our Website</h1>
+    <h1 class="text-success fw-bold">${success} Welcome to Our Website</h1>
     <p class="text-muted mt-2">
         Professional, clean and user-friendly platform
     </p>

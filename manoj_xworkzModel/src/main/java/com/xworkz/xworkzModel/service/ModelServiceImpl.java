@@ -1,7 +1,9 @@
 package com.xworkz.xworkzModel.service;
 
 import com.xworkz.xworkzModel.dao.ModelDao;
+import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
+import com.xworkz.xworkzModel.entity.EmailOTPEntity;
 import com.xworkz.xworkzModel.entity.UserEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,10 @@ public class ModelServiceImpl implements ModelService {
     ModelDao dao;
 
 
-
     @Override
     public boolean validAndSave(UserDto dto) {
 
-        System.out.println("Service"+dto);
+        System.out.println("Service" + dto);
         boolean valid = true;
 
         if (dto == null) {
@@ -71,7 +72,7 @@ public class ModelServiceImpl implements ModelService {
 
                 UserEntity entity = new UserEntity();
 
-                BeanUtils.copyProperties(dto,entity);
+                BeanUtils.copyProperties(dto, entity);
                 return dao.save(entity);
 
             } catch (Exception e) {
@@ -97,7 +98,7 @@ public class ModelServiceImpl implements ModelService {
         try {
             encryptedPassword = encryptPassword(password);
 
-           return dao.checkEmailAndPassword(email, encryptedPassword) != null;
+            return dao.checkEmailAndPassword(email, encryptedPassword) != null;
 //            System.out.println("service "+entity.getPassword());
 
 
@@ -111,19 +112,21 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public UserDto findByEmail(String email) {
 
-       UserEntity entity = dao.findByEmail(email);
-        try {
+        UserEntity entity = dao.findByEmail(email);
+        if (entity!=null) {
+            try {
 //                String decryptedPassword = decryptPassword(entity.getPassword());
                 entity.setPassword(null);
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-        UserDto dto= new UserDto();
-        BeanUtils.copyProperties(entity,dto);
-        System.out.println("service dto:"+dto);
-        return dto;
+            UserDto dto = new UserDto();
+            BeanUtils.copyProperties(entity, dto);
+            System.out.println("service dto:" + dto);
+            return dto;
+        }else return null;
     }
 
     @Override
@@ -131,25 +134,79 @@ public class ModelServiceImpl implements ModelService {
 
         UserEntity entity = new UserEntity();
 
-        BeanUtils.copyProperties(user,entity);
+        BeanUtils.copyProperties(user, entity);
 
-       UserEntity updatedEntity = dao.updateFailedAttempts(entity);
-       UserDto updatedDto = new UserDto();
-        BeanUtils.copyProperties(updatedEntity,updatedDto);
+        UserEntity updatedEntity = dao.updateFailedAttempts(entity);
+        UserDto updatedDto = new UserDto();
+        BeanUtils.copyProperties(updatedEntity, updatedDto);
         return updatedDto;
     }
 
     @Override
     public int getFailedAttemptsByDB(int id) {
 
-        return  dao.getFailedAttemptsByDB(id);
+        return dao.getFailedAttemptsByDB(id);
     }
 
     @Override
     public boolean setAttemptsZero(int id, int i) {
-       return dao.setAttemptsZero(id,i);
+        return dao.setAttemptsZero(id, i);
 
     }
+
+    @Override
+    public boolean svaeOtpWithEmail(EmailOTPDto emailOTPDto) {
+        EmailOTPEntity emailOTPEntity = new EmailOTPEntity();
+
+
+        if (emailOTPDto != null) {
+            BeanUtils.copyProperties(emailOTPDto, emailOTPEntity);
+            return dao.svaeOtpWithEmail(emailOTPEntity);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean getOtpBymail(String email, String otp) {
+        EmailOTPDto dto = new EmailOTPDto();
+
+        if (email != null && otp != null) {
+            EmailOTPEntity entity = dao.getOtpBymail(email);
+
+            BeanUtils.copyProperties(entity, dto);
+
+            if (dto.getOtp().equals(otp)) {
+                dao.deleteOtp(entity);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean resetPassword(String email, String newPassword, String confirmPassword) {
+
+     UserEntity entity =   dao.findByEmail(email);
+        System.out.println("entity by mail before check :"+entity);
+     if (entity != null){
+         try {
+
+             System.out.println("entity exist in service :"+entity);
+
+             String encryptPassword = encryptPassword(newPassword);
+             System.out.println("encrypt password in service :"+encryptPassword);
+
+           return dao.resetPassword(entity.getId(),encryptPassword(newPassword));
+
+         } catch (Exception e) {
+             throw new RuntimeException(e);
+         }
+     }
+       else return false;
+    }
+
+
 
     private static final byte[] keyValue = "1234567890123456".getBytes();
 

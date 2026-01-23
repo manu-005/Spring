@@ -65,7 +65,6 @@
             <form onsubmit="return validateForm()" action="signUpUser" method="post">
 
 
-
 <c:if test="${not empty success}">
     <div class="alert alert-warning text-center">
         ${success}
@@ -74,7 +73,7 @@
 
 <c:if test="${not empty error}">
     <div class="alert alert-danger text-center">
-        ${error}
+        ${error}  ${exist}
     </div>
 </c:if>
 

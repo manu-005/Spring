@@ -58,15 +58,26 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-
+ <c:if test="${not empty error}">
+                    <div class="alert alert-success text-center">
+                        ${resetSuccess}
+                    </div>
+                </c:if>
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger text-center">
+                        ${resetFail}
+                    </div>
+                </c:if>
             <div class="card shadow-sm">
                 <div class="card-header bg-success bg-opacity-25 text-center">
                     <h4 class="text-success-emphasis mb-0">Forgot Password</h4>
                 </div>
 
+
                 <div class="card-body">
 
                     <!-- Email + Send OTP -->
+
                     <form action="sendOtp" method="post">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
@@ -78,15 +89,19 @@
                                 Send OTP
                             </button>
                         </div>
+                        ${otpSent}
                     </form>
 
                     <!-- OTP + Verify -->
                     <form action="verifyOtp" method="post">
+ <input type="hidden" name="email" value="${email}">
+
                         <div class="mb-3">
                             <label class="form-label">OTP</label>
                             <input type="text" name="otp" class="form-control"
                                    placeholder="Enter OTP" required>
                         </div>
+
                         <div class="d-grid mb-4">
                             <button type="submit" class="btn btn-outline-success">
                                 Verify OTP
@@ -94,8 +109,11 @@
                         </div>
                     </form>
 
-                    <!-- New Password -->
-                    <form action="resetPassword" method="post">
+                    <!-- New Password
+                      <c:if test="${showForgotPassword}"> -->
+
+                        <form action="resetPassword" method="post">
+                         <input type="hidden" name="email" value="${email}">
                         <div class="mb-3">
                             <label class="form-label">New Password</label>
                             <input type="password" name="newPassword"
@@ -107,14 +125,14 @@
                             <input type="password" name="confirmPassword"
                                    class="form-control" required>
                         </div>
-
+${missMatch}
                         <div class="d-grid">
                             <button type="submit" class="btn btn-success">
                                 Create New Password
                             </button>
                         </div>
                     </form>
-
+ <!-- </c:if> -->
                 </div>
             </div>
 
