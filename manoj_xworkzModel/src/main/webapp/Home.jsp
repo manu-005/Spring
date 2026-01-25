@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@  page isELIgnored="false" %>
+         pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -21,7 +21,6 @@
 
         <!-- Left: Logo + Nav -->
         <div class="d-flex align-items-center">
-            <!-- Replace with your logo link -->
             <img src="Logo.png" alt="Logo" height="45" class="me-4">
 
             <ul class="navbar-nav">
@@ -37,22 +36,79 @@
             </ul>
         </div>
 
-        <!-- Right: Buttons -->
-      <div class="d-flex gap-2">
+        <!-- Right: Profile + Logout -->
+        <div class="d-flex gap-2 align-items-start">
 
-          <!-- Profile Button -->
-          <button class="btn btn-outline-success" onclick="toggleProfile()">
-              Profile
-          </button>
+            <!-- Profile Dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-outline-success dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    Profile
+                </button>
 
-          <!-- Logout -->
-          <form action="logOut" method="get" class="d-inline">
-              <button type="submit" class="btn btn-success">Log Out</button>
-          </form>
+                <!-- Profile Popup Card -->
+                <div class="dropdown-menu p-0 border-0 shadow"
+                     style="min-width: 300px;">
+                    <div class="card">
+                        <div class="card-header bg-success text-white text-center">
+                            <strong>My Profile</strong>
+                        </div>
+                        <div class="card-body text-start">
+                            <p><strong>First Name:</strong> ${user.getFName()}</p>
+                            <p><strong>Last Name:</strong> ${user.getLName()}</p>
+                            <p><strong>Age:</strong> ${user.getAge()}</p>
+                            <p><strong>Gender:</strong> ${user.getGender()}</p>
+                            <p><strong>Email:</strong> ${user.getEmail()}</p>
+                            <p><strong>Mobile:</strong> ${user.getMobile()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      </div>
+
+            <!-- Right: Batch Details Dropdown -->
+            <div class="dropdown">
+
+                <button class="btn btn-success dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    Batch Details
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+
+                    <li>
+                        <form action="batchInfo" method="get">
+                            <button type="submit" class="dropdown-item fw-medium">
+                                Add New Batch
+                            </button>
+                        </form>
+                    </li>
+
+                    <li>
+                        <form action="trainerInfo" method="get">
+                            <button type="submit" class="dropdown-item fw-medium">
+                                View Batch Details
+                            </button>
+                        </form>
+                    </li>
 
 
+                </ul>
+            </div>
+
+
+            <!-- Logout -->
+            <form action="logOut" method="get">
+                <button type="submit" class="btn btn-success">
+                    Log Out
+                </button>
+            </form>
+
+        </div>
     </div>
 </nav>
 
@@ -62,22 +118,6 @@
     <p class="text-muted mt-2">
         Professional, clean and user-friendly platform
     </p>
-</div>
-<!-- Profile Card -->
-<div class="container mt-6" id="profileCard" style="display:right;">
-    <div class="card shadow-lg mx-auto" style="max-width: 500px;">
-        <div class="card-header bg-success text-white text-center">
-            <h5>My Profile</h5>
-        </div>
-        <div class="card-body text-start">
-            <p><strong>First Name:</strong> ${user.getFName()}</p>
-            <p><strong>Last Name:</strong> ${user.getLName()}</p>
-            <p><strong>Age:</strong> ${user.age}</p>
-            <p><strong>Gender:</strong> ${user.gender}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
-            <p><strong>Mobile:</strong> ${user.mobile}</p>
-        </div>
-    </div>
 </div>
 
 <!-- Footer -->
@@ -89,13 +129,6 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    function toggleProfile() {
-        const card = document.getElementById("profileCard");
-        card.style.display = (card.style.display === "none") ? "block" : "none";
-    }
-</script>
 
 </body>
 </html>
