@@ -113,15 +113,67 @@
 </nav>
 
 <!-- Main Content -->
-<div class="container text-center mt-5">
-    <h1 class="text-success fw-bold">Welcome to Our Website</h1>
-    <p class="text-muted mt-2">
-        Professional, clean and user-friendly platform
-    </p>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white text-center">
+                    <h5 class="mb-0">Add New Batch</h5>
+                </div>
+
+                <div class="card-body">
+                    <form action="newBatchForm" method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Batch Name</label>
+                            <input type="text" name="batchName" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Batch Code</label>
+                            <input type="text" name="batchCode" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Trainer Name</label>
+                            <input type="text" name="trainerName" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Course</label>
+                            <input type="text" name="course" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="startDate" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="endDate" class="form-control" required>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-4">
+                                Add Batch
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
+
 <!-- Footer -->
-<footer class="bg-success bg-opacity-25 text-center py-2 fixed-bottom">
+<footer class="bg-success bg-opacity-25 text-center py-2 ">
     <small class="text-success-emphasis">
         © 2026 Your Company Name. All rights reserved.
     </small>
