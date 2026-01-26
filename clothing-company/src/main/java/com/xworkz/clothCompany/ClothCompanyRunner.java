@@ -12,6 +12,7 @@ public class ClothCompanyRunner
     {
         ClothDto dto = new ClothDto();
 
-        dto.set/
+        dto.setId(1);
+        System.out.println(dto);
     }
 }
