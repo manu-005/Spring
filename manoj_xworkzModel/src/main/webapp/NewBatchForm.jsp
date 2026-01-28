@@ -131,30 +131,58 @@
                             <input type="text" name="batchName" class="form-control" required>
                         </div>
 
+                        <c:if test="${not empty batchNameError}">
+                            <span class="text-danger">${batchNameError}</span>
+                        </c:if>
+
                         <div class="mb-3">
                             <label class="form-label">Batch Code</label>
                             <input type="text" name="batchCode" class="form-control" required>
                         </div>
+
+                         <c:if test="${not empty batchCodeError}">
+                                                    <span class="text-danger">${batchCodeError}</span>
+                                                </c:if>
+
 
                         <div class="mb-3">
                             <label class="form-label">Trainer Name</label>
                             <input type="text" name="trainerName" class="form-control" required>
                         </div>
 
+                         <c:if test="${not empty trainerNameError}">
+                                                    <span class="text-danger">${trainerNameError}</span>
+                                                </c:if>
+
                         <div class="mb-3">
                             <label class="form-label">Course</label>
                             <input type="text" name="course" class="form-control" required>
                         </div>
 
+                         <c:if test="${not empty courseError}">
+                                                    <span class="text-danger">${courseError}</span>
+                                                </c:if>
+
                         <div class="mb-3">
                             <label class="form-label">Start Date</label>
                             <input type="date" name="startDate" class="form-control" required>
                         </div>
+                         <c:if test="${not empty startDateError}">
+                                                    <span class="text-danger">${startDateError}</span>
+                                                </c:if>
 
                         <div class="mb-3">
                             <label class="form-label">End Date</label>
                             <input type="date" name="endDate" class="form-control" required>
                         </div>
+
+                         <c:if test="${not empty endDateError}">
+                                                    <span class="text-danger">${endDateError}</span>
+                                                </c:if>
+
+                                                   <c:if test="${not empty dateError}">
+                                                                                                    <span class="text-danger">${dateError}</span>
+                                                                                                </c:if>
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-success px-4">
