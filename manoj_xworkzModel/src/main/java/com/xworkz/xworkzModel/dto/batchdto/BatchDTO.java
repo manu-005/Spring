@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BatchDTO {
 
-    private String batchId;
+    private int batchId;
 
     @NotNull
     @Size(min = 4, max = 10, message = "Batch Name size must be between 4 and 10")

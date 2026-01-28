@@ -112,97 +112,96 @@
     </div>
 </nav>
 
-<!-- Main Content -->
-
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-
- <c:if test="${not empty error}">
-        <span class="text-danger">${error}</span>
-</c:if>
-
- <c:if test="${not empty success}">
-         <span class="text-success">${success}</span>
-</c:if>
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-success text-white text-center">
-                    <h5 class="mb-0">Add New Batch</h5>
-                </div>
-
-                <div class="card-body">
-                    <form action="newBatchForm" method="post">
-
-                        <div class="mb-3">
-                            <label class="form-label">Batch Name</label>
-                            <input type="text" name="batchName" class="form-control" required>
-                        </div>
-
-                        <c:if test="${not empty batchNameError}">
-                            <span class="text-danger">${batchNameError}</span>
-                        </c:if>
-
-                        <div class="mb-3">
-                            <label class="form-label">Batch Code</label>
-                            <input type="text" name="batchCode" class="form-control" required>
-                        </div>
-
-                         <c:if test="${not empty batchCodeError}">
-                                                    <span class="text-danger">${batchCodeError}</span>
-                                                </c:if>
 
 
-                        <div class="mb-3">
-                            <label class="form-label">Trainer Name</label>
-                            <input type="text" name="trainerName" class="form-control" required>
-                        </div>
+<!-- main content  -->
 
-                         <c:if test="${not empty trainerNameError}">
-                                                    <span class="text-danger">${trainerNameError}</span>
-                                                </c:if>
 
-                        <div class="mb-3">
-                            <label class="form-label">Course</label>
-                            <input type="text" name="course" class="form-control" required>
-                        </div>
+<div class="container my-5">
 
-                         <c:if test="${not empty courseError}">
-                                                    <span class="text-danger">${courseError}</span>
-                                                </c:if>
+    <div class="card shadow-lg">
 
-                        <div class="mb-3">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" name="startDate" class="form-control" required>
-                        </div>
-                         <c:if test="${not empty startDateError}">
-                                                    <span class="text-danger">${startDateError}</span>
-                                                </c:if>
+        <!-- Card Header -->
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
 
-                        <div class="mb-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" name="endDate" class="form-control" required>
-                        </div>
-
-                         <c:if test="${not empty endDateError}">
-                              <span class="text-danger">${endDateError}</span>
-                         </c:if>
-
-                         <c:if test="${not empty dateError}">
-                              <span class="text-danger">${dateError}</span>
-                          </c:if>
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success px-4">
-                                Add Batch
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
-
+            <!-- Left: Batch Info -->
+            <div>
+                <h5 class="mb-0">${batch.batchName}</h5>
+                <small class="opacity-75">
+                    Batch Code: ${batch.batchId}
+                </small>
             </div>
 
+            <!-- Right: Add New Student Button -->
+            <form action="addStudentButton" method="get">
+                <input type="hidden" name="batchId" value="${batch.batchId}">
+                <button type="submit" class="btn btn-light btn-sm fw-semibold">
+                    + Add New Student
+                </button>
+            </form>
+
         </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+
+            <!-- Table Heading -->
+            <h6 class="fw-semibold text-success mb-3">
+                ${batch.courseName} Students
+            </h6>
+
+            <table class="table table-bordered table-hover align-middle text-center">
+
+                <thead class="table-success">
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${students}" var="student">
+                    <tr>
+                        <td>${student.studentId}</td>
+                        <td>${student.name}</td>
+                        <td>${student.email}</td>
+                        <td>${student.mobile}</td>
+
+                        <!-- Status Button -->
+                        <td>
+                            <c:choose>
+                                <c:when test="${student.active}">
+                                    <button class="btn btn-success btn-sm" disabled>
+                                        Active
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="btn btn-danger btn-sm" disabled>
+                                        Inactive
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
+
+                <!-- Empty State -->
+                <c:if test="${empty students}">
+                    <tr>
+                        <td colspan="5" class="text-muted text-center">
+                            No students added to this batch
+                        </td>
+                    </tr>
+                </c:if>
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
 </div>
 

@@ -112,97 +112,55 @@
     </div>
 </nav>
 
-<!-- Main Content -->
 
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
 
- <c:if test="${not empty error}">
-        <span class="text-danger">${error}</span>
-</c:if>
+<!-- main content  -->
 
- <c:if test="${not empty success}">
-         <span class="text-success">${success}</span>
-</c:if>
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-success text-white text-center">
-                    <h5 class="mb-0">Add New Batch</h5>
+
+
+<div class="container my-4">
+
+    <div class="row g-4">
+
+        <c:forEach items="${dto}" var="batch">
+
+            <!-- 4 cards per row -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-header bg-success text-white fw-semibold">
+                        Batch code: ${batch.batchCode}
+                    </div>
+
+                    <div class="card-body">
+                        <p><strong>Name:</strong> ${batch.batchName}</p>
+                        <p><strong>Trainer:</strong> ${batch.trainerName}</p>
+                        <p><strong>Start Date:</strong> ${batch.startDate}</p>
+                        <p><strong>End Date:</strong> ${batch.endDate}</p>
+                    </div>
+
+                    <!-- View Batch Form -->
+                    <div class="card-footer bg-transparent border-0 d-flex justify-content-end">
+
+                        <form action="viewBatchStudents" method="get">
+
+                            <input type="hidden" name="batchId"
+                                   value="${batch.batchId}">
+
+                               <button type="submit" class="btn btn-success btn-sm">
+                                      View Batch Students
+                                  </button>
+
+                        </form>
+
+                    </div>
+
                 </div>
-
-                <div class="card-body">
-                    <form action="newBatchForm" method="post">
-
-                        <div class="mb-3">
-                            <label class="form-label">Batch Name</label>
-                            <input type="text" name="batchName" class="form-control" required>
-                        </div>
-
-                        <c:if test="${not empty batchNameError}">
-                            <span class="text-danger">${batchNameError}</span>
-                        </c:if>
-
-                        <div class="mb-3">
-                            <label class="form-label">Batch Code</label>
-                            <input type="text" name="batchCode" class="form-control" required>
-                        </div>
-
-                         <c:if test="${not empty batchCodeError}">
-                                                    <span class="text-danger">${batchCodeError}</span>
-                                                </c:if>
-
-
-                        <div class="mb-3">
-                            <label class="form-label">Trainer Name</label>
-                            <input type="text" name="trainerName" class="form-control" required>
-                        </div>
-
-                         <c:if test="${not empty trainerNameError}">
-                                                    <span class="text-danger">${trainerNameError}</span>
-                                                </c:if>
-
-                        <div class="mb-3">
-                            <label class="form-label">Course</label>
-                            <input type="text" name="course" class="form-control" required>
-                        </div>
-
-                         <c:if test="${not empty courseError}">
-                                                    <span class="text-danger">${courseError}</span>
-                                                </c:if>
-
-                        <div class="mb-3">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" name="startDate" class="form-control" required>
-                        </div>
-                         <c:if test="${not empty startDateError}">
-                                                    <span class="text-danger">${startDateError}</span>
-                                                </c:if>
-
-                        <div class="mb-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" name="endDate" class="form-control" required>
-                        </div>
-
-                         <c:if test="${not empty endDateError}">
-                              <span class="text-danger">${endDateError}</span>
-                         </c:if>
-
-                         <c:if test="${not empty dateError}">
-                              <span class="text-danger">${dateError}</span>
-                          </c:if>
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success px-4">
-                                Add Batch
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
-
             </div>
 
-        </div>
+        </c:forEach>
+
     </div>
 </div>
 

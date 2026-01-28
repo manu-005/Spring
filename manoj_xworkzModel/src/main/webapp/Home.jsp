@@ -89,7 +89,7 @@
                     </li>
 
                     <li>
-                        <form action="trainerInfo" method="get">
+                        <form action="viewAllBatches" method="get">
                             <button type="submit" class="dropdown-item fw-medium">
                                 View Batch Details
                             </button>

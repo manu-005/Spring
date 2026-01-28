@@ -9,15 +9,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/")
 @Controller
 public class BatchController {
 
-    public BatchController(){
+    public BatchController() {
         System.out.println("Batch controller object");
     }
 
@@ -25,37 +28,37 @@ public class BatchController {
     BatchService batchService;
 
     @GetMapping("addNewBatch")
-    public ModelAndView addNewBatch(ModelAndView modelAndView){
+    public ModelAndView addNewBatch(ModelAndView modelAndView) {
 
         modelAndView.setViewName("NewBatchForm");
         return modelAndView;
     }
 
     @PostMapping("newBatchForm")
-    public ModelAndView newBatchForm(@Valid BatchDTO dto, BindingResult bindingResult, ModelAndView modelAndView){
+    public ModelAndView newBatchForm(@Valid BatchDTO dto, BindingResult bindingResult, ModelAndView modelAndView) {
 
         System.out.println("adding new batch");
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
 
-            if (bindingResult.hasFieldErrors("batchName")){
+            if (bindingResult.hasFieldErrors("batchName")) {
 
-                modelAndView.addObject("batchNameError",bindingResult.getFieldError("batchName").getDefaultMessage());
+                modelAndView.addObject("batchNameError", bindingResult.getFieldError("batchName").getDefaultMessage());
                 modelAndView.setViewName("NewBatchForm");
             }
-            if (bindingResult.hasFieldErrors("batchCode")){
+            if (bindingResult.hasFieldErrors("batchCode")) {
 
-                modelAndView.addObject("batchCodeError",bindingResult.getFieldError("batchCode").getDefaultMessage());
+                modelAndView.addObject("batchCodeError", bindingResult.getFieldError("batchCode").getDefaultMessage());
                 modelAndView.setViewName("NewBatchForm");
             }
-            if (bindingResult.hasFieldErrors("trainerName")){
+            if (bindingResult.hasFieldErrors("trainerName")) {
 
-                modelAndView.addObject("trainerNameError",bindingResult.getFieldError("trainerName").getDefaultMessage());
+                modelAndView.addObject("trainerNameError", bindingResult.getFieldError("trainerName").getDefaultMessage());
                 modelAndView.setViewName("NewBatchForm");
             }
-            if (bindingResult.hasFieldErrors("course")){
+            if (bindingResult.hasFieldErrors("course")) {
 
-                modelAndView.addObject("courseError",bindingResult.getFieldError("course").getDefaultMessage());
+                modelAndView.addObject("courseError", bindingResult.getFieldError("course").getDefaultMessage());
                 modelAndView.setViewName("NewBatchForm");
             }
 
@@ -90,16 +93,49 @@ public class BatchController {
                 return modelAndView;
             }
             modelAndView.setViewName("NewBatchForm");
-            return  modelAndView;
+            return modelAndView;
         }
         System.out.println(dto);
-        batchService.addNewBatch(dto);
+        boolean saved = batchService.addNewBatch(dto);
+        if (saved) {
+            modelAndView.addObject("success", "New Batch added successfully..!");
+            modelAndView.setViewName("NewBatchForm");
+            return modelAndView;
+        } else {
+            modelAndView.addObject("error", "Try again after sometimes..!");
+            modelAndView.setViewName("NewBatchForm");
+            return modelAndView;
+        }
 
-        modelAndView.addObject("success","New Batch added successfully..!");
-        modelAndView.setViewName("NewBatchForm");
+    }
+
+    @GetMapping("viewAllBatches")
+    public ModelAndView getAllBatch(ModelAndView modelAndView){
+
+        System.out.println("getting all batches");
+
+      List<BatchDTO> dto = batchService.getAllBatch();
+
+      modelAndView.addObject("dto",dto);
+      modelAndView.setViewName("AllBatches");
         return modelAndView;
     }
 
 
+    @GetMapping("viewBatchStudents")
+    public ModelAndView viewBatch(@RequestParam int batchId,ModelAndView modelAndView) {
+        System.out.println("getting all students ...");
+        System.out.println("batch id :"+batchId);
+
+       BatchDTO batch = batchService.fetchById(batchId);
+        System.out.println("dto by id :"+batch);
+
+
+
+
+        modelAndView.addObject("batch",batch);
+        modelAndView.setViewName("AllStudentList");
+        return modelAndView;
+    }
 
 }
