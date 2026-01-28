@@ -7,6 +7,7 @@ import com.xworkz.xworkzModel.entity.EmailOTPEntity;
 import com.xworkz.xworkzModel.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +16,7 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 public class ModelDaoImpl implements ModelDao {
 
     @Autowired
