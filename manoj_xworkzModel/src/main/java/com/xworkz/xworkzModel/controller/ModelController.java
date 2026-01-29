@@ -58,17 +58,7 @@ public class ModelController {
         }else{
 
         if (bindingResult.hasErrors()) {
-//            List<ObjectError> allErrors = bindingResult.getAllErrors();
 
-//            List<String> errors = new ArrayList<>();
-//            for (ObjectError error : bindingResult.getFieldErrors()) {
-//                System.out.println(error.getDefaultMessage());
-//                String defaultMessage = error.getDefaultMessage();
-//                errors.add(defaultMessage);
-////               model.setViewName("",allErrors.add(error.getDefaultMessage());
-//            }
-//            model.addObject("errors", errors);
-//            model.addObject("errors",allErrors);
             if (bindingResult.hasFieldErrors("fName")) {
                 System.out.println("------>" + bindingResult.getFieldError("fName").getDefaultMessage());
                 model.addObject("fNameError", bindingResult.getFieldError("fName").getDefaultMessage());
