@@ -116,7 +116,6 @@
 
 <!-- main content  -->
 
-
 <div class="container my-5">
 
     <div class="card shadow-lg">
@@ -134,7 +133,7 @@
 
             <!-- Right: Add New Student Button -->
             <form action="addStudentButton" method="get">
-                <input type="hidden" name="batchId" value="${batch.batchId}">
+                <input type="hidden" name="batchId" value="${batchId}">
                 <button type="submit" class="btn btn-light btn-sm fw-semibold">
                     + Add New Student
                 </button>
@@ -142,69 +141,72 @@
 
         </div>
 
+
         <!-- Card Body -->
         <div class="card-body">
 
-            <!-- Table Heading -->
             <h6 class="fw-semibold text-success mb-3">
                 ${batch.course} Students
             </h6>
 
-            <table class="table table-bordered table-hover align-middle text-center">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
 
-                <thead class="table-success">
-                <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach items="${students}" var="student">
+                    <thead class="table-success">
                     <tr>
-                        <td>${student.studentId}</td>
-                        <td>${student.name}</td>
-                        <td>${student.email}</td>
-                        <td>${student.mobile}</td>
-
-                        <!-- Status Button -->
-                        <td>
-                            <c:choose>
-                                <c:when test="${student.active}">
-                                    <button class="btn btn-success btn-sm" disabled>
-                                        Active
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button class="btn btn-danger btn-sm" disabled>
-                                        Inactive
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Course Mode</th>
+                        <th>Joining Date</th>
+                        <th>Status</th>
                     </tr>
-                </c:forEach>
+                    </thead>
 
-                <!-- Empty State -->
-                <c:if test="${empty students}">
-                    <tr>
-                        <td colspan="5" class="text-muted text-center">
-                            No students added to this batch
-                        </td>
-                    </tr>
-                </c:if>
-                </tbody>
+                    <tbody>
+                    <c:forEach items="${student}" var="student">
+                        <tr>
+                            <td>${student.studentId}</td>
+                            <td>${student.name}</td>
+                            <td>${student.email}</td>
+                            <td>${student.mobile}</td>
+                            <td>${student.gender}</td>
+                            <td>${student.dob}</td>
+                            <td>${student.courseMode}</td>
+                            <td>${student.joiningDate}</td>
 
-            </table>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${student.active}">
+                                        <span class="badge bg-success">Active</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge bg-danger">Inactive</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+                    <c:if test="${empty students}">
+                        <tr>
+                            <td colspan="9" class="text-muted text-center">
+                                No students added to this batch
+                            </td>
+                        </tr>
+                    </c:if>
+                    </tbody>
+
+                </table>
+            </div>
 
         </div>
 
     </div>
 </div>
-
 
 <!-- Footer -->
 <footer class="bg-success bg-opacity-25 text-center py-2 ">

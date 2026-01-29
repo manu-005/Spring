@@ -1,6 +1,8 @@
 package com.xworkz.xworkzModel.controller;
 
+import com.xworkz.xworkzModel.dto.batchdto.BatchDTO;
 import com.xworkz.xworkzModel.dto.studentDto.StudentDTO;
+import com.xworkz.xworkzModel.service.batchService.BatchService;
 import com.xworkz.xworkzModel.service.studentService.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class StudentsController {
     public StudentsController() {
@@ -20,8 +24,11 @@ public class StudentsController {
     @Autowired
     StudentService studentService;
 
+    @Autowired
+    BatchService batchService;
+
     @GetMapping("addStudentButton")
-    public ModelAndView addStudentButton(ModelAndView modelAndView, int batchId) {
+    public ModelAndView addStudentButton(ModelAndView modelAndView, Integer batchId) {
         System.out.println("getting student form..");
         System.out.println(batchId + "batch id");
 
@@ -95,12 +102,38 @@ public class StudentsController {
           boolean saved =  studentService.saveStudent(studentDTO,batchId);
 
             if (saved){
+                modelAndView.addObject("batchId",batchId);
                 modelAndView.addObject("success","Student added successfully..");
             }else{
                 modelAndView.addObject("error","Can't able to add student, try again after sometimes..!");
             }
         }
-        modelAndView.setViewName("NewStudentAddForm");
+        modelAndView.setViewName("AddNewStudent");
+        return modelAndView;
+    }
+
+    @GetMapping("getAllStudentsInBatch")
+    public ModelAndView viewBatchStudents(ModelAndView modelAndView,Integer batchId){
+
+        System.out.println("getting all students ..");
+        System.out.println("batch id :"+batchId);
+
+       BatchDTO batch = batchService.fetchById(batchId);
+       List<StudentDTO> studentList = studentService.getAllStudentsByBatchId(batchId);
+
+        System.out.println("all students in controller :"+studentList);
+
+        modelAndView.addObject("batchId",batchId);
+        modelAndView.addObject("batch",batch);
+       modelAndView.addObject("student",studentList);
+        modelAndView.setViewName("AllStudentList");
+        return modelAndView;
+    }
+
+    @GetMapping("backToStudentList")
+    public ModelAndView backToStudentList(ModelAndView modelAndView){
+
+        modelAndView.setViewName("AllStudentList");
         return modelAndView;
     }
 }

@@ -123,14 +123,12 @@ public class BatchController {
 
 
     @GetMapping("viewBatchStudents")
-    public ModelAndView viewBatch(@RequestParam int batchId,ModelAndView modelAndView) {
+    public ModelAndView viewBatch(Integer batchId,ModelAndView modelAndView) {
         System.out.println("getting all students ...");
         System.out.println("batch id :"+batchId);
 
        BatchDTO batch = batchService.fetchById(batchId);
         System.out.println("dto by id :"+batch);
-
-
 
 
         modelAndView.addObject("batch",batch);

@@ -121,7 +121,7 @@
         <div class="col-md-7">
 
             <div class="card shadow-lg">
-${error}
+
                 <!-- Header -->
                 <div class="card-header bg-success text-white text-center">
                     <h5 class="mb-0">Add New Student</h5>
@@ -223,6 +223,8 @@ ${error}
 </div>
 
 ${add}
+${batch}
+
 <!-- Footer -->
 <footer class="bg-success bg-opacity-25 text-center py-2 ">
     <small class="text-success-emphasis">

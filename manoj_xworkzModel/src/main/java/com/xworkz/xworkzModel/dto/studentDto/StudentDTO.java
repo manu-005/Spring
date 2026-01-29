@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class StudentDTO {
 
-    private String studentId;
+    private int studentId;
 
     @NotBlank(message = "Student name is required")
     private String name;

@@ -82,6 +82,7 @@
 
                     <li>
                         <form action="addNewBatch" method="get">
+
                             <button type="submit" class="dropdown-item fw-medium">
                                 Add New Batch
                             </button>
@@ -143,7 +144,7 @@
                     <!-- View Batch Form -->
                     <div class="card-footer bg-transparent border-0 d-flex justify-content-end">
 
-                        <form action="viewBatchStudents" method="get">
+                        <form action="getAllStudentsInBatch" method="get">
 
                             <input type="hidden" name="batchId"
                                    value="${batch.batchId}">
