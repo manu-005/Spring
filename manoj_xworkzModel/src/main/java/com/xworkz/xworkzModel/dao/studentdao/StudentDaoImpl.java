@@ -1,10 +1,8 @@
 package com.xworkz.xworkzModel.dao.studentdao;
 
-
 import com.xworkz.xworkzModel.entity.studentEntity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -18,7 +16,6 @@ public class StudentDaoImpl implements  StudentDao {
 
     @Override
     public boolean saveStudent(StudentEntity entity) {
-
 
         EntityManager manager =factory.createEntityManager();
 
