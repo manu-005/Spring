@@ -35,7 +35,6 @@ public class ModelDaoImpl implements ModelDao {
         return true;
     }
 
-
     @Override
     public UserEntity checkEmailAndPassword(String email, String password) {
 
@@ -58,25 +57,27 @@ public class ModelDaoImpl implements ModelDao {
     @Override
     public UserEntity findByEmail(String email) {
 
-        System.out.println("email in dao find by email :"+email);
+        System.out.println("email in dao find by email :" + email);
         EntityManager manager = factory.createEntityManager();
         try {
             Query query = manager.createQuery(
-                            "select u from UserEntity u where u.email = :email");
+                    "select u from UserEntity u where u.email =:email");
 
-                    query.setParameter("email", email);
-                UserEntity entity = (UserEntity) query.getSingleResult();
+            query.setParameter("email", email);
+            UserEntity entity = (UserEntity) query.getSingleResult();
 
-            System.out.println("dao result find by mail :"+entity);
+            System.out.println("dao result find by mail :" + entity);
 
+            if (entity == null) {
+                return null;
+            }
             return entity;
         } catch (NoResultException e) {
-            return null; // ✅ handled
+            return null; //  handled
         } finally {
             manager.close();
         }
     }
-
 
     @Override
     public UserEntity updateFailedAttempts(UserEntity entity) {
@@ -124,7 +125,7 @@ public class ModelDaoImpl implements ModelDao {
     @Override
     public boolean svaeOtpWithEmail(EmailOTPEntity emailOTPEntity) {
 
-        EntityManager manager =factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
 
         manager.persist(emailOTPEntity);
@@ -152,7 +153,7 @@ public class ModelDaoImpl implements ModelDao {
         }
     }
 
-@Override
+    @Override
     public boolean resetPassword(int id, String password) {
 
         EntityManager manager = factory.createEntityManager();
@@ -178,10 +179,10 @@ public class ModelDaoImpl implements ModelDao {
     @Override
     public void deleteOtp(EmailOTPEntity entity) {
 
-        EntityManager manager =factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
 
-       EmailOTPEntity merged = manager.merge(entity);
+        EmailOTPEntity merged = manager.merge(entity);
         manager.remove(merged);
         manager.getTransaction().commit();
         manager.close();

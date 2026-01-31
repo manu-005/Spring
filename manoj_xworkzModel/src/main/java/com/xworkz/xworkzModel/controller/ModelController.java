@@ -129,7 +129,7 @@ public class ModelController {
         System.out.println("controller started");
         UserDto dto = service.findByEmail(email);
 
-        if (email == null || email.trim().isEmpty()) {
+        if (email == null || email.trim().isEmpty() ||dto==null) {
             model.addObject("error", "Please enter valid email");
             model.setViewName("SignIn");
             return model;

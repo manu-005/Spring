@@ -113,20 +113,16 @@ public class ModelServiceImpl implements ModelService {
     public UserDto findByEmail(String email) {
 
         UserEntity entity = dao.findByEmail(email);
-        if (entity!=null) {
-            try {
-//                String decryptedPassword = decryptPassword(entity.getPassword());
-                entity.setPassword(null);
+        if (entity != null) {
 
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+//                String decryptedPassword = decryptPassword(entity.getPassword());
+            entity.setPassword(null);
 
             UserDto dto = new UserDto();
             BeanUtils.copyProperties(entity, dto);
             System.out.println("service dto:" + dto);
             return dto;
-        }else return null;
+        } else return null;
     }
 
     @Override
@@ -187,25 +183,23 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public boolean resetPassword(String email, String newPassword, String confirmPassword) {
 
-     UserEntity entity =   dao.findByEmail(email);
-        System.out.println("entity by mail before check :"+entity);
-     if (entity != null){
-         try {
+        UserEntity entity = dao.findByEmail(email);
+        System.out.println("entity by mail before check :" + entity);
+        if (entity != null) {
+            try {
 
-             System.out.println("entity exist in service :"+entity);
+                System.out.println("entity exist in service :" + entity);
 
-             String encryptPassword = encryptPassword(newPassword);
-             System.out.println("encrypt password in service :"+encryptPassword);
+                String encryptPassword = encryptPassword(newPassword);
+                System.out.println("encrypt password in service :" + encryptPassword);
 
-           return dao.resetPassword(entity.getId(),encryptPassword(newPassword));
+                return dao.resetPassword(entity.getId(), encryptPassword(newPassword));
 
-         } catch (Exception e) {
-             throw new RuntimeException(e);
-         }
-     }
-       else return false;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else return false;
     }
-
 
 
     private static final byte[] keyValue = "1234567890123456".getBytes();
