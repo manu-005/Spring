@@ -68,7 +68,6 @@ public class ZomatoDAOImpl implements ZomatoDAO {
 
     @Override
     @SneakyThrows
-
     public Optional<RestaurantDTO> getByName(String name) {
 
         String sql = "select * from zomato where rName=?; ";

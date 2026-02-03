@@ -63,7 +63,6 @@ public class ModelController {
                 System.out.println("------>" + bindingResult.getFieldError("fName").getDefaultMessage());
                 model.addObject("fNameError", bindingResult.getFieldError("fName").getDefaultMessage());
                 model.setViewName("SignUp");
-
             }
 
             if (bindingResult.hasFieldErrors("lName")) {
@@ -119,9 +118,7 @@ public class ModelController {
             model.setViewName("SignUp");
 
             return model;
-
         }
-
     }}
 
     @PostMapping("signInUser")
