@@ -2,14 +2,11 @@ package com.xworkz.xworkzModel.controller;
 
 import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
-import com.xworkz.xworkzModel.entity.EmailOTPEntity;
 import com.xworkz.xworkzModel.service.ModelService;
 import com.xworkz.xworkzModel.utility.EmailOTPSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/")
 @Controller

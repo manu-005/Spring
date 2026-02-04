@@ -7,6 +7,8 @@ import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -76,5 +78,16 @@ public class ModelConfig implements WebMvcConfigurer {
         beanFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         return beanFactory;
+    }
+
+    @Bean("multipartResolver")
+    public CommonsMultipartResolver multipartResolver(){
+
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+
+        commonsMultipartResolver.setMaxInMemorySize(5242880);
+        commonsMultipartResolver.setMaxUploadSize(5242880);
+
+        return commonsMultipartResolver;
     }
 }

@@ -19,9 +19,7 @@
 <nav class="navbar navbar-expand-lg bg-success bg-opacity-25 shadow-sm">
     <div class="container-fluid">
 
-        <!-- Left: Logo + Nav -->
         <div class="d-flex align-items-center">
-            <!-- Replace with your logo link -->
             <img src="Logo.png" alt="Logo" height="45" class="me-4">
 
             <ul class="navbar-nav">
@@ -37,23 +35,20 @@
             </ul>
         </div>
 
-        <!-- Right: Buttons -->
         <div>
+            <form action="signUp" method="get" class="d-inline">
+                <button type="submit" class="btn btn-success">Sign Up</button>
+            </form>
 
-         <form action="signUp" method="get" class="d-inline">
-             <button type="submit" class="btn btn-success">Sign Up</button>
-         </form>
-
-     <form action="signIn" method="get" class="d-inline">
-             <button type="submit" class="btn btn-outline-success me-2">Sign In</button>
-         </form>
-
+            <form action="signIn" method="get" class="d-inline">
+                <button type="submit" class="btn btn-outline-success me-2">Sign In</button>
+            </form>
         </div>
 
     </div>
 </nav>
 
-<!--  body  -->
+<!-- Body -->
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-4">
@@ -67,11 +62,14 @@
                         ${error}
                     </div>
                 </c:if>
-${success}${error}
+
                 <!-- Email -->
                 <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" name="email" class="form-control" required>
+                    <input type="email" id="email" name="email" class="form-control" required
+                           onblur="checkEmail()">
+                   <small id="emailResult" class="text-danger"></small>
+                   <small id="emailResult" class="text-success"></small>
                 </div>
 
                 <!-- Password -->
@@ -80,11 +78,11 @@ ${success}${error}
                     <input type="password" name="password" class="form-control" required>
                 </div>
 
-<c:if test="${showForgot}">
-    <a href="forgotPassword">Forgot Password?</a>
-</c:if>
+                <c:if test="${showForgot}">
+                    <a href="forgotPassword">Forgot Password?</a>
+                </c:if>
 
-             <div class="d-grid">
+                <div class="d-grid mt-3">
                     <button class="btn btn-success">Login</button>
                 </div>
 
@@ -94,13 +92,42 @@ ${success}${error}
     </div>
 </div>
 
-
 <!-- Footer -->
 <footer class="bg-success bg-opacity-25 text-center py-2 fixed-bottom">
     <small class="text-success-emphasis">
         © 2026 Your Company Name. All rights reserved.
     </small>
 </footer>
+
+<!-- JavaScript -->
+<script>
+  // console.log(heading.innerText);
+  // heading.innerText = "<p style='color:blue'>lorem............</p>";
+
+  console.log("start of func");
+
+ function checkEmail() {
+      var email = document.getElementById("email").value;
+      console.log("start");
+       console.log(email);
+
+      fetch("http://localhost:8080/manoj_xworkzModel/fetchUserByEmailId?email=" + email)
+          .then((res) => res.text())
+          .then((data) => {
+              console.log(data);
+
+               document.getElementById("emailResult").innerText = data;
+
+          })
+          .catch();
+
+      // console.log(response.data);
+      console.log("end");
+  };
+
+  console.log("end of func");
+
+</script>
 
 </body>
 </html>

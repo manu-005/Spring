@@ -55,14 +55,34 @@
                         <div class="card-header bg-success text-white text-center">
                             <strong>My Profile</strong>
                         </div>
-                        <div class="card-body text-start">
-                            <p><strong>First Name:</strong> ${user.getFName()}</p>
-                            <p><strong>Last Name:</strong> ${user.getLName()}</p>
-                            <p><strong>Age:</strong> ${user.getAge()}</p>
-                            <p><strong>Gender:</strong> ${user.getGender()}</p>
-                            <p><strong>Email:</strong> ${user.getEmail()}</p>
-                            <p><strong>Mobile:</strong> ${user.getMobile()}</p>
-                        </div>
+                       <div class="card-body text-start text-center">
+
+                           <!-- Profile Image Preview -->
+                           <img id="profilePreview"
+                                src="https://via.placeholder.com/120"
+                                class="rounded-circle mb-3"
+                                alt="Profile Photo"
+                                width="120" height="120">
+
+                           <!-- Upload Field -->
+                           <input type="file"
+                                  class="form-control"
+                                  id="profilePhoto"
+                                  accept="image/*"
+                                  onchange="previewProfilePhoto()">
+
+                           <hr>
+
+                           <!-- User Details -->
+                           <p><strong>First Name:</strong> ${user.getFName()}</p>
+                           <p><strong>Last Name:</strong> ${user.getLName()}</p>
+                           <p><strong>Age:</strong> ${user.getAge()}</p>
+                           <p><strong>Gender:</strong> ${user.getGender()}</p>
+                           <p><strong>Email:</strong> ${user.getEmail()}</p>
+                           <p><strong>Mobile:</strong> ${user.getMobile()}</p>
+
+                       </div>
+
                     </div>
                 </div>
             </div>
