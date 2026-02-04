@@ -65,12 +65,21 @@
                                 width="120" height="120">
 
                            <!-- Upload Field -->
+                        <form action="uploadProfileImage" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="${user.getId()}">
+
+
                            <input type="file"
                                   class="form-control"
                                   id="profilePhoto"
-                                  accept="image/*"
-                                  onchange="previewProfilePhoto()">
+                                  name="profilePhoto">
 
+                            <!-- One Button -->
+                            <button class="btn btn-success" >
+                               Upload Profile Photo
+                              </button>
+
+                      </form>
                            <hr>
 
                            <!-- User Details -->

@@ -2,12 +2,14 @@ package com.xworkz.xworkzModel.controller;
 
 import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
+import com.xworkz.xworkzModel.dto.filedto.FileDto;
 import com.xworkz.xworkzModel.service.ModelService;
 import com.xworkz.xworkzModel.utility.EmailOTPSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -259,6 +261,32 @@ public class ModelController {
             return modelAndView;
         }
 //        return modelAndView;
+    }
+
+//    @Autowired
+//    FileDto fileDto;
+
+    @PostMapping("uploadProfileImage")
+    public ModelAndView uploadProfileImage(@ModelAttribute FileDto fileDto,ModelAndView modelAndView){
+
+        System.out.println("Started save image");
+        System.out.println(fileDto.getId());
+        System.out.println(fileDto.getProfilePhoto());
+
+        if (fileDto != null){
+
+            modelAndView.addObject("success","profile uploaded successfully..");
+
+            service.uploadProfileImage(fileDto);
+        }else{
+            modelAndView.addObject("error","profile file size should be less than 5 mb");
+
+        }
+
+
+        modelAndView.setViewName("Home");
+        System.out.println("end save image");
+        return modelAndView;
     }
 
 }

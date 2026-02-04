@@ -1,16 +1,24 @@
 package com.xworkz.xworkzModel.service;
 
 import com.xworkz.xworkzModel.dao.ModelDao;
+import com.xworkz.xworkzModel.dao.fileDao.FileDao;
 import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
+import com.xworkz.xworkzModel.dto.filedto.FileDto;
 import com.xworkz.xworkzModel.entity.EmailOTPEntity;
 import com.xworkz.xworkzModel.entity.UserEntity;
+import com.xworkz.xworkzModel.entity.fileentity.FileEntity;
+import lombok.SneakyThrows;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 
 
@@ -202,6 +210,8 @@ public class ModelServiceImpl implements ModelService {
     }
 
 
+
+
     private static final byte[] keyValue = "1234567890123456".getBytes();
 
     private String encryptPassword(String password) throws Exception {
@@ -226,6 +236,33 @@ public class ModelServiceImpl implements ModelService {
         byte[] decryptedBytes = cipher.doFinal(decodedBytes);
 
         return new String(decryptedBytes);
+    }
+
+    @Autowired
+    FileEntity fileEntity;
+
+    @Autowired
+    FileDao fileDao;
+
+    @Override
+    @SneakyThrows
+    public boolean uploadProfileImage(FileDto fileDto) {
+
+        MultipartFile file = fileDto.getProfilePhoto();
+
+        byte[] bytes=file.getBytes();
+
+        Path path= Paths.get("D:\\projectUploadedImages\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
+        System.out.println(path);
+
+        Files.write(path,bytes);
+        fileEntity.setOriginalFileName(file.getOriginalFilename());
+        fileEntity.setFileDataBytes(file.getBytes());
+        fileEntity.setFileType(file.getContentType());
+        fileEntity.setFilePath(String.valueOf(path));
+        fileEntity.setFileSize(file.getSize());
+        return fileDao.save(fileEntity);
+
     }
 
 }

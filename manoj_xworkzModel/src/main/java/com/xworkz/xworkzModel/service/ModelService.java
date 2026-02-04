@@ -2,6 +2,7 @@ package com.xworkz.xworkzModel.service;
 
 import com.xworkz.xworkzModel.dto.EmailOTPDto;
 import com.xworkz.xworkzModel.dto.UserDto;
+import com.xworkz.xworkzModel.dto.filedto.FileDto;
 import com.xworkz.xworkzModel.entity.UserEntity;
 
 import java.util.Optional;
@@ -26,4 +27,5 @@ public interface ModelService {
     boolean resetPassword(String email, String newPassword, String confirmPassword);
 
 
+    boolean uploadProfileImage(FileDto fileDto);
 }
