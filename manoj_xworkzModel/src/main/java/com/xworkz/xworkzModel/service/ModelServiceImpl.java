@@ -262,4 +262,14 @@ public class ModelServiceImpl implements ModelService {
 
     }
 
+    @Override
+    public String fetchFilePathById(Integer id) {
+
+        System.out.println("id service :"+id);
+        String  filePath =  fileDao.fetchFilepathById(id);
+            return filePath;
+
+    }
+
+
 }

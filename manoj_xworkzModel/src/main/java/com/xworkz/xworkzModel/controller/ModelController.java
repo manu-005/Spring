@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -121,6 +123,7 @@ public class ModelController {
         System.out.println("controller started");
         UserDto dto = service.findByEmail(email);
 
+
         if (email == null || email.trim().isEmpty() ||dto==null) {
             model.addObject("error", "Please enter valid email");
             model.setViewName("SignIn");
@@ -151,11 +154,14 @@ public class ModelController {
             model.setViewName("SignIn");
             return model;
         }
+
         if (service.signIn(email, password)) {
 
             session.setAttribute("user",afterSetAttempts);
             model.addObject("success", "Valid enter successful ");
             boolean updatedAttemptsToZero = service.setAttemptsZero(dto.getId(), 0);
+
+
             model.setViewName("Home");
             return model;
         }
@@ -274,8 +280,6 @@ public class ModelController {
         System.out.println(fileDto.getProfilePhoto());
 
         if (fileDto != null){
-
-
            boolean saved = service.uploadProfileImage(fileDto);
            if (saved){
                modelAndView.addObject("success","profile uploaded successfully..");
@@ -289,6 +293,16 @@ public class ModelController {
         modelAndView.setViewName("Home");
         System.out.println("end save image");
         return modelAndView;
+    }
+
+
+    @GetMapping("fetchImage")
+    public void fetchImage(HttpServletResponse response,Integer id){
+
+       String filePath = service.fetchFilePathById(id);
+
+        System.out.println("id"+id);
+        System.out.println("file path"+filePath);
     }
 
 }

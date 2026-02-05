@@ -48,6 +48,10 @@
                     Profile
                 </button>
 
+
+
+
+
                 <!-- Profile Popup Card -->
                 <div class="dropdown-menu p-0 border-0 shadow"
                      style="min-width: 300px;">
@@ -59,7 +63,7 @@
 
                            <!-- Profile Image Preview -->
                            <img id="profilePreview"
-                                src="fetchImage?filePath=${filePath}"
+                                src="fetchImage?id=${user.getId()}"
                                 class="rounded-circle mb-3"
                                 alt="Profile Photo"
                                 width="120" height="120">
