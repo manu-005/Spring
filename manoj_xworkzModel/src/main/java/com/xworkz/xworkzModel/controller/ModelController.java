@@ -5,19 +5,18 @@ import com.xworkz.xworkzModel.dto.UserDto;
 import com.xworkz.xworkzModel.dto.filedto.FileDto;
 import com.xworkz.xworkzModel.service.ModelService;
 import com.xworkz.xworkzModel.utility.EmailOTPSender;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RequestMapping("/")
@@ -272,7 +271,7 @@ public class ModelController {
 //    @Autowired
 //    FileDto fileDto;
 
-    @PostMapping("uploadProfileImage")
+//    @PostMapping("uploadProfileImage")
     public ModelAndView uploadProfileImage(@ModelAttribute FileDto fileDto,ModelAndView modelAndView){
 
         System.out.println("Started save image");
@@ -295,14 +294,14 @@ public class ModelController {
         return modelAndView;
     }
 
-
+@SneakyThrows
     @GetMapping("fetchImage")
-    public void fetchImage(HttpServletResponse response,Integer id){
+    public void fetchImage(HttpServletResponse response,@RequestParam int id) {
 
        String filePath = service.fetchFilePathById(id);
 
         System.out.println("id"+id);
-        System.out.println("file path"+filePath);
+//        System.out.println("file path"+filePath);
     }
 
 }

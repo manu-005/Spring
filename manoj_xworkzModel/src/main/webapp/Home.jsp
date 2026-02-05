@@ -48,10 +48,6 @@
                     Profile
                 </button>
 
-
-
-
-
                 <!-- Profile Popup Card -->
                 <div class="dropdown-menu p-0 border-0 shadow"
                      style="min-width: 300px;">
@@ -60,31 +56,6 @@
                             <strong>My Profile</strong>
                         </div>
                        <div class="card-body text-start text-center">
-
-                           <!-- Profile Image Preview -->
-                           <img id="profilePreview"
-                                src="fetchImage?id=${user.getId()}"
-                                class="rounded-circle mb-3"
-                                alt="Profile Photo"
-                                width="120" height="120">
-
-                           <!-- Upload Field -->
-                        <form action="uploadProfileImage" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="id" value="${user.getId()}">
-
-
-                           <input type="file"
-                                  class="form-control"
-                                  id="profilePhoto"
-                                  name="profilePhoto">
-
-                            <!-- One Button -->
-                            <button class="btn btn-success" >
-                               Upload Profile Photo
-                              </button>
-
-                      </form>
-                           <hr>
 
                            <!-- User Details -->
                            <p><strong>First Name:</strong> ${user.getFName()}</p>

@@ -48,9 +48,7 @@
                     Profile
                 </button>
 
-                <!-- Profile Popup Card -->
-                <div class="dropdown-menu p-0 border-0 shadow"
-                     style="min-width: 300px;">
+                <div class="dropdown-menu p-0 border-0 shadow" style="min-width: 300px;">
                     <div class="card">
                         <div class="card-header bg-success text-white text-center">
                             <strong>My Profile</strong>
@@ -67,10 +65,8 @@
                 </div>
             </div>
 
-
-            <!-- Right: Batch Details Dropdown -->
+            <!-- Batch Details Dropdown -->
             <div class="dropdown">
-
                 <button class="btn btn-success dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
@@ -79,7 +75,6 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end shadow">
-
                     <li>
                         <form action="addNewBatch" method="get">
                             <button type="submit" class="dropdown-item fw-medium">
@@ -95,11 +90,8 @@
                             </button>
                         </form>
                     </li>
-
-
                 </ul>
             </div>
-
 
             <!-- Logout -->
             <form action="logOut" method="get">
@@ -113,31 +105,31 @@
 </nav>
 
 <!-- Main Content -->
-
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
 
- <c:if test="${not empty error}">
-        <span class="text-danger">${error}</span>
-</c:if>
+            <c:if test="${not empty error}">
+                <span class="text-danger">${error}</span>
+            </c:if>
 
- <c:if test="${not empty success}">
-         <span class="text-success">${success}</span>
-</c:if>
+            <c:if test="${not empty success}">
+                <span class="text-success">${success}</span>
+            </c:if>
+
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-success text-white text-center">
                     <h5 class="mb-0">Add New Batch</h5>
                 </div>
 
                 <div class="card-body">
-                    <form action="newBatchForm" method="post">
+                    <!-- IMPORTANT: enctype added -->
+                    <form action="newBatchForm" method="post" enctype="multipart/form-data">
 
                         <div class="mb-3">
                             <label class="form-label">Batch Name</label>
                             <input type="text" name="batchName" class="form-control" required>
                         </div>
-
                         <c:if test="${not empty batchNameError}">
                             <span class="text-danger">${batchNameError}</span>
                         </c:if>
@@ -146,50 +138,54 @@
                             <label class="form-label">Batch Code</label>
                             <input type="text" name="batchCode" class="form-control" required>
                         </div>
-
-                         <c:if test="${not empty batchCodeError}">
-                                                    <span class="text-danger">${batchCodeError}</span>
-                                                </c:if>
-
+                        <c:if test="${not empty batchCodeError}">
+                            <span class="text-danger">${batchCodeError}</span>
+                        </c:if>
 
                         <div class="mb-3">
                             <label class="form-label">Trainer Name</label>
                             <input type="text" name="trainerName" class="form-control" required>
                         </div>
-
-                         <c:if test="${not empty trainerNameError}">
-                                                    <span class="text-danger">${trainerNameError}</span>
-                                                </c:if>
+                        <c:if test="${not empty trainerNameError}">
+                            <span class="text-danger">${trainerNameError}</span>
+                        </c:if>
 
                         <div class="mb-3">
                             <label class="form-label">Course</label>
                             <input type="text" name="course" class="form-control" required>
                         </div>
-
-                         <c:if test="${not empty courseError}">
-                                                    <span class="text-danger">${courseError}</span>
-                                                </c:if>
+                        <c:if test="${not empty courseError}">
+                            <span class="text-danger">${courseError}</span>
+                        </c:if>
 
                         <div class="mb-3">
                             <label class="form-label">Start Date</label>
                             <input type="date" name="startDate" class="form-control" required>
                         </div>
-                         <c:if test="${not empty startDateError}">
-                                                    <span class="text-danger">${startDateError}</span>
-                                                </c:if>
+                        <c:if test="${not empty startDateError}">
+                            <span class="text-danger">${startDateError}</span>
+                        </c:if>
 
                         <div class="mb-3">
                             <label class="form-label">End Date</label>
                             <input type="date" name="endDate" class="form-control" required>
                         </div>
+                        <c:if test="${not empty endDateError}">
+                            <span class="text-danger">${endDateError}</span>
+                        </c:if>
 
-                         <c:if test="${not empty endDateError}">
-                              <span class="text-danger">${endDateError}</span>
-                         </c:if>
+                        <c:if test="${not empty dateError}">
+                            <span class="text-danger">${dateError}</span>
+                        </c:if>
 
-                         <c:if test="${not empty dateError}">
-                              <span class="text-danger">${dateError}</span>
-                          </c:if>
+                        <!-- ✅ NEW FIELD -->
+                        <div class="mb-3">
+                            <label class="form-label">Batch Logo / Image</label>
+                            <input type="file" name="batchImage" class="form-control" accept="image/*" required>
+                        </div>
+                        <c:if test="${not empty batchImageError}">
+                            <span class="text-danger">${batchImageError}</span>
+                        </c:if>
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-success px-4">
@@ -199,16 +195,14 @@
 
                     </form>
                 </div>
-
             </div>
 
         </div>
     </div>
 </div>
 
-
 <!-- Footer -->
-<footer class="bg-success bg-opacity-25 text-center py-2 ">
+<footer class="bg-success bg-opacity-25 text-center py-2">
     <small class="text-success-emphasis">
         © 2026 Your Company Name. All rights reserved.
     </small>
