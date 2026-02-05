@@ -275,15 +275,17 @@ public class ModelController {
 
         if (fileDto != null){
 
-            modelAndView.addObject("success","profile uploaded successfully..");
 
-            service.uploadProfileImage(fileDto);
+           boolean saved = service.uploadProfileImage(fileDto);
+           if (saved){
+               modelAndView.addObject("success","profile uploaded successfully..");
+           }else {
+               modelAndView.addObject("error","profile file size should be less than 5 mb");
+           }
         }else{
             modelAndView.addObject("error","profile file size should be less than 5 mb");
 
         }
-
-
         modelAndView.setViewName("Home");
         System.out.println("end save image");
         return modelAndView;

@@ -209,9 +209,6 @@ public class ModelServiceImpl implements ModelService {
         } else return false;
     }
 
-
-
-
     private static final byte[] keyValue = "1234567890123456".getBytes();
 
     private String encryptPassword(String password) throws Exception {
@@ -239,23 +236,23 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Autowired
-    FileEntity fileEntity;
-
-    @Autowired
     FileDao fileDao;
 
     @Override
     @SneakyThrows
     public boolean uploadProfileImage(FileDto fileDto) {
 
+        FileEntity fileEntity
+                 = new FileEntity();
         MultipartFile file = fileDto.getProfilePhoto();
 
-        byte[] bytes=file.getBytes();
+        byte[] bytes = file.getBytes();
 
-        Path path= Paths.get("D:\\projectUploadedImages\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
+        Path path = Paths.get("D:\\projectUploadedImages\\" + file.getOriginalFilename() + System.currentTimeMillis() + ".jpg");
         System.out.println(path);
 
-        Files.write(path,bytes);
+        fileEntity.setId(fileDto.getId());
+        Files.write(path, bytes);
         fileEntity.setOriginalFileName(file.getOriginalFilename());
         fileEntity.setFileDataBytes(file.getBytes());
         fileEntity.setFileType(file.getContentType());

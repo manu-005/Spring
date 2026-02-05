@@ -59,7 +59,7 @@
 
                            <!-- Profile Image Preview -->
                            <img id="profilePreview"
-                                src="https://via.placeholder.com/120"
+                                src="fetchImage?filePath=${filePath}"
                                 class="rounded-circle mb-3"
                                 alt="Profile Photo"
                                 width="120" height="120">
