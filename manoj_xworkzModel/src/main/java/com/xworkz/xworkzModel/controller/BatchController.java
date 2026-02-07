@@ -106,7 +106,6 @@ public class BatchController {
             modelAndView.setViewName("NewBatchForm");
             return modelAndView;
         }
-
     }
 
     @GetMapping("viewAllBatches")
@@ -121,7 +120,6 @@ public class BatchController {
         return modelAndView;
     }
 
-
     @GetMapping("viewBatchStudents")
     public ModelAndView viewBatch(Integer batchId,ModelAndView modelAndView) {
         System.out.println("getting all students ...");
@@ -129,7 +127,6 @@ public class BatchController {
 
        BatchDTO batch = batchService.fetchById(batchId);
         System.out.println("dto by id :"+batch);
-
 
         modelAndView.addObject("batch",batch);
         modelAndView.setViewName("AllStudentList");
