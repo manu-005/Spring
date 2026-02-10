@@ -17,14 +17,18 @@ public class FileDaoImpl implements FileDao {
     EntityManagerFactory factory;
 
     @Override
-    public boolean save(FileEntity fileEntity) {
+    public FileEntity save(FileEntity fileEntity) {
 
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-//        manager.persist(fileEntity);
-        System.out.println("file saved in dao :"+fileEntity);
+      manager.persist(fileEntity);
+//        System.out.println("file saved in dao :"+fileEntity);
         manager.getTransaction().commit();
-        return true;
+
+        System.out.println("saved file in file table");
+        System.out.println("saved file in file table, id = " + fileEntity.getFileId());
+
+        return fileEntity;
     }
 
     @Override

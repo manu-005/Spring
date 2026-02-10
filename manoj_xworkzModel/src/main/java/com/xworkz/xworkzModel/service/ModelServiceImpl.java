@@ -243,7 +243,7 @@ public class ModelServiceImpl implements ModelService {
     public boolean uploadProfileImage(FileDto fileDto) {
 
         FileEntity fileEntity
-                 = new FileEntity();
+                = new FileEntity();
         MultipartFile file = fileDto.getProfilePhoto();
 
         byte[] bytes = file.getBytes();
@@ -251,23 +251,26 @@ public class ModelServiceImpl implements ModelService {
         Path path = Paths.get("D:\\projectUploadedImages\\" + file.getOriginalFilename() + System.currentTimeMillis() + ".jpg");
         System.out.println(path);
 
-        fileEntity.setId(fileDto.getId());
+//        fileEntity.setId(fileDto.getId());
+
         Files.write(path, bytes);
         fileEntity.setOriginalFileName(file.getOriginalFilename());
         fileEntity.setFileDataBytes(file.getBytes());
         fileEntity.setFileType(file.getContentType());
         fileEntity.setFilePath(String.valueOf(path));
         fileEntity.setFileSize(file.getSize());
-        return fileDao.save(fileEntity);
 
+        FileEntity fileSavedEntity = fileDao.save(fileEntity);
+        if (fileSavedEntity != null) return true;
+        else return false;
     }
 
     @Override
     public String fetchFilePathById(Integer id) {
 
-        System.out.println("id service :"+id);
-        String  filePath =  fileDao.fetchFilepathById(id);
-            return filePath;
+        System.out.println("id service :" + id);
+        String filePath = fileDao.fetchFilepathById(id);
+        return filePath;
 
     }
 

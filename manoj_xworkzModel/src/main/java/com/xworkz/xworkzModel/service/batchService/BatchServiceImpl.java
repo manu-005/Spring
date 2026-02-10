@@ -31,8 +31,6 @@ public class BatchServiceImpl implements BatchService {
     public boolean addNewBatch(BatchDTO dto) {
         System.out.println("service started to save batch..");
 
-        BatchEntity batchEntity= new BatchEntity();
-
         MultipartFile file = dto.getBatchImage();
         byte[] bytes = file.getBytes();
 
@@ -50,13 +48,18 @@ public class BatchServiceImpl implements BatchService {
         fileEntity.setFilePath(String.valueOf(path));//path
         fileEntity.setFileSize(file.getSize());
 
-        boolean fileInfoSaved =fileDao.save(fileEntity);
+        FileEntity fileInfoSaved =fileDao.save(fileEntity);
 
+        System.out.println("file saved status in service :"+fileInfoSaved.getFilePath());
 
-//        BeanUtils.copyProperties(dto,entity);
+        BatchEntity batchEntity= new BatchEntity();
+        BeanUtils.copyProperties(dto,batchEntity);
 
-//        return dao.savebatch(entity);
-        return  true;
+        System.out.println("after svaing file batch entity :"+batchEntity);
+        batchEntity.setImageId(fileInfoSaved);
+
+        boolean savedBatch = dao.savebatch(batchEntity);
+        return  savedBatch;
     }
     @Override
     public List<BatchDTO> getAllBatch() {

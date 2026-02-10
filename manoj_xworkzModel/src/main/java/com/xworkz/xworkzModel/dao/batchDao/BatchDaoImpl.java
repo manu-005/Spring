@@ -23,14 +23,15 @@ public class BatchDaoImpl implements BatchDao {
     @Override
     public boolean savebatch(BatchEntity entity) {
 
-        System.out.println("dao batch ");
+        System.out.println("dao batch start to save ");
 
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
 
-//        manager.persist(entity);
+        manager.persist(entity);
 
         manager.getTransaction().commit();
+        System.out.println("saved batch ");
         return true;
     }
 
