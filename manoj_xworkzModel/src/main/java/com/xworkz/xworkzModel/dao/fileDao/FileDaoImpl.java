@@ -21,7 +21,8 @@ public class FileDaoImpl implements FileDao {
 
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-        manager.persist(fileEntity);
+//        manager.persist(fileEntity);
+        System.out.println("file saved in dao :"+fileEntity);
         manager.getTransaction().commit();
         return true;
     }

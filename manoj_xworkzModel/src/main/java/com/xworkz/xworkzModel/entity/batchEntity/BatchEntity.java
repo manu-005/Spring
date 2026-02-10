@@ -25,4 +25,6 @@ public class BatchEntity {
     private String course;
     private LocalDate startDate;
     private LocalDate endDate;
+
+
 }

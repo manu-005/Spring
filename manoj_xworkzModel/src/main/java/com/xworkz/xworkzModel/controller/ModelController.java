@@ -278,7 +278,7 @@ public class ModelController {
         System.out.println(fileDto.getId());
         System.out.println(fileDto.getProfilePhoto());
 
-        if (fileDto != null){
+        if (fileDto != null ){
            boolean saved = service.uploadProfileImage(fileDto);
            if (saved){
                modelAndView.addObject("success","profile uploaded successfully..");

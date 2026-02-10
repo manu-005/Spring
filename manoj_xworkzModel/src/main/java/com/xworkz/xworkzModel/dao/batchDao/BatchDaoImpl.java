@@ -28,7 +28,7 @@ public class BatchDaoImpl implements BatchDao {
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
 
-        manager.persist(entity);
+//        manager.persist(entity);
 
         manager.getTransaction().commit();
         return true;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -37,29 +38,40 @@ public class BatchController {
     @PostMapping("newBatchForm")
     public ModelAndView newBatchForm(@Valid BatchDTO dto, BindingResult bindingResult, ModelAndView modelAndView) {
 
-        System.out.println("adding new batch");
+      MultipartFile  batchImage = dto.getBatchImage();
 
+
+
+        System.out.println(batchImage);
+
+        System.out.println("adding new batch");
+        System.out.println(dto);
         if (bindingResult.hasErrors()) {
 
+            if (batchImage == null || batchImage.isEmpty()) {
+                modelAndView.addObject("batchImageError", "Please upload batch logo");
+
+            }
+            System.out.println("enteredd-----------");
             if (bindingResult.hasFieldErrors("batchName")) {
 
                 modelAndView.addObject("batchNameError", bindingResult.getFieldError("batchName").getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
+//                modelAndView.setViewName("NewBatchForm");
             }
             if (bindingResult.hasFieldErrors("batchCode")) {
 
                 modelAndView.addObject("batchCodeError", bindingResult.getFieldError("batchCode").getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
+//                modelAndView.setViewName("NewBatchForm");
             }
             if (bindingResult.hasFieldErrors("trainerName")) {
 
                 modelAndView.addObject("trainerNameError", bindingResult.getFieldError("trainerName").getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
+//                modelAndView.setViewName("NewBatchForm");
             }
             if (bindingResult.hasFieldErrors("course")) {
 
                 modelAndView.addObject("courseError", bindingResult.getFieldError("course").getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
+//                modelAndView.setViewName("NewBatchForm");
             }
 
             if (bindingResult.hasFieldErrors("startDate")) {
@@ -68,8 +80,8 @@ public class BatchController {
                         bindingResult.getFieldError("startDate").getDefaultMessage()
                 );
                 System.out.println(bindingResult.getGlobalError().getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
-                return modelAndView;
+//                modelAndView.setViewName("NewBatchForm");
+//                return modelAndView;
             }
 
             if (bindingResult.hasFieldErrors("endDate")) {
@@ -77,9 +89,9 @@ public class BatchController {
                         "endDateError",
                         bindingResult.getFieldError("endDate").getDefaultMessage()
                 );
-                System.out.println(bindingResult.getGlobalError().getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
-                return modelAndView;
+//                System.out.println(bindingResult.getGlobalError().getDefaultMessage());
+//                modelAndView.setViewName("NewBatchForm");
+//                return modelAndView;
             }
 
             if (bindingResult.hasGlobalErrors()) {
@@ -89,11 +101,12 @@ public class BatchController {
                 );
 
                 System.out.println(bindingResult.getGlobalError().getDefaultMessage());
-                modelAndView.setViewName("NewBatchForm");
-                return modelAndView;
+//                modelAndView.setViewName("NewBatchForm");
+//                return modelAndView;
             }
+            System.out.println("returning.............");
             modelAndView.setViewName("NewBatchForm");
-            return modelAndView;
+//            return modelAndView;
         }
         System.out.println(dto);
         boolean saved = batchService.addNewBatch(dto);

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -41,12 +42,15 @@ public class BatchDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    // Cross-field validation
+    // ✅ File upload field (matches JSP name="batchImage")
+    @NotNull(message = "Please upload batch logo")
+    private MultipartFile batchImage;
 
+    // Cross-field validation
     @AssertTrue(message = "End date must be greater than Start date")
     public boolean isEndDateValid() {
         if (startDate == null || endDate == null) {
-            return true; // let @NotNull handle this
+            return true;
         }
         return endDate.isAfter(startDate);
     }
