@@ -38,8 +38,7 @@ public class BatchController {
     @PostMapping("newBatchForm")
     public ModelAndView newBatchForm(@Valid BatchDTO dto, BindingResult bindingResult, ModelAndView modelAndView) {
 
-      MultipartFile  batchImage = dto.getBatchImage();
-
+        MultipartFile batchImage = dto.getBatchImage();
 
 
         System.out.println(batchImage);
@@ -106,21 +105,21 @@ public class BatchController {
             }
             System.out.println("returning.............");
             modelAndView.setViewName("NewBatchForm");
-//            return modelAndView;
-        }
-        System.out.println(dto);
-        boolean saved = batchService.addNewBatch(dto);
-        if (saved) {
-            modelAndView.addObject("success", "New Batch added successfully..!");
-            modelAndView.setViewName("NewBatchForm");
             return modelAndView;
         } else {
-            modelAndView.addObject("error", "Try again after sometimes..!");
-            modelAndView.setViewName("NewBatchForm");
-            return modelAndView;
+            System.out.println(dto);
+            boolean saved = batchService.addNewBatch(dto);
+            if (saved) {
+                modelAndView.addObject("success", "New Batch added successfully..!");
+                modelAndView.setViewName("NewBatchForm");
+                return modelAndView;
+            } else {
+                modelAndView.addObject("error", "Try again after sometimes..!");
+                modelAndView.setViewName("NewBatchForm");
+                return modelAndView;
+            }
         }
     }
-
     @GetMapping("viewAllBatches")
     public ModelAndView getAllBatch(ModelAndView modelAndView){
 

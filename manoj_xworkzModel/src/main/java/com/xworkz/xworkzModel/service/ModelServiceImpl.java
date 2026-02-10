@@ -255,7 +255,7 @@ public class ModelServiceImpl implements ModelService {
 
         Files.write(path, bytes);
         fileEntity.setOriginalFileName(file.getOriginalFilename());
-        fileEntity.setFileDataBytes(file.getBytes());
+//        fileEntity.setFileDataBytes(file.getBytes());
         fileEntity.setFileType(file.getContentType());
         fileEntity.setFilePath(String.valueOf(path));
         fileEntity.setFileSize(file.getSize());
@@ -266,7 +266,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public String fetchFilePathById(Integer id) {
+    public String fetchFilePathById(int id) {
 
         System.out.println("id service :" + id);
         String filePath = fileDao.fetchFilepathById(id);

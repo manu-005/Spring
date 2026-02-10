@@ -29,5 +29,5 @@ public interface ModelService {
 
     boolean uploadProfileImage(FileDto fileDto);
 
-    String fetchFilePathById(Integer id);
+    String fetchFilePathById(int id);
 }

@@ -46,6 +46,11 @@ public class BatchDTO {
     @NotNull(message = "Please upload batch logo")
     private MultipartFile batchImage;
 
+
+    // ✅ For display (image fetch)
+    private Integer fileId;
+
+
     // Cross-field validation
     @AssertTrue(message = "End date must be greater than Start date")
     public boolean isEndDateValid() {

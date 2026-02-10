@@ -5,5 +5,5 @@ import com.xworkz.xworkzModel.entity.fileentity.FileEntity;
 public interface FileDao {
     FileEntity save(FileEntity fileEntity);
 
-    String fetchFilepathById(Integer id);
+    String fetchFilepathById(int id);
 }

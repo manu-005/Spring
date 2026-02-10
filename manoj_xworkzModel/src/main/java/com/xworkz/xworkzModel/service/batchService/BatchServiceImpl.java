@@ -50,12 +50,12 @@ public class BatchServiceImpl implements BatchService {
 
         FileEntity fileInfoSaved =fileDao.save(fileEntity);
 
-        System.out.println("file saved status in service :"+fileInfoSaved.getFilePath());
+//        System.out.println("file saved status in service :"+fileInfoSaved.getFilePath());
 
         BatchEntity batchEntity= new BatchEntity();
         BeanUtils.copyProperties(dto,batchEntity);
 
-        System.out.println("after svaing file batch entity :"+batchEntity);
+//        System.out.println("after svaing file batch entity :"+batchEntity);
         batchEntity.setImageId(fileInfoSaved);
 
         boolean savedBatch = dao.savebatch(batchEntity);
@@ -71,13 +71,30 @@ public class BatchServiceImpl implements BatchService {
         if (entities == null || entities.isEmpty()) {
             return List.of();
         }
+
         List<BatchDTO> dtoList = new ArrayList<>();
 
         for (BatchEntity entity : entities) {
+
             BatchDTO dto = new BatchDTO();
-            BeanUtils.copyProperties(entity, dto);
+
+            // ✅ Manual mapping (safe)
+            dto.setBatchId(entity.getBatchId());
+            dto.setBatchName(entity.getBatchName());
+            dto.setBatchCode(entity.getBatchCode());
+            dto.setTrainerName(entity.getTrainerName());
+            dto.setCourse(entity.getCourse());
+            dto.setStartDate(entity.getStartDate());
+            dto.setEndDate(entity.getEndDate());
+
+            // ✅ Only pass fileId for image rendering
+            if (entity.getImageId() != null) {
+                dto.setFileId(entity.getImageId().getFileId());
+            }
+
             dtoList.add(dto);
         }
+
         return dtoList;
     }
 

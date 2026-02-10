@@ -44,7 +44,7 @@ public class BatchDaoImpl implements BatchDao {
         List<BatchEntity> batches = query.getResultList();
 
         System.out.println("dao result :");
-        System.out.println(batches);
+//        System.out.println(batches);
         manager.close();
         return batches;
     }

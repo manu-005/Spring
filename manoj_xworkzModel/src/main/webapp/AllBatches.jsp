@@ -130,8 +130,20 @@
 
                 <div class="card h-100 shadow-sm">
 
+<c:if test="${not empty batch.fileId}">
+    <img
+        src="fetchImage?fileId=${batch.fileId}"
+        class="card-img-top"
+        alt="Batch Logo"
+        style="height: 160px; object-fit: cover;">
+</c:if>
+
+
+<p>ImageId = ${batch.fileId}</p>
+
                     <div class="card-header bg-success text-white fw-semibold">
                         Batch code: ${batch.batchCode}
+                        ${batch.batchImage.fileId}
                     </div>
 
                     <div class="card-body">

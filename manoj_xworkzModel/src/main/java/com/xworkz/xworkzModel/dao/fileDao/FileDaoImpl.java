@@ -32,11 +32,11 @@ public class FileDaoImpl implements FileDao {
     }
 
     @Override
-    public String fetchFilepathById( Integer id) {
+    public String fetchFilepathById( int fileId) {
 
-        System.out.println("dao id :"+id);
+        System.out.println("dao id :"+fileId);
 
-        if (id == null) {
+        if (fileId == 0) {
             System.out.println("ID is null, cannot fetch file path");
             return null;
         }
@@ -46,14 +46,14 @@ public class FileDaoImpl implements FileDao {
 
         try {
             Query query = manager.createQuery(
-                    "select f.filePath from FileEntity f where f.id = :id");
-            query.setParameter("id", id);
+                    "select f.filePath from FileEntity f where f.fileId = :fileId");
+            query.setParameter("fileId", fileId);
 
             filePath = (String) query.getSingleResult();
             System.out.println("File path: " + filePath);
 
         } catch (NoResultException e) {
-            System.out.println("No file found for id: " + id);
+            System.out.println("No file found for id: " + fileId);
         } finally {
             manager.close();
         }

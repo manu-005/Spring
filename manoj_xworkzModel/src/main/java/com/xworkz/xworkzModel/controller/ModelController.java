@@ -6,17 +6,19 @@ import com.xworkz.xworkzModel.dto.filedto.FileDto;
 import com.xworkz.xworkzModel.service.ModelService;
 import com.xworkz.xworkzModel.utility.EmailOTPSender;
 import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 
 @RequestMapping("/")
@@ -296,12 +298,20 @@ public class ModelController {
 
 @SneakyThrows
     @GetMapping("fetchImage")
-    public void fetchImage(HttpServletResponse response,@RequestParam int id) {
+    public void fetchImage(HttpServletResponse response,@RequestParam("fileId") int fileId) {
 
-       String filePath = service.fetchFilePathById(id);
+    System.out.println("file id in fetching image :"+fileId);
+       String filePath = service.fetchFilePathById(fileId);
 
-        System.out.println("id"+id);
-//        System.out.println("file path"+filePath);
+        System.out.println("file path"+filePath);
+
+        response.setContentType("image/lpg");
+       File file = new File(filePath);
+    InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+    ServletOutputStream servletOutputStream = response.getOutputStream();
+    IOUtils.copy(inputStream,servletOutputStream);
+    response.flushBuffer();
+
     }
 
 }
