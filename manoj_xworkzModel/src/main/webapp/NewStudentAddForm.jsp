@@ -48,7 +48,6 @@
                     Profile
                 </button>
 
-                <!-- Profile Popup Card -->
                 <div class="dropdown-menu p-0 border-0 shadow"
                      style="min-width: 300px;">
                     <div class="card">
@@ -67,10 +66,8 @@
                 </div>
             </div>
 
-
-            <!-- Right: Batch Details Dropdown -->
+            <!-- Batch Details Dropdown -->
             <div class="dropdown">
-
                 <button class="btn btn-success dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
@@ -79,7 +76,6 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end shadow">
-
                     <li>
                         <form action="addNewBatch" method="get">
                             <button type="submit" class="dropdown-item fw-medium">
@@ -95,11 +91,8 @@
                             </button>
                         </form>
                     </li>
-
-
                 </ul>
             </div>
-
 
             <!-- Logout -->
             <form action="logOut" method="get">
@@ -112,14 +105,10 @@
     </div>
 </nav>
 
-
-
 <!-- main content  -->
 <div class="container my-5">
-
     <div class="row justify-content-center">
         <div class="col-md-7">
-
             <div class="card shadow-lg">
 
                 <!-- Header -->
@@ -130,7 +119,8 @@
                 <!-- Body -->
                 <div class="card-body">
 
-                    <form action="saveNewStudent" method="post">
+                    <!-- IMPORTANT: enctype added -->
+                    <form action="saveNewStudent" method="post" enctype="multipart/form-data">
 
                         <!-- Hidden Batch ID -->
                         <input type="hidden" name="batchId" value="${batch}">
@@ -201,13 +191,15 @@
                             </select>
                         </div>
 
+                        <!--  Profile Image Upload -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Profile Image</label>
+                            <input type="file" name="profileImage"
+                                   class="form-control" accept="image/*" required>
+                        </div>
+
                         <!-- Buttons -->
                         <div class="d-flex justify-content-between">
-                         <!--   <a href="viewBatch?batchId=${batch}"
-                               class="btn btn-secondary">
-                                Cancel
-                            </a> -->
-
                             <button type="submit" class="btn btn-success">
                                 Save Student
                             </button>
@@ -217,7 +209,6 @@
 
                 </div>
             </div>
-
         </div>
     </div>
 </div>

@@ -178,7 +178,7 @@
                             <span class="text-danger">${dateError}</span>
                         </c:if>
 
-                        <!-- ✅ NEW FIELD -->
+                        <!--  NEW FIELD -->
                         <div class="mb-3">
                             <label class="form-label">Batch Logo / Image</label>
                             <input type="file" name="batchImage" class="form-control" accept="image/*" required>
