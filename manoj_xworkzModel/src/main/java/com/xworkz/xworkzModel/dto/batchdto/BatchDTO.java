@@ -42,12 +42,12 @@ public class BatchDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    // ✅ File upload field (matches JSP name="batchImage")
+    // File upload field (matches JSP name="batchImage")
     @NotNull(message = "Please upload batch logo")
     private MultipartFile batchImage;
 
 
-    // ✅ For display (image fetch)
+    // For display (image fetch)
     private Integer fileId;
 
 

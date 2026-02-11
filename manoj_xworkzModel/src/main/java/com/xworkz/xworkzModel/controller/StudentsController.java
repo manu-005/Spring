@@ -39,6 +39,7 @@ public class StudentsController {
     public ModelAndView saveNewStudent(StudentDTO studentDTO, Integer batchId, ModelAndView modelAndView, BindingResult bindingResult) {
 
         System.out.println("Adding new students");
+        System.out.println("profile"+studentDTO.getProfileImage());
 
         System.out.println("batch id :" + batchId);
         System.out.println("student dto :" + studentDTO);
@@ -95,6 +96,8 @@ public class StudentsController {
         } else {
             //saving student
             boolean saved = studentService.saveStudent(studentDTO, batchId);
+
+//            boolean saved = true;
 
             if (saved) {
                 modelAndView.addObject("batchId", batchId);
