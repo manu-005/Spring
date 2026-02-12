@@ -114,9 +114,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean checkResponseExists(String studentEmail) {
+    public StudentResponseDTO checkResponseExists(String studentEmail) {
 
-        return studentDao.checkResponseExists(studentEmail);
+        StudentResponseDTO studentResponseDTO =new StudentResponseDTO();
+       StudentResponseEntity existEntity = studentDao.checkResponseExists(studentEmail);
+
+       BeanUtils.copyProperties(existEntity,studentResponseDTO);
+        return studentResponseDTO;
     }
 
     @Override

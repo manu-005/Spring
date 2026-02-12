@@ -4,6 +4,7 @@ import com.google.protobuf.Message;
 import com.xworkz.xworkzModel.dto.batchdto.BatchDTO;
 import com.xworkz.xworkzModel.dto.responseDto.StudentResponseDTO;
 import com.xworkz.xworkzModel.dto.studentDto.StudentDTO;
+import com.xworkz.xworkzModel.entity.responseEntity.StudentResponseEntity;
 import com.xworkz.xworkzModel.service.batchService.BatchService;
 import com.xworkz.xworkzModel.service.studentService.StudentService;
 import com.xworkz.xworkzModel.utility.EmailOTPSender;
@@ -211,33 +212,30 @@ public class StudentsController {
 
         System.out.println("email :" + studentResponseDTO.getStudentEmail());
         System.out.println("mess :" + studentResponseDTO.getResponse());
-        if (studentResponseDTO != null) {
 
-            boolean exists = studentService.checkResponseExists(studentResponseDTO.getStudentEmail());
+        StudentResponseDTO existDto = studentService.checkResponseExists(studentResponseDTO.getStudentEmail());
 
-            if (exists) {
+        if (existDto != null) {
 //exists --> update
-                boolean updated = studentService.updateResponse(studentResponseDTO);
-                if (updated) {
-                    modelAndView.addObject("msg", "Thank you! Your response is submitted.");
-                    modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
-                } else {
-                    modelAndView.addObject("errorMsg", "please try again after sometime...");
-                }
+            existDto.setResponse(studentResponseDTO.getResponse());
+            boolean updated = studentService.updateResponse(existDto);
+            if (updated) {
+                modelAndView.addObject("msg", "Thank you! Your response is submitted.");
+                modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
             } else {
-                //not exists -->save
-                System.out.println(studentResponseDTO);
-                boolean responseSaved = studentService.saveResponse(studentResponseDTO);
-
-                if (responseSaved) {
-                    modelAndView.addObject("msg", "Thank you! Your response is submitted.");
-                    modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
-                } else {
-                    modelAndView.addObject("errorMsg", "please try again after sometime...");
-                }
+                modelAndView.addObject("errorMsg", "please try again after sometime...");
             }
-        }else{
-            modelAndView.addObject("errorMsg", "please try again after sometime...");
+        } else {
+            //not exists -->save
+            System.out.println(studentResponseDTO);
+            boolean responseSaved = studentService.saveResponse(studentResponseDTO);
+
+            if (responseSaved) {
+                modelAndView.addObject("msg", "Thank you! Your response is submitted.");
+                modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
+            } else {
+                modelAndView.addObject("errorMsg", "please try again after sometime...");
+            }
         }
         modelAndView.setViewName("StudentResponseSuccess");
         return modelAndView;

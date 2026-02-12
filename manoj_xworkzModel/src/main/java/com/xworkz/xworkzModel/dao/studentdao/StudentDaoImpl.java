@@ -60,31 +60,41 @@ public class StudentDaoImpl implements  StudentDao {
     }
 
     @Override
-    public boolean checkResponseExists(String studentEmail) {
+    public StudentResponseEntity checkResponseExists(String studentEmail) {
 
         EntityManager manager =factory.createEntityManager();
 
-       Query query = manager.createQuery("select resp from StudentResponseEntity resp where resp.studentEmail=:studentEmail")
-                .setParameter("studentEmail",studentEmail);
-       StudentResponseEntity entity =(StudentResponseEntity) query.getSingleResult();
+        StudentResponseEntity entity = manager.createQuery(
+                        "select resp from StudentResponseEntity resp where resp.studentEmail = :studentEmail",
+                        StudentResponseEntity.class)
+                .setParameter("studentEmail", studentEmail)
+                .getSingleResult();
 
-        if (entity != null){
-            return true;
-        }else{
-            return false;
+            return entity;
         }
 
-    }
 
     @Override
     public boolean updateResponse(StudentResponseEntity studentResponseEntity) {
-        System.out.println("dao response update entity :"+studentResponseEntity);
-        EntityManager manager =factory.createEntityManager();
+        System.out.println("dao response update entity :" + studentResponseEntity);
 
-        manager.getTransaction().begin();
-        manager.merge(studentResponseEntity);
-        manager.getTransaction().commit();
+        EntityManager manager = factory.createEntityManager();
+        try {
+            manager.getTransaction().begin();
 
-        return true;
+            manager.merge(studentResponseEntity);   // pass object
+
+            manager.getTransaction().commit();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            manager.getTransaction().rollback();
+            return false;
+
+        } finally {
+            manager.close();   //  close
+        }
     }
+
 }
