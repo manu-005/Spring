@@ -213,16 +213,15 @@ public class StudentsController {
         System.out.println("mess :" + studentResponseDTO.getResponse());
         if (studentResponseDTO != null) {
 
-
             boolean exists = studentService.checkResponseExists(studentResponseDTO.getStudentEmail());
 
             if (exists) {
 //exists --> update
-             boolean updated =   studentService.updateResponse(studentResponseDTO);
-                if (updated){
+                boolean updated = studentService.updateResponse(studentResponseDTO);
+                if (updated) {
                     modelAndView.addObject("msg", "Thank you! Your response is submitted.");
                     modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
-                }else {
+                } else {
                     modelAndView.addObject("errorMsg", "please try again after sometime...");
                 }
             } else {
@@ -234,11 +233,11 @@ public class StudentsController {
                     modelAndView.addObject("msg", "Thank you! Your response is submitted.");
                     modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
                 } else {
-
                     modelAndView.addObject("errorMsg", "please try again after sometime...");
                 }
             }
-
+        }else{
+            modelAndView.addObject("errorMsg", "please try again after sometime...");
         }
         modelAndView.setViewName("StudentResponseSuccess");
         return modelAndView;
