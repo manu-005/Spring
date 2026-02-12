@@ -223,7 +223,6 @@ public class StudentsController {
                     modelAndView.addObject("msg", "Thank you! Your response is submitted.");
                     modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
                 }else {
-
                     modelAndView.addObject("errorMsg", "please try again after sometime...");
                 }
             } else {
