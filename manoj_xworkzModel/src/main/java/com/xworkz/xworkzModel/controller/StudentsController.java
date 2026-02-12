@@ -3,6 +3,7 @@ package com.xworkz.xworkzModel.controller;
 import com.google.protobuf.Message;
 import com.xworkz.xworkzModel.dto.batchdto.BatchDTO;
 import com.xworkz.xworkzModel.dto.responseDto.StudentResponseDTO;
+import com.xworkz.xworkzModel.dto.responseDto.StudentResponseViewDTO;
 import com.xworkz.xworkzModel.dto.studentDto.StudentDTO;
 import com.xworkz.xworkzModel.entity.responseEntity.StudentResponseEntity;
 import com.xworkz.xworkzModel.service.batchService.BatchService;
@@ -24,10 +25,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class StudentsController {
+    private String studentName;
+
     public StudentsController() {
         System.out.println("student controller object created");
     }
@@ -246,29 +250,40 @@ public class StudentsController {
     }
 
     @GetMapping("viewAllStudentResponses")
-    public ModelAndView viewAllStudentResponses(ModelAndView modelAndView, Integer batchId) {
+    public ModelAndView viewAllStudentResponses(ModelAndView modelAndView, @RequestParam Integer batchId) {
 
-        System.out.println("batch id in view response:" + batchId);
+        System.out.println("batch id in view response: " + batchId);
 
         List<StudentDTO> studentList = studentService.getAllStudentsByBatchId(batchId);
+//        System.out.println("student list: " + studentList);
+
+        List<StudentResponseViewDTO> responseViewList = new ArrayList<>();
 
         for (StudentDTO student : studentList) {
 
             String email = student.getEmail();
 
-            List<StudentResponseDTO> studentResponseDTO = studentService.checkResponseExists(email);
+            List<StudentResponseDTO> studentResponseDTOs = studentService.checkResponseExists(email);
 
-            if (studentResponseDTO != null && !studentResponseDTO.isEmpty()) {
+            StudentResponseViewDTO viewDTO = new StudentResponseViewDTO();
+            viewDTO.setStudentName(student.getName());
+            viewDTO.setEmail(email);
 
-                StudentResponseDTO existingDto = studentResponseDTO.get(0);      // take first response only
-
-                System.out.println("student mail of response :" + existingDto.getStudentEmail());
-                System.out.println("response message:" + existingDto.getResponse());
+            if (studentResponseDTOs != null && !studentResponseDTOs.isEmpty()) {
+                StudentResponseDTO existingDto = studentResponseDTOs.get(0); // take first
+                viewDTO.setResponse(existingDto.getResponse());  // exists response
+            } else {
+                viewDTO.setResponse("No response");
             }
+
+            responseViewList.add(viewDTO);
         }
+
+            modelAndView.addObject("allResponses", responseViewList);
         modelAndView.setViewName("ViewAllStudentResponses");
         return modelAndView;
     }
+
 
 
 }
