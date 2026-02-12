@@ -14,7 +14,7 @@ public interface StudentDao {
 
     boolean saveResponse(StudentResponseEntity studentResponseEntity);
 
-    StudentResponseEntity checkResponseExists(String studentEmail);
+    List<StudentResponseEntity> checkResponseExists(String studentEmail);
 
     boolean updateResponse(StudentResponseEntity studentResponseEntity);
 }

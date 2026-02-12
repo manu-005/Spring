@@ -114,14 +114,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentResponseDTO checkResponseExists(String studentEmail) {
+    public List<StudentResponseDTO> checkResponseExists(String studentEmail) {
 
-        StudentResponseDTO studentResponseDTO =new StudentResponseDTO();
-       StudentResponseEntity existEntity = studentDao.checkResponseExists(studentEmail);
+        List<StudentResponseEntity> existEntities = studentDao.checkResponseExists(studentEmail);
 
-       BeanUtils.copyProperties(existEntity,studentResponseDTO);
-        return studentResponseDTO;
+        List<StudentResponseDTO> dtoList = new ArrayList<>();
+
+        for (StudentResponseEntity entity : existEntities) {
+            StudentResponseDTO dto = new StudentResponseDTO();
+            BeanUtils.copyProperties(entity, dto);  // correct order
+            dtoList.add(dto);
+        }
+
+        return dtoList;
     }
+
 
     @Override
     public boolean updateResponse(StudentResponseDTO studentResponseDTO) {

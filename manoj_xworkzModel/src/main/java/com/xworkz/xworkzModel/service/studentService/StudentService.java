@@ -13,7 +13,7 @@ public interface StudentService {
 
     boolean saveResponse(StudentResponseDTO studentResponseDTO);
 
-    StudentResponseDTO checkResponseExists(String studentEmail);
+    List<StudentResponseDTO> checkResponseExists(String studentEmail);
 
     boolean updateResponse(StudentResponseDTO studentResponseDTO);
 }

@@ -60,15 +60,15 @@ public class StudentDaoImpl implements  StudentDao {
     }
 
     @Override
-    public StudentResponseEntity checkResponseExists(String studentEmail) {
+    public List<StudentResponseEntity> checkResponseExists(String studentEmail) {
 
         EntityManager manager =factory.createEntityManager();
 
-        StudentResponseEntity entity = manager.createQuery(
+        List<StudentResponseEntity> entity = manager.createQuery(
                         "select resp from StudentResponseEntity resp where resp.studentEmail = :studentEmail",
                         StudentResponseEntity.class)
                 .setParameter("studentEmail", studentEmail)
-                .getSingleResult();
+                .getResultList();
 
             return entity;
         }

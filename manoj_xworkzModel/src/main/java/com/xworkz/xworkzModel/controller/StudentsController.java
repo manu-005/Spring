@@ -213,12 +213,16 @@ public class StudentsController {
         System.out.println("email :" + studentResponseDTO.getStudentEmail());
         System.out.println("mess :" + studentResponseDTO.getResponse());
 
-        StudentResponseDTO existDto = studentService.checkResponseExists(studentResponseDTO.getStudentEmail());
+        List<StudentResponseDTO> existDtoList = studentService.checkResponseExists(studentResponseDTO.getStudentEmail());
 
-        if (existDto != null) {
-//exists --> update
-            existDto.setResponse(studentResponseDTO.getResponse());
-            boolean updated = studentService.updateResponse(existDto);
+        if (existDtoList != null && !existDtoList.isEmpty()) {
+
+            StudentResponseDTO existingDto = existDtoList.get(0);      // take first response only
+
+            // update response text
+            existingDto.setResponse(studentResponseDTO.getResponse());
+
+            boolean updated = studentService.updateResponse(existingDto);
             if (updated) {
                 modelAndView.addObject("msg", "Thank you! Your response is submitted.");
                 modelAndView.addObject("email", studentResponseDTO.getStudentEmail());
@@ -246,6 +250,22 @@ public class StudentsController {
 
         System.out.println("batch id in view response:" + batchId);
 
+        List<StudentDTO> studentList = studentService.getAllStudentsByBatchId(batchId);
+
+        for (StudentDTO student : studentList) {
+
+            String email = student.getEmail();
+
+            List<StudentResponseDTO> studentResponseDTO = studentService.checkResponseExists(email);
+
+            if (studentResponseDTO != null && !studentResponseDTO.isEmpty()) {
+
+                StudentResponseDTO existingDto = studentResponseDTO.get(0);      // take first response only
+
+                System.out.println("student mail of response :" + existingDto.getStudentEmail());
+                System.out.println("response message:" + existingDto.getResponse());
+            }
+        }
         modelAndView.setViewName("ViewAllStudentResponses");
         return modelAndView;
     }
