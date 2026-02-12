@@ -1,10 +1,13 @@
 package com.xworkz.xworkzModel.utility;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 @Service
@@ -33,4 +36,23 @@ public class EmailOTPSender {
 
         return otp; // return so caller can store (session / DB)
     }
+
+    public void sendMessageToAllStudents(String email, String textMessage) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        String serverIp = "10.179.218.85"; // 👈 replace with YOUR IPv4
+        String link = "http://" + serverIp + ":8080/manoj_xworkzModel/studentResponseForm?studentEmail="
+                + URLEncoder.encode(email, StandardCharsets.UTF_8);
+
+        String body = textMessage +
+                "\n\nPlease click the link below to respond:\n" + link;
+
+        message.setTo(email);
+        message.setSubject("Inform to all Students");
+        message.setText(body);
+
+        mailSender.send(message);
+    }
+
 }

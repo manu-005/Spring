@@ -3,10 +3,12 @@ package com.xworkz.xworkzModel.service.studentService;
 import com.xworkz.xworkzModel.dao.fileDao.FileDao;
 import com.xworkz.xworkzModel.dao.studentdao.StudentDao;
 import com.xworkz.xworkzModel.dto.batchdto.BatchDTO;
+import com.xworkz.xworkzModel.dto.responseDto.StudentResponseDTO;
 import com.xworkz.xworkzModel.dto.studentDto.StudentDTO;
 
 import com.xworkz.xworkzModel.entity.batchEntity.BatchEntity;
 import com.xworkz.xworkzModel.entity.fileentity.FileEntity;
+import com.xworkz.xworkzModel.entity.responseEntity.StudentResponseEntity;
 import com.xworkz.xworkzModel.entity.studentEntity.StudentEntity;
 import lombok.SneakyThrows;
 import org.springframework.beans.BeanUtils;
@@ -33,41 +35,44 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean saveStudent(StudentDTO studentDTO, Integer batchId) {
 
-        MultipartFile file = studentDTO.getProfileImage();
-
-        Path path = Paths.get("D:\\projectUploadedImages\\" + file.getOriginalFilename() + System.currentTimeMillis() + ".jpg");
-        byte[] bytes = file.getBytes();
-
-        System.out.println("file path" + path);
-
-        Files.write(path, bytes);
-
-        FileEntity fileEntity = new FileEntity();
-
-        fileEntity.setOriginalFileName(file.getOriginalFilename());
-        fileEntity.setFileDataBytes(file.getBytes());
-        fileEntity.setFileType(file.getContentType());
-        fileEntity.setFilePath(String.valueOf(path));//path
-        fileEntity.setFileSize(file.getSize());
-
-        System.out.println("file entityy .....");
-//        FileEntity fileInfoSaved = fileDao.save(fileEntity);
-
-        StudentEntity entity = new StudentEntity();
         System.out.println("service saving student");
 
-        System.out.println("service dto :");
-        System.out.println(studentDTO);
+        // 1️⃣ Handle Profile Image
+        MultipartFile file = studentDTO.getProfileImage();
+
+        String uploadDir = "D:\\projectUploadedImages\\";
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path path = Paths.get(uploadDir + fileName);
+
+        Files.createDirectories(path.getParent());   // ensure folder exists
+        byte[] bytes = file.getBytes();
+        Files.write(path, bytes);
+
+        System.out.println("file path: " + path);
+
+        // 2️⃣ Save file info
+        FileEntity fileEntity = new FileEntity();
+        fileEntity.setOriginalFileName(file.getOriginalFilename());
+        fileEntity.setFileDataBytes(bytes);               // optional (if storing in DB)
+        fileEntity.setFileType(file.getContentType());
+        fileEntity.setFilePath(path.toString());
+        fileEntity.setFileSize(file.getSize());
+
+        FileEntity savedFile = fileDao.save(fileEntity);
+
+        // 3️⃣ Save student
+        StudentEntity entity = new StudentEntity();
+        BeanUtils.copyProperties(studentDTO, entity, "profileImage", "profileImagePath");
+
         entity.setBatchId(batchId);
+        entity.setProfileImagePath(savedFile.getFilePath());   // store image path
 
-        System.out.println("entity :" + entity);
+//
 
-//        BeanUtils.copyProperties(studentDTO, entity);
-
-        System.out.println("entity after bean utils :" + entity);
-        //dao studentDao.saveStudent(entity)
-        return true;
+        System.out.println("student saved successfully: " + entity);
+        return studentDao.saveStudent(entity);
     }
+
 
     @Override
     public List<StudentDTO> getAllStudentsByBatchId(Integer batchId) {
@@ -91,5 +96,40 @@ public class StudentServiceImpl implements StudentService {
         return studentList;
     }
 
+    @Override
+    public boolean saveResponse(StudentResponseDTO studentResponseDTO) {
+        System.out.println("service student dto  response :" + studentResponseDTO);
+        if (studentResponseDTO != null) {
+            StudentResponseEntity studentResponseEntity = new StudentResponseEntity();
 
+            BeanUtils.copyProperties(studentResponseDTO, studentResponseEntity);
+
+            System.out.println("after bean utils" + studentResponseEntity);
+
+            boolean responseSaved = studentDao.saveResponse(studentResponseEntity);
+
+            return responseSaved;
+        } else return false;
+
+    }
+
+    @Override
+    public boolean checkResponseExists(String studentEmail) {
+
+        return studentDao.checkResponseExists(studentEmail);
+    }
+
+    @Override
+    public boolean updateResponse(StudentResponseDTO studentResponseDTO) {
+        if (studentResponseDTO != null) {
+            StudentResponseEntity studentResponseEntity = new StudentResponseEntity();
+
+            BeanUtils.copyProperties(studentResponseDTO, studentResponseEntity);
+
+            System.out.println("after bean utils in service update" + studentResponseEntity);
+
+            return studentDao.updateResponse(studentResponseEntity);
+        } else return false;
+
+    }
 }

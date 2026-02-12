@@ -1,5 +1,6 @@
 package com.xworkz.xworkzModel.dao.studentdao;
 
+import com.xworkz.xworkzModel.entity.responseEntity.StudentResponseEntity;
 import com.xworkz.xworkzModel.entity.studentEntity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -43,5 +44,47 @@ public class StudentDaoImpl implements  StudentDao {
         }
         else return null;
 
+    }
+
+    @Override
+    public boolean saveResponse(StudentResponseEntity studentResponseEntity) {
+
+        System.out.println("dao response entity :"+studentResponseEntity);
+        EntityManager manager =factory.createEntityManager();
+
+        manager.getTransaction().begin();
+        manager.persist(studentResponseEntity);
+        manager.getTransaction().commit();
+
+        return true;
+    }
+
+    @Override
+    public boolean checkResponseExists(String studentEmail) {
+
+        EntityManager manager =factory.createEntityManager();
+
+       Query query = manager.createQuery("select resp from StudentResponseEntity resp where resp.studentEmail=:studentEmail")
+                .setParameter("studentEmail",studentEmail);
+       StudentResponseEntity entity =(StudentResponseEntity) query.getSingleResult();
+
+        if (entity != null){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean updateResponse(StudentResponseEntity studentResponseEntity) {
+        System.out.println("dao response update entity :"+studentResponseEntity);
+        EntityManager manager =factory.createEntityManager();
+
+        manager.getTransaction().begin();
+        manager.merge(studentResponseEntity);
+        manager.getTransaction().commit();
+
+        return true;
     }
 }

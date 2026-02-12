@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,6 @@
 </head>
 
 <body class="bg-success-subtle">
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-success bg-opacity-25 shadow-sm">
     <div class="container-fluid">
@@ -38,8 +38,6 @@
 
         <!-- Right: Profile + Logout -->
         <div class="d-flex gap-2 align-items-start">
-
-            <!-- Profile Dropdown -->
             <div class="dropdown">
                 <button class="btn btn-outline-success dropdown-toggle"
                         type="button"
@@ -48,14 +46,12 @@
                     Profile
                 </button>
 
-                <!-- Profile Popup Card -->
-                <div class="dropdown-menu p-0 border-0 shadow"
-                     style="min-width: 300px;">
+                <div class="dropdown-menu p-0 border-0 shadow" style="min-width: 300px;">
                     <div class="card">
                         <div class="card-header bg-success text-white text-center">
                             <strong>My Profile</strong>
                         </div>
-                        <div class="card-body text-start">
+                        <div class="card-body text-start text-center">
                             <p><strong>First Name:</strong> ${user.getFName()}</p>
                             <p><strong>Last Name:</strong> ${user.getLName()}</p>
                             <p><strong>Age:</strong> ${user.getAge()}</p>
@@ -67,10 +63,7 @@
                 </div>
             </div>
 
-
-            <!-- Right: Batch Details Dropdown -->
             <div class="dropdown">
-
                 <button class="btn btn-success dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
@@ -79,7 +72,6 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end shadow">
-
                     <li>
                         <form action="addNewBatch" method="get">
                             <button type="submit" class="dropdown-item fw-medium">
@@ -95,35 +87,25 @@
                             </button>
                         </form>
                     </li>
-
-
                 </ul>
             </div>
 
-
-            <!-- Logout -->
             <form action="logOut" method="get">
                 <button type="submit" class="btn btn-success">
                     Log Out
                 </button>
             </form>
-
         </div>
     </div>
 </nav>
 
-
-
 <!-- main content  -->
-
 <div class="container my-5">
 
     <div class="card shadow-lg">
 
         <!-- Card Header -->
         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-
-            <!-- Left: Batch Info -->
             <div>
                 <h5 class="mb-0">${batch.batchName}</h5>
                 <small class="opacity-75">
@@ -131,16 +113,35 @@
                 </small>
             </div>
 
-            <!-- Right: Add New Student Button -->
-            <form action="addStudentButton" method="get">
-                <input type="hidden" name="batchId" value="${batchId}">
-                <button type="submit" class="btn btn-light btn-sm fw-semibold">
-                    + Add New Student
-                </button>
-            </form>
+            <!-- Right Buttons -->
+            <div class="d-flex gap-2">
 
+                <!-- Send Msg to All -->
+                <form action="sendMsgToAllStd" method="get">
+                    <input type="hidden" name="batchId" value="${batchId}">
+                    <button type="submit" class="btn btn-warning btn-sm fw-semibold">
+                        Send Msg to All
+                    </button>
+                </form>
+
+                <!-- View Responses -->
+                <form action="viewAllStudentResponses" method="get">
+                    <input type="hidden" name="batchId" value="${batchId}">
+                    <button type="submit" class="btn btn-info btn-sm fw-semibold text-white">
+                        View Responses
+                    </button>
+                </form>
+
+                <!-- Add New Student -->
+                <form action="addStudentButton" method="get">
+                    <input type="hidden" name="batchId" value="${batchId}">
+                    <button type="submit" class="btn btn-light btn-sm fw-semibold">
+                        + Add New Student
+                    </button>
+                </form>
+
+            </div>
         </div>
-
 
         <!-- Card Body -->
         <div class="card-body">
@@ -154,6 +155,7 @@
 
                     <thead class="table-success">
                     <tr>
+                        <th>Profile</th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -169,6 +171,15 @@
                     <tbody>
                     <c:forEach items="${student}" var="student">
                         <tr>
+                            <td>
+                                <img src="<c:url value='viewStudentProfileImage'>
+                                            <c:param name='path' value='${student.profileImagePath}'/>
+                                         </c:url>"
+                                     width="80" height="80"
+                                     class="rounded-circle border"
+                                     alt="Profile Image">
+                            </td>
+
                             <td>${student.studentId}</td>
                             <td>${student.name}</td>
                             <td>${student.email}</td>
@@ -191,9 +202,9 @@
                         </tr>
                     </c:forEach>
 
-                    <c:if test="${empty students}">
+                    <c:if test="${empty student}">
                         <tr>
-                            <td colspan="9" class="text-muted text-center">
+                            <td colspan="10" class="text-muted text-center">
                                 No students added to this batch
                             </td>
                         </tr>
@@ -215,7 +226,6 @@
     </small>
 </footer>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

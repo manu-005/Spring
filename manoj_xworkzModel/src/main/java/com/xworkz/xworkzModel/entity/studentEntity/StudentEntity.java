@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import java.time.LocalDate;
 
 @Data
@@ -20,6 +19,7 @@ public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int studentId;
+
     private String name;
     private String email;
     private Long mobile;
@@ -28,5 +28,9 @@ public class StudentEntity {
     private String courseMode;   // Online / Offline
     private LocalDate joiningDate;
     private boolean active;
+
     private int batchId;
+
+    // ✅ NEW: store image path
+    private String profileImagePath;
 }

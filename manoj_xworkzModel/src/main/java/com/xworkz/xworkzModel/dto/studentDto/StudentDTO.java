@@ -49,5 +49,5 @@ public class StudentDTO {
     private MultipartFile profileImage;
 
     // ✅ For storing image id in DB
-    private String profileImageId;
+    private String profileImagePath;
 }

@@ -46,86 +46,87 @@ public class ModelController {
     public ModelAndView signUpUser(@Valid UserDto dto, BindingResult bindingResult, ModelAndView model) {
         System.out.println(dto);
 
-       UserDto exist = service.findByEmail(dto.getEmail());
-        System.out.println("existss :"+exist);
-        if (exist != null){
+        UserDto exist = service.findByEmail(dto.getEmail());
+        System.out.println("existss :" + exist);
+        if (exist != null) {
 
-            model.addObject("exist","email id already exists..!");
-            model.setViewName("SignUp");
-            return model;
-        }else{
-
-        if (bindingResult.hasErrors()) {
-
-            if (bindingResult.hasFieldErrors("fName")) {
-                System.out.println("------>" + bindingResult.getFieldError("fName").getDefaultMessage());
-                model.addObject("fNameError", bindingResult.getFieldError("fName").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (bindingResult.hasFieldErrors("lName")) {
-
-                model.addObject("lNameError", bindingResult.getFieldError("lName").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (bindingResult.hasFieldErrors("age")) {
-                System.out.println(bindingResult.getFieldError("age").getDefaultMessage());
-                model.addObject("ageError", bindingResult.getFieldError("age").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (bindingResult.hasFieldErrors("gender")) {
-                model.addObject("genderError", bindingResult.getFieldError("gender").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (bindingResult.hasFieldErrors("email")) {
-                model.addObject("emailError", bindingResult.getFieldError("email").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (bindingResult.hasFieldErrors("mobile")) {
-                model.addObject("mobileError", bindingResult.getFieldError("mobile").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (bindingResult.hasFieldErrors("password")) {
-                model.addObject("passwordError", bindingResult.getFieldError("password").getDefaultMessage());
-                model.setViewName("SignUp");
-            }
-
-            if (!dto.getPassword().equals(dto.getConfirmPassword())) {
-                model.addObject("confirmPasswordError", "password and confirm password must be match");
-                model.setViewName("SignUp");
-            }
-
+            model.addObject("exist", "email id already exists..!");
             model.setViewName("SignUp");
             return model;
         } else {
-            //save
-            System.out.println("calling service--");
-            boolean saved = service.validAndSave(dto);
 
-            System.out.println("Saved from service :" + saved);
-            if (saved) {
-                model.addObject("success", "Successfully Sign Up..!");
+            if (bindingResult.hasErrors()) {
+
+                if (bindingResult.hasFieldErrors("fName")) {
+                    System.out.println("------>" + bindingResult.getFieldError("fName").getDefaultMessage());
+                    model.addObject("fNameError", bindingResult.getFieldError("fName").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (bindingResult.hasFieldErrors("lName")) {
+
+                    model.addObject("lNameError", bindingResult.getFieldError("lName").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (bindingResult.hasFieldErrors("age")) {
+                    System.out.println(bindingResult.getFieldError("age").getDefaultMessage());
+                    model.addObject("ageError", bindingResult.getFieldError("age").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (bindingResult.hasFieldErrors("gender")) {
+                    model.addObject("genderError", bindingResult.getFieldError("gender").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (bindingResult.hasFieldErrors("email")) {
+                    model.addObject("emailError", bindingResult.getFieldError("email").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (bindingResult.hasFieldErrors("mobile")) {
+                    model.addObject("mobileError", bindingResult.getFieldError("mobile").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (bindingResult.hasFieldErrors("password")) {
+                    model.addObject("passwordError", bindingResult.getFieldError("password").getDefaultMessage());
+                    model.setViewName("SignUp");
+                }
+
+                if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+                    model.addObject("confirmPasswordError", "password and confirm password must be match");
+                    model.setViewName("SignUp");
+                }
+
+                model.setViewName("SignUp");
+                return model;
             } else {
-                model.addObject("error", "Try again Later ..!");
-            }
-            model.setViewName("SignUp");
+                //save
+                System.out.println("calling service--");
+                boolean saved = service.validAndSave(dto);
 
-            return model;
+                System.out.println("Saved from service :" + saved);
+                if (saved) {
+                    model.addObject("success", "Successfully Sign Up..!");
+                } else {
+                    model.addObject("error", "Try again Later ..!");
+                }
+                model.setViewName("SignUp");
+
+                return model;
+            }
         }
-    }}
+    }
 
     @PostMapping("signInUser")
-    public ModelAndView signInUser(HttpSession session,String email, String password, ModelAndView model) {
+    public ModelAndView signInUser(HttpSession session, String email, String password, ModelAndView model) {
         System.out.println("controller started");
         UserDto dto = service.findByEmail(email);
 
 
-        if (email == null || email.trim().isEmpty() ||dto==null) {
+        if (email == null || email.trim().isEmpty() || dto == null) {
             model.addObject("error", "Please enter valid email");
             model.setViewName("SignIn");
             return model;
@@ -158,7 +159,7 @@ public class ModelController {
 
         if (service.signIn(email, password)) {
 
-            session.setAttribute("user",afterSetAttempts);
+            session.setAttribute("user", afterSetAttempts);
             model.addObject("success", "Valid enter successful ");
             boolean updatedAttemptsToZero = service.setAttemptsZero(dto.getId(), 0);
 
@@ -197,73 +198,73 @@ public class ModelController {
         System.out.println("send otp" + otp);
 
         LocalDateTime createdTime = LocalDateTime.now();
-        System.out.println("Local time is :"+createdTime);
+        System.out.println("Local time is :" + createdTime);
 
-        EmailOTPDto emailOTPDto = new EmailOTPDto(email,otp,createdTime);
+        EmailOTPDto emailOTPDto = new EmailOTPDto(email, otp, createdTime);
 
-       boolean saved = service.svaeOtpWithEmail(emailOTPDto);
+        boolean saved = service.svaeOtpWithEmail(emailOTPDto);
 
-     if (saved) {
-         modelAndView.addObject("email",email);
-         modelAndView.addObject("otpSent", "OTP sent to your registered email");
-         modelAndView.setViewName("ForgotPasswordForm");
-     }else{
-         modelAndView.addObject("error", "Enter correct registered email or Try again after sometimes..");
-         modelAndView.setViewName("ForgotPasswordForm");
-     }
+        if (saved) {
+            modelAndView.addObject("email", email);
+            modelAndView.addObject("otpSent", "OTP sent to your registered email");
+            modelAndView.setViewName("ForgotPasswordForm");
+        } else {
+            modelAndView.addObject("error", "Enter correct registered email or Try again after sometimes..");
+            modelAndView.setViewName("ForgotPasswordForm");
+        }
         return modelAndView;
     }
 
     @PostMapping("verifyOtp")
-    public ModelAndView verifyOtp(String email, String otp, ModelAndView modelAndView, HttpSession session){
+    public ModelAndView verifyOtp(String email, String otp, ModelAndView modelAndView, HttpSession session) {
 
-        System.out.println("email:"+email);
+        System.out.println("email:" + email);
 
-        session.setAttribute("email",email);
-        System.out.println("otp:"+otp);
+        session.setAttribute("email", email);
+        System.out.println("otp:" + otp);
         LocalDateTime createdTime = LocalDateTime.now();
 //        System.out.println("email:"+email);
-       boolean saved = service.getOtpBymail(email,otp);
+        boolean saved = service.getOtpBymail(email, otp);
 
-        System.out.println("entity by email :"+saved);
+        System.out.println("entity by email :" + saved);
 
-        modelAndView.addObject("dto",saved);
+        modelAndView.addObject("dto", saved);
 
-        modelAndView.addObject("showForgotPassword",saved);
+        modelAndView.addObject("showForgotPassword", saved);
 
         modelAndView.setViewName("ForgotPasswordForm");
         return modelAndView;
     }
 
     @PostMapping("resetPassword")
-    public ModelAndView resetPassword(HttpSession session,String email,String newPassword,String confirmPassword,ModelAndView modelAndView){
+    public ModelAndView resetPassword(HttpSession session, String email, String newPassword, String confirmPassword, ModelAndView modelAndView) {
 
-        System.out.println("Email :"+email);
-        System.out.println("Password :"+newPassword);
-        System.out.println("Confirm Password :"+confirmPassword);
+        System.out.println("Email :" + email);
+        System.out.println("Password :" + newPassword);
+        System.out.println("Confirm Password :" + confirmPassword);
 // check both are equal or no
-        if (!newPassword.equals(confirmPassword)){
+        if (!newPassword.equals(confirmPassword)) {
             System.out.println("mis match password");
-            modelAndView.addObject("missMatch","password and confirm password should be matched..!");
+            modelAndView.addObject("missMatch", "password and confirm password should be matched..!");
             modelAndView.setViewName("ForgotPasswordForm");
             return modelAndView;
 
         }
         //save reset pwd -- true
-      boolean resetSuccess =  service.resetPassword(email,newPassword,confirmPassword);
+        boolean resetSuccess = service.resetPassword(email, newPassword, confirmPassword);
 
-        if (resetSuccess){
+        if (resetSuccess) {
 
-            System.out.println("reset success :"+resetSuccess);
-            modelAndView.addObject("resetSuccess","Password reset successfully..!");
+            System.out.println("reset success :" + resetSuccess);
+            modelAndView.addObject("resetSuccess", "Password reset successfully..!");
             modelAndView.setViewName("ForgotPasswordForm");
             return modelAndView;
-        } else{
+        } else {
 //
             //false
-            System.out.println("reset fail :"+resetSuccess);
+            System.out.println("reset fail :" + resetSuccess);
 
-            modelAndView.addObject("resetFail","User does not exist..!(sign up first)");
+            modelAndView.addObject("resetFail", "User does not exist..!(sign up first)");
             modelAndView.setViewName("ForgotPasswordForm");
             return modelAndView;
         }
@@ -273,22 +274,22 @@ public class ModelController {
 //    @Autowired
 //    FileDto fileDto;
 
-//    @PostMapping("uploadProfileImage")
-    public ModelAndView uploadProfileImage(@ModelAttribute FileDto fileDto,ModelAndView modelAndView){
+    //    @PostMapping("uploadProfileImage")
+    public ModelAndView uploadProfileImage(@ModelAttribute FileDto fileDto, ModelAndView modelAndView) {
 
         System.out.println("Started save image");
         System.out.println(fileDto.getId());
         System.out.println(fileDto.getProfilePhoto());
 
-        if (fileDto != null ){
-           boolean saved = service.uploadProfileImage(fileDto);
-           if (saved){
-               modelAndView.addObject("success","profile uploaded successfully..");
-           }else {
-               modelAndView.addObject("error","profile file size should be less than 5 mb");
-           }
-        }else{
-            modelAndView.addObject("error","profile file size should be less than 5 mb");
+        if (fileDto != null) {
+            boolean saved = service.uploadProfileImage(fileDto);
+            if (saved) {
+                modelAndView.addObject("success", "profile uploaded successfully..");
+            } else {
+                modelAndView.addObject("error", "profile file size should be less than 5 mb");
+            }
+        } else {
+            modelAndView.addObject("error", "profile file size should be less than 5 mb");
 
         }
         modelAndView.setViewName("Home");
@@ -296,21 +297,22 @@ public class ModelController {
         return modelAndView;
     }
 
-@SneakyThrows
+    @SneakyThrows
     @GetMapping("fetchImage")
-    public void fetchImage(HttpServletResponse response,@RequestParam("fileId") int fileId) {
+    public void fetchImage(HttpServletResponse response, @RequestParam("fileId") int fileId, String path) {
+        System.out.println("imagePath from student" + path);
 
-    System.out.println("file id in fetching image :"+fileId);
-       String filePath = service.fetchFilePathById(fileId);
+        System.out.println("file id in fetching image :" + fileId);
+        String filePath = service.fetchFilePathById(fileId);
 
-        System.out.println("file path"+filePath);
+        System.out.println("file path" + filePath);
 
         response.setContentType("image/lpg");
-       File file = new File(filePath);
-    InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
-    ServletOutputStream servletOutputStream = response.getOutputStream();
-    IOUtils.copy(inputStream,servletOutputStream);
-    response.flushBuffer();
+        File file = new File(filePath);
+        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        IOUtils.copy(inputStream, servletOutputStream);
+        response.flushBuffer();
 
     }
 
