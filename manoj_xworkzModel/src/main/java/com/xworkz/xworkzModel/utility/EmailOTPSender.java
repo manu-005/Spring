@@ -47,7 +47,6 @@ public class EmailOTPSender {
 
         String body = textMessage +
                 "\n\nPlease click the link below to respond:\n" + link;
-
         message.setTo(email);
         message.setSubject("Inform to all Students");
         message.setText(body);
