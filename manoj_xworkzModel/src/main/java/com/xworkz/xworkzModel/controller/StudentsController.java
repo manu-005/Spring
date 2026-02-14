@@ -208,6 +208,7 @@ public class StudentsController {
         modelAndView.addObject("email", studentEmail);
 
         modelAndView.setViewName("StudentResponseForm");
+
         return modelAndView;
     }
 
@@ -283,7 +284,5 @@ public class StudentsController {
         modelAndView.setViewName("ViewAllStudentResponses");
         return modelAndView;
     }
-
-
 
 }

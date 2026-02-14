@@ -36,17 +36,19 @@ public class EmailOTPSender {
 
         return otp; // return so caller can store (session / DB)
     }
-
     public void sendMessageToAllStudents(String email, String textMessage) {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        String serverIp = "10.179.218.85"; // 👈 replace with YOUR IPv4
-        String link = "http://" + serverIp + ":8080/manoj_xworkzModel/studentResponseForm?studentEmail="
+        // Use ngrok public URL (not local IP)
+        String baseUrl = "https://mesoappendiceal-postillioned-bently.ngrok-free.dev";
+
+        String link = baseUrl + "/manoj_xworkzModel/studentResponseForm?studentEmail="
                 + URLEncoder.encode(email, StandardCharsets.UTF_8);
 
         String body = textMessage +
                 "\n\nPlease click the link below to respond:\n" + link;
+
         message.setTo(email);
         message.setSubject("Inform to all Students");
         message.setText(body);
