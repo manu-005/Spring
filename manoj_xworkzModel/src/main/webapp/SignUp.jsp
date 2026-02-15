@@ -113,7 +113,7 @@ ${errors}
                 <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" oninput=" onblur="checkEmail() ()">
+                    <input type="email" id="email" class="form-control" name="email" oninput="validateEmail()  onblur="checkEmail()">
                     <small id="emailError" class="text-danger">${emailError}</small>
                 </div>
 
@@ -240,6 +240,34 @@ function validateForm() {
            validateConfirmPassword();
 }
 </script> -->
+
+<script>
+  // console.log(heading.innerText);
+  // heading.innerText = "<p style='color:blue'>lorem............</p>";
+
+  console.log("start of func");
+
+ function checkEmail() {
+      var email = document.getElementById("email").value;
+      console.log("start");
+       console.log(email);
+
+      fetch("http://localhost:8080/manoj_xworkzModel/fetchUserByEmailIdforSignUp?email=" + email)
+          .then((res) => res.text())
+          .then((data) => {
+              console.log(data);
+
+               document.getElementById("emailResult").innerText = data;
+
+          })
+          .catch();
+
+      // console.log(response.data);
+      console.log("end");
+  };
+  console.log("end of func");
+
+</script>
 
 </body>
 </html>
