@@ -113,7 +113,7 @@ ${errors}
                 <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" oninput="validateEmail()">
+                    <input type="email" id="email" class="form-control" name="email" oninput=" onblur="checkEmail() ()">
                     <small id="emailError" class="text-danger">${emailError}</small>
                 </div>
 
