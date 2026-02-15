@@ -27,4 +27,15 @@ public class JsController {
             return "valid..";
         }
     }
+
+    @GetMapping("fetchUserByEmailIdforSignUp")
+    public String fetchUserByEmailIdforSignUp(String email) {
+        UserDto dto = service.findByEmail(email);
+
+        if (dto != null) {
+            return "e-mail id is not exist..";
+        } else {
+            return "valid..";
+        }
+    }
 }
