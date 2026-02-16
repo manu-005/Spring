@@ -28,4 +28,6 @@ public interface ModelDao {
     boolean resetPassword(int id, String password);
 
     void deleteOtp(EmailOTPEntity entity);
+
+    UserEntity findByMobile(String mobile);
 }

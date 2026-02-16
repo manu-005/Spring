@@ -1,9 +1,11 @@
 package com.xworkz.xworkzModel.dao;
 
+import com.xworkz.xworkzModel.dto.UserDto;
 import com.xworkz.xworkzModel.entity.EmailOTPEntity;
 import com.xworkz.xworkzModel.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -179,6 +181,35 @@ public class ModelDaoImpl implements ModelDao {
         manager.remove(merged);
         manager.getTransaction().commit();
         manager.close();
+    }
+
+    @Override
+    public UserEntity findByMobile(String mobileNo) {
+
+        UserEntity entity = null;
+        EntityManager manager = factory.createEntityManager();
+
+        try {
+
+            Long mobile = Long.parseLong(mobileNo);
+
+            entity = manager.createQuery(
+                            "SELECT dto FROM UserEntity dto WHERE dto.mobile = :mobile",
+                            UserEntity.class)
+                    .setParameter("mobile", mobile)
+                    .getSingleResult();
+
+            System.out.println("after getting from db : " + entity);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid mobile format");
+        } catch (NoResultException e) {
+            System.out.println("No user found with this mobile");
+            entity = null;
+        } finally {
+            manager.close();
+        }
+        return entity;
     }
 
 }
