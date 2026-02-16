@@ -1,11 +1,9 @@
 package com.xworkz.xworkzModel.controller;
 
-import com.google.protobuf.Message;
 import com.xworkz.xworkzModel.dto.batchdto.BatchDTO;
 import com.xworkz.xworkzModel.dto.responseDto.StudentResponseDTO;
 import com.xworkz.xworkzModel.dto.responseDto.StudentResponseViewDTO;
 import com.xworkz.xworkzModel.dto.studentDto.StudentDTO;
-import com.xworkz.xworkzModel.entity.responseEntity.StudentResponseEntity;
 import com.xworkz.xworkzModel.service.batchService.BatchService;
 import com.xworkz.xworkzModel.service.studentService.StudentService;
 import com.xworkz.xworkzModel.utility.EmailOTPSender;
