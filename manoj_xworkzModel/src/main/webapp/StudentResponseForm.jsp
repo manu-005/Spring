@@ -22,10 +22,10 @@
         <h4 class="text-center text-success mb-3">Send Your Response</h4>
 
         <form action="submitStudentResponse" method="post">
-      <input type="hidden"  name="studentEmail"  value="${email}">
+          <input type="hidden"  name="studentEmail"  value="${email}">
             <div class="mb-3">
                 <label class="form-label fw-medium">Your Message</label>
-                <textarea name="responseText"
+                <textarea name="response"
                           class="form-control"
                           rows="5"
                           placeholder="Type your response here..."
@@ -40,8 +40,6 @@
         </form>
     </div>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
