@@ -274,5 +274,26 @@ public class ModelServiceImpl implements ModelService {
 
     }
 
+    @Override
+    public UserDto checkMobileNoExist(String mobile) {
+
+        UserEntity entity = new UserEntity();
+        UserDto dto = new UserDto();
+
+        if (mobile != null && mobile.matches("[6-9][0-9]{9}")) {
+            System.out.println("mobile no service :" + mobile);
+
+            entity = dao.findByMobile(mobile);
+            System.out.println("entity  before bean utils :" + entity);
+
+            if (entity != null) {
+
+                BeanUtils.copyProperties(entity, dto);
+                System.out.println("dto after get and bean utils :" + dto);
+                return dto;
+            }
+        }
+        return null;
+    }
 
 }

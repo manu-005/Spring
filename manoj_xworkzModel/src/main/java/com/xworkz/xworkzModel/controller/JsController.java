@@ -33,9 +33,24 @@ public class JsController {
         UserDto dto = service.findByEmail(email);
 
         if (dto != null) {
-            return "e-mail id is not exist..";
+            return "e-mail id is already exist..";
         } else {
             return "valid..";
         }
+    }
+
+    @GetMapping("checkMobileNoExist")
+    public String checkMobileNoExist(String mobile){
+
+        System.out.println("mobile:"+mobile);
+
+       UserDto dto = service.checkMobileNoExist(mobile);
+       if (dto != null) {
+           System.out.println("existss..");
+           return "mobile number already exist..";
+       }else{
+           System.out.println("validd...");
+           return  "valid..";
+       }
     }
 }

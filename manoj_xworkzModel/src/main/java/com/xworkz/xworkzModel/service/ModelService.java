@@ -30,4 +30,6 @@ public interface ModelService {
     boolean uploadProfileImage(FileDto fileDto);
 
     String fetchFilePathById(int id);
+
+    UserDto checkMobileNoExist(String mobile);
 }
