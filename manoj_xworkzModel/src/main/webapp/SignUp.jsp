@@ -101,6 +101,7 @@ ${errors}
 
                 <!-- Gender -->
               <select id="gender" class="form-select" name="gender">
+                  <label class="form-label">Gender</label>
                   <option value="">Select</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -113,15 +114,17 @@ ${errors}
                 <!-- Email -->
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" oninput="validateEmail()  onblur="checkEmail()">
+                    <input type="email" id="email" class="form-control" name="email"   onblur="checkEmail()">
                     <small id="emailError" class="text-danger">${emailError}</small>
+                      <small id="emailResult" class="text-danger"></small>
                 </div>
 
                 <!-- Mobile -->
                 <div class="mb-3">
                     <label class="form-label">Mobile Number</label>
-                    <input type="number" id="mobile" class="form-control" name="mobile" oninput="validateMobile()">
+                    <input type="number" id="mobile" class="form-control" name="mobile" onblur="checkMobileNoExist()" >
                     <small id="mobileError" class="text-danger">${mobileError}</small>
+                         <small id="mobileResult" class="text-danger"></small>
                 </div>
 
                 <!-- Password -->
@@ -256,15 +259,25 @@ function validateForm() {
           .then((res) => res.text())
           .then((data) => {
               console.log(data);
-
                document.getElementById("emailResult").innerText = data;
-
           })
           .catch();
-
       // console.log(response.data);
       console.log("end");
   };
+
+ function checkMobileNoExist(){
+ var mobile=document.getElementById("mobile").value;
+ console.log(mobile);
+
+ fetch("http://localhost:8080/manoj_xworkzModel/checkMobileNoExist?mobile="+mobile)
+        .then(res => res.text())
+        .then(data => {
+        console.log(data);
+        document.getElementById("mobileResult").innerText = data;  })
+        .catch();
+
+ };
   console.log("end of func");
 
 </script>

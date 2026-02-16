@@ -68,7 +68,7 @@
                     <label>Email</label>
                     <input type="email" id="email" name="email" class="form-control" required
                            onblur="checkEmail()">
-                   <small id="emailResult" class="text-danger"></small>
+
                    <small id="emailResult" class="text-success"></small>
                 </div>
 
