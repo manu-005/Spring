@@ -16,6 +16,8 @@
 
 <style>
 
+
+
 body{
     font-family:'Poppins',sans-serif;
     background:#0b0f19;
@@ -49,7 +51,7 @@ body{
     backdrop-filter:blur(15px);
     background:rgba(0,0,0,0.6);
     transition:0.4s;
-    padding:25px 0;
+    padding:9px 0;
 }
 
 .navbar.scrolled{
@@ -57,7 +59,7 @@ body{
 }
 
 .nav-logo{
-    max-height:95px;
+    max-height:85px;
     width:auto;
     object-fit:contain;
 }
@@ -104,7 +106,7 @@ body{
     position:absolute;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.75);
+    background:rgba(199,78,167,99.175);
     top:0;
     left:0;
 }
