@@ -7,6 +7,7 @@
 
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <!-- AOS -->
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -15,8 +16,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-
-
 
 body{
     font-family:'Poppins',sans-serif;
@@ -49,13 +48,13 @@ body{
 
 .navbar{
     backdrop-filter:blur(15px);
-    background:rgba(0,0,0,0.6);
+    background:black;
     transition:0.4s;
     padding:9px 0;
 }
 
 .navbar.scrolled{
-    background:#000;
+    background:black;
 }
 
 .nav-logo{
@@ -106,7 +105,7 @@ body{
     position:absolute;
     width:100%;
     height:100%;
-    background:rgba(199,78,167,99.175);
+background: rgba(135, 206, 250, 0.6);
     top:0;
     left:0;
 }
@@ -320,9 +319,61 @@ footer{
 </div>
 </section>
 
-<footer>
-<p>© 2026 ConferoNexus | All Rights Reserved</p>
+<footer class="footer bg-dark text-light pt-5">
+
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- Column 1 -->
+            <div class="col-md-4">
+                <h4 class="fw-bold">ConferoNexus</h4>
+                <p>
+                    Global Conference & Event Management Platform.
+                    Connecting Speakers, Organizers and Attendees Worldwide.
+                </p>
+
+                <h5 class="mt-3">Follow Us</h5>
+                <div class="d-flex gap-3 fs-5">
+                    <a href="#" class="text-light"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="col-md-4">
+                <h4 class="fw-bold">Head Office</h4>
+                <p>
+                    1th Floor, ConferoNexus, 52nd Cross <br>
+                    5th Block Rajajinagar, Bengaluru <br>
+                    Karnataka, India – 560001
+                </p>
+
+                <h5 class="mt-3">Other Locations</h5>
+                <p>
+                    Mumbai | Delhi | Hyderabad | Chennai
+                </p>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="col-md-4">
+                <h4 class="fw-bold">Contact Us</h4>
+                <p><i class="bi bi-telephone me-2"></i> +91 7019099371</p>
+                <p><i class="bi bi-envelope me-2"></i> support@conferonexus.com</p>
+                <p><i class="bi bi-globe me-2"></i> www.conferonexus.com</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="text-center mt-4 py-3 border-top border-secondary">
+        <p class="mb-0"> © 2026 ConferoNexus | All Rights Reserved</p>
+    </div>
+
 </footer>
+
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
