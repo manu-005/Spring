@@ -4,9 +4,12 @@ import com.xworkz.conference.dto.organizer.OrganizerRegistrationDTO;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -20,7 +23,9 @@ public class ConferenceHosterController {
     }
 
     @PostMapping("organizerDetails")
-    public ModelAndView saveOrganizerDetails( ModelAndView modelAndView, OrganizerRegistrationDTO organizerDTO){
+    public ModelAndView saveOrganizerDetails(ModelAndView modelAndView,
+                                             @Valid OrganizerRegistrationDTO organizerDTO,
+                                             BindingResult bindingResult){
 
         System.out.println("organizer dto :");
         System.out.println(organizerDTO);
