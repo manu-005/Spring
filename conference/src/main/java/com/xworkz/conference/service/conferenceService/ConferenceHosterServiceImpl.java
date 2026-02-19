@@ -9,6 +9,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService{
 
     @Override
     public boolean validAndSave(OrganizerRegistrationDTO organizerDTO) {
+        System.out.println("service  started.. valid and save");
         return false;
     }
 }
