@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -515,79 +521,182 @@ footer a:hover { color: #00c6ff; }
 <!-- ===== REGISTER ===== -->
 <section id="register" style="background:#f0f4ff;">
 <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
+    <div class="text-center mb-5">
         <h2>Organizer <span>Registration</span></h2>
         <div class="section-divider"></div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-            <div class="glass-card">
-                <h3 class="text-center mb-1">Conference Registration</h3>
-                <p class="text-center mb-4" style="color:var(--text-light); font-size:14px;">Fill in your details to register your conference on our platform.</p>
 
-                <form enctype="multipart/form-data">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-card">
+
+                <h3 class="text-center mb-1">Conference Registration</h3>
+                <p class="text-center mb-4 text-muted" style="font-size:14px;">
+                    Fill in your details to register your conference on our platform.
+                </p>
+<!-- SUCCESS MESSAGE -->
+<c:if test="${not empty successMsg}">
+    <div class="alert alert-success alert-dismissible fade show shadow-sm"
+         role="alert">
+        <strong>✔ Success!</strong> ${successMsg}
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+    </div>
+</c:if>
+
+<!-- ERROR MESSAGE -->
+<c:if test="${not empty errorMsg}">
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm"
+         role="alert">
+        <strong>❌ Error!</strong> ${errorMsg}
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+    </div>
+</c:if>
+
+                <!-- IMPORTANT -->
+                <form action="organizerDetails"
+                      method="post"
+                      enctype="multipart/form-data">
+
+                    <!-- Full Name -->
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control" placeholder="Enter your full name" required>
+                        <input type="text"
+                               class="form-control"
+                               name="fullName"
+                               required>
                     </div>
+
+                    <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Official Email</label>
-                        <input type="email" class="form-control" placeholder="Enter official email" required>
+                        <input type="email"
+                               class="form-control"
+                               name="officialEmail"
+                               required>
                     </div>
+
+                    <!-- Organization -->
                     <div class="mb-3">
                         <label class="form-label">Organization Name</label>
-                        <input type="text" class="form-control" placeholder="Company / Institution name" required>
+                        <input type="text"
+                               class="form-control"
+                               name="organizationName"
+                               required>
                     </div>
+
+                    <!-- Conference Title -->
                     <div class="mb-3">
                         <label class="form-label">Conference Title</label>
-                        <input type="text" class="form-control" placeholder="Conference title" required>
+                        <input type="text"
+                               class="form-control"
+                               name="conferenceTitle"
+                               required>
                     </div>
+
+                    <!-- Description -->
                     <div class="mb-3">
                         <label class="form-label">Conference Description</label>
-                        <textarea class="form-control" rows="3" placeholder="Brief about your conference" required></textarea>
+                        <textarea class="form-control"
+                                  rows="3"
+                                  name="conferenceDescription"
+                                  required></textarea>
                     </div>
+
+                    <!-- Date & Time -->
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Date</label>
-                            <input type="date" class="form-control" required>
+                            <input type="date"
+                                   class="form-control"
+                                   name="date"
+                                   required>
                         </div>
+
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Time</label>
-                            <input type="time" class="form-control" required>
+                            <input type="time"
+                                   class="form-control"
+                                   name="time"
+                                   required>
                         </div>
                     </div>
+
+                    <!-- Mode -->
                     <div class="mb-3">
                         <label class="form-label">Mode</label>
-                        <select class="form-select" required>
+                        <select class="form-select"
+                                name="mode"
+                                required>
                             <option value="">Select Mode</option>
-                            <option>Online</option>
-                            <option>Offline</option>
-                            <option>Hybrid</option>
+                            <option value="Online">Online</option>
+                            <option value="Offline">Offline</option>
+                            <option value="Hybrid">Hybrid</option>
                         </select>
                     </div>
+
+                    <!-- Venue / Link -->
                     <div class="mb-3">
                         <label class="form-label">Venue / Meeting Link</label>
-                        <input type="text" class="form-control" placeholder="Enter venue or meeting URL" required>
+                        <input type="text"
+                               class="form-control"
+                               name="venueOrMeetingLink"
+                               required>
                     </div>
+
+                    <!-- Banner -->
                     <div class="mb-3">
                         <label class="form-label">Upload Conference Banner</label>
-                        <input type="file" class="form-control" accept="image/*" required>
+                        <input type="file"
+                               class="form-control"
+                               name="conferenceBanner"
+                               accept="image/*"
+                               required>
                     </div>
+
+                    <!-- Promo Video -->
                     <div class="mb-3">
                         <label class="form-label">Upload Promo Video</label>
-                        <input type="file" class="form-control" accept="video/*">
+                        <input type="file"
+                               class="form-control"
+                               name="promoVideo"
+                               accept="video/*">
                     </div>
+
+    <!-- Confirm check box -->
+<div class="form-check mb-3">
+    <input class="form-check-input"
+           type="checkbox"
+           name="confirmed"
+           value="true"
+           required>
+
+    <label class="form-check-label">
+        I confirm that the above details are correct
+    </label>
+</div>
+
+                    <!-- Submit -->
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-modern text-white">
+                        <button type="submit"
+                                class="btn btn-modern text-white px-5">
                             Submit Conference
                         </button>
                     </div>
+
                 </form>
+
             </div>
         </div>
     </div>
 </div>
 </section>
+
 
 <!-- ===== CONTACT ===== -->
 <section id="contact">

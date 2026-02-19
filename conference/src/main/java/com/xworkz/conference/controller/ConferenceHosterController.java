@@ -8,20 +8,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/")
-public class ConferenceHoster {
+public class ConferenceHosterController {
 
-    public ConferenceHoster(){
+    public ConferenceHosterController(){
         System.out.println("conference hoster controller object created ..");
     }
 
-    @PostMapping
-    public ModelAndView saveOrganizerDetails(ModelAndView modelAndView, OrganizerRegistrationDTO organizerDTO){
+    @PostMapping("organizerDetails")
+    public ModelAndView saveOrganizerDetails( ModelAndView modelAndView, OrganizerRegistrationDTO organizerDTO){
 
         System.out.println("organizer dto :");
         System.out.println(organizerDTO);
 
         modelAndView.addObject("successMsg","Your Conference Successfully registered");
-        modelAndView.setViewName("index");
+        modelAndView.addObject("errorMsg","Your Conference not registered, please try again..");
+
+        modelAndView.setViewName("index.jsp");
         return  modelAndView;
     }
 }
