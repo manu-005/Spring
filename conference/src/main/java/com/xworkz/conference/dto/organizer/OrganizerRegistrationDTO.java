@@ -16,7 +16,7 @@ import java.time.LocalTime;
 public class OrganizerRegistrationDTO {
 
     //    @NotBlank(message = "please enter your full name")
-    @NotNull
+    @NotBlank(message = "Please enter your full name")
     @Size(min = 4, max = 10, message = "Full Name size must be between 4 and 10")
     private String fullName;
 

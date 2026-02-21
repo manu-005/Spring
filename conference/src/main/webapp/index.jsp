@@ -550,7 +550,7 @@ footer a:hover { color: #00c6ff; }
 <c:if test="${not empty errorMsg}">
     <div class="alert alert-danger alert-dismissible fade show shadow-sm"
          role="alert">
-        <strong>❌ Error!</strong> ${errorMsg} ${fullNameError}
+        <strong>❌ Error!</strong> ${errorMsg}
         <button type="button"
                 class="btn-close"
                 data-bs-dismiss="alert">
@@ -558,12 +558,15 @@ footer a:hover { color: #00c6ff; }
     </div>
 </c:if>
 
+<c:if test="${not empty fullNameError}">
+    <span style="color:red">${fullNameError}</span>
+</c:if>
                 <!-- IMPORTANT -->
                 <form action="organizerDetails"
                       method="post"
                       enctype="multipart/form-data">
 
-${fullNameError}
+
                     <!-- Full Name -->
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>

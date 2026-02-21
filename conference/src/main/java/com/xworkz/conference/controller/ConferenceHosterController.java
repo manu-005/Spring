@@ -41,6 +41,7 @@ public class ConferenceHosterController {
                 modelAndView.setViewName("index.jsp");
                 return modelAndView;
             }
+
         }
 //        conferenceHosterService.validAndSave(organizerDTO);
 
