@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,7 +15,9 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class OrganizerRegistrationDTO {
 
-    @NotBlank(message = "please enter your full name")
+//    @NotBlank(message = "please enter your full name")
+    @NotNull
+    @Size(min = 2, max = 10, message = "Full Name size must be between 2 and 10")
     private String fullName;
 
     @Email(message = "invalid formate")

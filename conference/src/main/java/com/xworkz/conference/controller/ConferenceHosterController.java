@@ -18,24 +18,35 @@ public class ConferenceHosterController {
     @Autowired
     ConferenceHosterService conferenceHosterService;
 
-    public ConferenceHosterController(){
+    public ConferenceHosterController() {
         System.out.println("conference hoster controller object created ..");
     }
 
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(ModelAndView modelAndView,
                                              @Valid OrganizerRegistrationDTO organizerDTO,
-                                             BindingResult bindingResult){
+                                             BindingResult bindingResult) {
 
         System.out.println("organizer dto :");
         System.out.println(organizerDTO);
 
+        if (bindingResult.hasErrors()) {
+
+            if (bindingResult.hasFieldErrors("fullName")) {
+                modelAndView.addObject("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
+
+                System.out.println("error :");
+                System.out.println(bindingResult.getFieldError("fullName").getDefaultMessage());
+                modelAndView.setViewName("index.jsp");
+                return modelAndView;
+            }
+        }
         conferenceHosterService.validAndSave(organizerDTO);
 
-        modelAndView.addObject("successMsg","Your Conference Successfully registered");
-        modelAndView.addObject("errorMsg","Your Conference not registered, please try again..");
+        modelAndView.addObject("successMsg", "Your Conference Successfully registered");
+        modelAndView.addObject("errorMsg", "Your Conference not registered, please try again..");
 
         modelAndView.setViewName("index.jsp");
-        return  modelAndView;
+        return modelAndView;
     }
 }

@@ -572,6 +572,10 @@ footer a:hover { color: #00c6ff; }
                                required>
                     </div>
 
+                     <div class="alert alert-danger alert-dismissible fade show shadow-sm"
+                             role="alert">${fullNameError}
+                             </div>
+${fullNameError}
                     <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Official Email</label>
