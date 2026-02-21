@@ -2,7 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -522,7 +522,7 @@ footer a:hover { color: #00c6ff; }
 <section id="register" style="background:#f0f4ff;">
 <div class="container">
     <div class="text-center mb-5">
-        <h2>Organizer <span>Registration</span></h2>
+        <h2>Organizer<span>Registration</span></h2>
         <div class="section-divider"></div>
     </div>
 
@@ -550,7 +550,7 @@ footer a:hover { color: #00c6ff; }
 <c:if test="${not empty errorMsg}">
     <div class="alert alert-danger alert-dismissible fade show shadow-sm"
          role="alert">
-        <strong>❌ Error!</strong> ${errorMsg}
+        <strong>❌ Error!</strong> ${errorMsg} ${fullNameError}
         <button type="button"
                 class="btn-close"
                 data-bs-dismiss="alert">
@@ -573,9 +573,7 @@ ${fullNameError}
                                required>
                     </div>
 
-                     <div class="alert alert-danger alert-dismissible fade show shadow-sm"
-                             role="alert">${fullNameError}
-                             </div>
+
 ${fullNameError}
                     <!-- Email -->
                     <div class="mb-3">

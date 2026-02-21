@@ -23,9 +23,8 @@ public class ConferenceHosterController {
     }
 
     @PostMapping("organizerDetails")
-    public ModelAndView saveOrganizerDetails(ModelAndView modelAndView,
-                                             @Valid OrganizerRegistrationDTO organizerDTO,
-                                             BindingResult bindingResult) {
+    public ModelAndView saveOrganizerDetails(@Valid OrganizerRegistrationDTO organizerDTO,
+                                             BindingResult bindingResult,ModelAndView modelAndView) {
 
         System.out.println("organizer dto :");
         System.out.println(organizerDTO);
