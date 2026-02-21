@@ -86,7 +86,6 @@ public class ConferenceHosterController {
 
                 modelAndView.addObject("venueOrMeetingLinkError",bindingResult.getFieldError("venueOrMeetingLink").getDefaultMessage());
             }
-
         }
 //        conferenceHosterService.validAndSave(organizerDTO);
 

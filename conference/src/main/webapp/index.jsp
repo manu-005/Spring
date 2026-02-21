@@ -535,7 +535,19 @@ footer a:hover { color: #00c6ff; }
                     Fill in your details to register your conference on our platform.
 
                     <c:if test="${not empty fullNameError}">
-                        <span style="color:red">${fullNameError} ${promoVideo}</span>
+                        <span style="color:red">${fullNameError} ${promoVideo}
+                         ${bannerError}
+                         ${promoVideoError}
+                         ${emailError}
+                         ${organizationNameError}
+                         ${conferenceTitleError}
+                         ${conferenceDescriptionError}
+                         ${dateError}
+                           ${timeError}
+                             ${modeError}
+                               ${venueOrMeetingLinkError}
+
+                        </span>
                     </c:if>
 
                 </p>
