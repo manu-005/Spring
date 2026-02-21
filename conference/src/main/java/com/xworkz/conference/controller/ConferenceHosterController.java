@@ -35,12 +35,10 @@ public class ConferenceHosterController {
 
             if (bindingResult.hasFieldErrors("fullName")) {
 
-                modelAndView.addObject("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
-
                 System.out.println("error :");
                 System.out.println(bindingResult.getFieldError("fullName").getDefaultMessage());
-                modelAndView.setViewName("index");
-                return modelAndView;
+                modelAndView.addObject("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
+
             }
 
         }

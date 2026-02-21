@@ -39,7 +39,6 @@ public class BatchController {
 
         MultipartFile batchImage = dto.getBatchImage();
 
-
         System.out.println(batchImage);
 
         System.out.println("adding new batch");
