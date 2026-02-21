@@ -32,6 +32,8 @@ public class ConferenceHosterController {
 
         if (bindingResult.hasErrors()) {
 
+            System.out.println("entered in binding results");
+
             if (bindingResult.hasFieldErrors("fullName")) {
                 modelAndView.addObject("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
 
@@ -41,7 +43,7 @@ public class ConferenceHosterController {
                 return modelAndView;
             }
         }
-        conferenceHosterService.validAndSave(organizerDTO);
+//        conferenceHosterService.validAndSave(organizerDTO);
 
         modelAndView.addObject("successMsg", "Your Conference Successfully registered");
         modelAndView.addObject("errorMsg", "Your Conference not registered, please try again..");

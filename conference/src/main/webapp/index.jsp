@@ -563,6 +563,7 @@ footer a:hover { color: #00c6ff; }
                       method="post"
                       enctype="multipart/form-data">
 
+${fullNameError}
                     <!-- Full Name -->
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
