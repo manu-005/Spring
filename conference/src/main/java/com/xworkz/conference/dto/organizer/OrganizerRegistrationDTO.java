@@ -15,39 +15,38 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class OrganizerRegistrationDTO {
 
-    //    @NotBlank(message = "please enter your full name")
     @NotBlank(message = "Please enter your full name")
     @Size(min = 4, max = 10, message = "Full Name size must be between 4 and 10")
     private String fullName;
 
-//    @Email(message = "invalid formate")
+    @Email(message = "invalid formate")
     private String officialEmail;
 
-//    @NotBlank(message = "please enter your organization")
+    @NotBlank(message = "please enter your organization")
     private String organizationName;
 
-//    @NotBlank(message = "please enter your conference title")
+    @NotBlank(message = "please enter your conference title")
     private String conferenceTitle;
 
-//    @NotBlank(message = "please enter conference description")
+    @NotBlank(message = "please enter conference description")
     private String conferenceDescription;
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-//    @DateTimeFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
 
-//    @NotBlank(message = "please select your conference mode")
+    @NotBlank(message = "please select your conference mode")
     private String mode; // Online / Offline / Hybrid
 
-//    @NotBlank(message = "please mention venue or link")
+    @NotBlank(message = "please mention venue or link")
     private String venueOrMeetingLink;
 
-//    @NotNull(message = "please select conference banner")
+    @NotNull(message = "please select conference banner")
     private MultipartFile conferenceBanner;
 
-//    @NotNull(message = "please select conference promo video")
+    @NotNull(message = "please select conference promo video")
     private MultipartFile promoVideo;
 
 }
