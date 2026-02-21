@@ -533,6 +533,11 @@ footer a:hover { color: #00c6ff; }
                 <h3 class="text-center mb-1">Conference Registration</h3>
                 <p class="text-center mb-4 text-muted" style="font-size:14px;">
                     Fill in your details to register your conference on our platform.
+
+                    <c:if test="${not empty fullNameError}">
+                        <span style="color:red">${fullNameError}</span>
+                    </c:if>
+
                 </p>
 <!-- SUCCESS MESSAGE -->
 <c:if test="${not empty successMsg}">
@@ -558,9 +563,7 @@ footer a:hover { color: #00c6ff; }
     </div>
 </c:if>
 
-<c:if test="${not empty fullNameError}">
-    <span style="color:red">${fullNameError}</span>
-</c:if>
+
                 <!-- IMPORTANT -->
                 <form action="organizerDetails"
                       method="post"

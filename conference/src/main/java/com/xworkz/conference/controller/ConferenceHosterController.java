@@ -34,11 +34,12 @@ public class ConferenceHosterController {
             System.out.println("entered in binding results");
 
             if (bindingResult.hasFieldErrors("fullName")) {
+
                 modelAndView.addObject("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
 
                 System.out.println("error :");
                 System.out.println(bindingResult.getFieldError("fullName").getDefaultMessage());
-                modelAndView.setViewName("index.jsp");
+                modelAndView.setViewName("index");
                 return modelAndView;
             }
 
@@ -48,7 +49,7 @@ public class ConferenceHosterController {
         modelAndView.addObject("successMsg", "Your Conference Successfully registered");
         modelAndView.addObject("errorMsg", "Your Conference not registered, please try again..");
 
-        modelAndView.setViewName("index.jsp");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 }
