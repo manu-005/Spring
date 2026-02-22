@@ -49,7 +49,7 @@ public class BatchController {
                 modelAndView.addObject("batchImageError", "Please upload batch logo");
 
             }
-            System.out.println("enteredd-----------");
+            System.out.println("entered-----------");
             if (bindingResult.hasFieldErrors("batchName")) {
 
                 modelAndView.addObject("batchNameError", bindingResult.getFieldError("batchName").getDefaultMessage());

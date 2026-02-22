@@ -24,27 +24,27 @@ public class ConferenceHosterController {
     }
 
     @PostMapping("organizerDetails")
-    public ModelAndView saveOrganizerDetails(@Valid OrganizerRegistrationDTO organizerDTO,
-                                             BindingResult bindingResult,ModelAndView modelAndView) {
+    public ModelAndView saveOrganizerDetails(@Valid OrganizerRegistrationDTO organizerDTO,BindingResult bindingResult,ModelAndView modelAndView) {
 
         System.out.println("organizer dto :");
         System.out.println(organizerDTO);
 
         MultipartFile conferenceBanner = organizerDTO.getConferenceBanner();
-        MultipartFile promoVideo = organizerDTO.getPromoVideo();
+//        MultipartFile promoVideo = organizerDTO.getPromoVideo();
 
         System.out.println("banner :"+conferenceBanner);
         if (bindingResult.hasErrors()) {
 
             if (conferenceBanner == null || conferenceBanner.isEmpty()){
-
-                modelAndView.addObject("bannerError",bindingResult.getFieldError("conferenceBanner").getDefaultMessage());
+                System.out.println("banner");
+                modelAndView.addObject("bannerError","please upload banner");
             }
 
-            if (promoVideo == null || promoVideo.isEmpty()){
-
-                modelAndView.addObject("promoVideoError",bindingResult.getFieldError("promoVideo").getDefaultMessage());
-            }
+//            if (promoVideo == null || promoVideo.isEmpty()){
+//
+//                System.out.println("promo video");
+//                modelAndView.addObject("promoVideoError","please upload promo video");
+//            }
 
             System.out.println("entered in binding results");
 
@@ -88,10 +88,11 @@ public class ConferenceHosterController {
             }
         }
 //        conferenceHosterService.validAndSave(organizerDTO);
-
-        modelAndView.addObject("successMsg", "Your Conference Successfully registered");
-        modelAndView.addObject("errorMsg", "Your Conference not registered, please try again..");
-
+else {
+            System.out.println("else part");
+            modelAndView.addObject("successMsg", "Your Conference Successfully registered");
+            modelAndView.addObject("errorMsg", "Your Conference not registered, please try again..");
+        }
         modelAndView.setViewName("index");
         return modelAndView;
     }

@@ -534,8 +534,7 @@ footer a:hover { color: #00c6ff; }
                 <p class="text-center mb-4 text-muted" style="font-size:14px;">
                     Fill in your details to register your conference on our platform.
 
-                    <c:if test="${not empty fullNameError}">
-                        <span style="color:red">${fullNameError} ${promoVideo}
+ ${promoVideo}
                          ${bannerError}
                          ${promoVideoError}
                          ${emailError}
@@ -547,6 +546,8 @@ footer a:hover { color: #00c6ff; }
                              ${modeError}
                                ${venueOrMeetingLinkError}
 
+                    <c:if test="${not empty fullNameError}">
+                        <span style="color:red">${fullNameError}
                         </span>
                     </c:if>
 
@@ -591,8 +592,6 @@ footer a:hover { color: #00c6ff; }
                                required>
                     </div>
 
-
-${fullNameError}
                     <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Official Email</label>
