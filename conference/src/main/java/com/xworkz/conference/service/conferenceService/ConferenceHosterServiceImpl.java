@@ -1,10 +1,13 @@
 package com.xworkz.conference.service.conferenceService;
 
 import com.xworkz.conference.dao.bannerDAO.ConferenceBannerAndPromoVideoDAO;
+import com.xworkz.conference.dao.conferenceHosterDAO.ConferenceHosterDAO;
 import com.xworkz.conference.dto.organizer.OrganizerRegistrationDTO;
 import com.xworkz.conference.entity.bannerEntity.ConferenceBannerEntity;
+import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.promoVideoEntity.ConferencePromoVideoEntity;
 import lombok.SneakyThrows;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +18,9 @@ import java.nio.file.Paths;
 
 @Service
 public class ConferenceHosterServiceImpl implements ConferenceHosterService {
+
+    @Autowired
+    ConferenceHosterDAO conferenceHosterDAO;
 
     @Autowired
     ConferenceBannerAndPromoVideoDAO conferenceBannerAndPromoVideoDAO;
@@ -63,8 +69,21 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         //save conference promo video details db
         ConferencePromoVideoEntity savedPromoVideoEntity = conferenceBannerAndPromoVideoDAO.svaePromoVideo(promoVideoEntity);
 
+        ConferenceHosterEntity conferenceHosterEntity = new ConferenceHosterEntity();
 
+        BeanUtils.copyProperties(organizerDTO, conferenceHosterEntity);
 
+        conferenceHosterEntity.setBannerPath(savedBanner.getBannerPath());
+        conferenceHosterEntity.setPromoVideoPath(savedPromoVideoEntity.getPromoVideoPath());
+
+        if (savedBanner != null && savedPromoVideoEntity != null) {
+
+            System.out.println("saved banner :" + savedBanner);
+            System.out.println("saved promo video :" + savedPromoVideoEntity);
+            System.out.println("hoster entity :" + conferenceHosterEntity);
+
+            return conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
+        }
         return false;
     }
 }
