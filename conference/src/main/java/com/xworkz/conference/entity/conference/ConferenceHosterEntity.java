@@ -16,7 +16,7 @@ public class ConferenceHosterEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long conferenceId;
 
     private String fullName;
 

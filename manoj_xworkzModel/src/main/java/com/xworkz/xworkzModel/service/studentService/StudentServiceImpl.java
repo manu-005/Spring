@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
 
     @SneakyThrows
     @Override
-    public boolean saveStudent(StudentDTO studentDTO, Integer batchId) {
+    public boolean   saveStudent(StudentDTO studentDTO, Integer batchId) {
 
         System.out.println("service saving student");
 
@@ -60,7 +60,7 @@ public class StudentServiceImpl implements StudentService {
 
         FileEntity savedFile = fileDao.save(fileEntity);
 
-        // 3️⃣ Save student
+        //  Save student
         StudentEntity entity = new StudentEntity();
         BeanUtils.copyProperties(studentDTO, entity, "profileImage", "profileImagePath");
 
@@ -68,7 +68,6 @@ public class StudentServiceImpl implements StudentService {
         entity.setProfileImagePath(savedFile.getFilePath());   // store image path
 
 //
-
         System.out.println("student saved successfully: " + entity);
         return studentDao.saveStudent(entity);
     }
