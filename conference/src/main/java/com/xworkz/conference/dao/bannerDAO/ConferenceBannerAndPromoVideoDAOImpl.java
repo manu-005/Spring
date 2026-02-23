@@ -1,24 +1,38 @@
 package com.xworkz.conference.dao.bannerDAO;
 
 import com.xworkz.conference.entity.bannerEntity.ConferenceBannerEntity;
+import com.xworkz.conference.entity.promoVideoEntity.ConferencePromoVideoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class ConferenceBannerDAOImpl implements ConferenceBannerDAO{
+public class ConferenceBannerAndPromoVideoDAOImpl implements ConferenceBannerAndPromoVideoDAO {
 
     @Autowired
     EntityManagerFactory factory;
+
     @Override
     public ConferenceBannerEntity saveBanner(ConferenceBannerEntity bannerEntity) {
 
         EntityManager manager =factory.createEntityManager();
         manager.getTransaction().begin();
-        manager.persist(bannerEntity);
+//        manager.persist(bannerEntity);
         manager.getTransaction().commit();
         System.out.println("saved banner details");
 
         return bannerEntity;
+    }
+
+    @Override
+    public ConferencePromoVideoEntity svaePromoVideo(ConferencePromoVideoEntity promoVideoEntity) {
+
+        EntityManager manager =factory.createEntityManager();
+        manager.getTransaction().begin();
+//        manager.persist(promoVideoEntity);
+        manager.getTransaction().commit();
+        System.out.println("saved promo video details");
+
+        return promoVideoEntity;
     }
 }
