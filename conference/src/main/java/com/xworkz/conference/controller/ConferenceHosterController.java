@@ -24,76 +24,56 @@ public class ConferenceHosterController {
     }
 
     @PostMapping("organizerDetails")
-    public ModelAndView saveOrganizerDetails(@Valid OrganizerRegistrationDTO organizerDTO,BindingResult bindingResult,ModelAndView modelAndView) {
+    public ModelAndView saveOrganizerDetails(
+            @Valid OrganizerRegistrationDTO organizerDTO,
+            BindingResult bindingResult) {
 
-        System.out.println("organizer dto :");
-        System.out.println(organizerDTO);
-
-        MultipartFile conferenceBanner = organizerDTO.getConferenceBanner();
-//        MultipartFile promoVideo = organizerDTO.getPromoVideo();
-
-        System.out.println("banner :"+conferenceBanner);
-        if (bindingResult.hasErrors()) {
-
-            if (conferenceBanner == null || conferenceBanner.isEmpty()){
-                System.out.println("banner");
-                modelAndView.addObject("bannerError","please upload banner");
-            }
-
-//            if (promoVideo == null || promoVideo.isEmpty()){
-//
-//                System.out.println("promo video");
-//                modelAndView.addObject("promoVideoError","please upload promo video");
-//            }
-
-            System.out.println("entered in binding results");
-
-            if (bindingResult.hasFieldErrors("fullName")) {
-
-                System.out.println("name error :");
-                System.out.println(bindingResult.getFieldError("fullName").getDefaultMessage());
-                modelAndView.addObject("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("officialEmail")){
-
-                modelAndView.addObject("emailError",bindingResult.getFieldError("officialEmail").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("organizationName")){
-
-                modelAndView.addObject("organizationNameError",bindingResult.getFieldError("organizationName").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("conferenceTitle")){
-
-                modelAndView.addObject("conferenceTitleError",bindingResult.getFieldError("conferenceTitle").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("conferenceDescription")){
-
-                modelAndView.addObject("conferenceDescriptionError",bindingResult.getFieldError("conferenceDescription").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("date")){
-
-                modelAndView.addObject("dateError",bindingResult.getFieldError("date").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("time")){
-
-                modelAndView.addObject("timeError",bindingResult.getFieldError("time").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("mode")){
-
-                modelAndView.addObject("modeError",bindingResult.getFieldError("mode").getDefaultMessage());
-            }
-            if (bindingResult.hasFieldErrors("venueOrMeetingLink")){
-
-                modelAndView.addObject("venueOrMeetingLinkError",bindingResult.getFieldError("venueOrMeetingLink").getDefaultMessage());
-            }
-        }
-//        conferenceHosterService.validAndSave(organizerDTO);
-else {
-            System.out.println("else part");
-            modelAndView.addObject("successMsg", "Your Conference Successfully registered");
-            modelAndView.addObject("errorMsg", "Your Conference not registered, please try again..");
-        }
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
+
+        MultipartFile banner = organizerDTO.getConferenceBanner();
+        MultipartFile promoVideo = organizerDTO.getPromoVideo();
+
+        System.out.println("dto :"+organizerDTO);
+        System.out.println("checking validation..");
+
+        // Check validation errors
+        if (bindingResult.hasErrors() || banner == null || banner.isEmpty()) {
+
+            System.out.println("entered has errors");
+            // Banner validation
+            if (banner == null || banner.isEmpty()) {
+                modelAndView.addObject("conferenceBannerError", "Please upload conference banner");
+            }
+
+            // Promo video validation (optional – remove if not mandatory)
+            if (promoVideo == null || promoVideo.isEmpty()) {
+                modelAndView.addObject("promoVideoError", "Please upload promo video");
+            }
+
+            // Field errors automatically
+            bindingResult.getFieldErrors().forEach(error -> {
+                String field = error.getField();
+                String message = error.getDefaultMessage();
+
+                System.out.println(field+"  :error:  message :"+message);
+
+                modelAndView.addObject(field + "Error", message);
+            });
+
+            return modelAndView;
+        }
+
+        // If no errors → Save data
+//        boolean saved = conferenceHosterService.validAndSave(organizerDTO);
+        System.out.println("saving");
+
+        if (true) {
+            modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
+        } else {
+            modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
+        }
+
         return modelAndView;
     }
 }
