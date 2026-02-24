@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrganizerRegistrationDTO {
+public class ConferenceHosterDTO {
 
     @NotBlank(message = "Please enter your full name")
     @Size(min = 4, max = 20, message = "Full Name size must be between 4 and 20")

@@ -2,11 +2,12 @@ package com.xworkz.conference.service.conferenceService;
 
 import com.xworkz.conference.dao.bannerDAO.ConferenceBannerAndPromoVideoDAO;
 import com.xworkz.conference.dao.conferenceHosterDAO.ConferenceHosterDAO;
-import com.xworkz.conference.dto.organizer.OrganizerRegistrationDTO;
+import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.entity.bannerEntity.ConferenceBannerEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.promoVideoEntity.ConferencePromoVideoEntity;
 import lombok.SneakyThrows;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ConferenceHosterServiceImpl implements ConferenceHosterService {
@@ -27,7 +30,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
     @SneakyThrows
     @Override
-    public boolean validAndSave(OrganizerRegistrationDTO organizerDTO) {
+    public boolean validAndSave(ConferenceHosterDTO organizerDTO) {
         System.out.println("service  started.. valid and save");
         System.out.println("service dto:" + organizerDTO);
 
@@ -85,5 +88,26 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
             return conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
         }
         return false;
+    }
+
+    @Override
+    public List<ConferenceHosterDTO> getAllConferenceHoster() {
+
+        List<ConferenceHosterEntity> allEntityList =  conferenceHosterDAO.getAllConferenceHoster();
+
+        List<ConferenceHosterDTO> dtoList = new ArrayList<>();
+
+        if (allEntityList != null && !allEntityList.isEmpty()) {
+
+            for (ConferenceHosterEntity entity : allEntityList) {
+
+                ConferenceHosterDTO dto = new ConferenceHosterDTO();
+
+                BeanUtils.copyProperties(entity, dto);
+                dtoList.add(dto);
+            }
+        }
+
+        return dtoList;
     }
 }

@@ -425,6 +425,7 @@ footer a:hover { color: #00c6ff; }
             <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
             <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
             <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+              <li class="nav-item"><a class="nav-link" href="">Admin login</a></li>
         </ul>
     </div>
 </div>
@@ -486,6 +487,7 @@ footer a:hover { color: #00c6ff; }
                 <div class="event-badge">Technology</div>
                 <h4>Tech Summit 2026</h4>
                 <p>Innovation &amp; leadership conference for global technology leaders.</p>
+                ${allDTOList}
                 <div class="event-meta">
                     <i class="bi bi-calendar3"></i>March 15, 2026 &nbsp;·&nbsp;
                     <i class="bi bi-geo-alt"></i>Bengaluru
@@ -497,6 +499,10 @@ footer a:hover { color: #00c6ff; }
                 <div class="event-badge">Artificial Intelligence</div>
                 <h4>AI Global Forum</h4>
                 <p>Exploring the future of artificial intelligence and its global impact.</p>
+
+
+              <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
+
                 <div class="event-meta">
                     <i class="bi bi-calendar3"></i>April 22, 2026 &nbsp;·&nbsp;
                     <i class="bi bi-camera-video"></i>Online

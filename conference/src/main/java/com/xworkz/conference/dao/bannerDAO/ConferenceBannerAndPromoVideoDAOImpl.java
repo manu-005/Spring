@@ -19,7 +19,7 @@ public class ConferenceBannerAndPromoVideoDAOImpl implements ConferenceBannerAnd
 
         EntityManager manager =factory.createEntityManager();
         manager.getTransaction().begin();
-//        manager.persist(bannerEntity);
+        manager.persist(bannerEntity);
         manager.getTransaction().commit();
         System.out.println("saved banner details");
 
@@ -31,7 +31,7 @@ public class ConferenceBannerAndPromoVideoDAOImpl implements ConferenceBannerAnd
 
         EntityManager manager =factory.createEntityManager();
         manager.getTransaction().begin();
-//        manager.persist(promoVideoEntity);
+        manager.persist(promoVideoEntity);
         manager.getTransaction().commit();
         System.out.println("saved promo video details");
 

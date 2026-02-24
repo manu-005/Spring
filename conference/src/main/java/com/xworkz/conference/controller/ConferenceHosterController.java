@@ -1,16 +1,18 @@
 package com.xworkz.conference.controller;
 
-import com.xworkz.conference.dto.organizer.OrganizerRegistrationDTO;
+import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -25,11 +27,20 @@ public class ConferenceHosterController {
 
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
-            @Valid OrganizerRegistrationDTO organizerDTO,
+            @Valid ConferenceHosterDTO organizerDTO,
             BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
+
+      List<ConferenceHosterDTO> allOrganizeHoster =  conferenceHosterService.getAllConferenceHoster();
+
+      for(ConferenceHosterDTO dto : allOrganizeHoster) {
+          System.out.println("all  hosters :" + dto);
+      }
+
+      modelAndView.addObject("allDTOList",allOrganizeHoster);
+
 
         MultipartFile banner = organizerDTO.getConferenceBanner();
         MultipartFile promoVideo = organizerDTO.getPromoVideo();
@@ -75,5 +86,17 @@ public class ConferenceHosterController {
         }
 
         return modelAndView;
+    }
+
+    @GetMapping("fetchBanner")
+    public void fetchBanner(){
+
+        System.out.println("entered in fetch banner");
+
+      List<ConferenceHosterDTO> allHosterDTO =  conferenceHosterService.getAllConferenceHoster();
+
+        for(ConferenceHosterDTO dto : allHosterDTO) {
+            System.out.println("all iin fetch images hosters :" + dto);
+        }
     }
 }

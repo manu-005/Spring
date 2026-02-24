@@ -1,10 +1,14 @@
 package com.xworkz.conference.service.conferenceService;
 
 
-import com.xworkz.conference.dto.organizer.OrganizerRegistrationDTO;
+import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+
+import java.util.List;
 
 public interface ConferenceHosterService {
 
 
-    boolean validAndSave(OrganizerRegistrationDTO organizerDTO);
+    boolean validAndSave(ConferenceHosterDTO organizerDTO);
+
+    List<ConferenceHosterDTO> getAllConferenceHoster();
 }

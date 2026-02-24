@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
@@ -19,11 +22,37 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
        EntityManager manager = managerFactory.createEntityManager();
 
        manager.getTransaction().begin();
-//       manager.persist(conferenceHosterEntity);
+       manager.persist(conferenceHosterEntity);
 
         System.out.println("saved hoster in dao :"+conferenceHosterEntity);
        manager.getTransaction().commit();
 
         return true;
+    }
+
+    @Override
+    public List<ConferenceHosterEntity> getAllConferenceHoster() {
+
+        EntityManager manager = null;
+
+        try {
+            manager = managerFactory.createEntityManager();
+
+            Query query =  manager.createQuery(  "select hoster from ConferenceHosterEntity hoster",
+                            ConferenceHosterEntity.class
+                    );
+
+            List<ConferenceHosterEntity> listOfHosterEntity = query.getResultList();  // return actual list
+
+            return listOfHosterEntity;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();   // avoid NullPointerException
+        } finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
     }
 }
