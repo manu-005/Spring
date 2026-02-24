@@ -50,6 +50,8 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         bannerEntity.setBannerType(bannerImage.getContentType());
         bannerEntity.setBannerPath(bannerPath.toString());
         bannerEntity.setBannerSize(bannerImage.getSize());
+        System.out.println("service banner details :"+bannerEntity);
+
         //save conference banner details db
         ConferenceBannerEntity savedBanner = conferenceBannerAndPromoVideoDAO.saveBanner(bannerEntity);
         System.out.println("banner path saved : " + bannerPath);

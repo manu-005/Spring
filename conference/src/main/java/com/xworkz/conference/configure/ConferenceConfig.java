@@ -80,7 +80,7 @@ public class ConferenceConfig implements WebMvcConfigurer {
         LocalContainerEntityManagerFactoryBean localEntity = new LocalContainerEntityManagerFactoryBean();
 
         localEntity.setDataSource(getDBProperties());
-        localEntity.setPackagesToScan("com.xworkz.conference.model");
+        localEntity.setPackagesToScan("com.xworkz.conference.entity");
         localEntity.setJpaProperties(getproperties());
         localEntity.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 

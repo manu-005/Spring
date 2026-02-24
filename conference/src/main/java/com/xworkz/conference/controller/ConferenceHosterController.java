@@ -33,13 +33,13 @@ public class ConferenceHosterController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
 
-      List<ConferenceHosterDTO> allOrganizeHoster =  conferenceHosterService.getAllConferenceHoster();
+//      List<ConferenceHosterDTO> allOrganizeHoster =  conferenceHosterService.getAllConferenceHoster();
+//
+//      for(ConferenceHosterDTO dto : allOrganizeHoster) {
+//          System.out.println("all  hosters :" + dto);
+//      }
 
-      for(ConferenceHosterDTO dto : allOrganizeHoster) {
-          System.out.println("all  hosters :" + dto);
-      }
-
-      modelAndView.addObject("allDTOList",allOrganizeHoster);
+//      modelAndView.addObject("allDTOList",allOrganizeHoster);
 
 
         MultipartFile banner = organizerDTO.getConferenceBanner();
