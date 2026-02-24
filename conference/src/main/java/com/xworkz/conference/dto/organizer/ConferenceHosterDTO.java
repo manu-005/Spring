@@ -63,7 +63,7 @@ public class ConferenceHosterDTO {
 
     // ⚠ File fields (validated manually in controller using .isEmpty())
     private MultipartFile conferenceBanner;
-    private String conferenceBannerPath;
+    private String bannerPath;
 
     private MultipartFile promoVideo;
     private String promoVideoPath;

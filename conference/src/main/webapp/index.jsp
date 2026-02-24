@@ -475,6 +475,11 @@ footer a:hover { color: #00c6ff; }
 </section>
 
 <!-- ===== EVENTS ===== -->
+<c:forEach var="item" items="${dtoList}">
+    ${item} <br>
+
+              <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
+              </c:forEach>
 <section id="events">
 <div class="container">
     <div class="text-center mb-5" data-aos="fade-up">
@@ -501,7 +506,6 @@ footer a:hover { color: #00c6ff; }
                 <p>Exploring the future of artificial intelligence and its global impact.</p>
 
 
-              <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
 
                 <div class="event-meta">
                     <i class="bi bi-calendar3"></i>April 22, 2026 &nbsp;·&nbsp;

@@ -2,6 +2,8 @@ package com.xworkz.conference.controller;
 
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
+import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,7 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 @Controller
@@ -87,16 +95,30 @@ public class ConferenceHosterController {
 
         return modelAndView;
     }
-
+@SneakyThrows
     @GetMapping("fetchBanner")
-    public void fetchBanner(){
+    public void fetchBanner(HttpServletResponse response,ModelAndView modelAndView){
 
         System.out.println("entered in fetch banner");
 
       List<ConferenceHosterDTO> allHosterDTO =  conferenceHosterService.getAllConferenceHoster();
 
-        for(ConferenceHosterDTO dto : allHosterDTO) {
-            System.out.println("all iin fetch images hosters :" + dto);
+    modelAndView.addObject("dtoList",allHosterDTO);
+    modelAndView.setViewName("index");
+
+    for(ConferenceHosterDTO dto : allHosterDTO) {
+            String bannerPath =  dto.getBannerPath();
+            String promoVideoPath = dto.getPromoVideoPath();
+
+            System.out.println("all iin fetch images banner path :" + dto.getBannerPath());
+            System.out.println("all iin fetch images promo video path :" + dto.getPromoVideoPath());
+
+            response.setContentType("image/jpeg");
+            File file = new File(bannerPath);
+            InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+            ServletOutputStream servletOutputStream = response.getOutputStream();
+            IOUtils.copy(inputStream, servletOutputStream);
+            response.flushBuffer();
         }
     }
 }
