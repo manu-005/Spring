@@ -488,8 +488,7 @@ pageEncoding="UTF-8"%>
 
 <!-- ===== EVENTS ===== -->
 
-<!-- <img src="fetchBanner?imagePath=${dto.imagepath}" alt="banner Logo" width="500px" height="500px"> -->
-<img src="fetchBanner">
+<img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
 
 <c:forEach var="item" items="${dtoList}">
     ${item} <br>
@@ -671,6 +670,14 @@ pageEncoding="UTF-8"%>
                             <small class="text-danger">${venueOrMeetingLinkError}</small>
                         </div>
 
+                        <div class="mb-3">
+                            <label>Delegate Emails</label>
+                            <input type="text"
+                                   name="delegateEmails"
+                                   class="form-control"
+                                   placeholder="Enter emails separated by comma">
+                        </div>
+
                         <!-- Banner -->
                         <div class="mb-3">
                             <label class="form-label">Upload Conference Banner</label>
@@ -769,6 +776,9 @@ pageEncoding="UTF-8"%>
 
     window.onload = function(){
 console.log("banner");
+
+
+
     }
 </script>
 

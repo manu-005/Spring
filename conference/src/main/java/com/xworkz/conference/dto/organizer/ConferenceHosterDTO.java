@@ -61,6 +61,8 @@ public class ConferenceHosterDTO {
     @Size(min = 4, max = 500, message = "Venue/Meeting link size must be between 4 and 500")
     private String venueOrMeetingLink;
 
+    @NotBlank(message = "Please enter delegates emails")
+    private String delegateEmails;
     // ⚠ File fields (validated manually in controller using .isEmpty())
     private MultipartFile conferenceBanner;
     private String bannerPath;
