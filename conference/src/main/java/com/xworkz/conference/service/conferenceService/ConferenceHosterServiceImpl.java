@@ -112,4 +112,12 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
         return dtoList;
     }
+
+    @Override
+    public boolean saveGeligatesEmail(String email) {
+
+        DeligatesEmailEntity
+
+        return false;
+    }
 }

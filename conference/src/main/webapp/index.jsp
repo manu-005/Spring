@@ -673,7 +673,7 @@ pageEncoding="UTF-8"%>
                         <div class="mb-3">
                             <label>Delegate Emails</label>
                             <input type="text"
-                                   name="delegateEmails"
+                                   name="tpoEmails"
                                    class="form-control"
                                    placeholder="Enter emails separated by comma">
                         </div>

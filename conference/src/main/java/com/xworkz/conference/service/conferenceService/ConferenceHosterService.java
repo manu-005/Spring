@@ -11,4 +11,6 @@ public interface ConferenceHosterService {
     boolean validAndSave(ConferenceHosterDTO organizerDTO);
 
     List<ConferenceHosterDTO> getAllConferenceHoster();
+
+    boolean saveGeligatesEmail(String email);
 }

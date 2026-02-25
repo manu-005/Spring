@@ -49,7 +49,7 @@ public class ConferenceHosterController {
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
             @Valid ConferenceHosterDTO organizerDTO,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,String tpoEmails) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
@@ -95,12 +95,13 @@ public class ConferenceHosterController {
             return modelAndView;
         }
 
-        // If no errors → Save data
-        String[] emailArray = organizerDTO.getDelegateEmails().split(",");
+
+        String[] emailArray = tpoEmails.split(",");
         for(String email : emailArray) {
             System.out.println("======"+email.trim());
-
+            conferenceHosterService.saveGeligatesEmail(email.trim());
         }
+        // If no errors → Save data
 //        boolean saved = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
