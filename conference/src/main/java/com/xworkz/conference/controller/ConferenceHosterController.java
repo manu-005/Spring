@@ -33,6 +33,19 @@ public class ConferenceHosterController {
         System.out.println("conference hoster controller object created ..");
     }
 
+    @GetMapping("index")
+    public ModelAndView loadIndex(ModelAndView model) {
+
+        System.out.println("index  loading in controller :........");
+        List<ConferenceHosterDTO> list =
+                conferenceHosterService.getAllConferenceHoster();
+
+        model.addObject("dtoList", list);
+        System.out.println(list);
+        model.setViewName("index");
+        return model;   // index.jsp
+    }
+
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
             @Valid ConferenceHosterDTO organizerDTO,
@@ -49,11 +62,10 @@ public class ConferenceHosterController {
 
 //      modelAndView.addObject("allDTOList",allOrganizeHoster);
 
-
         MultipartFile banner = organizerDTO.getConferenceBanner();
         MultipartFile promoVideo = organizerDTO.getPromoVideo();
 
-        System.out.println("dto :"+organizerDTO);
+        System.out.println("dto :" + organizerDTO);
         System.out.println("checking validation..");
 
         // Check validation errors
@@ -75,7 +87,7 @@ public class ConferenceHosterController {
                 String field = error.getField();
                 String message = error.getDefaultMessage();
 
-                System.out.println(field+"  :error:  message :"+message);
+                System.out.println(field + "  :error:  message :" + message);
 
                 modelAndView.addObject(field + "Error", message);
             });
@@ -95,19 +107,21 @@ public class ConferenceHosterController {
 
         return modelAndView;
     }
-@SneakyThrows
+
+    @SneakyThrows
     @GetMapping("fetchBanner")
-    public void fetchBanner(HttpServletResponse response,ModelAndView modelAndView){
+    public void fetchBanner(HttpServletResponse response,String imagePath, ModelAndView modelAndView) {
 
         System.out.println("entered in fetch banner");
 
-      List<ConferenceHosterDTO> allHosterDTO =  conferenceHosterService.getAllConferenceHoster();
+        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
 
-    modelAndView.addObject("dtoList",allHosterDTO);
-    modelAndView.setViewName("index");
+        modelAndView.setViewName("index");
+        modelAndView.addObject("dtoList", allHosterDTO);
 
-    for(ConferenceHosterDTO dto : allHosterDTO) {
-            String bannerPath =  dto.getBannerPath();
+
+        for (ConferenceHosterDTO dto : allHosterDTO) {
+            String bannerPath = dto.getBannerPath();
             String promoVideoPath = dto.getPromoVideoPath();
 
             System.out.println("all iin fetch images banner path :" + dto.getBannerPath());
@@ -120,5 +134,10 @@ public class ConferenceHosterController {
             IOUtils.copy(inputStream, servletOutputStream);
             response.flushBuffer();
         }
+
     }
+
+
+    //    @RequestMapping(apic)
+    //    full data retuen
 }
