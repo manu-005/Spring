@@ -94,18 +94,21 @@ public class ConferenceHosterController {
 
             return modelAndView;
         }
-
-
-        String[] emailArray = tpoEmails.split(",");
-        for(String email : emailArray) {
-            System.out.println("======"+email.trim());
-            conferenceHosterService.saveGeligatesEmail(email.trim());
-        }
         // If no errors → Save data
-//        boolean saved = conferenceHosterService.validAndSave(organizerDTO);
+
+        boolean saved = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
-        if (true) {
+        if (saved) {
+
+            String[] emailArray = tpoEmails.split(",");
+
+            conferenceHosterService.saveGeligatesEmail(emailArray);
+
+            for(String email : emailArray) {
+                System.out.println("======"+email.trim());
+            }
+
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
         } else {
             modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");

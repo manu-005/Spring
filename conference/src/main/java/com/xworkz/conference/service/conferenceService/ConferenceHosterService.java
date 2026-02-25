@@ -12,5 +12,5 @@ public interface ConferenceHosterService {
 
     List<ConferenceHosterDTO> getAllConferenceHoster();
 
-    boolean saveGeligatesEmail(String email);
+    boolean saveGeligatesEmail(String[] email);
 }

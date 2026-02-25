@@ -22,7 +22,11 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
        EntityManager manager = managerFactory.createEntityManager();
 
        manager.getTransaction().begin();
-       manager.persist(conferenceHosterEntity);
+
+        System.out.println("before saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+
+        manager.persist(conferenceHosterEntity);
+        System.out.println("after saving hoster ID :"+conferenceHosterEntity.getConferenceId());
 
         System.out.println("saved hoster in dao :"+conferenceHosterEntity);
        manager.getTransaction().commit();

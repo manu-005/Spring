@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -114,9 +115,9 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     }
 
     @Override
-    public boolean saveGeligatesEmail(String email) {
-
-        DeligatesEmailEntity
+    public boolean saveGeligatesEmail(String[] emailList) {
+        System.out.println("service for delegates  :==");
+        System.out.println(Arrays.toString(emailList));
 
         return false;
     }
