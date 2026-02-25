@@ -2,15 +2,17 @@ package com.xworkz.conference.service.conferenceService;
 
 
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
+import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 
 import java.util.List;
 
 public interface ConferenceHosterService {
 
 
-    boolean validAndSave(ConferenceHosterDTO organizerDTO);
+    ConferenceHosterDTO validAndSave(ConferenceHosterDTO organizerDTO);
 
     List<ConferenceHosterDTO> getAllConferenceHoster();
 
-    boolean saveGeligatesEmail(String[] email);
+    boolean saveDelegatesEmail(String[] delegatesEmails,ConferenceHosterDTO savedConferenceDTO);
 }

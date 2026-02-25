@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Collections;
 import java.util.List;
@@ -17,21 +18,20 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
     EntityManagerFactory managerFactory;
 
     @Override
-    public boolean saveConferenceHoster(ConferenceHosterEntity conferenceHosterEntity) {
+    public ConferenceHosterEntity saveConferenceHoster(ConferenceHosterEntity conferenceHosterEntity) {
 
        EntityManager manager = managerFactory.createEntityManager();
 
        manager.getTransaction().begin();
 
-        System.out.println("before saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+//        System.out.println("before saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+//
+////        manager.persist(conferenceHosterEntity);
+//        System.out.println("after saving hoster ID :"+conferenceHosterEntity.getConferenceId());
 
-        manager.persist(conferenceHosterEntity);
-        System.out.println("after saving hoster ID :"+conferenceHosterEntity.getConferenceId());
-
-        System.out.println("saved hoster in dao :"+conferenceHosterEntity);
        manager.getTransaction().commit();
 
-        return true;
+        return conferenceHosterEntity;
     }
 
     @Override
@@ -58,5 +58,16 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
                 manager.close();
             }
         }
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public ConferenceHosterEntity findById(Long conferenceId) {
+
+        ConferenceHosterEntity fetchedEntity = entityManager.find(ConferenceHosterEntity.class,conferenceId);
+
+        return fetchedEntity;
     }
 }

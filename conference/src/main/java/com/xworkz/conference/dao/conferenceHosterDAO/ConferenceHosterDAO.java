@@ -5,7 +5,9 @@ import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import java.util.List;
 
 public interface ConferenceHosterDAO {
-    boolean saveConferenceHoster(ConferenceHosterEntity conferenceHosterEntity);
+    ConferenceHosterEntity saveConferenceHoster(ConferenceHosterEntity conferenceHosterEntity);
 
     List<ConferenceHosterEntity> getAllConferenceHoster();
+
+    ConferenceHosterEntity findById(Long conferenceId);
 }

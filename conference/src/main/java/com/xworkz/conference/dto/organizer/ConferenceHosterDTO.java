@@ -15,6 +15,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class ConferenceHosterDTO {
 
+    private Long conferenceId;
+
     @NotBlank(message = "Please enter your full name")
     @Size(min = 4, max = 20, message = "Full Name size must be between 4 and 20")
     private String fullName;

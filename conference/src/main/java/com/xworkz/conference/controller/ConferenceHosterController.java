@@ -1,6 +1,8 @@
 package com.xworkz.conference.controller;
 
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
+import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
@@ -20,6 +22,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -96,18 +99,18 @@ public class ConferenceHosterController {
         }
         // If no errors → Save data
 
-        boolean saved = conferenceHosterService.validAndSave(organizerDTO);
+        ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
-        if (saved) {
+        if (savedConferenceHosterDTO != null)
+//            if (true)
+            {
+
 
             String[] emailArray = tpoEmails.split(",");
 
-            conferenceHosterService.saveGeligatesEmail(emailArray);
+            conferenceHosterService.saveDelegatesEmail(emailArray,savedConferenceHosterDTO);
 
-            for(String email : emailArray) {
-                System.out.println("======"+email.trim());
-            }
 
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
         } else {

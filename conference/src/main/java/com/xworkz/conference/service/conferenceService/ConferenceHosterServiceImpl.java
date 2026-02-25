@@ -3,23 +3,26 @@ package com.xworkz.conference.service.conferenceService;
 import com.xworkz.conference.dao.bannerDAO.ConferenceBannerAndPromoVideoDAO;
 import com.xworkz.conference.dao.conferenceHosterDAO.ConferenceHosterDAO;
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.entity.bannerEntity.ConferenceBannerEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
+import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import com.xworkz.conference.entity.promoVideoEntity.ConferencePromoVideoEntity;
 import lombok.SneakyThrows;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+@Transactional
 @Service
 public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
@@ -31,7 +34,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
     @SneakyThrows
     @Override
-    public boolean validAndSave(ConferenceHosterDTO organizerDTO) {
+    public ConferenceHosterDTO validAndSave(ConferenceHosterDTO organizerDTO) {
         System.out.println("service  started.. valid and save");
         System.out.println("service dto:" + organizerDTO);
 
@@ -88,9 +91,18 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
             System.out.println("saved promo video :" + savedPromoVideoEntity);
             System.out.println("hoster entity :" + conferenceHosterEntity);
 
-            return conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
+           ConferenceHosterEntity savedConferenceEntity = conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
+
+           ConferenceHosterDTO savedDto = new ConferenceHosterDTO();
+
+           BeanUtils.copyProperties(savedConferenceEntity,savedDto);
+
+            System.out.println("after saved and bean utils :"+savedDto);
+
+            return savedDto;
+
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -115,9 +127,25 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     }
 
     @Override
-    public boolean saveGeligatesEmail(String[] emailList) {
+    public boolean  saveDelegatesEmail(String[] delegatesEmails,ConferenceHosterDTO savedConferenceDTO) {
         System.out.println("service for delegates  :==");
-        System.out.println(Arrays.toString(emailList));
+
+        List<DelegatesEmailDTO> delegatesList = new ArrayList<>();
+
+        for(String email : delegatesEmails) {
+            System.out.println("all delegates mail in service :"+email.trim());
+
+            DelegatesEmailDTO delegatesEmailDTO = new DelegatesEmailDTO();
+
+            delegatesEmailDTO.setDelegatesEmail(email.trim());
+            delegatesEmailDTO.setConferenceId(savedConferenceDTO.getConferenceId());
+//            delegatesEmailDTO.setConferenceId(1);
+
+            delegatesList.add(delegatesEmailDTO);
+        }
+        System.out.println("delegates list in for loop :"+delegatesList);
+
+        ConferenceHosterEntity fetchEntityById = conferenceHosterDAO.findById(savedConferenceDTO.getConferenceId());
 
         return false;
     }
