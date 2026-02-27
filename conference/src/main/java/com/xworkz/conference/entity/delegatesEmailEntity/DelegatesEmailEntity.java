@@ -20,7 +20,7 @@ public class DelegatesEmailEntity {
     private String delegatesEmail;
 
     @ManyToOne
-    @JoinColumn(name = "conferenceId")
-    private ConferenceHosterEntity conference;
+    @JoinColumn(name = "conference_id")
+    private ConferenceHosterEntity conferenceHoster;
 
 }

@@ -13,7 +13,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -22,8 +21,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
+@Transactional
 public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
     @Autowired
@@ -54,7 +55,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         bannerEntity.setBannerType(bannerImage.getContentType());
         bannerEntity.setBannerPath(bannerPath.toString());
         bannerEntity.setBannerSize(bannerImage.getSize());
-        System.out.println("service banner details :"+bannerEntity);
+        System.out.println("service banner details :" + bannerEntity);
 
         //save conference banner details db
         ConferenceBannerEntity savedBanner = conferenceBannerAndPromoVideoDAO.saveBanner(bannerEntity);
@@ -91,16 +92,15 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
             System.out.println("saved promo video :" + savedPromoVideoEntity);
             System.out.println("hoster entity :" + conferenceHosterEntity);
 
-           ConferenceHosterEntity savedConferenceEntity = conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
+            ConferenceHosterEntity savedConferenceEntity = conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
 
-           ConferenceHosterDTO savedDto = new ConferenceHosterDTO();
+            ConferenceHosterDTO savedDto = new ConferenceHosterDTO();
 
-           BeanUtils.copyProperties(savedConferenceEntity,savedDto);
+            BeanUtils.copyProperties(savedConferenceEntity, savedDto);
 
-            System.out.println("after saved and bean utils :"+savedDto);
+            System.out.println("after saved and bean utils :" + savedDto);
 
             return savedDto;
-
         }
         return null;
     }
@@ -108,7 +108,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     @Override
     public List<ConferenceHosterDTO> getAllConferenceHoster() {
 
-        List<ConferenceHosterEntity> allEntityList =  conferenceHosterDAO.getAllConferenceHoster();
+        List<ConferenceHosterEntity> allEntityList = conferenceHosterDAO.getAllConferenceHoster();
 
         List<ConferenceHosterDTO> dtoList = new ArrayList<>();
 
@@ -117,7 +117,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
             for (ConferenceHosterEntity entity : allEntityList) {
 
                 ConferenceHosterDTO dto = new ConferenceHosterDTO();
-
+//                System.out.println("delegates in service :"+entity.getDelegates());
                 BeanUtils.copyProperties(entity, dto);
                 dtoList.add(dto);
             }
@@ -127,26 +127,25 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     }
 
     @Override
-    public boolean  saveDelegatesEmail(String[] delegatesEmails,ConferenceHosterDTO savedConferenceDTO) {
+    public boolean saveDelegatesEmail(String[] delegatesEmails, ConferenceHosterDTO savedConferenceDTO) {
         System.out.println("service for delegates  :==");
-
-        List<DelegatesEmailDTO> delegatesList = new ArrayList<>();
-
-        for(String email : delegatesEmails) {
-            System.out.println("all delegates mail in service :"+email.trim());
-
-            DelegatesEmailDTO delegatesEmailDTO = new DelegatesEmailDTO();
-
-            delegatesEmailDTO.setDelegatesEmail(email.trim());
-            delegatesEmailDTO.setConferenceId(savedConferenceDTO.getConferenceId());
-//            delegatesEmailDTO.setConferenceId(1);
-
-            delegatesList.add(delegatesEmailDTO);
-        }
-        System.out.println("delegates list in for loop :"+delegatesList);
 
         ConferenceHosterEntity fetchEntityById = conferenceHosterDAO.findById(savedConferenceDTO.getConferenceId());
 
+        List<DelegatesEmailEntity> delegatesList = new ArrayList<>();
+
+        for (String email : delegatesEmails) {
+            System.out.println("all delegates mail in service :" + email.trim());
+
+            DelegatesEmailEntity delegatesEmailEntity = new DelegatesEmailEntity();
+
+            delegatesEmailEntity.setDelegatesEmail(email);
+            delegatesEmailEntity.setConferenceHoster(fetchEntityById);
+
+            delegatesList.add(delegatesEmailEntity);
+
+            return conferenceHosterDAO.saveAllDeligates(delegatesList);
+        }
         return false;
     }
 }

@@ -1,6 +1,7 @@
 package com.xworkz.conference.dao.conferenceHosterDAO;
 
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
+import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
+public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
     @Autowired
     EntityManagerFactory managerFactory;
@@ -20,16 +21,16 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
     @Override
     public ConferenceHosterEntity saveConferenceHoster(ConferenceHosterEntity conferenceHosterEntity) {
 
-       EntityManager manager = managerFactory.createEntityManager();
+        EntityManager manager = managerFactory.createEntityManager();
 
-       manager.getTransaction().begin();
+        manager.getTransaction().begin();
 
-//        System.out.println("before saving hoster ID :"+conferenceHosterEntity.getConferenceId());
-//
-////        manager.persist(conferenceHosterEntity);
-//        System.out.println("after saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+        System.out.println("before saving hoster ID :"+conferenceHosterEntity.getConferenceId());
 
-       manager.getTransaction().commit();
+        manager.persist(conferenceHosterEntity);
+        System.out.println("after saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+
+        manager.getTransaction().commit();
 
         return conferenceHosterEntity;
     }
@@ -42,9 +43,9 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
         try {
             manager = managerFactory.createEntityManager();
 
-            Query query =  manager.createQuery(  "select hoster from ConferenceHosterEntity hoster",
-                            ConferenceHosterEntity.class
-                    );
+            Query query = manager.createQuery("select hoster from ConferenceHosterEntity hoster",
+                    ConferenceHosterEntity.class
+            );
 
             List<ConferenceHosterEntity> listOfHosterEntity = query.getResultList();  // return actual list
 
@@ -66,8 +67,16 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO{
     @Override
     public ConferenceHosterEntity findById(Long conferenceId) {
 
-        ConferenceHosterEntity fetchedEntity = entityManager.find(ConferenceHosterEntity.class,conferenceId);
+        return entityManager.find(ConferenceHosterEntity.class, conferenceId);
+    }
 
-        return fetchedEntity;
+    @Override
+    public boolean saveAllDeligates(List<DelegatesEmailEntity> delegatesList) {
+
+            for (DelegatesEmailEntity entity : delegatesList) {
+
+                entityManager.persist(entity);
+            }
+            return true;
     }
 }

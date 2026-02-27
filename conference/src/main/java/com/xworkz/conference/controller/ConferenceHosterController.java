@@ -105,13 +105,11 @@ public class ConferenceHosterController {
         if (savedConferenceHosterDTO != null)
 //            if (true)
             {
-
-
             String[] emailArray = tpoEmails.split(",");
 
-            conferenceHosterService.saveDelegatesEmail(emailArray,savedConferenceHosterDTO);
+       boolean delegateSaved =     conferenceHosterService.saveDelegatesEmail(emailArray,savedConferenceHosterDTO);
 
-
+                System.out.println("saved delegates in controller :"+delegateSaved);
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
         } else {
             modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
@@ -130,14 +128,14 @@ public class ConferenceHosterController {
 
         modelAndView.setViewName("index");
         modelAndView.addObject("dtoList", allHosterDTO);
-
+        System.out.println("all dtos :"+allHosterDTO);
 
         for (ConferenceHosterDTO dto : allHosterDTO) {
             String bannerPath = dto.getBannerPath();
-            String promoVideoPath = dto.getPromoVideoPath();
+
+            System.out.println("delegates email in service :"+dto.getDelegateEmails());
 
             System.out.println("all iin fetch images banner path :" + dto.getBannerPath());
-            System.out.println("all iin fetch images promo video path :" + dto.getPromoVideoPath());
 
             response.setContentType("image/jpeg");
             File file = new File(bannerPath);
