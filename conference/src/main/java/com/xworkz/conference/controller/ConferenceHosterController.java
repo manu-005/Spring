@@ -144,7 +144,6 @@ public class ConferenceHosterController {
             IOUtils.copy(inputStream, servletOutputStream);
             response.flushBuffer();
         }
-
     }
 
 
