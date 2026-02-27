@@ -84,7 +84,6 @@ public class ConferenceHosterController {
             if (promoVideo == null || promoVideo.isEmpty()) {
                 modelAndView.addObject("promoVideoError", "Please upload promo video");
             }
-
             // Field errors automatically
             bindingResult.getFieldErrors().forEach(error -> {
                 String field = error.getField();
@@ -103,7 +102,6 @@ public class ConferenceHosterController {
         System.out.println("saving");
 
         if (savedConferenceHosterDTO != null)
-//            if (true)
             {
             String[] emailArray = tpoEmails.split(",");
 
@@ -145,8 +143,6 @@ public class ConferenceHosterController {
             response.flushBuffer();
         }
     }
-
-
     //    @RequestMapping(apic)
     //    full data retuen
 }
