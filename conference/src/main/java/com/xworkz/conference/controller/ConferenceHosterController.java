@@ -132,7 +132,6 @@ public class ConferenceHosterController {
             String bannerPath = dto.getBannerPath();
 
             System.out.println("delegates email in service :"+dto.getDelegateEmails());
-
             System.out.println("all iin fetch images banner path :" + dto.getBannerPath());
 
             response.setContentType("image/jpeg");
