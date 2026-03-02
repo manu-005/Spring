@@ -21,7 +21,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 
-
 @EnableTransactionManagement
 @EnableWebMvc
 @Configuration

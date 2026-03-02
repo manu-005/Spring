@@ -52,7 +52,7 @@ public class ConferenceHosterController {
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
             @Valid ConferenceHosterDTO organizerDTO,
-            BindingResult bindingResult,String tpoEmails) {
+            BindingResult bindingResult, String tpoEmails) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
@@ -101,13 +101,12 @@ public class ConferenceHosterController {
         ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
-        if (savedConferenceHosterDTO != null)
-            {
+        if (savedConferenceHosterDTO != null) {
             String[] emailArray = tpoEmails.split(",");
 
-       boolean delegateSaved =     conferenceHosterService.saveDelegatesEmail(emailArray,savedConferenceHosterDTO);
+            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
 
-                System.out.println("saved delegates in controller :"+delegateSaved);
+            System.out.println("saved delegates in controller :" + delegateSaved);
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
         } else {
             modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
@@ -118,7 +117,7 @@ public class ConferenceHosterController {
 
     @SneakyThrows
     @GetMapping("fetchBanner")
-    public void fetchBanner(HttpServletResponse response,String imagePath, ModelAndView modelAndView) {
+    public void fetchBanner(HttpServletResponse response, String imagePath, ModelAndView modelAndView) {
 
         System.out.println("entered in fetch banner");
 
@@ -126,12 +125,12 @@ public class ConferenceHosterController {
 
         modelAndView.setViewName("index");
         modelAndView.addObject("dtoList", allHosterDTO);
-        System.out.println("all dtos :"+allHosterDTO);
+        System.out.println("all dtos :" + allHosterDTO);
 
         for (ConferenceHosterDTO dto : allHosterDTO) {
             String bannerPath = dto.getBannerPath();
 
-            System.out.println("delegates email in service :"+dto.getDelegateEmails());
+            System.out.println("delegates email in service :" + dto.getDelegateEmails());
             System.out.println("all iin fetch images banner path :" + dto.getBannerPath());
 
             response.setContentType("image/jpeg");

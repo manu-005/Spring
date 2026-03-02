@@ -11,17 +11,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @GetMapping("adminLoginForm")
-    public ModelAndView adminLoginForm(ModelAndView modelAndView){
+    public ModelAndView adminLoginForm(ModelAndView modelAndView) {
         modelAndView.setViewName("AdminLoginForm");
         return modelAndView;
     }
 
     @PostMapping("adminLogin")
-    public ModelAndView adminLogin(ModelAndView modelAndView,String email,String password){
+    public ModelAndView adminLogin(ModelAndView modelAndView, String email, String password) {
 
-        System.out.println("email :"+email);
-        System.out.println("password :"+password);
+        System.out.println("email :" + email);
+        System.out.println("password :" + password);
         modelAndView.setViewName("AdminDashBoard");
-        return  modelAndView;
+        return modelAndView;
     }
 }
