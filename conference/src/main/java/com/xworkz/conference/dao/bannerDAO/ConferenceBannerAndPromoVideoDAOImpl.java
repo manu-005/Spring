@@ -38,7 +38,7 @@ public class ConferenceBannerAndPromoVideoDAOImpl implements ConferenceBannerAnd
     @Override
     public ConferencePromoVideoEntity svaePromoVideo(ConferencePromoVideoEntity promoVideoEntity) {
 
-        EntityManager manager =factory.createEntityManager();
+        EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
         manager.persist(promoVideoEntity);
         manager.getTransaction().commit();

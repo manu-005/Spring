@@ -25,10 +25,10 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
         manager.getTransaction().begin();
 
-        System.out.println("before saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+        System.out.println("before saving hoster ID :" + conferenceHosterEntity.getConferenceId());
 
         manager.persist(conferenceHosterEntity);
-        System.out.println("after saving hoster ID :"+conferenceHosterEntity.getConferenceId());
+        System.out.println("after saving hoster ID :" + conferenceHosterEntity.getConferenceId());
 
         manager.getTransaction().commit();
 
@@ -73,10 +73,10 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public boolean saveAllDeligates(List<DelegatesEmailEntity> delegatesList) {
 
-            for (DelegatesEmailEntity entity : delegatesList) {
+        for (DelegatesEmailEntity entity : delegatesList) {
 
-                entityManager.persist(entity);
-            }
-            return true;
+            entityManager.persist(entity);
+        }
+        return true;
     }
 }
