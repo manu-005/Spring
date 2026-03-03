@@ -783,7 +783,6 @@ console.log("banner");
               console.log(data);
 
                document.getElementById("emailResult").innerText = data;
-
           })
           .catch();
 
