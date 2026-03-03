@@ -111,13 +111,12 @@ public class ConferenceHosterController {
         } else {
             modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
         }
-
         return modelAndView;
     }
 
     @SneakyThrows
     @GetMapping("fetchBanner")
-    public void fetchBanner(HttpServletResponse response, String imagePath, ModelAndView modelAndView) {
+    public void fetchBanner(HttpServletResponse response,  ModelAndView modelAndView) {
 
         System.out.println("entered in fetch banner");
 
