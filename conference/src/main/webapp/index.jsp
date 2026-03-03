@@ -777,7 +777,15 @@ pageEncoding="UTF-8"%>
     window.onload = function(){
 console.log("banner");
 
+ fetch("http://localhost:8080/conference/fetchBanner)
+          .then((res) => res.text())
+          .then((data) => {
+              console.log(data);
 
+               document.getElementById("emailResult").innerText = data;
+
+          })
+          .catch();
 
     }
 </script>
