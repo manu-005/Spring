@@ -494,6 +494,7 @@ pageEncoding="UTF-8"%>
     ${item} <br>
 </c:forEach>
 
+ <small id="result" class="text-success"></small>
 
 <section id="events">
     <div class="container">
