@@ -778,7 +778,7 @@ pageEncoding="UTF-8"%>
     window.onload = function(){
 console.log("banner");
 
- fetch("http://localhost:8080/conference/fetchBanner")
+ fetch("http://localhost:8080/conference/fetchAllConference")
           .then((res) => res.text())
           .then((data) => {
               console.log(data);

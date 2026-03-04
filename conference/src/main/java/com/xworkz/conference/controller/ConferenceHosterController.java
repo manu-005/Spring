@@ -142,4 +142,9 @@ public class ConferenceHosterController {
     }
     //    @RequestMapping(apic)
     //    full data retuen
+    @GetMapping("fetchAllConference")
+    public String fetchAllConference(){
+
+        return "hello";
+    }
 }
