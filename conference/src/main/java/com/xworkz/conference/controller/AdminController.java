@@ -104,6 +104,7 @@ public class AdminController {
 
         modelAndView.addObject("allEvents",allEvents);
         modelAndView.setViewName("AllEventsDetails");
+
         return modelAndView;
     }
 
