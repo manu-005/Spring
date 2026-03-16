@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("/")
 @Controller
@@ -37,7 +36,7 @@ public class AdminController {
     }
 
     @GetMapping("getAllHosters")
-    public ModelAndView getAllHosters(ModelAndView modelAndView){
+    public ModelAndView getAllHosters(ModelAndView modelAndView) {
 
         System.out.println("getting all hoster in admin");
         List<ConferenceHosterDTO> allHosters = conferenceHosterService.getAllConferenceHoster();
@@ -49,35 +48,63 @@ public class AdminController {
             System.out.println("Delegates: " + hoster.getDelegates());
 
         }
-        System.out.println("all hosters :"+allHosters);
+        System.out.println("all hosters :" + allHosters);
         modelAndView.setViewName("AllHosters");
 
         return modelAndView;
     }
 
     @GetMapping("getAllDelegates")
-    public ModelAndView getAllDelegates(ModelAndView modelAndView){
+    public ModelAndView getAllDelegates(ModelAndView modelAndView) {
         System.out.println("entered  in All delegates");
         modelAndView.setViewName("AllDelegates");
         return modelAndView;
     }
 
     @GetMapping("filterDelegates")
-    public ModelAndView filterDelegates(ModelAndView modelAndView,String type){
+    public ModelAndView filterDelegates(ModelAndView modelAndView, String type) {
 
-       List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
+        List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
 
-       List<DelegatesEmailDTO> sameDelegates = new ArrayList<>();
+        List<DelegatesEmailDTO> sameDelegates = new ArrayList<>();
+        Set<String> emailList = new HashSet<>();
 
-        System.out.println("all delegates in controller :"+allDelegates);
-        for (DelegatesEmailDTO dto : allDelegates){
+        System.out.println("all delegates in controller :" + allDelegates);
 
-            if (type.equals(dto.getTargetDelegates())){
+        for (DelegatesEmailDTO dto : allDelegates) {
+
+            if (type != null && type.equals(dto.getTargetDelegates())) {
+
+                String[] emailArray = dto.getDelegatesEmail().split(",");
+
+                System.out.println("all emails after split :" + Arrays.toString(emailArray));
+
+                for (String email : emailArray) {
+                    emailList.add(email.trim());
+                }
+
                 sameDelegates.add(dto);
             }
         }
-        modelAndView.addObject("sameDelegatesList",sameDelegates);
+
+        System.out.println("after split email ids :" + emailList);
+
+        modelAndView.addObject("sameDelegatesList", sameDelegates);
+        modelAndView.addObject("emailList", emailList);
+
         modelAndView.setViewName("AllDelegates");
+
         return modelAndView;
     }
+
+    @GetMapping("getAllEvents")
+    public ModelAndView getAllEvents(ModelAndView modelAndView){
+
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+
+        modelAndView.addObject("allEvents",allEvents);
+        modelAndView.setViewName("AllEventsDetails");
+        return modelAndView;
+    }
+
 }

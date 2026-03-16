@@ -175,6 +175,9 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
             DelegatesEmailDTO dto = new DelegatesEmailDTO();
 
+//            dto.setDelegatesId(entity.getDelegatesId());
+//            dto.setTargetDelegates(entity.getTargetDelegates());
+
             BeanUtils.copyProperties(entity,dto);
             delegates.add(dto);
         }

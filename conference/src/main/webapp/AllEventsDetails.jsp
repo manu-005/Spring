@@ -443,61 +443,8 @@ footer a:hover { color: #00c6ff; }
 
 <!--   ===========main content ====== -->
 
-<section style="padding-top:140px; padding-bottom:100px;">
-    <div class="container">
-        <div class="row g-4 justify-content-center">
 
-            <!-- conference hoster Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">Conference Hosters List</h4>
-                    <form action="getAllHosters" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- All Delegates Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">All Delegates</h4>
-                    <form action="getAllDelegates" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Events Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">Events</h4>
-                    <form action="getAllEvents" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Settings Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">Settings</h4>
-                    <form action="getSettings" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
+${AllEventsDetails}
 
 <!-- ===== FOOTER ===== -->
 <footer>

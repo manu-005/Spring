@@ -503,10 +503,15 @@
 
                             <tbody>
 
-                            <c:forEach items="${sameDelegatesList}" var="delegate" varStatus="status">
+                            <c:forEach items="${emailList}" var="email" varStatus="status">
                                 <tr>
                                     <td>${status.index + 1}</td>
-                                    <td>${delegate.delegatesEmail}</td>
+                                     <td>
+                                           <ul style="list-style-type:none; padding:0; margin:0;">
+                                             <li>${email}</li>
+                                           </ul>
+                                           </td>
+
                                 </tr>
                             </c:forEach>
 

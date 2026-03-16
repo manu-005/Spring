@@ -20,4 +20,6 @@ public class DelegatesEmailDTO {
 
     private String targetDelegates;
 
+    private String[] emailArray;
+
 }
