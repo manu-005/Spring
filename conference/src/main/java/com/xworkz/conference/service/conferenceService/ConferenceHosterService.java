@@ -15,4 +15,6 @@ public interface ConferenceHosterService {
     List<ConferenceHosterDTO> getAllConferenceHoster();
 
     boolean saveDelegatesEmail(String[] delegatesEmails,ConferenceHosterDTO savedConferenceDTO);
+
+    List<DelegatesEmailDTO> getAllDelegates();
 }

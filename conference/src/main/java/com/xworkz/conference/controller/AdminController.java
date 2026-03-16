@@ -1,6 +1,7 @@
 package com.xworkz.conference.controller;
 
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/")
@@ -45,10 +47,37 @@ public class AdminController {
         for (ConferenceHosterDTO hoster : allHosters) {
             System.out.println("Conference Title in controller : " + hoster.getConferenceTitle());
             System.out.println("Delegates: " + hoster.getDelegates());
+
         }
         System.out.println("all hosters :"+allHosters);
         modelAndView.setViewName("AllHosters");
 
+        return modelAndView;
+    }
+
+    @GetMapping("getAllDelegates")
+    public ModelAndView getAllDelegates(ModelAndView modelAndView){
+        System.out.println("entered  in All delegates");
+        modelAndView.setViewName("AllDelegates");
+        return modelAndView;
+    }
+
+    @GetMapping("filterDelegates")
+    public ModelAndView filterDelegates(ModelAndView modelAndView,String type){
+
+       List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
+
+       List<DelegatesEmailDTO> sameDelegates = new ArrayList<>();
+
+        System.out.println("all delegates in controller :"+allDelegates);
+        for (DelegatesEmailDTO dto : allDelegates){
+
+            if (type.equals(dto.getTargetDelegates())){
+                sameDelegates.add(dto);
+            }
+        }
+        modelAndView.addObject("sameDelegatesList",sameDelegates);
+        modelAndView.setViewName("AllDelegates");
         return modelAndView;
     }
 }

@@ -165,4 +165,5 @@ public class ConferenceHosterController {
 
         return futureEvents;
     }
+
 }

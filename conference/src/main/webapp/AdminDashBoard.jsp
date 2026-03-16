@@ -459,11 +459,11 @@ footer a:hover { color: #00c6ff; }
                 </div>
             </div>
 
-            <!-- Events Card -->
+            <!-- All Delegates Card -->
             <div class="col-md-3">
                 <div class="glass text-center p-4">
-                    <h4 class="mb-3">Events</h4>
-                    <form action="getAllEvents" method="get">
+                    <h4 class="mb-3">All Delegates</h4>
+                    <form action="getAllDelegates" method="get">
                         <button type="submit" class="btn btn-modern w-100">
                             View
                         </button>

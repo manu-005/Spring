@@ -87,4 +87,29 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
         }
         return true;
     }
+    @Override
+    public List<DelegatesEmailEntity> getAllDelegates() {
+
+        EntityManager entityManager = null;
+
+        try {
+
+            entityManager = managerFactory.createEntityManager();
+
+            Query query =
+                    entityManager.createQuery(
+                            "SELECT d FROM DelegatesEmailEntity d",
+                            DelegatesEmailEntity.class);
+
+            List<DelegatesEmailEntity> allDelegates = query.getResultList();
+
+            System.out.println("all delegates in dao :"+allDelegates);
+            return allDelegates;
+
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
 }

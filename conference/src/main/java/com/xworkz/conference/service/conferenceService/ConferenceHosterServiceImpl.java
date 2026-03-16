@@ -162,4 +162,25 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         }
         return false;
     }
+
+    @Override
+    public List<DelegatesEmailDTO> getAllDelegates() {
+
+      List<DelegatesEmailEntity> allDelegates =  conferenceHosterDAO.getAllDelegates();
+        System.out.println("all delegates in service :"+allDelegates);
+
+        List<DelegatesEmailDTO> delegates = new ArrayList<>();
+
+        for(DelegatesEmailEntity entity : allDelegates){
+
+            DelegatesEmailDTO dto = new DelegatesEmailDTO();
+
+            BeanUtils.copyProperties(entity,dto);
+            delegates.add(dto);
+        }
+
+        System.out.println("all delegates in service after bean utils :"+delegates);
+
+        return delegates;
+    }
 }

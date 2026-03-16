@@ -18,4 +18,6 @@ public class DelegatesEmailDTO {
 
     private long conferenceId;
 
+    private String targetDelegates;
+
 }
