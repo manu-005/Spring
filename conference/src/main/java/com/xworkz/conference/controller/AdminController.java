@@ -4,6 +4,8 @@ import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
+import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.*;
 
 @RequestMapping("/")
@@ -102,10 +110,25 @@ public class AdminController {
 
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
+        for (ConferenceHosterDTO dtp : allEvents){
+
+        }
         modelAndView.addObject("allEvents",allEvents);
         modelAndView.setViewName("AllEventsDetails");
 
         return modelAndView;
+    }
+
+    @SneakyThrows
+    @GetMapping("fetchBanner")
+    public void fetchBanner(HttpServletResponse response ,String bannerPath){
+
+        response.setContentType("image/jpeg");
+        File file = new File(bannerPath);
+        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        IOUtils.copy(inputStream, servletOutputStream);
+        response.flushBuffer();
     }
 
 }

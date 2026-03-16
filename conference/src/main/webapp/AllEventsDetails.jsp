@@ -231,7 +231,7 @@ data-bs-dismiss="modal"></button>
 
 <div class="modal-body">
 
-<img src="getBanner/${event.conferenceId}"
+<img src="fetchBanner?bannerPath=${event.bannerPath}"
 class="img-fluid mb-3">
 
 <p>${event.conferenceDescription}</p>
