@@ -19,6 +19,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.*;
 
 @RequestMapping("/")
@@ -119,18 +120,32 @@ public class AdminController {
         return modelAndView;
     }
 
-    @SneakyThrows
     @GetMapping("fetchBannerImage")
-    public void fetchBannerImage(HttpServletResponse response ,String bannerPath){
+    public void fetchBannerImage(HttpServletResponse response, String bannerPath) {
 
-        System.out.println("banner path :"+bannerPath);
+        try {
+            System.out.println("Banner path: " + bannerPath);
 
-        response.setContentType("image/jpg");
-        File file = new File(bannerPath);
-        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
-        ServletOutputStream servletOutputStream = response.getOutputStream();
-        IOUtils.copy(inputStream, servletOutputStream);
-        response.flushBuffer();
+            File file = new File(bannerPath);
+
+            if (!file.exists()) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            String contentType = Files.probeContentType(file.toPath());
+            response.setContentType(contentType);
+
+            try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+                 ServletOutputStream outputStream = response.getOutputStream()) {
+
+                IOUtils.copy(inputStream, outputStream);
+                outputStream.flush();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
