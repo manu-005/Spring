@@ -109,6 +109,12 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     public List<ConferenceHosterDTO> getAllConferenceHoster() {
 
         List<ConferenceHosterEntity> allEntityList = conferenceHosterDAO.getAllConferenceHoster();
+        System.out.println("all conference in service :"+allEntityList);
+
+        for (ConferenceHosterEntity hoster : allEntityList) {
+            System.out.println("Conference Title service : " + hoster.getConferenceTitle());
+            System.out.println("Delegates: " + hoster.getDelegates());
+        }
 
         List<ConferenceHosterDTO> dtoList = new ArrayList<>();
 
@@ -117,12 +123,19 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
             for (ConferenceHosterEntity entity : allEntityList) {
 
                 ConferenceHosterDTO dto = new ConferenceHosterDTO();
-//                System.out.println("delegates in service :"+entity.getDelegates());
+                System.out.println("delegates in service :"+entity.getDelegates());
+
                 BeanUtils.copyProperties(entity, dto);
                 dtoList.add(dto);
             }
         }
 
+        for (ConferenceHosterDTO hoster : dtoList) {
+            System.out.println("Conference Title service after : " + hoster.getConferenceTitle());
+            System.out.println("Delegates: " + hoster.getDelegates());
+        }
+
+        System.out.println("after bean utils :"+dtoList);
         return dtoList;
     }
 
@@ -131,6 +144,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         System.out.println("service for delegates  :==");
 
         ConferenceHosterEntity fetchEntityById = conferenceHosterDAO.findById(savedConferenceDTO.getConferenceId());
+
 
         List<DelegatesEmailEntity> delegatesList = new ArrayList<>();
 

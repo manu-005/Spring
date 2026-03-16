@@ -1,16 +1,17 @@
 package com.xworkz.conference.entity.conference;
 
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Data
+//@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -41,7 +42,11 @@ public class ConferenceHosterEntity {
     // Store file path instead of MultipartFile
     private String bannerPath;
 
-    @OneToMany(mappedBy = "conferenceHoster", fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "conferenceHoster", fetch = FetchType.LAZY)
+//    private List<DelegatesEmailEntity> delegates;
+
+    @OneToMany(mappedBy = "conferenceHoster", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<DelegatesEmailEntity> delegates;
 
     @Column(nullable = false)

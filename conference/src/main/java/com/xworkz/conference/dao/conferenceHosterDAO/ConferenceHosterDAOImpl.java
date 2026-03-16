@@ -43,17 +43,25 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
         try {
             manager = managerFactory.createEntityManager();
 
-            Query query = manager.createQuery("select hoster from ConferenceHosterEntity hoster",
+            Query query = manager.createQuery(
+                    "select distinct hoster from ConferenceHosterEntity hoster LEFT JOIN FETCH hoster.delegates",
                     ConferenceHosterEntity.class
             );
 
-            List<ConferenceHosterEntity> listOfHosterEntity = query.getResultList();  // return actual list
+            List<ConferenceHosterEntity> listOfHosterEntity = query.getResultList();
+
+            for (ConferenceHosterEntity hoster : listOfHosterEntity) {
+                System.out.println("Conference Title: " + hoster.getConferenceTitle());
+                System.out.println("Delegates: " + hoster.getDelegates());
+            }
+
+            System.out.println("all conference in dao: " + listOfHosterEntity);
 
             return listOfHosterEntity;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return Collections.emptyList();   // avoid NullPointerException
+            return Collections.emptyList();
         } finally {
             if (manager != null && manager.isOpen()) {
                 manager.close();

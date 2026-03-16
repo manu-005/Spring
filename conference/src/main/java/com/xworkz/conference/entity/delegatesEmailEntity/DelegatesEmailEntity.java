@@ -1,16 +1,16 @@
 package com.xworkz.conference.entity.delegatesEmailEntity;
 
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class DelegatesEmailEntity {
 
     @Id
@@ -20,7 +20,8 @@ public class DelegatesEmailEntity {
     private String delegatesEmail;
 
     @ManyToOne
-    @JoinColumn(name = "conference_id")
+    @JoinColumn(name = "conferenceId")
+    @ToString.Exclude
     private ConferenceHosterEntity conferenceHoster;
 
 }

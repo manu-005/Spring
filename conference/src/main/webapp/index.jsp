@@ -486,15 +486,25 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
-<!-- ===== EVENTS ===== -->
+
+<!-- ===  events  -->
+
+<section id="events">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2>Upcoming <span>Events</span></h2>
+        </div>
+
+        <div class="row g-4" id="eventsContainer"></div>
+
+    </div>
+</section>
+
+
+<!-- ===== EVENTS =====
 
 <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
-
-<c:forEach var="item" items="${dtoList}">
-    ${item} <br>
-</c:forEach>
-
- <small id="result" class="text-success"></small>
 
 <section id="events">
     <div class="container">
@@ -520,8 +530,6 @@ pageEncoding="UTF-8"%>
                     <div class="event-badge">Artificial Intelligence</div>
                     <h4>AI Global Forum</h4>
                     <p>Exploring the future of artificial intelligence and its global impact.</p>
-
-
                     <div class="event-meta">
                         <i class="bi bi-calendar3"></i>April 22, 2026 &nbsp;·&nbsp;
                         <i class="bi bi-camera-video"></i>Online
@@ -542,6 +550,8 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </section>
+
+-->
 <!-- ===== REGISTER ===== -->
 <section id="register" style="background:#f0f4ff;">
     <div class="container">
@@ -774,21 +784,49 @@ pageEncoding="UTF-8"%>
         glare: true,
         "max-glare": 0.08,
     });
+  document.addEventListener("DOMContentLoaded", function () {
 
-    window.onload = function(){
-console.log("banner");
+      fetch("http://localhost:8080/conference/fetchAllConference")
+          .then(response => response.json())
+          .then(data => {
 
- fetch("http://localhost:8080/conference/fetchAllConference")
-          .then((res) => res.text())
-          .then((data) => {
-              console.log(data);
+              console.log("API DATA:", data);
 
-               document.getElementById("result").innerText = data;
+              const container = document.getElementById("eventsContainer");
+
+              let cards = "";
+
+              data.forEach(event => {
+
+                  cards += `
+                  <div class="col-md-4">
+                      <div class="event-card">
+
+                          <div class="event-badge">${event.mode}</div>
+
+                          <h4>${event.conferenceTitle}</h4>
+
+                          <p>${event.conferenceDescription}</p>
+
+                          <div class="event-meta">
+                              <i class="bi bi-person"></i> ${event.fullName}<br>
+                              <i class="bi bi-building"></i> ${event.organizationName}<br>
+                              <i class="bi bi-calendar3"></i> ${event.date}<br>
+                              <i class="bi bi-clock"></i> ${event.time}<br>
+                              <i class="bi bi-geo-alt"></i> ${event.venueOrMeetingLink}
+                          </div>
+
+                      </div>
+                  </div>
+                  `;
+              });
+
+              container.innerHTML = cards;
+
           })
-          .catch();
+          .catch(error => console.error(error));
 
-
-    }
+  });
 </script>
 
 </body>

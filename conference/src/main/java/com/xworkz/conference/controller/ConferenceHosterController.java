@@ -6,12 +6,14 @@ import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
+import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +24,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,10 +144,25 @@ public class ConferenceHosterController {
         }
     }
     //    @RequestMapping(apic)
-    //    full data retuen
+    //    full data return
+    @ResponseBody
     @GetMapping("fetchAllConference")
-    public String fetchAllConference(){
+    public List<ConferenceHosterDTO> fetchAllConference() {
 
-        return "hello";
+        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+
+        LocalDate currentDate = LocalDate.now();
+
+        System.out.println("get all");
+        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
+
+        for (ConferenceHosterDTO dto : allHosterDTO) {
+            if (dto.getDate().isAfter(currentDate)) {
+                futureEvents.add(dto);
+            }
+        }
+        System.out.println("future events:"+futureEvents);
+
+        return futureEvents;
     }
 }

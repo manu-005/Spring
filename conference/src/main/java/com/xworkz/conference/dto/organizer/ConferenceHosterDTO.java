@@ -1,5 +1,6 @@
 package com.xworkz.conference.dto.organizer;
 
+import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,6 +34,7 @@ public class ConferenceHosterDTO {
     @NotBlank(message = "Please enter your conference title")
     @Size(min = 4, max = 50, message = "Conference title size must be between 4 and 50")
     private String conferenceTitle;
+
 
     @NotBlank(message = "Please enter conference description")
     @Size(min = 4, max = 500, message = "Conference description size must be between 4 and 500")
@@ -65,6 +68,8 @@ public class ConferenceHosterDTO {
 
     //    @NotBlank(message = "Please enter delegates emails")
     private String delegateEmails;
+
+    private List<DelegatesEmailEntity> delegates;
     // ⚠ File fields (validated manually in controller using .isEmpty())
     private MultipartFile conferenceBanner;
     private String bannerPath;
