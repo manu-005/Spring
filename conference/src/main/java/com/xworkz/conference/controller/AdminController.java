@@ -120,10 +120,12 @@ public class AdminController {
     }
 
     @SneakyThrows
-    @GetMapping("fetchBanner")
-    public void fetchBanner(HttpServletResponse response ,String bannerPath){
+    @GetMapping("fetchBannerImage")
+    public void fetchBannerImage(HttpServletResponse response ,String bannerPath){
 
-        response.setContentType("image/jpeg");
+        System.out.println("banner path :"+bannerPath);
+
+        response.setContentType("image/jpg");
         File file = new File(bannerPath);
         InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
         ServletOutputStream servletOutputStream = response.getOutputStream();

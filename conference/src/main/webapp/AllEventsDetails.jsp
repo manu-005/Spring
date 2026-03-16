@@ -187,11 +187,10 @@ onclick="event.stopPropagation(); shareEvent('${event.conferenceTitle}')">
 <i class="bi bi-share"></i>
 
 </button>
-
-<img src="getBanner/${event.conferenceId}"
+<img src="fetchBannerImage?bannerPath=${event.bannerPath}"
 class="img-fluid mb-3"
 style="height:220px;width:100%;object-fit:cover;">
-
+${event.bannerPath}
 <h4>${event.conferenceTitle}</h4>
 
 <p>${event.conferenceDescription}</p>
@@ -231,7 +230,7 @@ data-bs-dismiss="modal"></button>
 
 <div class="modal-body">
 
-<img src="fetchBanner?bannerPath=${event.bannerPath}"
+<img src="fetchBannerImage?bannerPath=${event.bannerPath}"
 class="img-fluid mb-3">
 
 <p>${event.conferenceDescription}</p>
