@@ -157,17 +157,24 @@ public class AdminController {
         System.out.println("===========================================================================");
         System.out.println("conference  id inn admin :" + conferenceId);
 
-        ConferenceHosterDTO dto =conferenceHosterService.getAllConferenceHosterById(conferenceId);
+        ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
 
-        System.out.println("banner path in fetch image :"+ dto.getBannerPath());
+        System.out.println("banner path in fetch image :" + dto.getBannerPath());
         String urlPath = dto.getBannerPath().replace("\\", "/");
 
-        System.out.println("url path :"+urlPath);
+        System.out.println("url path :" + urlPath);
         response.setContentType("image/jpg");
         File file = new File(urlPath);
         InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
         ServletOutputStream servletOutputStream = response.getOutputStream();
         IOUtils.copy(inputStream, servletOutputStream);
         response.flushBuffer();
+    }
+
+    @SneakyThrows
+    @GetMapping("fetchPromoVideo")
+    public void fetchPromoVideo(HttpServletResponse response, @RequestParam("conferenceId") Long conferenceId) {
+
+        System.out.println("enterd in promo video and conference id is :"+conferenceId);
     }
 }

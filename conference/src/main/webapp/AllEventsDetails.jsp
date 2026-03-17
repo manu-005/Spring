@@ -191,9 +191,6 @@ onclick="event.stopPropagation(); shareEvent('${event.conferenceTitle}')">
 class="img-fluid mb-3"
 style="height:220px;width:100%;object-fit:cover;">
 
-<img src="fetchBanner?conferenceId=${event.conferenceId}"
-class="img-fluid mb-3"
-style="height:220px;width:100%;object-fit:cover;">
 
 ${event.bannerPath}
 <h4>${event.conferenceTitle}</h4>
@@ -236,7 +233,11 @@ data-bs-dismiss="modal"></button>
 <div class="modal-body">
 <!--
 <img src="fetchBannerImage?bannerPath=${event.bannerPath}"
-class="img-fluid mb-3"> -->
+class="img-fluid mb-3"
+style="height:220px;width:100%;object-fit:cover;"> -->
+
+<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+class="img-fluid mb-3">
 
 <p>${event.conferenceDescription}</p>
 
@@ -251,7 +252,7 @@ class="img-fluid mb-3"> -->
 
 <video width="100%" controls>
 
-<source src="getVideo/${event.conferenceId}" type="video/mp4">
+<source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
 
 </video>
 
