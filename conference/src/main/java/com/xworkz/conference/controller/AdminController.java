@@ -190,4 +190,17 @@ public class AdminController {
         IOUtils.copy(inputStream, servletOutputStream);
         response.flushBuffer();
     }
+
+    @GetMapping("sendConference")
+    public ModelAndView sendConference(@RequestParam Long conferenceId,ModelAndView modelAndView) {
+
+        System.out.println("Conference ID received: " + conferenceId);
+
+        ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+        modelAndView.addObject("conference", dto);
+        modelAndView.setViewName("ConferenceDetails"); // JSP page name
+
+        return modelAndView;
+    }
 }

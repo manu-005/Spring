@@ -181,12 +181,6 @@ color:rgba(255,255,255,0.4);
 data-bs-toggle="modal"
 data-bs-target="#eventModal${event.conferenceId}">
 
-<button class="share-btn"
-onclick="event.stopPropagation(); shareEvent('${event.conferenceTitle}')">
-
-<i class="bi bi-share"></i>
-
-</button>
 <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
 class="img-fluid mb-3"
 style="height:220px;width:100%;object-fit:cover;">
@@ -196,14 +190,20 @@ style="height:220px;width:100%;object-fit:cover;">
 <p>${event.conferenceDescription}</p>
 
 <p>
-
 <b>Date:</b> ${event.date}<br>
 <b>Time:</b> ${event.time}<br>
 <b>Mode:</b> ${event.mode}
-
 </p>
-
+ <!-- Button at bottom right -->
+   <div class="mt-auto text-end">
+       <a href="sendConference?conferenceId=${event.conferenceId}"
+          class="btn btn-primary btn-sm"
+          onclick="event.stopPropagation();">
+           Send
+       </a>
+   </div>
 </div>
+
 
 </div>
 
