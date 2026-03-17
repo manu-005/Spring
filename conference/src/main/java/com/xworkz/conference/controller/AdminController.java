@@ -176,5 +176,18 @@ public class AdminController {
     public void fetchPromoVideo(HttpServletResponse response, @RequestParam("conferenceId") Long conferenceId) {
 
         System.out.println("enterd in promo video and conference id is :"+conferenceId);
+
+        ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+        System.out.println("banner path in fetch image :" + dto.getPromoVideoPath());
+        String urlPath = dto.getPromoVideoPath().replace("\\", "/");
+
+        System.out.println("url path :" + urlPath);
+        response.setContentType("video/mp4");
+        File file = new File(urlPath);
+        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        IOUtils.copy(inputStream, servletOutputStream);
+        response.flushBuffer();
     }
 }
