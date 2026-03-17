@@ -191,8 +191,6 @@ onclick="event.stopPropagation(); shareEvent('${event.conferenceTitle}')">
 class="img-fluid mb-3"
 style="height:220px;width:100%;object-fit:cover;">
 
-
-${event.bannerPath}
 <h4>${event.conferenceTitle}</h4>
 
 <p>${event.conferenceDescription}</p>
