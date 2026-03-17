@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -146,14 +147,11 @@ public class ConferenceHosterController {
     //    @RequestMapping(apic)
     //    full data return
     @ResponseBody
-    @GetMapping("fetchAllConference")
-    public List<ConferenceHosterDTO> fetchAllConference() {
-
+    @GetMapping("/fetchAllConference")
+    public List<ConferenceHosterDTO> fetchAllConference(HttpSession session) {
         List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
 
         LocalDate currentDate = LocalDate.now();
-
-        System.out.println("get all");
         List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
 
         for (ConferenceHosterDTO dto : allHosterDTO) {
@@ -161,9 +159,12 @@ public class ConferenceHosterController {
                 futureEvents.add(dto);
             }
         }
-        System.out.println("future events:"+futureEvents);
 
-        return futureEvents;
+        // Store future events in session for reuse
+        session.setAttribute("futureEvents", futureEvents);
+
+        System.out.println("Future events: " + futureEvents);
+
+        return futureEvents; // This is sent as JSON to your JS
     }
-
 }

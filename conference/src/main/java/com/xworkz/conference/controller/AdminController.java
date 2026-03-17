@@ -107,14 +107,14 @@ public class AdminController {
     }
 
     @GetMapping("getAllEvents")
-    public ModelAndView getAllEvents(ModelAndView modelAndView){
+    public ModelAndView getAllEvents(ModelAndView modelAndView) {
 
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
-        for (ConferenceHosterDTO dtp : allEvents){
+        for (ConferenceHosterDTO dtp : allEvents) {
 
         }
-        modelAndView.addObject("allEvents",allEvents);
+        modelAndView.addObject("allEvents", allEvents);
         modelAndView.setViewName("AllEventsDetails");
 
         return modelAndView;
@@ -147,5 +147,17 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @SneakyThrows
+    @GetMapping("fetchBannerImages")
+    public void fetchBannerImages(HttpServletResponse response, String bannerPath) {
+
+        response.setContentType("image/jpg");
+        File file = new File(bannerPath);
+        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        IOUtils.copy(inputStream, servletOutputStream);
+        response.flushBuffer();
     }
 }

@@ -1,5 +1,6 @@
 package com.xworkz.conference.entity.conference;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import lombok.*;
 
@@ -31,8 +32,10 @@ public class ConferenceHosterEntity {
 
     private String conferenceDescription;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalTime time;
 
     private String mode;

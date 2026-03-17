@@ -783,50 +783,60 @@ pageEncoding="UTF-8"%>
         speed: 400,
         glare: true,
         "max-glare": 0.08,
-    });
-  document.addEventListener("DOMContentLoaded", function () {
+    });document.addEventListener("DOMContentLoaded", function () {
 
-      fetch("http://localhost:8080/conference/fetchAllConference")
-          .then(response => response.json())
-          .then(data => {
+           const container = document.getElementById("eventsContainer");
+           if (!container) return;
 
-              console.log("API DATA:", data);
+           fetch("/conference/fetchAllConference") // Use relative URL if on same domain
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error(`HTTP error! Status: ${response.status}`);
+                   }
+                   return response.json();
+               })
+               .then(data => {
+                   console.log("API DATA:", data);
 
-              const container = document.getElementById("eventsContainer");
+                   if (!Array.isArray(data)) return;
 
-              let cards = "";
+                   let cards = "";
 
-              data.forEach(event => {
+                   data.forEach(event => {
+                       cards += `
+                       <div class="col-md-4 mb-4">
+                           <div class="event-card position-relative">
 
-                  cards += `
-                  <div class="col-md-4">
-                      <div class="event-card">
+                               <!-- SHARE BUTTON -->
+                               <button class="share-btn">
+                                   <i class="bi bi-share"></i>
+                               </button>
 
-                          <div class="event-badge">${event.mode}</div>
+                               <!-- EVENT BADGE -->
+                               <div class="event-badge">${event.mode}</div>
 
-                          <h4>${event.conferenceTitle}</h4>
+                               <h4>${event.conferenceTitle}</h4>
 
-                          <p>${event.conferenceDescription}</p>
+                               <p>${event.conferenceDescription}</p>
 
-                          <div class="event-meta">
-                              <i class="bi bi-person"></i> ${event.fullName}<br>
-                              <i class="bi bi-building"></i> ${event.organizationName}<br>
-                              <i class="bi bi-calendar3"></i> ${event.date}<br>
-                              <i class="bi bi-clock"></i> ${event.time}<br>
-                              <i class="bi bi-geo-alt"></i> ${event.venueOrMeetingLink}
-                          </div>
+                               <div class="event-meta mt-2">
+                                   <i class="bi bi-person"></i> ${event.fullName}<br>
+                                   <i class="bi bi-building"></i> ${event.organizationName}<br>
+                                   <i class="bi bi-calendar3"></i> ${event.date}<br>
+                                   <i class="bi bi-clock"></i> ${event.time}<br>
+                                   <i class="bi bi-geo-alt"></i> ${event.venueOrMeetingLink}
+                               </div>
 
-                      </div>
-                  </div>
-                  `;
-              });
+                           </div>
+                       </div>
+                       `;
+                   });
 
-              container.innerHTML = cards;
+                   container.innerHTML = cards;
 
-          })
-          .catch(error => console.error(error));
-
-  });
+               })
+               .catch(error => console.error("Fetch error:", error));
+       });
 </script>
 
 </body>

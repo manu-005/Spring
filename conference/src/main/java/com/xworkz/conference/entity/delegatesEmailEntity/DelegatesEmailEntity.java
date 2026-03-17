@@ -1,5 +1,6 @@
 package com.xworkz.conference.entity.delegatesEmailEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class DelegatesEmailEntity {
 
     private String delegatesEmail;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "conferenceId")
     @ToString.Exclude
