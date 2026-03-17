@@ -16,5 +16,5 @@ public interface ConferenceHosterDAO {
 
     List<DelegatesEmailEntity> getAllDelegates();
 
-    ConferenceHosterEntity getAllConferenceHosterById(int conferenceId);
+    ConferenceHosterEntity getAllConferenceHosterById(Long conferenceId);
 }

@@ -18,5 +18,5 @@ public interface ConferenceHosterService {
 
     List<DelegatesEmailDTO> getAllDelegates();
 
-    ConferenceHosterDTO getAllConferenceHosterById(int conferenceId);
+    ConferenceHosterDTO getAllConferenceHosterById(Long conferenceId);
 }

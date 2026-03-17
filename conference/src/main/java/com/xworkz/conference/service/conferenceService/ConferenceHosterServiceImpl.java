@@ -188,8 +188,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     }
 
     @Override
-    public ConferenceHosterDTO getAllConferenceHosterById(int conferenceId) {
-
+    public ConferenceHosterDTO getAllConferenceHosterById(Long conferenceId) {
         ConferenceHosterEntity entity = conferenceHosterDAO.getAllConferenceHosterById(conferenceId);
 
         ConferenceHosterDTO dto = new ConferenceHosterDTO();
@@ -198,4 +197,6 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         System.out.println("entity in service after bean utils  :"+dto);
         return dto;
     }
+
+
 }

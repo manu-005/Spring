@@ -114,13 +114,14 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     }
 
     @Override
-    public ConferenceHosterEntity getAllConferenceHosterById(int conferenceId) {
-
-       EntityManager manager = managerFactory.createEntityManager();
-       ConferenceHosterEntity entity= manager.find(ConferenceHosterEntity.class,conferenceId);
+    public ConferenceHosterEntity getAllConferenceHosterById(Long conferenceId) {
+        System.out.println("enterd in dao ============");
+        EntityManager manager = managerFactory.createEntityManager();
+        ConferenceHosterEntity entity= manager.find(ConferenceHosterEntity.class,conferenceId);
 
         System.out.println("enetity in dao by id :"+entity);
 
         return entity;
     }
+
 }
