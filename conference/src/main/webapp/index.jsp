@@ -491,19 +491,15 @@ pageEncoding="UTF-8"%>
 
 <section id="events">
     <div class="container">
-
         <div class="text-center mb-5">
             <h2>Upcoming <span>Events</span></h2>
         </div>
-
         <div class="row g-4" id="eventsContainer"></div>
-
     </div>
 </section>
 
 
 <!-- ===== EVENTS =====
-
 <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
 
 <section id="events">
@@ -783,60 +779,94 @@ pageEncoding="UTF-8"%>
         speed: 400,
         glare: true,
         "max-glare": 0.08,
-    });document.addEventListener("DOMContentLoaded", function () {
+    });
 
-           const container = document.getElementById("eventsContainer");
-           if (!container) return;
 
-           fetch("/conference/fetchAllConference") // Use relative URL if on same domain
-               .then(response => {
-                   if (!response.ok) {
-                       throw new Error(`HTTP error! Status: ${response.status}`);
-                   }
-                   return response.json();
-               })
-               .then(data => {
-                   console.log("API DATA:", data);
+    document.addEventListener("DOMContentLoaded", function () {
 
-                   if (!Array.isArray(data)) return;
+        const container = document.getElementById("eventsContainer");
+        if (!container) return;
 
-                   let cards = "";
+        fetch("/conference/fetchAllConference")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("API DATA:", data);
 
-                   data.forEach(event => {
-                       cards += `
-                       <div class="col-md-4 mb-4">
-                           <div class="event-card position-relative">
+                if (!Array.isArray(data) || data.length === 0) {
+                    container.innerHTML = `<p class="text-center mt-4">No upcoming events found.</p>`;
+                    return;
+                }
 
-                               <!-- SHARE BUTTON -->
-                               <button class="share-btn">
-                                   <i class="bi bi-share"></i>
-                               </button>
+                let cards = "";
 
-                               <!-- EVENT BADGE -->
-                               <div class="event-badge">${event.mode}</div>
+                data.forEach(event => {
+                    // Fallback values in case fields are undefined
+                    const title = event.conferenceTitle || "No Title";
+                    const desc = event.conferenceDescription || "No Description";
+                    const fullName = event.fullName || "Organizer Name";
+                    const orgName = event.organizationName || "Organization";
+                    const date = event.date ? formatDate(event.date) : "Date TBD";
+                    const time = event.time || "Time TBD";
+                    const mode = event.mode || "Mode TBD";
+                    const venue = event.venueOrMeetingLink || "Venue TBD";
 
-                               <h4>${event.conferenceTitle}</h4>
+                    cards += `
+                        <div class="col-md-4 mb-4">
+                            <div class="event-card position-relative">
 
-                               <p>${event.conferenceDescription}</p>
 
-                               <div class="event-meta mt-2">
-                                   <i class="bi bi-person"></i> ${event.fullName}<br>
-                                   <i class="bi bi-building"></i> ${event.organizationName}<br>
-                                   <i class="bi bi-calendar3"></i> ${event.date}<br>
-                                   <i class="bi bi-clock"></i> ${event.time}<br>
-                                   <i class="bi bi-geo-alt"></i> ${event.venueOrMeetingLink}
-                               </div>
+                                <!-- EVENT BADGE -->
+                                <div class="event-badge">${mode}</div>
 
-                           </div>
-                       </div>
-                       `;
-                   });
+                                <h4>${title}</h4>
 
-                   container.innerHTML = cards;
+                                <p>${desc}</p>
 
-               })
-               .catch(error => console.error("Fetch error:", error));
-       });
+                                <div class="event-meta mt-2">
+                                    <i class="bi bi-person"></i> ${fullName}<br>
+                                    <i class="bi bi-building"></i> ${orgName}<br>
+                                    <i class="bi bi-calendar3"></i> ${date}<br>
+                                    <i class="bi bi-clock"></i> ${time}<br>
+                                    <i class="bi bi-geo-alt"></i> ${venue}
+                                </div>
+
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = cards;
+
+                // Initialize VanillaTilt again for dynamically added elements
+                VanillaTilt.init(document.querySelectorAll(".event-card"), {
+                    max: 10,
+                    speed: 400,
+                    glare: true,
+                    "max-glare": 0.08,
+                });
+
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                container.innerHTML = `<p class="text-center text-danger mt-4">Failed to load events.</p>`;
+            });
+
+        // Helper to format date from yyyy-MM-dd to dd-MM-yyyy
+        function formatDate(dateStr) {
+            const dateObj = new Date(dateStr);
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+            const year = dateObj.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+    });
+
 </script>
 
 </body>

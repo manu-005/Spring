@@ -15,4 +15,6 @@ public interface ConferenceHosterDAO {
     boolean saveAllDeligates(List<DelegatesEmailEntity> delegatesList);
 
     List<DelegatesEmailEntity> getAllDelegates();
+
+    ConferenceHosterEntity getAllConferenceHosterById(int conferenceId);
 }

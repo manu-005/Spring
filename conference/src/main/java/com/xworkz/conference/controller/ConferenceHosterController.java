@@ -10,10 +10,7 @@ import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -120,7 +117,9 @@ public class ConferenceHosterController {
 
     @SneakyThrows
     @GetMapping("fetchBanner")
-    public void fetchBanner(HttpServletResponse response,  ModelAndView modelAndView) {
+    public void fetchBanner(HttpServletResponse response, ModelAndView modelAndView, @RequestParam("conferenceId") int conferenceId) {
+
+        System.out.println("conference id :"+conferenceId);
 
         System.out.println("entered in fetch banner");
 

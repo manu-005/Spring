@@ -187,9 +187,14 @@ onclick="event.stopPropagation(); shareEvent('${event.conferenceTitle}')">
 <i class="bi bi-share"></i>
 
 </button>
-<img src="fetchBannerImages?bannerPath=${event.bannerPath}"
+<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
 class="img-fluid mb-3"
 style="height:220px;width:100%;object-fit:cover;">
+
+<img src="fetchBanner?conferenceId=${event.conferenceId}"
+class="img-fluid mb-3"
+style="height:220px;width:100%;object-fit:cover;">
+
 ${event.bannerPath}
 <h4>${event.conferenceTitle}</h4>
 

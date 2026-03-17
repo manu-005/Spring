@@ -17,4 +17,6 @@ public interface ConferenceHosterService {
     boolean saveDelegatesEmail(String[] delegatesEmails,ConferenceHosterDTO savedConferenceDTO);
 
     List<DelegatesEmailDTO> getAllDelegates();
+
+    ConferenceHosterDTO getAllConferenceHosterById(int conferenceId);
 }

@@ -186,4 +186,16 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
         return delegates;
     }
+
+    @Override
+    public ConferenceHosterDTO getAllConferenceHosterById(int conferenceId) {
+
+        ConferenceHosterEntity entity = conferenceHosterDAO.getAllConferenceHosterById(conferenceId);
+
+        ConferenceHosterDTO dto = new ConferenceHosterDTO();
+
+        BeanUtils.copyProperties(entity,dto);
+        System.out.println("entity in service after bean utils  :"+dto);
+        return dto;
+    }
 }

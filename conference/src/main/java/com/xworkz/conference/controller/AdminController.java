@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
@@ -151,13 +152,22 @@ public class AdminController {
 
     @SneakyThrows
     @GetMapping("fetchBannerImages")
-    public void fetchBannerImages(HttpServletResponse response, String bannerPath) {
+    public void fetchBannerImages(HttpServletResponse response, @RequestParam("conferenceId") int conferenceId) {
 
-        response.setContentType("image/jpg");
-        File file = new File(bannerPath);
-        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
-        ServletOutputStream servletOutputStream = response.getOutputStream();
-        IOUtils.copy(inputStream, servletOutputStream);
-        response.flushBuffer();
+        System.out.println("===========================================================================");
+        System.out.println("banner path inn admin :" + conferenceId);
+
+        ConferenceHosterDTO dto =conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+        System.out.println("banner path in fetch image :"+ dto.getBannerPath());
+//        String urlPath = bannerPath.replace("\\", "/");
+
+//        System.out.println("url path :"+urlPath);
+//        response.setContentType("image/jpg");
+//        File file = new File(urlPath);
+//        InputStream inputStream = new BufferedInputStream((new FileInputStream(file)));
+//        ServletOutputStream servletOutputStream = response.getOutputStream();
+//        IOUtils.copy(inputStream, servletOutputStream);
+//        response.flushBuffer();
     }
 }
