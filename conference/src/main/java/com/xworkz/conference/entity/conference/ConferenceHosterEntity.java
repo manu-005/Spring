@@ -42,6 +42,9 @@ public class ConferenceHosterEntity {
 
     private String venueOrMeetingLink;
 
+    private Integer numberOfDelegates;
+    private String targetDelegates;
+
     // Store file path instead of MultipartFile
     private String bannerPath;
 

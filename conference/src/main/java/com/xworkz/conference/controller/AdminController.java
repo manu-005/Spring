@@ -3,7 +3,9 @@ package com.xworkz.conference.controller;
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
+import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -192,13 +194,25 @@ public class AdminController {
     }
 
     @GetMapping("sendConference")
-    public ModelAndView sendConference(@RequestParam Long conferenceId,ModelAndView modelAndView) {
+    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId,ModelAndView modelAndView) {
 
         System.out.println("Conference ID received: " + conferenceId);
 
         ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
 
         modelAndView.addObject("conference", dto);
+        System.out.println("delegates ====================:"+ dto.getDelegates());
+
+        for (DelegatesEmailEntity email :dto.getDelegates()){
+
+            System.out.println("email of delegates :"+ email.getDelegatesEmail());
+            String[] emailArray = email.getDelegatesEmail().split(",");
+            System.out.println("email array in delegates :"+emailArray);
+
+        }
+
+        System.out.println("delegates email :"+dto.getDelegateEmails());
+
         modelAndView.setViewName("ConferenceDetails"); // JSP page name
 
         return modelAndView;
