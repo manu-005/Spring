@@ -409,6 +409,34 @@ pageEncoding="UTF-8"%>
             border-radius: 4px;
             margin: 14px auto 0;
         }
+
+
+.event-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.event-meta i {
+    margin-right: 5px;
+}
     </style>
 </head>
 
@@ -498,6 +526,46 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
+
+<div class="container mt-4">
+    <div class="row">
+
+        <c:choose>
+            <c:when test="${not empty events}">
+
+                <c:forEach var="event" items="${events}">
+                    <div class="col-md-4 mb-4">
+                        <div class="event-card position-relative">
+
+                            <div class="event-badge">
+                                ${event.mode}
+                            </div>
+
+                            <h4>${event.conferenceTitle}</h4>
+
+                            <p>${event.conferenceDescription}</p>
+
+                            <div class="event-meta mt-2">
+                                <i class="bi bi-person"></i> ${event.fullName}<br>
+                                <i class="bi bi-building"></i> ${event.organizationName}<br>
+                                <i class="bi bi-calendar3"></i> ${event.date}<br>
+                                <i class="bi bi-clock"></i> ${event.time}<br>
+                                <i class="bi bi-geo-alt"></i> ${event.venueOrMeetingLink}
+                            </div>
+
+                        </div>
+                    </div>
+                </c:forEach>
+
+            </c:when>
+
+            <c:otherwise>
+                <p class="text-center mt-4">No upcoming events found.</p>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+</div>
 
 <!-- ===== EVENTS =====
 <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
@@ -784,7 +852,7 @@ pageEncoding="UTF-8"%>
    document.addEventListener("DOMContentLoaded", () => {
        fetch("/conference/fetchAllConference").catch(() => {});
 
-       console
+       console.log("called");
    });
 
 </script>

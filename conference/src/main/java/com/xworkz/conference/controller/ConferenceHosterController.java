@@ -147,7 +147,7 @@ public class ConferenceHosterController {
     //    full data return
     @ResponseBody
     @GetMapping("/fetchAllConference")
-    public List<ConferenceHosterDTO> fetchAllConference(HttpSession session) {
+    public List<ConferenceHosterDTO> fetchAllConference(ModelAndView modelAndView) {
         List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
 
         LocalDate currentDate = LocalDate.now();
@@ -160,7 +160,7 @@ public class ConferenceHosterController {
         }
 
         // Store future events in session for reuse
-        session.setAttribute("futureEvents", futureEvents);
+        modelAndView.addObject("events", futureEvents);
 
         System.out.println("Future events: " + futureEvents);
 
