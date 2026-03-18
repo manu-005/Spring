@@ -525,7 +525,9 @@ pageEncoding="UTF-8"%>
         <div class="row g-4" id="eventsContainer"></div>
     </div>
 </section>
-
+<c:forEach var="event" items="${events}">
+  <h4>${event.conferenceTitle}</h4>
+ </c:forEach>
 ${events}
 <div class="container mt-4">
     <div class="row">
