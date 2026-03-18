@@ -168,9 +168,9 @@ public class ConferenceHosterController {
         return modelAndView;
     }
 
-    @GetMapping("/")
+    @GetMapping("/conference")
     public ModelAndView loadIndex() {
-
+        System.out.println("entered...");
         ModelAndView mv = new ModelAndView("index");
 
         List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();

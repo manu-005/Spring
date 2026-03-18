@@ -822,7 +822,13 @@ pageEncoding="UTF-8"%>
     </div>
 </footer>
 
-<!-- Scripts -->
+<!-- Scripts
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("/conference/fetchAllConference").catch(() => {});
+
+        console.log("called");
+    });
+ -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
@@ -851,11 +857,7 @@ pageEncoding="UTF-8"%>
         "max-glare": 0.08,
     });
 
-   document.addEventListener("DOMContentLoaded", () => {
-       fetch("/conference/fetchAllConference").catch(() => {});
 
-       console.log("called");
-   });
 
 </script>
 
