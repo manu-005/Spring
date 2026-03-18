@@ -526,7 +526,7 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
-
+${events}
 <div class="container mt-4">
     <div class="row">
 

@@ -147,7 +147,7 @@ public class ConferenceHosterController {
     //    full data return
     @ResponseBody
     @GetMapping("/fetchAllConference")
-    public List<ConferenceHosterDTO> fetchAllConference(ModelAndView modelAndView) {
+    public ModelAndView fetchAllConference(ModelAndView modelAndView) {
         List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
 
         LocalDate currentDate = LocalDate.now();
@@ -161,9 +161,9 @@ public class ConferenceHosterController {
 
         // Store future events in session for reuse
         modelAndView.addObject("events", futureEvents);
-
+modelAndView.setViewName("index");
         System.out.println("Future events: " + futureEvents);
 
-        return futureEvents; // This is sent as JSON to your JS
+        return modelAndView; // This is sent as JSON to your JS
     }
 }
