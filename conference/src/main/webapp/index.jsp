@@ -781,7 +781,6 @@ pageEncoding="UTF-8"%>
         "max-glare": 0.08,
     });
 
-
    document.addEventListener("DOMContentLoaded", () => {
        fetch("/conference/fetchAllConference").catch(() => {});
 
