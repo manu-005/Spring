@@ -119,7 +119,7 @@ public class ConferenceHosterController {
     @GetMapping("fetchBanner")
     public void fetchBanner(HttpServletResponse response, ModelAndView modelAndView, @RequestParam("conferenceId") int conferenceId) {
 
-        System.out.println("conference id :"+conferenceId);
+        System.out.println("conference id :" + conferenceId);
 
         System.out.println("entered in fetch banner");
 
@@ -143,11 +143,13 @@ public class ConferenceHosterController {
             response.flushBuffer();
         }
     }
+
     //    @RequestMapping(apic)
     //    full data return
-    @ResponseBody
-    @GetMapping("/fetchAllConference")
+
+    @GetMapping("fetchAllConference")
     public ModelAndView fetchAllConference(ModelAndView modelAndView) {
+        System.out.println("fetch conference called..");
         List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
 
         LocalDate currentDate = LocalDate.now();
@@ -159,11 +161,32 @@ public class ConferenceHosterController {
             }
         }
 
-        // Store future events in session for reuse
         modelAndView.addObject("events", futureEvents);
-modelAndView.setViewName("index");
+        modelAndView.setViewName("index");
         System.out.println("Future events: " + futureEvents);
 
-        return modelAndView; // This is sent as JSON to your JS
+        return modelAndView;
+    }
+
+    @GetMapping("/")
+    public ModelAndView loadIndex() {
+
+        ModelAndView mv = new ModelAndView("index");
+
+        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+
+        // filter future events
+        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
+
+        for (ConferenceHosterDTO dto : allHosterDTO) {
+            if (dto.getDate().isAfter(LocalDate.now())) {
+                futureEvents.add(dto);
+            }
+        }
+
+        // send data to JSP
+        mv.addObject("events", futureEvents);
+
+        return mv;
     }
 }

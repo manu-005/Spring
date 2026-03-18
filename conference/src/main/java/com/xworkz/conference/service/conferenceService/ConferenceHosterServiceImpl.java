@@ -111,10 +111,10 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         List<ConferenceHosterEntity> allEntityList = conferenceHosterDAO.getAllConferenceHoster();
         System.out.println("all conference in service :"+allEntityList);
 
-        for (ConferenceHosterEntity hoster : allEntityList) {
-            System.out.println("Conference Title service : " + hoster.getConferenceTitle());
-            System.out.println("Delegates: " + hoster.getDelegates());
-        }
+//        for (ConferenceHosterEntity hoster : allEntityList) {
+//            System.out.println("Conference Title service : " + hoster.getConferenceTitle());
+//            System.out.println("Delegates: " + hoster.getDelegates());
+//        }
 
         List<ConferenceHosterDTO> dtoList = new ArrayList<>();
 
@@ -130,10 +130,10 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
             }
         }
 
-        for (ConferenceHosterDTO hoster : dtoList) {
-            System.out.println("Conference Title service after : " + hoster.getConferenceTitle());
-            System.out.println("Delegates: " + hoster.getDelegates());
-        }
+//        for (ConferenceHosterDTO hoster : dtoList) {
+//            System.out.println("Conference Title service after : " + hoster.getConferenceTitle());
+//            System.out.println("Delegates: " + hoster.getDelegates());
+//        }
 
         System.out.println("after bean utils :"+dtoList);
         return dtoList;

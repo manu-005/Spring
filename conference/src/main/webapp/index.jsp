@@ -528,7 +528,7 @@ pageEncoding="UTF-8"%>
 <c:forEach var="event" items="${events}">
   <h4>${event.conferenceTitle}</h4>
  </c:forEach>
-${events}
+
 <div class="container mt-4">
     <div class="row">
 
