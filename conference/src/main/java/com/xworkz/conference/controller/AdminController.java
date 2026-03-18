@@ -203,18 +203,32 @@ public class AdminController {
         modelAndView.addObject("conference", dto);
         System.out.println("delegates ====================:"+ dto.getDelegates());
 
+        List<String> emailList = new ArrayList<>();
         for (DelegatesEmailEntity email :dto.getDelegates()){
 
             System.out.println("email of delegates :"+ email.getDelegatesEmail());
             String[] emailArray = email.getDelegatesEmail().split(",");
-            System.out.println("email array in delegates :"+emailArray);
+            System.out.println("email array in delegates :"+ Arrays.toString(emailArray));
+
+            emailList.addAll(Arrays.asList(emailArray));
 
         }
+        System.out.println("email list ====:"+emailList);
 
         System.out.println("delegates email :"+dto.getDelegateEmails());
+        modelAndView.addObject("emailList", emailList);
 
         modelAndView.setViewName("ConferenceDetails"); // JSP page name
 
+        return modelAndView;
+    }
+
+    @PostMapping("shareConference")
+    public ModelAndView shareConference(Long conferenceId,String emails,ModelAndView modelAndView){
+
+        System.out.println("conference id in share event : "+conferenceId);
+
+        System.out.println("emails in share event : "+emails);
         return modelAndView;
     }
 }

@@ -782,90 +782,11 @@ pageEncoding="UTF-8"%>
     });
 
 
-    document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", () => {
+       fetch("/conference/fetchAllConference").catch(() => {});
 
-        const container = document.getElementById("eventsContainer");
-        if (!container) return;
-
-        fetch("/conference/fetchAllConference")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("API DATA:", data);
-
-                if (!Array.isArray(data) || data.length === 0) {
-                    container.innerHTML = `<p class="text-center mt-4">No upcoming events found.</p>`;
-                    return;
-                }
-
-                let cards = "";
-
-                data.forEach(event => {
-                    // Fallback values in case fields are undefined
-                    const title = event.conferenceTitle || "No Title";
-                    const desc = event.conferenceDescription || "No Description";
-                    const fullName = event.fullName || "Organizer Name";
-                    const orgName = event.organizationName || "Organization";
-                    const date = event.date ? formatDate(event.date) : "Date TBD";
-                    const time = event.time || "Time TBD";
-                    const mode = event.mode || "Mode TBD";
-                    const venue = event.venueOrMeetingLink || "Venue TBD";
-
-                    cards += `
-                        <div class="col-md-4 mb-4">
-                            <div class="event-card position-relative">
-
-
-                                <!-- EVENT BADGE -->
-                                <div class="event-badge">${mode}</div>
-
-                                <h4>${title}</h4>
-
-                                <p>${desc}</p>
-
-                                <div class="event-meta mt-2">
-                                    <i class="bi bi-person"></i> ${fullName}<br>
-                                    <i class="bi bi-building"></i> ${orgName}<br>
-                                    <i class="bi bi-calendar3"></i> ${date}<br>
-                                    <i class="bi bi-clock"></i> ${time}<br>
-                                    <i class="bi bi-geo-alt"></i> ${venue}
-                                </div>
-
-                            </div>
-                        </div>
-                    `;
-                });
-
-                container.innerHTML = cards;
-
-                // Initialize VanillaTilt again for dynamically added elements
-                VanillaTilt.init(document.querySelectorAll(".event-card"), {
-                    max: 10,
-                    speed: 400,
-                    glare: true,
-                    "max-glare": 0.08,
-                });
-
-            })
-            .catch(error => {
-                console.error("Fetch error:", error);
-                container.innerHTML = `<p class="text-center text-danger mt-4">Failed to load events.</p>`;
-            });
-
-        // Helper to format date from yyyy-MM-dd to dd-MM-yyyy
-        function formatDate(dateStr) {
-            const dateObj = new Date(dateStr);
-            const day = String(dateObj.getDate()).padStart(2, '0');
-            const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-            const year = dateObj.getFullYear();
-            return `${day}-${month}-${year}`;
-        }
-
-    });
+       console
+   });
 
 </script>
 
