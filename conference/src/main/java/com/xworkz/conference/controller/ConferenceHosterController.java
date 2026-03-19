@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,35 +37,33 @@ public class ConferenceHosterController {
     public ConferenceHosterController() {
         System.out.println("conference hoster controller object created ..");
     }
+    @GetMapping("/")
+    public ModelAndView loadIndex() {
 
-    @GetMapping("index")
-    public ModelAndView loadIndex(ModelAndView model) {
+        ModelAndView mv = new ModelAndView("index");
 
-        System.out.println("index  loading in controller :........");
-        List<ConferenceHosterDTO> list =
+        List<ConferenceHosterDTO> all =
                 conferenceHosterService.getAllConferenceHoster();
 
-        model.addObject("dtoList", list);
-        System.out.println(list);
-        model.setViewName("index");
-        return model;   // index.jsp
+        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
+
+        for (ConferenceHosterDTO dto : all) {
+            if (dto.getDate().isAfter(LocalDate.now())) {
+                futureEvents.add(dto);
+            }
+        }
+
+        mv.addObject("events", futureEvents);
+
+        return mv;
     }
 
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
             @Valid ConferenceHosterDTO organizerDTO,
-            BindingResult bindingResult, String tpoEmails) {
+            BindingResult bindingResult, String tpoEmails,ModelAndView modelAndView) {
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
-
-//      List<ConferenceHosterDTO> allOrganizeHoster =  conferenceHosterService.getAllConferenceHoster();
-//
-//      for(ConferenceHosterDTO dto : allOrganizeHoster) {
-//          System.out.println("all  hosters :" + dto);
-//      }
-
-//      modelAndView.addObject("allDTOList",allOrganizeHoster);
 
         MultipartFile banner = organizerDTO.getConferenceBanner();
         MultipartFile promoVideo = organizerDTO.getPromoVideo();
@@ -99,15 +98,16 @@ public class ConferenceHosterController {
         }
         // If no errors → Save data
 
-        ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
+//        ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
-        if (savedConferenceHosterDTO != null) {
+//        if (savedConferenceHosterDTO != null) {
+            if(true){
             String[] emailArray = tpoEmails.split(",");
+            System.out.println("email array :"+emailArray);
+//            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
 
-            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
-
-            System.out.println("saved delegates in controller :" + delegateSaved);
+//            System.out.println("saved delegates in controller :" + delegateSaved);
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
         } else {
             modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
@@ -147,48 +147,50 @@ public class ConferenceHosterController {
     //    @RequestMapping(apic)
     //    full data return
 
-    @GetMapping("fetchAllConference")
-    public ModelAndView fetchAllConference(ModelAndView modelAndView) {
-        System.out.println("fetch conference called..");
-        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+//    @GetMapping("fetchAllConference")
+//    public String fetchAllConference(ModelAndView modelAndView, Model model,HttpSession session) {
+//        System.out.println("fetch conference called..");
+//        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+//
+//        LocalDate currentDate = LocalDate.now();
+//        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
+//
+//        for (ConferenceHosterDTO dto : allHosterDTO) {
+//            if (dto.getDate().isAfter(currentDate)) {
+//                futureEvents.add(dto);
+//            }
+//        }
+//
+//        modelAndView.addObject("events", futureEvents);
+//        modelAndView.setViewName("index");
+//        System.out.println("Future events: " + futureEvents);
+//
+//        session.setAttribute("events",futureEvents);
+//        model.addAttribute("events",futureEvents);
+//        return "index";
+//    }
 
-        LocalDate currentDate = LocalDate.now();
-        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
-
-        for (ConferenceHosterDTO dto : allHosterDTO) {
-            if (dto.getDate().isAfter(currentDate)) {
-                futureEvents.add(dto);
-            }
-        }
-
-        modelAndView.addObject("events", futureEvents);
-        modelAndView.setViewName("index");
-        System.out.println("Future events: " + futureEvents);
-
-        return modelAndView;
-    }
-
-    @GetMapping("")
-    public ModelAndView loadIndex() {
-
-        System.out.println("entered in load index");
-        ModelAndView mv = new ModelAndView("index");
-
-        List<ConferenceHosterDTO> all = conferenceHosterService.getAllConferenceHoster();
-
-        // filter future events
-        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
-
-        for (ConferenceHosterDTO dto : all) {
-            if (dto.getDate().isAfter(LocalDate.now())) {
-                futureEvents.add(dto);
-            }
-        }
-
-        mv.addObject("events", futureEvents);
-
-        System.out.println("Events: " + futureEvents);
-
-        return mv;
-    }
+//    @GetMapping("")
+//    public ModelAndView loadIndex() {
+//
+//        System.out.println("entered in load index");
+//        ModelAndView mv = new ModelAndView("index");
+//
+//        List<ConferenceHosterDTO> all = conferenceHosterService.getAllConferenceHoster();
+//
+//        // filter future events
+//        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
+//
+//        for (ConferenceHosterDTO dto : all) {
+//            if (dto.getDate().isAfter(LocalDate.now())) {
+//                futureEvents.add(dto);
+//            }
+//        }
+//
+//        mv.addObject("events", futureEvents);
+//
+//        System.out.println("Events: " + futureEvents);
+//
+//        return mv;
+//    }
 }

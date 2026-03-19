@@ -690,7 +690,7 @@ pageEncoding="UTF-8"%>
                             <small class="text-danger">${conferenceDescriptionError}</small>
                         </div>
 
-                        <!-- Target Delegates -->
+                        <!-- Target Delegates
                         <div class="mb-3">
                             <label class="form-label">Target Delegates</label>
                             <select class="form-select" name="targetDelegates">
@@ -703,13 +703,15 @@ pageEncoding="UTF-8"%>
                             </select>
                             <small class="text-danger">${targetDelegatesError}</small>
                         </div>
+                        -->
 
-                        <!-- Number of Delegates -->
+                        <!-- Number of Delegates
                         <div class="mb-3">
                             <label class="form-label">Number of Delegates</label>
                             <input type="number" class="form-control" name="numberOfDelegates">
                             <small class="text-danger">${numberOfDelegatesError}</small>
                         </div>
+                        -->
 
                         <!-- Date & Time -->
                         <div class="row">
@@ -784,6 +786,8 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 <!-- ===== FOOTER ===== -->
+<section id="contact" style="background:black;">
+
 <footer>
     <div class="container">
         <div class="row g-4">
@@ -821,13 +825,14 @@ pageEncoding="UTF-8"%>
         © 2026 ConferoNexus | All Rights Reserved
     </div>
 </footer>
-
+</section>
 <!-- Scripts
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
         fetch("/conference/fetchAllConference").catch(() => {});
 
         console.log("called");
     });
+
  -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -856,6 +861,8 @@ pageEncoding="UTF-8"%>
         glare: true,
         "max-glare": 0.08,
     });
+
+
 
 
 

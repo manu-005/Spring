@@ -40,16 +40,6 @@ public class ConferenceHosterDTO {
     @Size(min = 4, max = 500, message = "Conference description size must be between 4 and 500")
     private String conferenceDescription;
 
-    // Target Delegates (Dropdown)
-    @NotBlank(message = "Please select target delegates")
-    private String targetDelegates;
-
-    // Number of Delegates
-    @NotNull(message = "Please enter number of delegates")
-    @Min(value = 4, message = "Minimum 1 delegate required")
-    @Max(value = 100000, message = "Maximum delegate limit exceeded")
-    private Integer numberOfDelegates;
-
     @NotNull(message = "Please select valid date")
     @Future(message = "Conference date must be a future date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
