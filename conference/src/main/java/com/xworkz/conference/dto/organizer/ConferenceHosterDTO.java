@@ -59,6 +59,7 @@ public class ConferenceHosterDTO {
     //    @NotBlank(message = "Please enter delegates emails")
     private String delegateEmails;
 
+    private String tpoEmails;
     private List<DelegatesEmailEntity> delegates;
     // ⚠ File fields (validated manually in controller using .isEmpty())
     private MultipartFile conferenceBanner;

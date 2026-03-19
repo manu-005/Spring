@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -61,9 +62,9 @@ public class ConferenceHosterController {
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
             @Valid ConferenceHosterDTO organizerDTO,
-            BindingResult bindingResult, String tpoEmails,ModelAndView modelAndView) {
+            BindingResult bindingResult,ModelAndView modelAndView) {
 
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("redirect:/index");
 
         MultipartFile banner = organizerDTO.getConferenceBanner();
         MultipartFile promoVideo = organizerDTO.getPromoVideo();
@@ -103,8 +104,8 @@ public class ConferenceHosterController {
 
 //        if (savedConferenceHosterDTO != null) {
             if(true){
-            String[] emailArray = tpoEmails.split(",");
-            System.out.println("email array :"+emailArray);
+            String[] emailArray = organizerDTO.getTpoEmails().split(",");
+            System.out.println("email array :"+ Arrays.toString(emailArray));
 //            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
 
 //            System.out.println("saved delegates in controller :" + delegateSaved);
