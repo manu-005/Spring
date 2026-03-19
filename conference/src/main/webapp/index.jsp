@@ -19,8 +19,7 @@ pageEncoding="UTF-8"%>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -69,6 +68,7 @@ pageEncoding="UTF-8"%>
         .navbar-nav {
             margin-right: 0 !important;
         }
+
         /* ===== CURSOR GLOW ===== */
         .cursor-glow {
             position: fixed;
@@ -104,10 +104,7 @@ pageEncoding="UTF-8"%>
             font-size: 16px;
             color: rgba(255,255,255,0.85) !important;
             transition: 0.3s;
-        }
-        .navbar-nav .nav-link {
-
-            padding: 6px 10px;  /* tighter spacing */
+            padding: 6px 10px;
         }
         .navbar-nav .nav-link::after {
             content: "";
@@ -119,30 +116,34 @@ pageEncoding="UTF-8"%>
         }
         .navbar-nav .nav-link:hover::after { width: 100%; }
         .navbar-nav .nav-link:hover { color: #00c6ff !important; }
+        .navbar .container { padding-left: 10px; padding-right: 10px; }
 
-        .navbar .container {
-            padding-left: 10px;   /* default is 15px */
-            padding-right: 10px;
-        }
         /* ===== HERO ===== */
+        .hero{
+                    background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1950&q=80');
+}
         .hero {
-            height: 100vh;
+            height: 110vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d') center/cover no-repeat fixed;
             position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
         }
         .hero::before {
             content: "";
             position: absolute;
             width: 100%; height: 100%;
-            background: rgba(240, 246, 255, 0.72);
             top: 0; left: 0;
+            background-color: rgba(240, 246, 255, 0.3); /* lower opacity so image shows */
+            z-index: 0;
         }
         .hero-card {
             position: relative;
-            background: rgba(255,255,255,0.65);
+            background: rgba(255,255,255,0.4);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             padding: 70px 80px;
@@ -151,6 +152,7 @@ pageEncoding="UTF-8"%>
             text-align: center;
             max-width: 820px;
             border: 1px solid rgba(255,255,255,0.8);
+            z-index: 2;
         }
         .hero-card h1 {
             font-family: 'Cormorant Garamond', serif;
@@ -164,7 +166,7 @@ pageEncoding="UTF-8"%>
         .hero-card p {
             font-size: 19px;
             color: var(--text-mid);
-            margin-top: 14px;
+            margin-top: 19px;
         }
 
         /* ===== SECTIONS ===== */
@@ -296,10 +298,7 @@ pageEncoding="UTF-8"%>
             color: var(--text-dark);
             outline: none;
         }
-        .form-select {
-            color: var(--text-dark);
-            appearance: auto;
-        }
+        .form-select { color: var(--text-dark); appearance: auto; }
 
         /* ===== BUTTONS ===== */
         .btn-glow {
@@ -334,27 +333,6 @@ pageEncoding="UTF-8"%>
             transform: translateY(-3px);
             color: white;
         }
-
-        /* ===== CONTACT ===== */
-        #contact {
-            background: linear-gradient(135deg, #f0f4ff, #e8f0ff);
-        }
-        #contact h2 { margin-bottom: 12px; }
-        #contact p { color: var(--text-mid); font-size: 17px; }
-        .contact-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 10px 24px;
-            font-size: 15px;
-            color: var(--text-mid);
-            box-shadow: var(--shadow);
-            margin-top: 20px;
-        }
-        .contact-badge i { color: var(--accent); font-size: 18px; }
 
         /* ===== FOOTER ===== */
         footer {
@@ -409,34 +387,6 @@ pageEncoding="UTF-8"%>
             border-radius: 4px;
             margin: 14px auto 0;
         }
-
-
-.event-card {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
-
-.event-card:hover {
-    transform: translateY(-5px);
-}
-
-.event-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 12px;
-}
-
-.event-meta i {
-    margin-right: 5px;
-}
     </style>
 </head>
 
@@ -449,6 +399,7 @@ pageEncoding="UTF-8"%>
 <div class="cursor-glow"></div>
 
 <!-- ===== NAVBAR ===== -->
+
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid px-3">
         <a class="navbar-brand d-flex align-items-center" href="#home">
@@ -469,7 +420,36 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </nav>
+<!-- ===== TOAST NOTIFICATIONS ===== -->
+<div class="toast-container position-fixed top-9 end-0 p-3" style="z-index: 1100">
 
+    <!-- ✅ Success Toast -->
+    <c:if test="${not empty successMsg}">
+        <div class="toast align-items-center text-bg-success border-0 show" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${successMsg}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </c:if>
+
+    <!-- ❌ Error Toast -->
+    <c:if test="${not empty errorMsg}">
+        <div class="toast align-items-center text-bg-danger border-0 show" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${errorMsg}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </c:if>
+
+</div>
 <!-- ===== HERO ===== -->
 <section id="home" class="hero">
     <div class="hero-card" data-aos="zoom-in">
@@ -862,6 +842,16 @@ document.addEventListener("DOMContentLoaded", () => {
         "max-glare": 0.08,
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+        let toastList = toastElList.map(function (toastEl) {
+            let toast = new bootstrap.Toast(toastEl, {
+                delay: 3000   // ⏱ auto hide after 3 sec
+            });
+            toast.show();
+            return toast;
+        });
+    });
 
 
 
