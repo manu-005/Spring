@@ -101,11 +101,10 @@ public class ConferenceHosterController {
         }
         // If no errors → Save data
 
-//        ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
+        ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
-//        if (savedConferenceHosterDTO != null) {
-            if(true){
+        if (savedConferenceHosterDTO != null) {
             String[] emailArray = organizerDTO.getTpoEmails().split(",");
             System.out.println("email array :"+ Arrays.toString(emailArray));
 //            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);

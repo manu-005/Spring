@@ -58,7 +58,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         System.out.println("service banner details :" + bannerEntity);
 
         //save conference banner details db
-        ConferenceBannerEntity savedBanner = conferenceBannerAndPromoVideoDAO.saveBanner(bannerEntity);
+//        ConferenceBannerEntity savedBanner = conferenceBannerAndPromoVideoDAO.saveBanner(bannerEntity);
         System.out.println("banner path saved : " + bannerPath);
         // 1. promo video
         MultipartFile promoVideo = organizerDTO.getPromoVideo();
@@ -77,26 +77,26 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         promoVideoEntity.setPromoVideoPath(promoVideoPath.toString());
         promoVideoEntity.setPromoVideoSize(promoVideo.getSize());
         //save conference promo video details db
-        ConferencePromoVideoEntity savedPromoVideoEntity = conferenceBannerAndPromoVideoDAO.svaePromoVideo(promoVideoEntity);
+//        ConferencePromoVideoEntity savedPromoVideoEntity = conferenceBannerAndPromoVideoDAO.svaePromoVideo(promoVideoEntity);
 
         ConferenceHosterEntity conferenceHosterEntity = new ConferenceHosterEntity();
 
         BeanUtils.copyProperties(organizerDTO, conferenceHosterEntity);
 
-        conferenceHosterEntity.setBannerPath(savedBanner.getBannerPath());
-        conferenceHosterEntity.setPromoVideoPath(savedPromoVideoEntity.getPromoVideoPath());
+//        conferenceHosterEntity.setBannerPath(savedBanner.getBannerPath());
+//        conferenceHosterEntity.setPromoVideoPath(savedPromoVideoEntity.getPromoVideoPath());
 
-        if (savedBanner != null && savedPromoVideoEntity != null) {
+//        if (savedBanner != null && savedPromoVideoEntity != null) {
+if(true){
+//            System.out.println("saved banner :" + savedBanner);
+//            System.out.println("saved promo video :" + savedPromoVideoEntity);
+            System.out.println("hoster entity  before saving:" + conferenceHosterEntity);
 
-            System.out.println("saved banner :" + savedBanner);
-            System.out.println("saved promo video :" + savedPromoVideoEntity);
-            System.out.println("hoster entity :" + conferenceHosterEntity);
-
-            ConferenceHosterEntity savedConferenceEntity = conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
+//            ConferenceHosterEntity savedConferenceEntity = conferenceHosterDAO.saveConferenceHoster(conferenceHosterEntity);
 
             ConferenceHosterDTO savedDto = new ConferenceHosterDTO();
 
-            BeanUtils.copyProperties(savedConferenceEntity, savedDto);
+//            BeanUtils.copyProperties(savedConferenceEntity, savedDto);
 
             System.out.println("after saved and bean utils :" + savedDto);
 
