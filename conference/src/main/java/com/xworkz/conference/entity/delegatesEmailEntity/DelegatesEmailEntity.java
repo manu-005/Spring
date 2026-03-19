@@ -18,7 +18,7 @@ public class DelegatesEmailEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int delegatesId;
 
-    private String delegatesEmail;
+    private String[] delegatesEmail;
 
     @JsonIgnore
     @ManyToOne
@@ -26,6 +26,6 @@ public class DelegatesEmailEntity {
     @ToString.Exclude
     private ConferenceHosterEntity conferenceHoster;
 
-    private String targetDelegates;
+//    private String targetDelegates;
 
 }

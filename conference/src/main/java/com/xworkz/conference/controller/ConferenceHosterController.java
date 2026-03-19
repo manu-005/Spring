@@ -100,16 +100,15 @@ public class ConferenceHosterController {
             return modelAndView;
         }
         // If no errors → Save data
-
         ConferenceHosterDTO savedConferenceHosterDTO = conferenceHosterService.validAndSave(organizerDTO);
         System.out.println("saving");
 
         if (savedConferenceHosterDTO != null) {
             String[] emailArray = organizerDTO.getTpoEmails().split(",");
             System.out.println("email array :"+ Arrays.toString(emailArray));
-//            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
+            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
 
-//            System.out.println("saved delegates in controller :" + delegateSaved);
+            System.out.println("saved delegates in controller :" + delegateSaved);
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
         } else {
             modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
