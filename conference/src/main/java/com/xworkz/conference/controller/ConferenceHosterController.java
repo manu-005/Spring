@@ -168,24 +168,26 @@ public class ConferenceHosterController {
         return modelAndView;
     }
 
-    @GetMapping("/conference")
+    @GetMapping("")
     public ModelAndView loadIndex() {
-        System.out.println("entered...");
+
+        System.out.println("entered in load index");
         ModelAndView mv = new ModelAndView("index");
 
-        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+        List<ConferenceHosterDTO> all = conferenceHosterService.getAllConferenceHoster();
 
         // filter future events
         List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
 
-        for (ConferenceHosterDTO dto : allHosterDTO) {
+        for (ConferenceHosterDTO dto : all) {
             if (dto.getDate().isAfter(LocalDate.now())) {
                 futureEvents.add(dto);
             }
         }
 
-        // send data to JSP
         mv.addObject("events", futureEvents);
+
+        System.out.println("Events: " + futureEvents);
 
         return mv;
     }
