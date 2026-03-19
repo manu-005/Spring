@@ -64,7 +64,7 @@ public class ConferenceHosterController {
             @Valid ConferenceHosterDTO organizerDTO,
             BindingResult bindingResult,ModelAndView modelAndView) {
 
-        modelAndView.setViewName("redirect:/index");
+        modelAndView.setViewName("index");
 
         MultipartFile banner = organizerDTO.getConferenceBanner();
         MultipartFile promoVideo = organizerDTO.getPromoVideo();
@@ -93,6 +93,8 @@ public class ConferenceHosterController {
                 System.out.println(field + "  :error:  message :" + message);
 
                 modelAndView.addObject(field + "Error", message);
+                modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
+
             });
 
             return modelAndView;
