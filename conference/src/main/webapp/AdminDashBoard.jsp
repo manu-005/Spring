@@ -500,6 +500,8 @@ footer a:hover { color: #00c6ff; }
 </section>
 
 <!-- ===== FOOTER ===== -->
+<section id="contact" style="background:black;">
+
 <footer>
 <div class="container">
     <div class="row g-4">
@@ -536,6 +538,7 @@ footer a:hover { color: #00c6ff; }
     © 2026 ConferoNexus | All Rights Reserved
 </div>
 </footer>
+</section>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

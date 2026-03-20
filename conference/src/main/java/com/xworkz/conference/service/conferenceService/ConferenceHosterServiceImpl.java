@@ -2,8 +2,10 @@ package com.xworkz.conference.service.conferenceService;
 
 import com.xworkz.conference.dao.bannerDAO.ConferenceBannerAndPromoVideoDAO;
 import com.xworkz.conference.dao.conferenceHosterDAO.ConferenceHosterDAO;
+import com.xworkz.conference.dto.admin.AdminDTO;
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
+import com.xworkz.conference.entity.admin.AdminEntity;
 import com.xworkz.conference.entity.bannerEntity.ConferenceBannerEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
@@ -140,7 +142,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     }
 
     @Override
-    public boolean saveDelegatesEmail(String[] delegatesEmails, ConferenceHosterDTO savedConferenceDTO) {
+    public boolean saveDelegatesEmail(String delegatesEmails, ConferenceHosterDTO savedConferenceDTO) {
         System.out.println("service for delegates  :==");
 
         ConferenceHosterEntity fetchEntityById = conferenceHosterDAO.findById(savedConferenceDTO.getConferenceId());
@@ -148,6 +150,9 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         List<DelegatesEmailEntity> delegatesList = new ArrayList<>();
 
         DelegatesEmailEntity delegatesEmailEntity = new DelegatesEmailEntity();
+
+        System.out.println("tpo mails :"+delegatesEmails);
+
         delegatesEmailEntity.setDelegatesEmail(delegatesEmails);
         delegatesEmailEntity.setConferenceHoster(fetchEntityById);
         delegatesList.add(delegatesEmailEntity);
@@ -189,6 +194,16 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         BeanUtils.copyProperties(entity,dto);
         System.out.println("entity in service after bean utils  :"+dto);
         return dto;
+    }
+
+    @Override
+    public boolean varifyAdmin(AdminDTO adminDTO) {
+
+        AdminEntity adminEntity = new AdminEntity();
+
+        BeanUtils.copyProperties(adminDTO,adminEntity);
+        System.out.println("after beAn utils :"+adminEntity);
+       return conferenceHosterDAO.varifyAdmin(adminEntity);
     }
 
 

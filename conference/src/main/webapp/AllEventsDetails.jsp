@@ -199,7 +199,7 @@ style="height:220px;width:100%;object-fit:cover;">
        <a href="sendConference?conferenceId=${event.conferenceId}"
           class="btn btn-primary btn-sm"
           onclick="event.stopPropagation();">
-           Send
+           Invite
        </a>
    </div>
 </div>
@@ -229,10 +229,6 @@ data-bs-dismiss="modal"></button>
 </div>
 
 <div class="modal-body">
-<!--
-<img src="fetchBannerImage?bannerPath=${event.bannerPath}"
-class="img-fluid mb-3"
-style="height:220px;width:100%;object-fit:cover;"> -->
 
 <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
 class="img-fluid mb-3">

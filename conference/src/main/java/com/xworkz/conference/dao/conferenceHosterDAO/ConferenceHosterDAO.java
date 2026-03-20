@@ -1,5 +1,6 @@
 package com.xworkz.conference.dao.conferenceHosterDAO;
 
+import com.xworkz.conference.entity.admin.AdminEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 
@@ -17,4 +18,6 @@ public interface ConferenceHosterDAO {
     List<DelegatesEmailEntity> getAllDelegates();
 
     ConferenceHosterEntity getAllConferenceHosterById(Long conferenceId);
+
+    boolean varifyAdmin(AdminEntity adminEntity);
 }

@@ -1,5 +1,6 @@
 package com.xworkz.conference.dao.conferenceHosterDAO;
 
+import com.xworkz.conference.entity.admin.AdminEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
         }
         return true;
     }
+
     @Override
     public List<DelegatesEmailEntity> getAllDelegates() {
 
@@ -103,7 +105,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
             List<DelegatesEmailEntity> allDelegates = query.getResultList();
 
-            System.out.println("all delegates in dao :"+allDelegates);
+            System.out.println("all delegates in dao :" + allDelegates);
             return allDelegates;
 
         } finally {
@@ -117,11 +119,24 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     public ConferenceHosterEntity getAllConferenceHosterById(Long conferenceId) {
         System.out.println("enterd in dao ============");
         EntityManager manager = managerFactory.createEntityManager();
-        ConferenceHosterEntity entity= manager.find(ConferenceHosterEntity.class,conferenceId);
+        ConferenceHosterEntity entity = manager.find(ConferenceHosterEntity.class, conferenceId);
 
-        System.out.println("enetity in dao by id :"+entity);
+        System.out.println("enetity in dao by id :" + entity);
 
         return entity;
+    }
+
+    @Override
+    public boolean varifyAdmin(AdminEntity adminEntity) {
+
+      EntityManager manager =  managerFactory.createEntityManager();
+      AdminEntity admin = (AdminEntity) manager.createQuery("select a from AdminEntity a").getSingleResult();
+        System.out.println("admin details :"+admin);
+        manager.close();
+        if (adminEntity.getUserName().equals(admin.getUserName()) && adminEntity.getPassword().equals(admin.getPassword())){
+            return true;
+        }
+        else return false;
     }
 
 }

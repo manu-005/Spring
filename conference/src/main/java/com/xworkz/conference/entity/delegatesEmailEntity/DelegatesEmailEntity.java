@@ -18,7 +18,7 @@ public class DelegatesEmailEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int delegatesId;
 
-    private String[] delegatesEmail;
+    private String delegatesEmail;
 
     @JsonIgnore
     @ManyToOne

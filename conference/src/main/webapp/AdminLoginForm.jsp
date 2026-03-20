@@ -430,10 +430,10 @@ footer a:hover { color: #00c6ff; }
     </button>
     <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
-            <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.js#events">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#register">Register</a></li>
             <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
               <li class="nav-item"><a class="nav-link" href="adminLoginForm">Admin login</a></li>
         </ul>
@@ -461,8 +461,8 @@ footer a:hover { color: #00c6ff; }
                     </c:if>
 
                     <!-- Error Message -->
-                    <c:if test="${not empty errorMsg}">
-                        <div class="alert alert-danger">${errorMsg}</div>
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger">${error}</div>
                     </c:if>
 
                     <form action="adminLogin" method="post">
@@ -472,7 +472,7 @@ footer a:hover { color: #00c6ff; }
                             <label class="form-label">Email Address</label>
                             <input type="email"
                                    class="form-control"
-                                   name="email"
+                                   name="userName"
                                    placeholder="Enter admin email">
                             <small class="text-danger">${emailError}</small>
                         </div>
@@ -504,6 +504,7 @@ footer a:hover { color: #00c6ff; }
 </section>
 
 <!-- ===== FOOTER ===== -->
+<section id="contact" style="background:black;">
 <footer>
 <div class="container">
     <div class="row g-4">
@@ -540,6 +541,7 @@ footer a:hover { color: #00c6ff; }
     © 2026 ConferoNexus | All Rights Reserved
 </div>
 </footer>
+</section>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

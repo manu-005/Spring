@@ -1,5 +1,6 @@
 package com.xworkz.conference.controller;
 
+import com.xworkz.conference.dto.admin.AdminDTO;
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
@@ -39,11 +40,19 @@ public class AdminController {
     }
 
     @PostMapping("adminLogin")
-    public ModelAndView adminLogin(ModelAndView modelAndView, String email, String password) {
+    public ModelAndView adminLogin(ModelAndView modelAndView, AdminDTO adminDTO) {
 
-        System.out.println("email :" + email);
-        System.out.println("password :" + password);
-        modelAndView.setViewName("AdminDashBoard");
+        System.out.println("email :" + adminDTO.getUserName());
+        System.out.println("password :" + adminDTO.getPassword());
+
+       boolean verify = conferenceHosterService.varifyAdmin(adminDTO);
+       if (verify) {
+           modelAndView.setViewName("AdminDashBoard");
+       }
+       else {
+           modelAndView.addObject("error","Invallid credential");
+           modelAndView.setViewName("AdminLoginForm");
+       }
         return modelAndView;
     }
 
@@ -177,7 +186,7 @@ public class AdminController {
     @GetMapping("fetchPromoVideo")
     public void fetchPromoVideo(HttpServletResponse response, @RequestParam("conferenceId") Long conferenceId) {
 
-        System.out.println("enterd in promo video and conference id is :"+conferenceId);
+        System.out.println("enterd in promo video and conference id is :" + conferenceId);
 
         ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
 
@@ -194,28 +203,33 @@ public class AdminController {
     }
 
     @GetMapping("sendConference")
-    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId,ModelAndView modelAndView) {
+    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId, ModelAndView modelAndView) {
 
         System.out.println("Conference ID received: " + conferenceId);
 
         ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
 
         modelAndView.addObject("conference", dto);
-        System.out.println("delegates ====================:"+ dto.getDelegates());
+        System.out.println("delegates ====================:" + dto.getDelegates());
 
         List<String> emailList = new ArrayList<>();
-        for (DelegatesEmailEntity email :dto.getDelegates()){
+        String[] emailArray = dto.getDelegateEmails().split(",");
 
-            System.out.println("email of delegates :"+ email.getDelegatesEmail());
-            String[] emailArray = email.getDelegatesEmail().split(",");
-            System.out.println("email array in delegates :"+ Arrays.toString(emailArray));
+        System.out.println("email array list :"+ Arrays.toString(emailArray));
 
-            emailList.addAll(Arrays.asList(emailArray));
+        emailList.add(dto.getDelegateEmails());
+//        for (DelegatesEmailEntity email :dto.getDelegates()){
+//
+//            System.out.println("email of delegates :"+ email.getDelegatesEmail());
+//
+//            System.out.println("email array in delegates :"+ Arrays.toString(emailArray));
+//
+//            emailList.addAll(Arrays.asList(emailArray));
+//
+//        }
+        System.out.println("email list ====:" + emailList);
 
-        }
-        System.out.println("email list ====:"+emailList);
-
-        System.out.println("delegates email :"+dto.getDelegateEmails());
+        System.out.println("delegates email :" + dto.getDelegateEmails());
         modelAndView.addObject("emailList", emailList);
 
         modelAndView.setViewName("ConferenceDetails"); // JSP page name
@@ -224,11 +238,11 @@ public class AdminController {
     }
 
     @PostMapping("shareConference")
-    public ModelAndView shareConference(Long conferenceId,String emails,ModelAndView modelAndView){
+    public ModelAndView shareConference(Long conferenceId, String emails, ModelAndView modelAndView) {
 
-        System.out.println("conference id in share event : "+conferenceId);
+        System.out.println("conference id in share event : " + conferenceId);
 
-        System.out.println("emails in share event : "+emails);
+        System.out.println("emails in share event : " + emails);
         return modelAndView;
     }
 }

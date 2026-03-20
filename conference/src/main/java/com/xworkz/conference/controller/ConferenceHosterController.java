@@ -38,6 +38,7 @@ public class ConferenceHosterController {
     public ConferenceHosterController() {
         System.out.println("conference hoster controller object created ..");
     }
+
     @GetMapping("/")
     public ModelAndView loadIndex() {
 
@@ -62,7 +63,7 @@ public class ConferenceHosterController {
     @PostMapping("organizerDetails")
     public ModelAndView saveOrganizerDetails(
             @Valid ConferenceHosterDTO organizerDTO,
-            BindingResult bindingResult,ModelAndView modelAndView) {
+            BindingResult bindingResult, ModelAndView modelAndView) {
 
         modelAndView.setViewName("index");
 
@@ -96,7 +97,6 @@ public class ConferenceHosterController {
                 modelAndView.addObject("errorMsg", "Conference registration failed. Please try again.");
 
             });
-
             return modelAndView;
         }
         // If no errors → Save data
@@ -105,8 +105,8 @@ public class ConferenceHosterController {
 
         if (savedConferenceHosterDTO != null) {
             String[] emailArray = organizerDTO.getTpoEmails().split(",");
-            System.out.println("email array :"+ Arrays.toString(emailArray));
-            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(emailArray, savedConferenceHosterDTO);
+            System.out.println("email array :" + Arrays.toString(emailArray));
+            boolean delegateSaved = conferenceHosterService.saveDelegatesEmail(organizerDTO.getTpoEmails(), savedConferenceHosterDTO);
 
             System.out.println("saved delegates in controller :" + delegateSaved);
             modelAndView.addObject("successMsg", "Your Conference Successfully Registered");
