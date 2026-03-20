@@ -213,23 +213,19 @@ public class AdminController {
         System.out.println("delegates ====================:" + dto.getDelegates());
 
         List<String> emailList = new ArrayList<>();
-        String[] emailArray = dto.getDelegateEmails().split(",");
 
-        System.out.println("email array list :"+ Arrays.toString(emailArray));
+        for (DelegatesEmailEntity email :dto.getDelegates()){
 
-        emailList.add(dto.getDelegateEmails());
-//        for (DelegatesEmailEntity email :dto.getDelegates()){
-//
-//            System.out.println("email of delegates :"+ email.getDelegatesEmail());
-//
-//            System.out.println("email array in delegates :"+ Arrays.toString(emailArray));
-//
-//            emailList.addAll(Arrays.asList(emailArray));
-//
-//        }
+           String[] emailArray = email.getDelegatesEmail().split(",");
+
+            System.out.println("email array in delegates ::...:"+ Arrays.toString(emailArray));
+
+            emailList.addAll(Arrays.asList(emailArray));
+
+        }
+
         System.out.println("email list ====:" + emailList);
 
-        System.out.println("delegates email :" + dto.getDelegateEmails());
         modelAndView.addObject("emailList", emailList);
 
         modelAndView.setViewName("ConferenceDetails"); // JSP page name
