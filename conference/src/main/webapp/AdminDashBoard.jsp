@@ -442,7 +442,6 @@ footer a:hover { color: #00c6ff; }
 </nav>
 
 <!--   ===========main content ====== -->
-
 <section style="padding-top:140px; padding-bottom:100px;">
     <div class="container">
         <div class="row g-4 justify-content-center">
