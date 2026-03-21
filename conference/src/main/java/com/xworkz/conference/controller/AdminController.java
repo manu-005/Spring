@@ -123,9 +123,6 @@ public class AdminController {
 
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
-        for (ConferenceHosterDTO dtp : allEvents) {
-
-        }
         modelAndView.addObject("allEvents", allEvents);
         modelAndView.setViewName("AllEventsDetails");
 
@@ -236,9 +233,24 @@ public class AdminController {
     @PostMapping("shareConference")
     public ModelAndView shareConference(Long conferenceId, String emails, ModelAndView modelAndView) {
 
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+        modelAndView.addObject("allEvents", allEvents);
+
         System.out.println("conference id in share event : " + conferenceId);
 
         System.out.println("emails in share event : " + emails);
+
+        modelAndView.addObject("successMsg","Invited Successfully..");
+
+        modelAndView.addObject("errorMsg","Please try again after sometimes..");
+        modelAndView.setViewName("AllEventsDetails"); // JSP page name
+        return modelAndView;
+    }
+
+    @GetMapping("viewDelegates")
+    public ModelAndView viewDelegates(ModelAndView modelAndView,Long conferenceId){
+        modelAndView.addObject("conferenceId",conferenceId);
+        modelAndView.setViewName("EventDelegates");
         return modelAndView;
     }
 }

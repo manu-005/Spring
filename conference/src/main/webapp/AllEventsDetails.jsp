@@ -167,6 +167,38 @@ color:rgba(255,255,255,0.4);
 </nav>
 
 
+
+<!-- ===== TOAST NOTIFICATIONS ===== -->
+<div class="toast-container position-fixed top-9 end-0 p-3" style="z-index: 1100">
+
+    <!-- ✅ Success Toast -->
+    <c:if test="${not empty successMsg}">
+        <div class="toast align-items-center text-bg-success border-0 show" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${successMsg}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </c:if>
+
+    <!-- ❌ Error Toast -->
+    <c:if test="${not empty errorMsg}">
+        <div class="toast align-items-center text-bg-danger border-0 show" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${errorMsg}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </c:if>
+
+</div>
+
 <!-- EVENTS -->
 
 <div class="container events-section">
@@ -201,7 +233,13 @@ style="height:220px;width:100%;object-fit:cover;">
           onclick="event.stopPropagation();">
            Invite
        </a>
-   </div>
+
+          <a href="viewDelegates?conferenceId=${event.conferenceId}"
+             class="btn btn-primary btn-sm"
+             onclick="event.stopPropagation();">
+           View TPO Details
+          </a>
+      </div>
 </div>
 
 
