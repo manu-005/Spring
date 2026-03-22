@@ -504,19 +504,25 @@ html, body {
                  </button>
                  </form>
 
-               <form action="getAllHosters" method="get">
-               <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-               Conference Hoster Details </button>
-               </form>
-
                 <form action="getAllDelegates" method="get">
                 <button class="menu-row" type="submit" class="btn btn-modern w-100">
                 All Delegates </button>
                 </form>
 
-               <form action="getAllEvents" method="get">
+               <form action="getNewEvents" method="get">
                <button  class="menu-row" type="submit" class="btn btn-modern w-100">
                New Events
+               </button>
+               </form>
+
+                               <form action="getAllDelegates" method="get">
+                               <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                               All Delegates </button>
+                               </form>
+
+                              <form action="getAllEvents" method="get">
+                              <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+                              New Events
                </button>
                </form>
 
@@ -525,7 +531,7 @@ html, body {
                               Conference Hoster Details </button>
                               </form>
 
-                               <form action="getAllHosters" method="get">
+                                    <form action="getAllHosters" method="get">
                                              <button  class="menu-row" type="submit" class="btn btn-modern w-100">
                                              Conference Hoster Details </button>
                                              </form>
@@ -542,8 +548,114 @@ html, body {
             <!-- RIGHT SIDE -->
             <div class="col-md-9 right-panel">
                 <div id="content">
-                    <h3>Welcome</h3>
-                    <p>Select any option from left side</p>
+
+
+
+<!-- EVENTS -->
+
+<div class="container events-section">
+
+<div class="row">
+
+<c:forEach var="event" items="${allEvents}">
+
+<div class="col-md-6 event-col">
+
+<div class="event-card"
+data-bs-toggle="modal"
+data-bs-target="#eventModal${event.conferenceId}">
+
+<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+class="img-fluid mb-3"
+style="height:220px;width:100%;object-fit:cover;">
+
+<h4>${event.conferenceTitle}</h4>
+
+<p>${event.conferenceDescription}</p>
+
+<p>
+<b>Date:</b> ${event.date}<br>
+<b>Time:</b> ${event.time}<br>
+<b>Mode:</b> ${event.mode}
+</p>
+ <!-- Button at bottom right -->
+   <div class="mt-auto text-end">
+       <a href="sendConference?conferenceId=${event.conferenceId}"
+          class="btn btn-primary btn-sm"
+          onclick="event.stopPropagation();">
+           Invite
+       </a>
+
+          <a href="viewDelegates?conferenceId=${event.conferenceId}"
+             class="btn btn-primary btn-sm"
+             onclick="event.stopPropagation();">
+           View TPO Details
+          </a>
+      </div>
+</div>
+
+
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal fade"
+id="eventModal${event.conferenceId}"
+tabindex="-1">
+
+<div class="modal-dialog modal-lg">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">${event.conferenceTitle}</h5>
+
+<button type="button"
+class="btn-close"
+data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body">
+
+<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+class="img-fluid mb-3">
+
+<p>${event.conferenceDescription}</p>
+
+<p>
+
+<b>Date:</b> ${event.date}<br>
+<b>Time:</b> ${event.time}<br>
+<b>Mode:</b> ${event.mode}<br>
+<b>Venue:</b> ${event.venueOrMeetingLink}
+
+</p>
+
+<video width="100%" controls>
+
+<source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
+
+</video>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</c:forEach>
+
+</div>
+
+</div>
+
+
+
                 </div>
             </div>
 

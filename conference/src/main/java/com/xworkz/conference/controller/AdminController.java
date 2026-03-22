@@ -47,12 +47,37 @@ public class AdminController {
 
        boolean verify = conferenceHosterService.varifyAdmin(adminDTO);
        if (verify) {
+
+           List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+
+           modelAndView.addObject("allEvents", allEvents);
+           modelAndView.setViewName("AllEventsDetails");
+
            modelAndView.setViewName("AdminDashBoard");
+
        }
        else {
            modelAndView.addObject("error","Invallid credential");
            modelAndView.setViewName("AdminLoginForm");
        }
+        return modelAndView;
+    }
+
+    @GetMapping("getAllEvents")
+    public ModelAndView getAllEvents(ModelAndView modelAndView) {
+
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+
+        modelAndView.addObject("allEvents", allEvents);
+        modelAndView.setViewName("AllEventsDetails");
+
+        return modelAndView;
+    }
+
+    @GetMapping("getNewEvents")
+    public ModelAndView getNewEvents(ModelAndView modelAndView){
+
+
         return modelAndView;
     }
 
@@ -114,17 +139,6 @@ public class AdminController {
         modelAndView.addObject("emailList", emailList);
 
         modelAndView.setViewName("AllDelegates");
-
-        return modelAndView;
-    }
-
-    @GetMapping("getAllEvents")
-    public ModelAndView getAllEvents(ModelAndView modelAndView) {
-
-        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
-
-        modelAndView.addObject("allEvents", allEvents);
-        modelAndView.setViewName("AllEventsDetails");
 
         return modelAndView;
     }
