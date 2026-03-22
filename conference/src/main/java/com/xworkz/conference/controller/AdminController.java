@@ -249,6 +249,13 @@ public class AdminController {
 
     @GetMapping("viewDelegates")
     public ModelAndView viewDelegates(ModelAndView modelAndView,Long conferenceId){
+        System.out.println("conference Id in view delegates :"+conferenceId);
+
+        conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+//         4-view invitation, all events, pending (approve ,decline), approved(send to delegates ),  already sent (status for all) (view participants-->list of stds)
+//        tpo login, view invitations
+
         modelAndView.addObject("conferenceId",conferenceId);
         modelAndView.setViewName("EventDelegates");
         return modelAndView;

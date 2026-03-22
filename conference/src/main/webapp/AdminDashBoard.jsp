@@ -400,13 +400,62 @@ footer a:hover { color: #00c6ff; }
     font-size: 13px;
     color: rgba(255,255,255,0.35);
 }
+/* FULL HEIGHT FIX */
+html, body {
+    height: 100%;
+}
 
-/* ===== DIVIDER ===== */
-.section-divider {
-    width: 60px; height: 3px;
-    background: linear-gradient(90deg, #0059ff, #00c6ff);
-    border-radius: 4px;
-    margin: 14px auto 0;
+/* MAIN SECTION FULL SCREEN */
+.main-section {
+    height: 100vh;
+    padding-top: 100px; /* navbar space */
+}
+
+/* REMOVE GAP */
+.row.h-100 {
+    margin: 0;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    height: 100%;
+    background: white;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    background: white;
+    overflow-y: auto;
+}
+
+/* BUTTON STYLE */
+.menu-row {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+
+    transition: 0.3s;
+}
+
+.menu-row:hover {
+    background: linear-gradient(135deg, #0059ff, #00c6ff);
+    color: white;
+    transform: translateX(5px);
 }
 </style>
 </head>
@@ -442,62 +491,65 @@ footer a:hover { color: #00c6ff; }
 </nav>
 
 <!--   ===========main content ====== -->
-<section style="padding-top:140px; padding-bottom:100px;">
-    <div class="container">
-        <div class="row g-4 justify-content-center">
+<section class="main-section">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
 
-            <!-- conference hoster Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">Conference Hosters List</h4>
-                    <form action="getAllHosters" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
+            <!-- LEFT SIDE -->
+            <div class="col-md-3 left-panel">
+
+                <form action="getAllEvents" method="get">
+                 <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+                 All Events
+                 </button>
+                 </form>
+
+               <form action="getAllHosters" method="get">
+               <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+               Conference Hoster Details </button>
+               </form>
+
+                <form action="getAllDelegates" method="get">
+                <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                All Delegates </button>
+                </form>
+
+               <form action="getAllEvents" method="get">
+               <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+               New Events
+               </button>
+               </form>
+
+                <form action="getAllHosters" method="get">
+                              <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+                              Conference Hoster Details </button>
+                              </form>
+
+                               <form action="getAllHosters" method="get">
+                                             <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+                                             Conference Hoster Details </button>
+                                             </form>
+
+                                              <form action="getAllHosters" method="get">
+                                                            <button  class="menu-row" type="submit" class="btn btn-modern w-100">
+                                                            Conference Hoster Details </button>
+                                                            </form>
+
+
+
             </div>
 
-            <!-- All Delegates Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">All Delegates</h4>
-                    <form action="getAllDelegates" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Events Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">Events</h4>
-                    <form action="getAllEvents" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Settings Card -->
-            <div class="col-md-3">
-                <div class="glass text-center p-4">
-                    <h4 class="mb-3">Settings</h4>
-                    <form action="getSettings" method="get">
-                        <button type="submit" class="btn btn-modern w-100">
-                            View
-                        </button>
-                    </form>
+            <!-- RIGHT SIDE -->
+            <div class="col-md-9 right-panel">
+                <div id="content">
+                    <h3>Welcome</h3>
+                    <p>Select any option from left side</p>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
-
 <!-- ===== FOOTER ===== -->
 <section id="contact" style="background:black;">
 
