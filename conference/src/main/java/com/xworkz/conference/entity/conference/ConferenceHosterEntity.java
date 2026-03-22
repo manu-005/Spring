@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-//@Data
+@Data
 @Getter
 @Setter
 @ToString
@@ -54,4 +54,8 @@ public class ConferenceHosterEntity {
 
     @Column(nullable = false)
     private String promoVideoPath;
+
+    private boolean acceptOrDecline = false;
+
+    private boolean sentToDelegates = false;
 }

@@ -130,6 +130,105 @@ font-size:13px;
 color:rgba(255,255,255,0.4);
 }
 
+
+/* FULL HEIGHT FIX */
+html, body {
+    height: 100%;
+}
+
+/* MAIN SECTION FULL SCREEN */
+.main-section {
+    height: 100vh;
+    padding-top: 100px; /* navbar space */
+}
+
+/* REMOVE GAP */
+.row.h-100 {
+    margin: 0;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    height: 100%;
+    background: white;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    background: white;
+    overflow-y: auto;
+}
+
+/* BUTTON STYLE */
+.menu-row {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+
+    transition: 0.3s;
+}
+
+.menu-row:hover {
+    background: linear-gradient(135deg, #0059ff, #00c6ff);
+    color: white;
+    transform: translateX(5px);
+}
+
+/* ===== NEW ADDITIONS (DO NOT REMOVE OLD CSS) ===== */
+
+.left-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    height: 100%;
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.right-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    background: white;
+    overflow-y: auto;
+}
+
+.menu-row {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.menu-row:hover {
+    background: linear-gradient(135deg, #0059ff, #00c6ff);
+    color: white;
+    transform: translateX(5px);
+}
 </style>
 </head>
 
@@ -152,13 +251,12 @@ color:rgba(255,255,255,0.4);
 <div class="collapse navbar-collapse" id="navmenu">
 
 <ul class="navbar-nav ms-auto">
-
-<li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-<li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
-<li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
-<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-<li class="nav-item"><a class="nav-link" href="adminLoginForm">Admin Login</a></li>
+  <!--    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
+              <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
 
 </ul>
 
@@ -199,110 +297,150 @@ color:rgba(255,255,255,0.4);
 
 </div>
 
-<!-- EVENTS -->
+<!-- ===== MAIN CONTENT ===== -->
+<section class="main-section">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
 
-<div class="container events-section">
+            <!-- LEFT SIDE -->
+            <div class="col-md-3 left-panel">
 
-<div class="row">
+                <form action="getAllEvents" method="get">
+                    <button type="submit" class="menu-row w-100">
+                        All Events
+                    </button>
+                </form>
 
-<c:forEach var="event" items="${allEvents}">
+                <form action="getAllDelegates" method="get">
+                    <button type="submit" class="menu-row w-100">
+                        All Delegates
+                    </button>
+                </form>
 
-<div class="col-md-6 event-col">
+                <form action="getNewEvents" method="get">
+                    <button type="submit" class="menu-row w-100">
+                        New Events
+                    </button>
+                </form>
 
-<div class="event-card"
-data-bs-toggle="modal"
-data-bs-target="#eventModal${event.conferenceId}">
+                <form action="getNewEvents" method="get">
+                    <button type="submit" class="menu-row w-100">
+                        Accepted Events
+                    </button>
+                </form>
 
-<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-class="img-fluid mb-3"
-style="height:220px;width:100%;object-fit:cover;">
+                <form action="getAllHosters" method="get">
+                    <button type="submit" class="menu-row w-100">
+                        Invited Events
+                    </button>
+                </form>
 
-<h4>${event.conferenceTitle}</h4>
+                <form action="getAllHosters" method="get">
+                    <button type="submit" class="menu-row w-100">
+                        Conference Hoster Details
+                    </button>
+                </form>
 
-<p>${event.conferenceDescription}</p>
+            </div>
 
-<p>
-<b>Date:</b> ${event.date}<br>
-<b>Time:</b> ${event.time}<br>
-<b>Mode:</b> ${event.mode}
-</p>
- <!-- Button at bottom right -->
-   <div class="mt-auto text-end">
-       <a href="sendConference?conferenceId=${event.conferenceId}"
-          class="btn btn-primary btn-sm"
-          onclick="event.stopPropagation();">
-           Invite
-       </a>
+            <!-- RIGHT SIDE -->
+            <div class="col-md-9 right-panel">
+                <div id="content">
 
-          <a href="viewDelegates?conferenceId=${event.conferenceId}"
-             class="btn btn-primary btn-sm"
-             onclick="event.stopPropagation();">
-           View TPO Details
-          </a>
-      </div>
-</div>
+                    <div class="events-section px-2">
 
+                        <div class="row g-4">
 
-</div>
+                            <c:forEach var="event" items="${allEvents}">
 
+                                <div class="col-md-6">
 
-<!-- MODAL -->
+                                    <div class="event-card"
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#eventModal${event.conferenceId}">
 
-<div class="modal fade"
-id="eventModal${event.conferenceId}"
-tabindex="-1">
+                                        <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+                                             class="img-fluid mb-3"
+                                             style="height:220px;width:100%;object-fit:cover;">
 
-<div class="modal-dialog modal-lg">
+                                        <h4>${event.conferenceTitle}</h4>
 
-<div class="modal-content">
+                                        <p>${event.conferenceDescription}</p>
 
-<div class="modal-header">
+                                        <p>
+                                            <b>Date:</b> ${event.date}<br>
+                                            <b>Time:</b> ${event.time}<br>
+                                            <b>Mode:</b> ${event.mode}
+                                        </p>
 
-<h5 class="modal-title">${event.conferenceTitle}</h5>
+                                        <!-- BUTTONS -->
+                                        <div class="mt-auto text-end">
+                                            <a href="sendConference?conferenceId=${event.conferenceId}"
+                                               class="btn btn-primary btn-sm"
+                                               onclick="event.stopPropagation();">
+                                                Invite
+                                            </a>
 
-<button type="button"
-class="btn-close"
-data-bs-dismiss="modal"></button>
+                                            <a href="viewDelegates?conferenceId=${event.conferenceId}"
+                                               class="btn btn-primary btn-sm"
+                                               onclick="event.stopPropagation();">
+                                                View TPO Details
+                                            </a>
+                                        </div>
 
-</div>
+                                    </div>
+                                </div>
 
-<div class="modal-body">
+                                <!-- MODAL -->
+                                <div class="modal fade"
+                                     id="eventModal${event.conferenceId}"
+                                     tabindex="-1">
 
-<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-class="img-fluid mb-3">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
 
-<p>${event.conferenceDescription}</p>
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">${event.conferenceTitle}</h5>
+                                                <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
+                                            </div>
 
-<p>
+                                            <div class="modal-body">
 
-<b>Date:</b> ${event.date}<br>
-<b>Time:</b> ${event.time}<br>
-<b>Mode:</b> ${event.mode}<br>
-<b>Venue:</b> ${event.venueOrMeetingLink}
+                                                <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+                                                     class="img-fluid mb-3">
 
-</p>
+                                                <p>${event.conferenceDescription}</p>
 
-<video width="100%" controls>
+                                                <p>
+                                                    <b>Date:</b> ${event.date}<br>
+                                                    <b>Time:</b> ${event.time}<br>
+                                                    <b>Mode:</b> ${event.mode}<br>
+                                                    <b>Venue:</b> ${event.venueOrMeetingLink}
+                                                </p>
 
-<source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
+                                                <video width="100%" controls>
+                                                    <source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
+                                                </video>
 
-</video>
+                                            </div>
 
-</div>
+                                        </div>
+                                    </div>
 
-</div>
+                                </div>
 
-</div>
+                            </c:forEach>
 
-</div>
+                        </div>
+                    </div>
 
-</c:forEach>
+                </div>
+            </div>
 
-</div>
-
-</div>
-
-
+        </div>
+    </div>
+</section>
 <!-- FOOTER -->
 
 <footer>

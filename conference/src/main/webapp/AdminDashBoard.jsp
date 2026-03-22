@@ -479,12 +479,12 @@ html, body {
     </button>
     <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <!--    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
             <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
             <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-              <li class="nav-item"><a class="nav-link" href="adminLoginForm">Admin login</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
+              <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
         </ul>
     </div>
 </div>
@@ -509,31 +509,20 @@ html, body {
                 All Delegates </button>
                 </form>
 
-               <form action="getNewEvents" method="get">
-               <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-               New Events
-               </button>
-               </form>
-
-                               <form action="getAllDelegates" method="get">
-                               <button class="menu-row" type="submit" class="btn btn-modern w-100">
-                               All Delegates </button>
-                               </form>
-
-                              <form action="getAllEvents" method="get">
+                         <form action="getNewEvents" method="get">
                               <button  class="menu-row" type="submit" class="btn btn-modern w-100">
                               New Events
                </button>
                </form>
 
-                <form action="getAllHosters" method="get">
+                <form action="getNewEvents" method="get">
                               <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                              Conference Hoster Details </button>
+                              Accepted Events </button>
                               </form>
 
                                     <form action="getAllHosters" method="get">
                                              <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                                             Conference Hoster Details </button>
+                                             Invited Events </button>
                                              </form>
 
                                               <form action="getAllHosters" method="get">
@@ -548,8 +537,6 @@ html, body {
             <!-- RIGHT SIDE -->
             <div class="col-md-9 right-panel">
                 <div id="content">
-
-
 
 <!-- EVENTS -->
 

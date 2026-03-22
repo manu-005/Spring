@@ -51,10 +51,13 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
             List<ConferenceHosterEntity> listOfHosterEntity = query.getResultList();
 
-//            for (ConferenceHosterEntity hoster : listOfHosterEntity) {
-//                System.out.println("Conference Title: " + hoster.getConferenceTitle());
-//                System.out.println("Delegates: " + hoster.getDelegates());
-//            }
+
+            for (ConferenceHosterEntity hoster : listOfHosterEntity) {
+                System.out.println("Conference Title: " + hoster.getConferenceTitle());
+//                System.out.println("Delegates: " + hoster.getAccep());
+
+
+            }
 
             System.out.println("all conference in dao: " + listOfHosterEntity);
 
