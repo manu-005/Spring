@@ -82,8 +82,8 @@ public class AdminController {
         List<ConferenceHosterDTO> newEvents = new ArrayList<>();
         for (ConferenceHosterDTO dto : allEvents) {
 
-            System.out.println("status of sending:");
-            if (!dto.isAcceptOrDecline()){
+            System.out.println("status of accepting:"+dto.isAcceptOrDecline());
+            if (dto.isAcceptOrDecline()){
                 newEvents.add(dto);
             }
         }

@@ -427,9 +427,7 @@ html, body {
 
                                         </div>
                                     </div>
-
                                 </div>
-
                             </c:forEach>
 
                         </div>

@@ -55,7 +55,7 @@ public class ConferenceHosterEntity {
     @Column(nullable = false)
     private String promoVideoPath;
 
-    private boolean acceptOrDecline = false;
+    private boolean acceptOrDecline ;
 
-    private boolean sentToDelegates = false;
+    private boolean sentToDelegates ;
 }
