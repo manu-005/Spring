@@ -270,11 +270,11 @@ html, body {
 <div class="toast-container position-fixed top-9 end-0 p-3" style="z-index: 1100">
 
     <!-- ✅ Success Toast -->
-    <c:if test="${not empty successMsg}">
+    <c:if test="${not empty acceptMessage}">
         <div class="toast align-items-center text-bg-success border-0 show" role="alert">
             <div class="d-flex">
                 <div class="toast-body">
-                    ${successMsg}
+                    ${acceptMessage}
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto"
                         data-bs-dismiss="toast"></button>
@@ -282,12 +282,24 @@ html, body {
         </div>
     </c:if>
 
+     <c:if test="${not empty declineMessage}">
+            <div class="toast align-items-center text-bg-success border-0 show" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${declineMessage}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                            data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </c:if>
+
     <!-- ❌ Error Toast -->
-    <c:if test="${not empty errorMsg}">
+    <c:if test="${not empty errorMessage}">
         <div class="toast align-items-center text-bg-danger border-0 show" role="alert">
             <div class="d-flex">
                 <div class="toast-body">
-                    ${errorMsg}
+                    ${errorMessage}
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto"
                         data-bs-dismiss="toast"></button>

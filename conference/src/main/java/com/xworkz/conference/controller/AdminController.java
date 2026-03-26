@@ -45,21 +45,20 @@ public class AdminController {
         System.out.println("email :" + adminDTO.getUserName());
         System.out.println("password :" + adminDTO.getPassword());
 
-       boolean verify = conferenceHosterService.varifyAdmin(adminDTO);
-       if (verify) {
+        boolean verify = conferenceHosterService.varifyAdmin(adminDTO);
+        if (verify) {
 
-           List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+            List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
-           modelAndView.addObject("allEvents", allEvents);
-           modelAndView.setViewName("AllEventsDetails");
+            modelAndView.addObject("allEvents", allEvents);
+            modelAndView.setViewName("AllEventsDetails");
 
-           modelAndView.setViewName("AdminDashBoard");
+            modelAndView.setViewName("AdminDashBoard");
 
-       }
-       else {
-           modelAndView.addObject("error","Invallid credential");
-           modelAndView.setViewName("AdminLoginForm");
-       }
+        } else {
+            modelAndView.addObject("error", "Invallid credential");
+            modelAndView.setViewName("AdminLoginForm");
+        }
         return modelAndView;
     }
 
@@ -75,40 +74,54 @@ public class AdminController {
     }
 
     @GetMapping("getNewEvents")
-    public ModelAndView getNewEvents(ModelAndView modelAndView){
+    public ModelAndView getNewEvents(ModelAndView modelAndView) {
 
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
         List<ConferenceHosterDTO> newEvents = new ArrayList<>();
         for (ConferenceHosterDTO dto : allEvents) {
 
-            System.out.println("status of accepting:"+dto.isAcceptOrDecline());
-            if (!dto.isAcceptOrDecline()){
+            System.out.println("status of accepting:" + dto.isAcceptOrDecline());
+            if (!dto.isAcceptOrDecline()) {
                 newEvents.add(dto);
             }
         }
-        modelAndView.addObject("newEvents",newEvents);
+        modelAndView.addObject("newEvents", newEvents);
         modelAndView.setViewName("AllNewEvents");
         return modelAndView;
     }
 
     @GetMapping("acceptEvent")
-    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView){
+    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView) {
 
+        boolean updateAccept = true;
+        boolean accepted = conferenceHosterService.updateAcceptOrDecline(conferenceId, updateAccept);
 
-       boolean accepted  =  conferenceHosterService.updateAcceptOrDecline(1);
-        modelAndView.addObject("acceptMessage","Event accepted..!");
+        if (accepted) {
+            modelAndView.addObject("acceptMessage", "Event accepted..!");
+        }else{
+            modelAndView.addObject("errorMessage", "Try again after sometimes..!");
+        }
         modelAndView.setViewName("AllNewEvents");
-        return  modelAndView;
+        return modelAndView;
     }
 
     @GetMapping("declineEvent")
-    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView){
+    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView) {
 
-        modelAndView.addObject("declineMessage","Event declined and deleted..!");
+        boolean updateAccept = false;
+        boolean declined = conferenceHosterService.updateAcceptOrDecline(conferenceId, updateAccept);
+
+        if (declined) {
+            modelAndView.addObject("declineMessage", "Event declined..!");
+        }else{
+            modelAndView.addObject("errorMessage", "Try again after sometimes..!");
+        }
         modelAndView.setViewName("AllNewEvents");
-        return  modelAndView;
+
+        return modelAndView;
     }
+
     @GetMapping("getAllHosters")
     public ModelAndView getAllHosters(ModelAndView modelAndView) {
 
@@ -253,11 +266,11 @@ public class AdminController {
 
         List<String> emailList = new ArrayList<>();
 
-        for (DelegatesEmailEntity email :dto.getDelegates()){
+        for (DelegatesEmailEntity email : dto.getDelegates()) {
 
-           String[] emailArray = email.getDelegatesEmail().split(",");
+            String[] emailArray = email.getDelegatesEmail().split(",");
 
-            System.out.println("email array in delegates ::...:"+ Arrays.toString(emailArray));
+            System.out.println("email array in delegates ::...:" + Arrays.toString(emailArray));
 
             emailList.addAll(Arrays.asList(emailArray));
 
@@ -282,23 +295,23 @@ public class AdminController {
 
         System.out.println("emails in share event : " + emails);
 
-        modelAndView.addObject("successMsg","Invited Successfully..");
+        modelAndView.addObject("successMsg", "Invited Successfully..");
 
-        modelAndView.addObject("errorMsg","Please try again after sometimes..");
+        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
         modelAndView.setViewName("AllEventsDetails"); // JSP page name
         return modelAndView;
     }
 
     @GetMapping("viewDelegates")
-    public ModelAndView viewDelegates(ModelAndView modelAndView,Long conferenceId){
-        System.out.println("conference Id in view delegates :"+conferenceId);
+    public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId) {
+        System.out.println("conference Id in view delegates :" + conferenceId);
 
         conferenceHosterService.getAllConferenceHosterById(conferenceId);
 
 //         4-view invitation, all events, pending (approve ,decline), approved(send to delegates ),  already sent (status for all) (view participants-->list of stds)
 //        tpo login, view invitations
 
-        modelAndView.addObject("conferenceId",conferenceId);
+        modelAndView.addObject("conferenceId", conferenceId);
         modelAndView.setViewName("EventDelegates");
         return modelAndView;
     }

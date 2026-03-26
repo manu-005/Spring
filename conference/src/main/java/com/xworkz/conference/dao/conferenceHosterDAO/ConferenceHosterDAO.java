@@ -20,4 +20,6 @@ public interface ConferenceHosterDAO {
     ConferenceHosterEntity getAllConferenceHosterById(Long conferenceId);
 
     boolean varifyAdmin(AdminEntity adminEntity);
+
+    boolean updateAcceptOrDecline(Long conferenceId,boolean updateValue);
 }

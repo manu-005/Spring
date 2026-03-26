@@ -207,9 +207,9 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
     }
 
     @Override
-    public boolean updateAcceptOrDecline(int accepted) {
+    public boolean updateAcceptOrDecline(Long conferenceId,boolean updateAccept) {
 
-       return conferenceHosterDAO.updateAcceptOrDecline(accepted);
+       return conferenceHosterDAO.updateAcceptOrDecline(conferenceId,updateAccept);
 
     }
 

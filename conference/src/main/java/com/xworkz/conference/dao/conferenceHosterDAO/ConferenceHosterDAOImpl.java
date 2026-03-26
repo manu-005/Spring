@@ -142,4 +142,27 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
         else return false;
     }
 
+    @Override
+    public boolean updateAcceptOrDecline(Long conferenceId,boolean updateAccept) {
+
+       EntityManager manager = managerFactory.createEntityManager();
+
+       manager.getTransaction().begin();
+
+      Query query = manager.createQuery("update ConferenceHosterEntity e set e.acceptOrDecline = :accepted where e.conferenceId = :conferenceId");
+        query.setParameter("accepted", updateAccept);   // or false
+        query.setParameter("conferenceId", conferenceId);
+
+       int updated = query.executeUpdate();
+
+        manager.getTransaction().commit();
+        manager.close();
+        if (updated == 1){
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+
 }
