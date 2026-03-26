@@ -22,4 +22,6 @@ public interface ConferenceHosterService {
     ConferenceHosterDTO getAllConferenceHosterById(Long conferenceId);
 
     boolean varifyAdmin(AdminDTO adminDTO);
+
+    boolean updateAcceptOrDecline(int accepted);
 }

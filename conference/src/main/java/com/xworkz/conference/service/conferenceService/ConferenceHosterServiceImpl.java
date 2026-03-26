@@ -206,5 +206,12 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
        return conferenceHosterDAO.varifyAdmin(adminEntity);
     }
 
+    @Override
+    public boolean updateAcceptOrDecline(int accepted) {
+
+       return conferenceHosterDAO.updateAcceptOrDecline(accepted);
+
+    }
+
 
 }

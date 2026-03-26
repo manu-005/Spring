@@ -83,7 +83,7 @@ public class AdminController {
         for (ConferenceHosterDTO dto : allEvents) {
 
             System.out.println("status of accepting:"+dto.isAcceptOrDecline());
-            if (dto.isAcceptOrDecline()){
+            if (!dto.isAcceptOrDecline()){
                 newEvents.add(dto);
             }
         }
@@ -92,6 +92,23 @@ public class AdminController {
         return modelAndView;
     }
 
+    @GetMapping("acceptEvent")
+    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView){
+
+
+       boolean accepted  =  conferenceHosterService.updateAcceptOrDecline(1);
+        modelAndView.addObject("acceptMessage","Event accepted..!");
+        modelAndView.setViewName("AllNewEvents");
+        return  modelAndView;
+    }
+
+    @GetMapping("declineEvent")
+    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView){
+
+        modelAndView.addObject("declineMessage","Event declined and deleted..!");
+        modelAndView.setViewName("AllNewEvents");
+        return  modelAndView;
+    }
     @GetMapping("getAllHosters")
     public ModelAndView getAllHosters(ModelAndView modelAndView) {
 

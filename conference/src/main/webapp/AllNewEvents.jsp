@@ -374,16 +374,16 @@ html, body {
 
                                         <!-- BUTTONS -->
                                         <div class="mt-auto text-end">
-                                            <a href="sendConference?conferenceId=${event.conferenceId}"
+                                            <a href="acceptEvent?conferenceId=${event.conferenceId}"
                                                class="btn btn-primary btn-sm"
                                                onclick="event.stopPropagation();">
-                                                Invite
+                                              Accept
                                             </a>
 
-                                            <a href="viewDelegates?conferenceId=${event.conferenceId}"
+                                            <a href="declineEvent?conferenceId=${event.conferenceId}"
                                                class="btn btn-primary btn-sm"
                                                onclick="event.stopPropagation();">
-                                                View TPO Details
+                                              Decline
                                             </a>
                                         </div>
 
