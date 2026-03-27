@@ -337,7 +337,7 @@ html, body {
 
                 <form action="getNewEvents" method="get">
                     <button type="submit" class="menu-row w-100">
-                        Accepted Events
+                        Accepted Event
                     </button>
                 </form>
 
