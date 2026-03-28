@@ -138,8 +138,17 @@ public class AdminController {
     @GetMapping("acceptedEvents")
     public ModelAndView acceptedEvents(ModelAndView modelAndView){
 
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
-        modelAndView.addObject("para","object");
+        List<ConferenceHosterDTO> acceptedEvents = new ArrayList<>();
+        for (ConferenceHosterDTO dto : allEvents) {
+
+            System.out.println("status of accepting:" + dto.isAcceptOrDecline());
+            if (dto.isAcceptOrDecline()) {
+                acceptedEvents.add(dto);
+            }
+        }
+        modelAndView.addObject("acceptedEvents", acceptedEvents);
 
         modelAndView.setViewName("AcceptedEvents");
         return modelAndView;
