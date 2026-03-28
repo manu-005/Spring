@@ -590,8 +590,6 @@ style="height:220px;width:100%;object-fit:cover;">
 
 </div>
 
-
-
                 </div>
             </div>
 
