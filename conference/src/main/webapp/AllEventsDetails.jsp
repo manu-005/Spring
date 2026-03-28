@@ -323,7 +323,7 @@ html, body {
                     </button>
                 </form>
 
-                <form action="getNewEvents" method="get">
+                <form action="acceptedEvents" method="get">
                     <button type="submit" class="menu-row w-100">
                         Accepted Events
                     </button>

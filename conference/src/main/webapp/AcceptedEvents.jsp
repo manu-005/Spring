@@ -584,6 +584,14 @@ style="height:220px;width:100%;object-fit:cover;">
 
 </div>
 
+</c:forEach>
+
+</div>
+
+</div>
+
+
+
                 </div>
             </div>
 

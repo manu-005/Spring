@@ -146,6 +146,8 @@ public class AdminController {
             System.out.println("status of accepting:" + dto.isAcceptOrDecline());
             if (dto.isAcceptOrDecline()) {
                 acceptedEvents.add(dto);
+                System.out.println("accepted events :"+dto);
+
             }
         }
         modelAndView.addObject("acceptedEvents", acceptedEvents);
