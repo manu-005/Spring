@@ -544,7 +544,7 @@ html, body {
 
 <div class="row">
 
-<c:forEach var="event" items="${allEvents}">
+<c:forEach var="event" items="${acceptedEvents}">
 
 <div class="col-md-6 event-col">
 
@@ -583,65 +583,6 @@ style="height:220px;width:100%;object-fit:cover;">
 
 
 </div>
-
-
-<!-- MODAL -->
-
-<div class="modal fade"
-id="eventModal${event.conferenceId}"
-tabindex="-1">
-
-<div class="modal-dialog modal-lg">
-
-<div class="modal-content">
-
-<div class="modal-header">
-
-<h5 class="modal-title">${event.conferenceTitle}</h5>
-
-<button type="button"
-class="btn-close"
-data-bs-dismiss="modal"></button>
-
-</div>
-
-<div class="modal-body">
-
-<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-class="img-fluid mb-3">
-
-<p>${event.conferenceDescription}</p>
-
-<p>
-
-<b>Date:</b> ${event.date}<br>
-<b>Time:</b> ${event.time}<br>
-<b>Mode:</b> ${event.mode}<br>
-<b>Venue:</b> ${event.venueOrMeetingLink}
-
-</p>
-
-<video width="100%" controls>
-
-<source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
-
-</video>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</c:forEach>
-
-</div>
-
-</div>
-
-
 
                 </div>
             </div>

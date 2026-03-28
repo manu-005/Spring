@@ -117,8 +117,31 @@ public class AdminController {
         }else{
             modelAndView.addObject("errorMessage", "Try again after sometimes..!");
         }
+
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+
+        List<ConferenceHosterDTO> newEvents = new ArrayList<>();
+        for (ConferenceHosterDTO dto : allEvents) {
+
+            System.out.println("status of accepting:" + dto.isAcceptOrDecline());
+            if (!dto.isAcceptOrDecline()) {
+                newEvents.add(dto);
+            }
+        }
+        modelAndView.addObject("newEvents", newEvents);
+
         modelAndView.setViewName("AllNewEvents");
 
+        return modelAndView;
+    }
+
+    @GetMapping("acceptedEvents")
+    public ModelAndView acceptedEvents(ModelAndView modelAndView){
+
+
+        modelAndView.addObject("para","object");
+
+        modelAndView.setViewName("AcceptedEvents");
         return modelAndView;
     }
 
