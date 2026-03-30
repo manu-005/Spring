@@ -544,7 +544,7 @@ html, body {
 
 <div class="row">
 
-<c:forEach var="event" items="${allEvents}">
+<c:forEach var="event" items="${invitedEvents}">
 
 <div class="col-md-6 event-col">
 

@@ -11,6 +11,7 @@ import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -147,7 +148,6 @@ public class AdminController {
             if (dto.isAcceptOrDecline()) {
                 acceptedEvents.add(dto);
                 System.out.println("accepted events :"+dto);
-
             }
         }
         modelAndView.addObject("acceptedEvents", acceptedEvents);
@@ -156,6 +156,25 @@ public class AdminController {
         return modelAndView;
     }
 
+    @GetMapping("invitedEvents")
+    public ModelAndView invitedEvents(ModelAndView modelAndView){
+
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+
+        List<ConferenceHosterDTO> invitedEvents = new ArrayList<>();
+        for (ConferenceHosterDTO invitedDto : allEvents) {
+
+            System.out.println("status of accepting:" + invitedDto.isSentToDelegates());
+            if (invitedDto.isSentToDelegates()) {
+                invitedEvents.add(invitedDto);
+                System.out.println("accepted events :"+invitedDto);
+            }
+        }
+        modelAndView.addObject("invitedEvents", invitedEvents);
+
+        modelAndView.setViewName("InvitedEvents");
+        return modelAndView;
+    }
     @GetMapping("getAllHosters")
     public ModelAndView getAllHosters(ModelAndView modelAndView) {
 
