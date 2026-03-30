@@ -529,9 +529,6 @@ html, body {
                                                             <button  class="menu-row" type="submit" class="btn btn-modern w-100">
                                                             Conference Hoster Details </button>
                                                             </form>
-
-
-
             </div>
 
             <!-- RIGHT SIDE -->
@@ -539,7 +536,6 @@ html, body {
                 <div id="content">
 
 <!-- EVENTS -->
-
 <div class="container events-section">
 
 <div class="row">
