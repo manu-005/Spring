@@ -484,7 +484,8 @@ html, body {
             <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
             <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
             <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
-              <li class="nav-item"><a class="nav-link" href="index.jsp">Log out</a></li>
+
+              <li class="nav-item"><a class="nav-link"  href="logOut" href="index.jsp">Log out</a></li>
         </ul>
     </div>
 </div>
@@ -499,145 +500,145 @@ html, body {
             <div class="col-md-3 left-panel">
 
                 <form action="getAllEvents" method="get">
-                 <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                 All Events
-                 </button>
-                 </form>
-
-                <form action="getAllDelegates" method="get">
-                <button class="menu-row" type="submit" class="btn btn-modern w-100">
-                All Delegates </button>
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        All Events
+                    </button>
                 </form>
 
-                         <form action="getNewEvents" method="get">
-                              <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                              New Events
-               </button>
-               </form>
+                <form action="getAllDelegates" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        All Delegates
+                    </button>
+                </form>
+
+                <form action="getNewEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        New Events
+                    </button>
+                </form>
 
                 <form action="acceptedEvents" method="get">
-                              <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                              Accepted Events </button>
-                              </form>
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        Accepted Events
+                    </button>
+                </form>
 
-                                    <form action="invitedEvents" method="get">
-                                             <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                                             Invited Events </button>
-                                             </form>
+                <form action="invitedEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        Invited Events
+                    </button>
+                </form>
 
-                                              <form action="getAllHosters" method="get">
-                                                            <button  class="menu-row" type="submit" class="btn btn-modern w-100">
-                                                            Conference Hoster Details </button>
-                                                            </form>
+                <form action="getAllHosters" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        Conference Hoster Details
+                    </button>
+                </form>
+
             </div>
 
             <!-- RIGHT SIDE -->
             <div class="col-md-9 right-panel">
                 <div id="content">
 
-<!-- EVENTS -->
-<div class="container events-section">
+                    <!-- EVENTS -->
+                    <div class="container events-section">
+                        <div class="row">
 
-<div class="row">
+                            <c:forEach var="event" items="${allEvents}">
 
-<c:forEach var="event" items="${allEvents}">
+                                <div class="col-md-6 event-col">
 
-<div class="col-md-6 event-col">
+                                    <div class="event-card"
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#eventModal${event.conferenceId}">
 
-<div class="event-card"
-data-bs-toggle="modal"
-data-bs-target="#eventModal${event.conferenceId}">
+                                        <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+                                             class="img-fluid mb-3"
+                                             style="height:220px;width:100%;object-fit:cover;">
 
-<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-class="img-fluid mb-3"
-style="height:220px;width:100%;object-fit:cover;">
+                                        <h4>${event.conferenceTitle}</h4>
 
-<h4>${event.conferenceTitle}</h4>
+                                        <p>${event.conferenceDescription}</p>
 
-<p>${event.conferenceDescription}</p>
+                                        <p>
+                                            <b>Date:</b> ${event.date}<br>
+                                            <b>Time:</b> ${event.time}<br>
+                                            <b>Mode:</b> ${event.mode}
+                                        </p>
 
-<p>
-<b>Date:</b> ${event.date}<br>
-<b>Time:</b> ${event.time}<br>
-<b>Mode:</b> ${event.mode}
-</p>
- <!-- Button at bottom right -->
-   <div class="mt-auto text-end">
-       <a href="sendConference?conferenceId=${event.conferenceId}"
-          class="btn btn-primary btn-sm"
-          onclick="event.stopPropagation();">
-           Invite
-       </a>
+                                        <!-- Button at bottom right -->
+                                        <div class="mt-auto text-end">
+                                            <a href="sendConference?conferenceId=${event.conferenceId}"
+                                               class="btn btn-primary btn-sm"
+                                               onclick="event.stopPropagation();">
+                                                Invite
+                                            </a>
 
-          <a href="viewDelegates?conferenceId=${event.conferenceId}"
-             class="btn btn-primary btn-sm"
-             onclick="event.stopPropagation();">
-           View TPO Details
-          </a>
-      </div>
-</div>
+                                            <a href="viewDelegates?conferenceId=${event.conferenceId}"
+                                               class="btn btn-primary btn-sm"
+                                               onclick="event.stopPropagation();">
+                                                View TPO Details
+                                            </a>
+                                        </div>
 
+                                    </div>
 
-</div>
+                                </div>
 
+                                <!-- MODAL -->
+                                <div class="modal fade"
+                                     id="eventModal${event.conferenceId}"
+                                     tabindex="-1">
 
-<!-- MODAL -->
+                                    <div class="modal-dialog modal-lg">
 
-<div class="modal fade"
-id="eventModal${event.conferenceId}"
-tabindex="-1">
+                                        <div class="modal-content">
 
-<div class="modal-dialog modal-lg">
+                                            <div class="modal-header">
 
-<div class="modal-content">
+                                                <h5 class="modal-title">
+                                                    ${event.conferenceTitle}
+                                                </h5>
 
-<div class="modal-header">
+                                                <button type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal">
+                                                </button>
 
-<h5 class="modal-title">${event.conferenceTitle}</h5>
+                                            </div>
 
-<button type="button"
-class="btn-close"
-data-bs-dismiss="modal"></button>
+                                            <div class="modal-body">
 
-</div>
+                                                <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+                                                     class="img-fluid mb-3">
 
-<div class="modal-body">
+                                                <p>${event.conferenceDescription}</p>
 
-<img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-class="img-fluid mb-3">
+                                                <p>
+                                                    <b>Date:</b> ${event.date}<br>
+                                                    <b>Time:</b> ${event.time}<br>
+                                                    <b>Mode:</b> ${event.mode}<br>
+                                                    <b>Venue:</b> ${event.venueOrMeetingLink}
+                                                </p>
 
-<p>${event.conferenceDescription}</p>
+                                                <video width="100%" controls>
+                                                    <source src="fetchPromoVideo?conferenceId=${event.conferenceId}"
+                                                            type="video/mp4">
+                                                </video>
 
-<p>
+                                            </div>
 
-<b>Date:</b> ${event.date}<br>
-<b>Time:</b> ${event.time}<br>
-<b>Mode:</b> ${event.mode}<br>
-<b>Venue:</b> ${event.venueOrMeetingLink}
+                                        </div>
 
-</p>
+                                    </div>
 
-<video width="100%" controls>
+                                </div>
 
-<source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
+                            </c:forEach>
 
-</video>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</c:forEach>
-
-</div>
-
-</div>
-
-
+                        </div>
+                    </div>
 
                 </div>
             </div>

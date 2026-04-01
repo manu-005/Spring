@@ -368,4 +368,13 @@ public class AdminController {
         modelAndView.setViewName("EventDelegates");
         return modelAndView;
     }
+
+
+    @GetMapping("logOut")
+    public ModelAndView logOut(ModelAndView modelAndView){
+
+        System.out.println("log out");
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
 }
