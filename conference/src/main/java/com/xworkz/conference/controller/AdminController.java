@@ -196,13 +196,6 @@ public class AdminController {
 
     @GetMapping("getAllDelegates")
     public ModelAndView getAllDelegates(ModelAndView modelAndView) {
-        System.out.println("entered  in All delegates");
-        modelAndView.setViewName("AllDelegates");
-        return modelAndView;
-    }
-
-    @GetMapping("filterDelegates")
-    public ModelAndView filterDelegates(ModelAndView modelAndView, String type) {
 
         List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
 
@@ -213,7 +206,7 @@ public class AdminController {
 
         for (DelegatesEmailDTO dto : allDelegates) {
 
-            if (type != null && type.equals(dto.getTargetDelegates())) {
+            if (true) {
 
                 String[] emailArray = dto.getDelegatesEmail().split(",");
 

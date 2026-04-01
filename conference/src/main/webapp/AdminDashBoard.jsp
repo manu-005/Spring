@@ -485,7 +485,7 @@ html, body {
             <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
             <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
 
-              <li class="nav-item"><a class="nav-link"  href="logOut" href="index.jsp">Log out</a></li>
+            <li class="nav-item"><a class="nav-link"  href="logOut">Log out</a></li>
         </ul>
     </div>
 </div>
@@ -586,7 +586,7 @@ html, body {
 
                                 </div>
 
-                                <!-- MODAL -->
+                            <!-- MODAL -->
                                 <div class="modal fade"
                                      id="eventModal${event.conferenceId}"
                                      tabindex="-1">
@@ -646,6 +646,8 @@ html, body {
         </div>
     </div>
 </section>
+
+
 <!-- ===== FOOTER ===== -->
 <section id="contact" style="background:black;">
 
