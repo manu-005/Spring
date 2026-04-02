@@ -408,6 +408,65 @@ footer a:hover { color: #00c6ff; }
     border-radius: 4px;
     margin: 14px auto 0;
 }
+
+
+/* FULL HEIGHT FIX */
+html, body {
+    height: 100%;
+}
+
+/* MAIN SECTION FULL SCREEN */
+.main-section {
+    height: 100vh;
+    padding-top: 100px; /* navbar space */
+}
+
+/* REMOVE GAP */
+.row.h-100 {
+    margin: 0;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    height: 100%;
+    background: white;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    background: white;
+    overflow-y: auto;
+}
+
+/* BUTTON STYLE */
+.menu-row {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+
+    transition: 0.3s;
+}
+
+.menu-row:hover {
+    background: linear-gradient(135deg, #0059ff, #00c6ff);
+    color: white;
+    transform: translateX(5px);
+}
 </style>
 </head>
 
@@ -430,78 +489,146 @@ footer a:hover { color: #00c6ff; }
     </button>
     <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
             <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
             <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-              <li class="nav-item"><a class="nav-link" href="adminLoginForm">Admin login</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
+
+            <li class="nav-item"><a class="nav-link"  href="logOut">Log out</a></li>
         </ul>
     </div>
 </div>
 </nav>
 
 <!--   ===========main content ====== -->
+<section class="main-section">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
 
-<section id="hosters">
-<div class="container mt-5">
+            <!-- LEFT SIDE -->
+            <div class="col-md-3 left-panel">
 
-    <div class="text-center mb-4">
-        <h2>Conference <span>Hosters</span></h2>
-        <div class="section-divider"></div>
+                <form action="getAllEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        All Events
+                    </button>
+                </form>
+
+                <form action="getAllDelegates" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        All Delegates
+                    </button>
+                </form>
+
+                <form action="getNewEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        New Events
+                    </button>
+                </form>
+
+                <form action="acceptedEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        Accepted Events
+                    </button>
+                </form>
+
+                <form action="invitedEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        Invited Events
+                    </button>
+                </form>
+
+                <form action="getAllHosters" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
+                        Conference Hoster Details
+                    </button>
+                </form>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="col-md-9 right-panel">
+                <div id="content">
+
+                    <section id="hosters">
+                        <div class="container mt-20">
+
+                            <div class="text-center mb-4">
+                                <h2>
+                                    Conference <span>Hosters</span>
+                                </h2>
+                                <div class="section-divider"></div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover align-middle text-center">
+
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>SL No</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Organization</th>
+                                            <th style="width:150px;">Conference Title</th>
+                                            <th>Delegates</th>
+                                            <th style="width:150px;">Date</th>
+                                            <th>Time</th>
+                                            <th>Mode</th>
+                                            <th style="width:150px;">Venue / Link</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <c:forEach items="${hosters}" var="dto" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+
+                                                <td>${dto.fullName}</td>
+
+                                                <td>${dto.officialEmail}</td>
+
+                                                <td>${dto.organizationName}</td>
+
+                                                <td>${dto.conferenceTitle}</td>
+
+                                                <!-- Delegates list -->
+                                                <td>
+                                                    <ul style="list-style-type:none; padding:0; margin:0;">
+                                                        <c:forEach items="${dto.delegates}" var="delegate">
+                                                            <li>${delegate.delegatesEmail}</li>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </td>
+
+                                                <td>${dto.date}</td>
+
+                                                <td>${dto.time}</td>
+
+                                                <td>${dto.mode}</td>
+
+                                                <td>${dto.venueOrMeetingLink}</td>
+                                            </tr>
+                                        </c:forEach>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center">
-
-            <thead class="table-dark">
-            <tr>
-                <th>SL No</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Organization</th>
-                <th style="width:150px;">Conference Title</th>
-                <th>Delegates</th>
-    <th style="width:150px;">Date</th>
-                <th>Time</th>
-                <th>Mode</th>
-    <th style="width:150px;">Venue / Link</th>
-            </tr>
-            </thead>
-
-            <tbody>
-
-            <c:forEach items="${hosters}" var="dto" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td>${dto.fullName}</td>
-                    <td>${dto.officialEmail}</td>
-                    <td>${dto.organizationName}</td>
-                    <td>${dto.conferenceTitle}</td>
-
-                    <!-- Delegates list -->
-                    <td>
-                        <ul style="list-style-type:none; padding:0; margin:0;">
-                            <c:forEach items="${dto.delegates}" var="delegate">
-                                <li>${delegate.delegatesEmail}</li>
-                            </c:forEach>
-                        </ul>
-                    </td>
-
-                    <td>${dto.date}</td>
-                    <td>${dto.time}</td>
-                    <td>${dto.mode}</td>
-                    <td>${dto.venueOrMeetingLink}</td>
-                </tr>
-            </c:forEach>
-
-            </tbody>
-
-        </table>
-    </div>
-
-</div>
 </section>
+
+<!--   ===========main content ====== -->
+
+
 
 
 
