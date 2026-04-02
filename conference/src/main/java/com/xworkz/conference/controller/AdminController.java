@@ -69,7 +69,7 @@ public class AdminController {
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
         modelAndView.addObject("allEvents", allEvents);
-        modelAndView.setViewName("AllEventsDetails");
+        modelAndView.setViewName("AdminDashBoard");
 
         return modelAndView;
     }
@@ -319,7 +319,6 @@ public class AdminController {
             System.out.println("email array in delegates ::...:" + Arrays.toString(emailArray));
 
             emailList.addAll(Arrays.asList(emailArray));
-
         }
 
         System.out.println("email list ====:" + emailList);

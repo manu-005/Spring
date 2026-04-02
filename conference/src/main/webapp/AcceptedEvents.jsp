@@ -645,6 +645,7 @@ html, body {
         </div>
     </div>
 </section>
+
 <!-- ===== FOOTER ===== -->
 <section id="contact" style="background:black;">
 
