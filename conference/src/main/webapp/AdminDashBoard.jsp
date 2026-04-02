@@ -543,7 +543,7 @@ html, body {
 
                     <!-- EVENTS -->
                     <div class="container events-section">
-                        <div class="row">
+                        <div class="row g-4">
 
                             <c:forEach var="event" items="${allEvents}">
 

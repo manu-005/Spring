@@ -297,7 +297,7 @@ html, body {
 
 </div>
 
-<!-- ===== MAIN CONTENT ===== -->
+<!--   ===========main content ====== -->
 <section class="main-section">
     <div class="container-fluid h-100">
         <div class="row h-100">
@@ -306,37 +306,37 @@ html, body {
             <div class="col-md-3 left-panel">
 
                 <form action="getAllEvents" method="get">
-                    <button type="submit" class="menu-row w-100">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
                         All Events
                     </button>
                 </form>
 
                 <form action="getAllDelegates" method="get">
-                    <button type="submit" class="menu-row w-100">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
                         All Delegates
                     </button>
                 </form>
 
                 <form action="getNewEvents" method="get">
-                    <button type="submit" class="menu-row w-100">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
                         New Events
                     </button>
                 </form>
 
                 <form action="acceptedEvents" method="get">
-                    <button type="submit" class="menu-row w-100">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
                         Accepted Events
                     </button>
                 </form>
 
-                <form action="getAllHosters" method="get">
-                    <button type="submit" class="menu-row w-100">
+                <form action="invitedEvents" method="get">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
                         Invited Events
                     </button>
                 </form>
 
                 <form action="getAllHosters" method="get">
-                    <button type="submit" class="menu-row w-100">
+                    <button class="menu-row" type="submit" class="btn btn-modern w-100">
                         Conference Hoster Details
                     </button>
                 </form>
@@ -347,13 +347,13 @@ html, body {
             <div class="col-md-9 right-panel">
                 <div id="content">
 
-                    <div class="events-section px-2">
-
-                        <div class="row g-4">
+                    <!-- EVENTS -->
+                    <div class="container events-section">
+                        <div class="row">
 
                             <c:forEach var="event" items="${allEvents}">
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 event-col">
 
                                     <div class="event-card"
                                          data-bs-toggle="modal"
@@ -373,7 +373,7 @@ html, body {
                                             <b>Mode:</b> ${event.mode}
                                         </p>
 
-                                        <!-- BUTTONS -->
+                                        <!-- Button at bottom right -->
                                         <div class="mt-auto text-end">
                                             <a href="sendConference?conferenceId=${event.conferenceId}"
                                                class="btn btn-primary btn-sm"
@@ -389,20 +389,29 @@ html, body {
                                         </div>
 
                                     </div>
+
                                 </div>
 
-                                <!-- MODAL -->
+                            <!-- MODAL -->
                                 <div class="modal fade"
                                      id="eventModal${event.conferenceId}"
                                      tabindex="-1">
 
                                     <div class="modal-dialog modal-lg">
+
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h5 class="modal-title">${event.conferenceTitle}</h5>
-                                                <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
+
+                                                <h5 class="modal-title">
+                                                    ${event.conferenceTitle}
+                                                </h5>
+
+                                                <button type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal">
+                                                </button>
+
                                             </div>
 
                                             <div class="modal-body">
@@ -420,14 +429,18 @@ html, body {
                                                 </p>
 
                                                 <video width="100%" controls>
-                                                    <source src="fetchPromoVideo?conferenceId=${event.conferenceId}" type="video/mp4">
+                                                    <source src="fetchPromoVideo?conferenceId=${event.conferenceId}"
+                                                            type="video/mp4">
                                                 </video>
 
                                             </div>
 
                                         </div>
+
                                     </div>
+
                                 </div>
+
                             </c:forEach>
 
                         </div>
@@ -439,6 +452,7 @@ html, body {
         </div>
     </div>
 </section>
+
 <!-- FOOTER -->
 
 <footer>
