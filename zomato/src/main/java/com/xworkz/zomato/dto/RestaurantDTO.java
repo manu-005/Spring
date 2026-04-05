@@ -18,8 +18,8 @@ public class RestaurantDTO {
     @Column(name = "rName")
     private String rName;
 
-@Id
-@Column(name = "rNo")
+    @Id
+    @Column(name = "rNo")
     private String rNo;
 
     @Column(name = "location")
