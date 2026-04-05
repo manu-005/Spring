@@ -320,7 +320,6 @@ public class AdminController {
 
             emailList.addAll(Arrays.asList(emailArray));
         }
-
         System.out.println("email list ====:" + emailList);
 
         modelAndView.addObject("emailList", emailList);
