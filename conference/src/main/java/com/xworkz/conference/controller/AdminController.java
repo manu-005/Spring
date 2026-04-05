@@ -323,7 +323,6 @@ public class AdminController {
         System.out.println("email list ====:" + emailList);
 
         modelAndView.addObject("emailList", emailList);
-
         modelAndView.setViewName("ConferenceDetails"); // JSP page name
 
         return modelAndView;
@@ -359,7 +358,6 @@ public class AdminController {
         modelAndView.setViewName("EventDelegates");
         return modelAndView;
     }
-
 
     @GetMapping("logOut")
     public ModelAndView logOut(ModelAndView modelAndView){
