@@ -1,0 +1,63 @@
+package com.xworkz.conference.controller;
+
+import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
+import com.xworkz.conference.utility.DelegatesMailSending;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+
+@RequestMapping("/")
+@Controller
+public class TPOController {
+
+    @Autowired
+    DelegatesMailSending delegatesMailSending;
+
+    @Autowired
+    ConferenceHosterService conferenceHosterService;
+
+    @PostMapping("shareConference")
+    public ModelAndView shareConference(Long conferenceId, String emails, ModelAndView modelAndView) {
+
+        List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
+        modelAndView.addObject("allEvents", allEvents);
+
+        System.out.println("conference id in share event : " + conferenceId);
+
+        System.out.println("emails in share event : " + emails);
+
+        String[] emailsArray = emails.split(",");
+
+        for(String e : emailsArray){
+
+            delegatesMailSending.sendEventDetailsToDelegates(e,conferenceId);
+        }
+
+
+
+        modelAndView.addObject("successMsg", "Invited Successfully..");
+
+        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
+        modelAndView.setViewName("AllEventsDetails"); // JSP page name
+        return modelAndView;
+    }
+
+    @GetMapping("tpoLogIn")
+    public ModelAndView tpoLogIn(ModelAndView modelAndView,String tpoEmail,Long conferenceId){
+
+        System.out.println("tpo email :==="+tpoEmail);
+        System.out.println("conference d :+++=="+conferenceId);
+
+        modelAndView.setViewName("TPOLoginForm");
+        return modelAndView;
+    }
+
+
+
+}
