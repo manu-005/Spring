@@ -58,6 +58,14 @@ public class TPOController {
         return modelAndView;
     }
 
+@GetMapping("getOtp")
+    public ModelAndView getOtp(String email,ModelAndView  modelAndView){
 
+        modelAndView.addObject("successMsg","Success");
+        modelAndView.addObject("errorMsg","Error message");
+
+        modelAndView.setViewName("TPODashBoard");
+        return modelAndView;
+}
 
 }

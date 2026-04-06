@@ -87,88 +87,14 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="#logout">Log Out</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- ✅ YOUR Main content -->
-
-    <div class="container d-flex justify-content-center align-items-center"
-         style="min-height:100vh; background:#f5f7fb;">
-
-        <div class="card shadow-lg border-0"
-             style="width:420px; border-radius:20px; overflow:hidden;">
-
-            <div class="card-header text-center text-white"
-                 style="background:#0059ff; padding:25px;">
-                <h3 class="mb-1">TPO Login</h3>
-                <p class="mb-0" style="font-size:14px;">Login using Email & OTP</p>
-            </div>
-
-            <div class="card-body p-4">
-                <form action="verifyOtp" method="post">
-
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Email ID</label>
-                        <form action="getOtp" method="post">
-
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="bi bi-envelope"></i>
-                            </span>
-
-                            <input type="email"
-                                   class="form-control"
-                                   name="email"
-                                   placeholder="Enter your email"
-                                   required>
-                        </div>
-                        </form>
-                    </div>
-
-                    <!-- Get OTP Button -->
-                    <div class="d-grid mb-3">
-                        <button type="button"
-                                class="btn btn-primary">
-                            Get OTP
-                        </button>
-                        ${successMsg}
-                        ${errorMsg}
-                    </div>
-
-                    <!-- OTP Field -->
-                    <div class="mb-3" id="otpSection" style="display:none;">
-                        <label class="form-label fw-semibold">Enter OTP</label>
-
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="bi bi-shield-lock"></i>
-                            </span>
-
-                            <input type="text"
-                                   class="form-control"
-                                   name="otp"
-                                   maxlength="6"
-                                   placeholder="Enter 6-digit OTP"
-                                   required>
-                        </div>
-                    </div>
-
-                    <!-- Submit -->
-                    <div class="d-grid" id="submitSection" style="display:none;">
-                        <button type="submit" class="btn btn-success">
-                            Submit
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
+logged in
 
     <!-- ✅ YOUR SAME FOOTER -->
     <footer>
