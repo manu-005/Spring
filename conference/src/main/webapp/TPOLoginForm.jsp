@@ -89,104 +89,75 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#home">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#events">Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="adminLoginForm">Admin Login</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- ✅ MAIN CONTENT -->
-    <div class="container" style="margin-top:120px; margin-bottom:80px;">
-        <div class="event-card">
+    <!-- ✅ YOUR Main content -->
 
-            <!-- 🔥 BIG BANNER -->
-            <img src="fetchBannerImages?conferenceId=${conference.conferenceId}"
-                 class="img-fluid mb-4"
-                 style="height:400px;width:100%;object-fit:cover;cursor:pointer;"
-                 data-bs-toggle="modal"
-                 data-bs-target="#imageModal">
+{$email}
 
-            <h2>${conference.conferenceTitle}</h2>
+<div class="container d-flex justify-content-center align-items-center" style="min-height:100vh; background:#f5f7fb;">
+    <div class="card shadow-lg border-0" style="width:420px; border-radius:20px; overflow:hidden;">
 
-            <p>${conference.conferenceDescription}</p>
+        <div class="card-header text-center text-white" style="background:#0059ff; padding:25px;">
+            <h3 class="mb-1">TPO Login</h3>
+            <p class="mb-0" style="font-size:14px;">Login using Email & OTP</p>
+        </div>
 
-            <p>
-                <b>Date:</b> ${conference.date}<br>
-                <b>Time:</b> ${conference.time}<br>
-                <b>Mode:</b> ${conference.mode}<br>
-                <b>Venue:</b> ${conference.venueOrMeetingLink}
-            </p>
+        <div class="card-body p-4">
+            <form action="verifyOtp" method="post">
 
-            <!-- 🔥 PROMO VIDEO -->
-            <div class="mb-4">
-                <video width="100%" height="400" controls style="border-radius:12px;">
-                    <source src="fetchPromoVideo?conferenceId=${conference.conferenceId}" type="video/mp4">
-                </video>
-            </div>
-
-            <hr>
-
-            <!-- ✅ SELECT ALL -->
-            <label>
-                <input type="checkbox" onclick="selectAll(this)">
-                <b>Select All Delegates</b>
-            </label>
-
-            <!-- FORM -->
-            <form action="shareConference" method="post">
-                <input type="hidden" name="conferenceId" value="${conference.conferenceId}" />
-
-                <!-- ✅ FIXED LOOP -->
-                <div class="mt-3">
-                    <c:forEach var="email" items="${emailList}">
-                        <div class="form-check">
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   name="emails"
-                                   value="${email}">
-                            <label class="form-check-label">${email}</label>
-                        </div>
-                    </c:forEach>
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email ID</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope"></i>
+                        </span>
+                        <input type="email"
+                               class="form-control"
+                               name="email"
+                               placeholder="Enter your email"
+                               required>
+                    </div>
                 </div>
 
-                <br>
-
-                <div class="text-end">
-                    <button type="submit" class="btn btn-success">
-                        Share Event
+                <!-- Get OTP Button -->
+                <div class="d-grid mb-3">
+                    <button type="button"
+                            class="btn btn-primary"
+                            onclick="sendOtp()">
+                        Get OTP
                     </button>
                 </div>
-            </form>
 
-        </div>
-    </div>
-
-    <!-- 🔥 IMAGE MODAL (FULL VIEW) -->
-    <div class="modal fade" id="imageModal">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <img src="fetchBannerImages?conferenceId=${conference.conferenceId}"
-                         class="img-fluid w-100">
+                <!-- OTP Field -->
+                <div class="mb-3" id="otpSection" style="display:none;">
+                    <label class="form-label fw-semibold">Enter OTP</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-shield-lock"></i>
+                        </span>
+                        <input type="text"
+                               class="form-control"
+                               name="otp"
+                               maxlength="6"
+                               placeholder="Enter 6-digit OTP"
+                               required>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
+                <!-- Submit -->
+                <div class="d-grid" id="submitSection" style="display:none;">
+                    <button type="submit" class="btn btn-success">
+                        Submit
+                    </button>
+                </div>
+
+</div>
     <!-- ✅ YOUR SAME FOOTER -->
     <footer>
         <div class="container">

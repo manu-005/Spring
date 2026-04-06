@@ -15,20 +15,19 @@ public class DelegatesMailSending {
     @Autowired
     private JavaMailSender mailSender;
     
-    public void sendEventDetailsToDelegates(String emails, String textMessage) {
+    public void sendEventDetailsToDelegates(String email, Long conferenceId) {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
         // Use ngrok public URL (not local IP)
         String baseUrl = "https://mesoappendiceal-postillioned-bently.ngrok-free.dev";
 
-        String link = baseUrl + "/conference/............?studentEmail="
-                + URLEncoder.encode(emails, StandardCharsets.UTF_8);
+        String link = baseUrl + "/conference/tpoLogIn?tpoEmail="+ URLEncoder.encode(email, StandardCharsets.UTF_8)+"&conferenceId="+conferenceId;
 
-        String body = textMessage +
+        String body = "textMessage" +
                 "\n\nPlease click the link below to respond:\n" + link;
 
-        message.setTo(emails);  // mails...
+        message.setTo(email);  // mails...
         message.setSubject("");  //sub
         message.setText(body);
 

@@ -6,6 +6,7 @@ import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
+import com.xworkz.conference.utility.DelegatesMailSending;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
@@ -33,6 +34,9 @@ public class AdminController {
 
     @Autowired
     ConferenceHosterService conferenceHosterService;
+
+    @Autowired
+    DelegatesMailSending delegatesMailSending;
 
     @GetMapping("adminLoginForm")
     public ModelAndView adminLoginForm(ModelAndView modelAndView) {
@@ -338,6 +342,15 @@ public class AdminController {
 
         System.out.println("emails in share event : " + emails);
 
+        String[] emailsArray = emails.split(",");
+
+        for(String e : emailsArray){
+
+            delegatesMailSending.sendEventDetailsToDelegates(e,conferenceId);
+        }
+
+
+
         modelAndView.addObject("successMsg", "Invited Successfully..");
 
         modelAndView.addObject("errorMsg", "Please try again after sometimes..");
@@ -345,6 +358,14 @@ public class AdminController {
         return modelAndView;
     }
 
+    @GetMapping("tpoLogIn")
+    public ModelAndView tpoLogIn(ModelAndView modelAndView,String tpoEmail,Long conferenceId){
+
+        System.out.println("tpo email :==="+tpoEmail);
+        System.out.println("conference d :+++=="+conferenceId);
+        modelAndView.setViewName("TPOLoginForm");
+        return modelAndView;
+    }
     @GetMapping("viewDelegates")
     public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId) {
         System.out.println("conference Id in view delegates :" + conferenceId);
