@@ -61,6 +61,8 @@ public class DelegatesMailSending {
         helper.setTo(email);
         helper.setSubject("Conference Invitation - " + dto.getConferenceTitle());
 
+        FileSystemResource poster = new FileSystemResource(new File(dto.getBannerPath()));
+
         String html =
                 "<div style='font-family:Arial,sans-serif;background:#f4f6fb;padding:30px;'>" +
                         "<div style='max-width:650px;margin:auto;background:#ffffff;border-radius:18px;" +
@@ -86,12 +88,6 @@ public class DelegatesMailSending {
                         "<tr><td><b>Venue:</b></td><td>" + dto.getVenueOrMeetingLink() + "</td></tr>" +
                         "</table>" +
 
-                        "</div>" +
-                        "<div style='text-align:center;margin:25px 0;'>" +
-                        "<img src='fetchBannerImages?conferenceId=${conferenceId} " +
-                        "style='max-width:100%; border-radius:12px;' />" +
-                        "</div>" +
-
                         "<div style='text-align:center;margin:25px 0;'>" +
                         "<img src='cid:conferencePoster' style='max-width:100%; border-radius:12px;' />" +
                         "</div>"+
@@ -106,10 +102,11 @@ public class DelegatesMailSending {
 
         // Add poster image attachment or inline image
 
-        FileSystemResource poster = new FileSystemResource(new File(dto.getBannerPath()));
+
+        helper.setText(html, true);   // first
+        helper.addInline("conferencePoster", poster);   // second
 
         // Option 1: show poster inside the email body
-        helper.addInline("conferencePoster", poster);
 
         // Add this inside the HTML before the login button:
         // <div style='text-align:center;margin:25px 0;'>
@@ -119,8 +116,6 @@ public class DelegatesMailSending {
 
         // Option 2: also attach the poster file in the mail
         helper.addAttachment("ConferencePoster.jpg", poster);
-
-        helper.setText(html, true); // true = HTML mail
 
         mailSender.send(message);
     }
