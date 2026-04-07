@@ -97,6 +97,8 @@ public class TPOController {
             List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
 
             List<DelegatesEmailDTO> sameDelegates = new ArrayList<>();
+
+            List<ConferenceHosterDTO> tpoDTOList = new ArrayList<>();
             Set<Long> conferenceIdList = new HashSet<>();
 
             System.out.println("all delegates in controller :" + allDelegates);
@@ -112,7 +114,10 @@ public class TPOController {
                     for (String email : emailArray) {
                         if (topEmail.equals(email))
                         {
-                            conferenceIdList.add(dto.getConferenceId());
+                            conferenceIdList.add(dto.getConferenceHoster().getConferenceId());
+
+//                          ConferenceHosterDTO tpoDTO =  conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId());
+                            tpoDTOList.add(  conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId()));
                         }
                     }
 

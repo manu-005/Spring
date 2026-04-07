@@ -18,10 +18,12 @@ public class DelegatesEmailDTO {
 
     private String delegatesEmail;
 
-    private long conferenceId;
+    private Long conferenceId;
 
     private String targetDelegates;
 
     private String[] emailArray;
+
+    private ConferenceHosterEntity conferenceHoster;
 
 }

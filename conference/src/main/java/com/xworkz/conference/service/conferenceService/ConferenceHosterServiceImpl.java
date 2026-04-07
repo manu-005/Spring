@@ -175,7 +175,7 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
 //            dto.setDelegatesId(entity.getDelegatesId());
 //            dto.setTargetDelegates(entity.getTargetDelegates());
-
+//            System.out.println("+++++++++++"+dto.getConferenceHoster().getConferenceId());
             BeanUtils.copyProperties(entity,dto);
             delegates.add(dto);
         }

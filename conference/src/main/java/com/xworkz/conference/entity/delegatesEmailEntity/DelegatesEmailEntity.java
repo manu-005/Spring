@@ -26,6 +26,7 @@ public class DelegatesEmailEntity {
     @ToString.Exclude
     private ConferenceHosterEntity conferenceHoster;
 
+//    private Long conferenceID;
 //    private String targetDelegates;
 
 }
