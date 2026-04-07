@@ -96,80 +96,101 @@
 
     <!-- ✅ YOUR Main content -->
 
-    <div class="container d-flex justify-content-center align-items-center"
-         style="min-height:100vh; background:#f5f7fb;">
+<!-- ✅ YOUR Main content -->
 
-        <div class="card shadow-lg border-0"
-             style="width:420px; border-radius:20px; overflow:hidden;">
+<div class="container d-flex justify-content-center align-items-center"
+     style="min-height:100vh; background:#f5f7fb;">
 
-            <div class="card-header text-center text-white"
-                 style="background:#0059ff; padding:25px;">
-                <h3 class="mb-1">TPO Login</h3>
-                <p class="mb-0" style="font-size:14px;">Login using Email & OTP</p>
-            </div>
+    <div class="card shadow-lg border-0"
+         style="width:450px; border-radius:24px; overflow:hidden;">
 
-            <div class="card-body p-4">
-                <form action="verifyOtp" method="post">
+        <div class="card-header text-center text-white"
+             style="background:linear-gradient(135deg,#0059ff,#3f7bff); padding:30px;">
+            <h3 class="mb-2 fw-bold">TPO Login</h3>
+            <p class="mb-0" style="font-size:14px;">
+                Login securely using your email and OTP
+            </p>
+        </div>
 
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Email ID</label>
-                        <form action="getOtp" method="post">
+        <div class="card-body p-4">
 
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="bi bi-envelope"></i>
-                            </span>
+            <!-- Step 1 : Get OTP -->
+            <form action="getOtp" method="post">
+                <div class="mb-4">
+                    <label class="form-label fw-semibold mb-2">Email ID</label>
 
-                            <input type="email"
-                                   class="form-control"
-                                   name="email"
-                                   placeholder="Enter your email"
-                                   required>
-                        </div>
-                        </form>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-envelope text-primary"></i>
+                        </span>
+
+                        <input type="email"
+                               name="email"
+                               value="${email}"
+                               class="form-control border-start-0"
+                               placeholder="Enter your email address"
+                               disabled>
                     </div>
+                </div>
 
-                    <!-- Get OTP Button -->
-                    <div class="d-grid mb-3">
-                        <button type="button"
-                                class="btn btn-primary">
-                            Get OTP
-                        </button>
-                        ${successMsg}
-                        ${errorMsg}
-                    </div>
+                <div class="d-grid mb-3">
+                    <button type="submit"
+                            class="btn btn-primary btn-lg"
+                            style="border-radius:12px;">
+                        <i class="bi bi-send me-2"></i>Get OTP
+                    </button>
+                </div>
+            </form>
 
-                    <!-- OTP Field -->
-                    <div class="mb-3" id="otpSection" style="display:none;">
-                        <label class="form-label fw-semibold">Enter OTP</label>
+            <!-- Success / Error Message -->
+            <c:if test="${not empty successMsg}">
+                <div class="alert alert-success text-center">
+                    ${successMsg}
+                </div>
+            </c:if>
 
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="bi bi-shield-lock"></i>
+            <c:if test="${not empty errorMsg}">
+                <div class="alert alert-danger text-center">
+                    ${errorMsg}
+                </div>
+            </c:if>
+
+            <!-- Step 2 : OTP Field appears after backend sets successMsg -->
+            <c:if test="${not empty successMsg}">
+                <form action="verifyOTP" method="post">
+
+                    <input type="hidden" name="email" value="${email}">
+
+                    <div class="mb-4 mt-4">
+                        <label class="form-label fw-semibold mb-2">Enter OTP</label>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-shield-lock text-success"></i>
                             </span>
 
                             <input type="text"
-                                   class="form-control"
                                    name="otp"
                                    maxlength="6"
+                                   class="form-control border-start-0"
                                    placeholder="Enter 6-digit OTP"
                                    required>
                         </div>
                     </div>
 
-                    <!-- Submit -->
-                    <div class="d-grid" id="submitSection" style="display:none;">
-                        <button type="submit" class="btn btn-success">
-                            Submit
+                    <div class="d-grid">
+                        <button type="submit"
+                                class="btn btn-success btn-lg"
+                                style="border-radius:12px;">
+                            <i class="bi bi-check-circle me-2"></i>Submit
                         </button>
                     </div>
-
                 </form>
-            </div>
+            </c:if>
+
         </div>
     </div>
-
+</div>
     <!-- ✅ YOUR SAME FOOTER -->
     <footer>
         <div class="container">

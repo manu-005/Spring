@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RequestMapping("/")
@@ -23,7 +24,7 @@ public class TPOController {
     ConferenceHosterService conferenceHosterService;
 
     @PostMapping("shareConference")
-    public ModelAndView shareConference(Long conferenceId, String emails, ModelAndView modelAndView) {
+    public ModelAndView shareConference(Long conferenceId, String emails, ModelAndView modelAndView) throws MessagingException {
 
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
         modelAndView.addObject("allEvents", allEvents);
@@ -54,18 +55,22 @@ public class TPOController {
         System.out.println("tpo email :==="+tpoEmail);
         System.out.println("conference d :+++=="+conferenceId);
 
+        modelAndView.addObject("topEmail",tpoEmail);
+        modelAndView.addObject("conferenceId",conferenceId);
         modelAndView.setViewName("TPOLoginForm");
         return modelAndView;
     }
 
-@GetMapping("getOtp")
+    @PostMapping("getOtp")
     public ModelAndView getOtp(String email,ModelAndView  modelAndView){
+
+        System.out.println("email in get Otp :"+email);
 
         modelAndView.addObject("successMsg","Success");
         modelAndView.addObject("errorMsg","Error message");
 
-        modelAndView.setViewName("TPODashBoard");
+        modelAndView.setViewName("TPOLoginForm");
         return modelAndView;
-}
+    }
 
 }
