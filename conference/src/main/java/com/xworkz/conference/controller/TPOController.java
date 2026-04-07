@@ -1,6 +1,7 @@
 package com.xworkz.conference.controller;
 
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
+import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import com.xworkz.conference.utility.DelegatesMailSending;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("/")
 @Controller
@@ -40,11 +41,9 @@ public class TPOController {
 
             delegatesMailSending.sendEventDetailsToDelegates(e, conferenceId);
         }
-
-
         modelAndView.addObject("successMsg", "Invited Successfully..");
 
-        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
+//        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
         modelAndView.setViewName("AllEventsDetails"); // JSP page name
         return modelAndView;
     }
@@ -57,6 +56,7 @@ public class TPOController {
 
         modelAndView.addObject("topEmail", tpoEmail);
         modelAndView.addObject("conferenceId", conferenceId);
+
         modelAndView.setViewName("TPOLoginForm");
         return modelAndView;
     }
@@ -72,18 +72,17 @@ public class TPOController {
         session.setAttribute("otpSent", otp);
         session.setAttribute("topEmail", topEmail);
 
-        modelAndView.addObject("successMsg", "Success");
-        modelAndView.addObject("errorMsg", "Error message");
-
+        if (otp != null){
+            modelAndView.addObject("successMsg", "Success");
+        }else {
+            modelAndView.addObject("errorMsg", "Error message");
+        }
         modelAndView.setViewName("TPOLoginForm");
         return modelAndView;
     }
 
     @PostMapping("verifyOTP")
-    public ModelAndView verifyOTP(String enteredOtp,
-                            String topEmail,
-                            HttpSession session,
-                            ModelAndView model) {
+    public ModelAndView verifyOTP(String enteredOtp, String topEmail, HttpSession session, ModelAndView model) {
 
         String sentOtp = (String) session.getAttribute("otpSent");
         String sessionEmail = (String) session.getAttribute("topEmail");
@@ -94,14 +93,41 @@ public class TPOController {
                 && sentOtp.equals(enteredOtp)) {
 
             model.addObject("successMsg", "OTP Verified Successfully");
+
+            List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
+
+            List<DelegatesEmailDTO> sameDelegates = new ArrayList<>();
+            Set<Long> conferenceIdList = new HashSet<>();
+
+            System.out.println("all delegates in controller :" + allDelegates);
+
+            for (DelegatesEmailDTO dto : allDelegates) {
+
+                if (true) {
+
+                    String[] emailArray = dto.getDelegatesEmail().split(",");
+
+                    System.out.println("all emails after split :" + Arrays.toString(emailArray));
+
+                    for (String email : emailArray) {
+                        if (topEmail.equals(email))
+                        {
+                            conferenceIdList.add(dto.getConferenceId());
+                        }
+                    }
+
+                    sameDelegates.add(dto);
+                }
+            }
+
+            System.out.println("after split conferenceIdList ids :" + conferenceIdList);
+
             model.setViewName("TPODashBoard");
-
             return model;
+        }else {
+            model.addObject("errorMsg", "Invalid OTP");
+            model.setViewName("TPOLoginForm");
         }
-
-        model.addObject("errorMsg", "Invalid OTP");
-        model.setViewName("TPOLoginForm");
-
         return model;
     }
 

@@ -118,6 +118,7 @@ public class DelegatesMailSending {
         helper.addAttachment("ConferencePoster.jpg", poster);
 
         mailSender.send(message);
+
     }
 
     public String sendOtp(String email) {
