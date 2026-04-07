@@ -124,12 +124,12 @@
                             <i class="bi bi-envelope text-primary"></i>
                         </span>
 
-                        <input type="email"
-                               name="email"
-                               value="${email}"
+                        <input type="text"
+                               name="topEmail"
+                               value="${topEmail}"
                                class="form-control border-start-0"
                                placeholder="Enter your email address"
-                               disabled>
+                               readonly>
                     </div>
                 </div>
 
@@ -159,7 +159,7 @@
             <c:if test="${not empty successMsg}">
                 <form action="verifyOTP" method="post">
 
-                    <input type="hidden" name="email" value="${email}">
+                    <input type="hidden" name="topEmail" value="${topEmail}">
 
                     <div class="mb-4 mt-4">
                         <label class="form-label fw-semibold mb-2">Enter OTP</label>
@@ -170,7 +170,7 @@
                             </span>
 
                             <input type="text"
-                                   name="otp"
+                                   name="enteredOtp"
                                    maxlength="6"
                                    class="form-control border-start-0"
                                    placeholder="Enter 6-digit OTP"

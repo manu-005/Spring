@@ -15,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 @Service
 public class DelegatesMailSending {
@@ -48,7 +49,7 @@ public class DelegatesMailSending {
 
         String baseUrl = "https://mesoappendiceal-postillioned-bently.ngrok-free.dev";
 
-       ConferenceHosterDTO dto= conferenceHosterService.getAllConferenceHosterById(conferenceId);
+        ConferenceHosterDTO dto= conferenceHosterService.getAllConferenceHosterById(conferenceId);
         String link = baseUrl
                 + "/conference/tpoLogIn?tpoEmail="
                 + URLEncoder.encode(email, StandardCharsets.UTF_8)
@@ -102,7 +103,6 @@ public class DelegatesMailSending {
 
         // Add poster image attachment or inline image
 
-
         helper.setText(html, true);   // first
         helper.addInline("conferencePoster", poster);   // second
 
@@ -118,5 +118,25 @@ public class DelegatesMailSending {
         helper.addAttachment("ConferencePoster.jpg", poster);
 
         mailSender.send(message);
+    }
+
+    public String sendOtp(String email) {
+
+        String otp = generateOtp();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("OTP Verification");
+        message.setText("Your OTP is: " + otp + "\nValid for 5 minutes.");
+
+        mailSender.send(message);
+
+        return otp; // return so caller can store (session / DB)
+    }
+
+    /* Generate 6-digit random OTP */
+    private String generateOtp() {
+        int otp = new Random().nextInt(900000) + 100000;
+        return String.valueOf(otp);
     }
 }

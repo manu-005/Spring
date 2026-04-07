@@ -94,7 +94,7 @@
         </div>
     </nav>
 
-logged in
+
 
     <!-- ✅ YOUR SAME FOOTER -->
     <footer>
