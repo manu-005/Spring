@@ -133,35 +133,34 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public boolean varifyAdmin(AdminEntity adminEntity) {
 
-      EntityManager manager =  managerFactory.createEntityManager();
-      AdminEntity admin = (AdminEntity) manager.createQuery("select a from AdminEntity a").getSingleResult();
-        System.out.println("admin details :"+admin);
+        EntityManager manager = managerFactory.createEntityManager();
+        AdminEntity admin = (AdminEntity) manager.createQuery("select a from AdminEntity a").getSingleResult();
+        System.out.println("admin details :" + admin);
         manager.close();
-        if (adminEntity.getUserName().equals(admin.getUserName()) && adminEntity.getPassword().equals(admin.getPassword())){
+        if (adminEntity.getUserName().equals(admin.getUserName()) && adminEntity.getPassword().equals(admin.getPassword())) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     @Override
-    public boolean updateAcceptOrDecline(Long conferenceId,boolean updateAccept) {
+    public boolean updateAcceptOrDecline(Long conferenceId, boolean updateAccept) {
 
-       EntityManager manager = managerFactory.createEntityManager();
+        EntityManager manager = managerFactory.createEntityManager();
 
-       manager.getTransaction().begin();
+        manager.getTransaction().begin();
 
-      Query query = manager.createQuery("update ConferenceHosterEntity e set e.acceptOrDecline = :accepted where e.conferenceId = :conferenceId");
+        Query query = manager.createQuery("update ConferenceHosterEntity e set e.acceptOrDecline = :accepted where e.conferenceId = :conferenceId");
         query.setParameter("accepted", updateAccept);   // or false
         query.setParameter("conferenceId", conferenceId);
 
-       int updated = query.executeUpdate();
+        int updated = query.executeUpdate();
 
         manager.getTransaction().commit();
         manager.close();
-        if (updated == 1){
+        if (updated == 1) {
             return true;
 
-        }else{
+        } else {
             return false;
         }
     }
@@ -169,11 +168,8 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public InvitedDelegatesEntity saveInvitedDelegates(InvitedDelegatesEntity invitedDelegatesEntity) {
         try {
-            entityManager.getTransaction().begin();
 
             entityManager.persist(invitedDelegatesEntity);
-
-            entityManager.getTransaction().commit();
 
             return invitedDelegatesEntity;
 
@@ -186,6 +182,31 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response) {
+
+        Query query = entityManager.createQuery(
+                "update InvitedDelegatesEntity ent " +
+                        "set ent.delegateAvailability = :response " +
+                        "where ent.conferenceId = :conferenceId " +
+                        "and ent.delegateEmail = :delegateEmail"
+        );
+
+        query.setParameter("response", response);
+        query.setParameter("conferenceId", conferenceId);
+        query.setParameter("delegateEmail", delegateEmail);
+
+        int updatedRows = query.executeUpdate();
+        System.out.println("updated " + updatedRows);
+
+        if (updatedRows == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

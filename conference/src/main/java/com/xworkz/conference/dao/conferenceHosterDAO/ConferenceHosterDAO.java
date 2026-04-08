@@ -25,4 +25,6 @@ public interface ConferenceHosterDAO {
     boolean updateAcceptOrDecline(Long conferenceId,boolean updateValue);
 
     InvitedDelegatesEntity saveInvitedDelegates(InvitedDelegatesEntity invitedDelegatesEntity);
+
+    boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response);
 }

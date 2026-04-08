@@ -182,8 +182,8 @@ public class TPOController {
                             ? bindingResult.getFieldError("delegatesOrganizationName").getDefaultMessage()
                             : "");
 
-            if (sessionConferenceId == null || sessionEmail == null){
-                modelAndView.addObject("sessionTimeOut","Your Session time out..!");
+            if (sessionConferenceId == null || sessionEmail == null) {
+                modelAndView.addObject("sessionTimeOut", "Your Session time out..!");
             }
 
             modelAndView.setViewName("DelegateInviteForm");
@@ -205,5 +205,31 @@ public class TPOController {
         return modelAndView;
     }
 
+    @GetMapping("viewEventDetails")
+    public ModelAndView viewEventDetails(ModelAndView modelAndView,String delegatesEmail,Long conferenceId) {
 
+ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+        System.out.println("????????????:"+delegatesEmail+conferenceId);
+
+        modelAndView.addObject("viewDetails",viewDetails);
+        modelAndView.addObject("delegatesEmail",delegatesEmail);
+
+        modelAndView.setViewName("ViewDetailOfEvent");
+        return modelAndView;
+
+    }
+
+    @PostMapping("delegateResponse")
+    public ModelAndView delegateResponse(ModelAndView modelAndView, Long conferenceId, String delegateEmail, Boolean response) {
+
+        boolean updated = conferenceHosterService.updateDelegateResponse( conferenceId,  delegateEmail, response);
+
+        if (updated) {
+
+            modelAndView.addObject("successMsg","Thank you for your response.");
+        }
+
+        return modelAndView;
+    }
 }

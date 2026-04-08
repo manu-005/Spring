@@ -28,4 +28,6 @@ public interface ConferenceHosterService {
     boolean updateAcceptOrDecline(Long conferenceId,boolean updateAccept);
 
     InvitedDelegatesDTO saveInvitedDelegates(InvitedDelegatesDTO delegateDTO);
+
+    boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response);
 }

@@ -233,5 +233,11 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         return savedDTO;
     }
 
+    @Override
+    public boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response) {
+
+        return conferenceHosterDAO.updateDelegateResponse(conferenceId,delegateEmail,response);
+    }
+
 
 }
