@@ -192,6 +192,12 @@
                                ${delegatesOrganizationNameError}
                            </small>
                        </c:if>
+
+                        <c:if test="${not empty sessionTimeOut}">
+                            <small class="text-danger">
+                                    ${sessionTimeOut}
+                            </small>
+                        </c:if>
                    </div>
 
                    <div class="d-grid">

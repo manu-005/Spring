@@ -149,9 +149,16 @@ public class TPOController {
     }
 
     @PostMapping("sendDelegateInvitation")
-    public ModelAndView sendDelegateInvitation(@Valid InvitedDelegatesDTO delegateDTO, BindingResult bindingResult,HttpSession session, ModelAndView modelAndView) throws MessagingException {
+    public ModelAndView sendDelegateInvitation(@Valid InvitedDelegatesDTO delegateDTO, BindingResult bindingResult, HttpSession session, ModelAndView modelAndView) throws MessagingException {
 
         Long sessionConferenceId = (Long) session.getAttribute("conferenceId");
+        String sessionEmail = (String) session.getAttribute("topEmail");
+
+        System.out.println("session conference id :::::::::::" + sessionConferenceId + sessionEmail);
+        delegateDTO.setConferenceId(sessionConferenceId);
+        delegateDTO.setTpoEmail(sessionEmail);
+
+        System.out.println("____________" + delegateDTO);
 
         if (bindingResult.hasErrors()) {
 
@@ -175,14 +182,29 @@ public class TPOController {
                             ? bindingResult.getFieldError("delegatesOrganizationName").getDefaultMessage()
                             : "");
 
+            String sessionError = "";
+
+            if (bindingResult.hasFieldErrors("conferenceId")) {
+                sessionError = bindingResult.getFieldError("conferenceId").getDefaultMessage();
+            } else if (bindingResult.hasFieldErrors("tpoEmail")) {
+                sessionError = bindingResult.getFieldError("tpoEmail").getDefaultMessage();
+            }
+
+            modelAndView.addObject("sessionTimeOut", sessionError);
+
             modelAndView.setViewName("DelegateInviteForm");
             return modelAndView;
         }
 
-        System.out.println("____________"+delegateDTO);
+        delegateDTO.setConferenceId(sessionConferenceId);
+        delegateDTO.setTpoEmail(sessionEmail);
+        System.out.println("____________" + delegateDTO);
 
+        InvitedDelegatesDTO savedDto = conferenceHosterService.saveInvitedDelegates(delegateDTO);
+        System.out.println("saved dto invited  delegates :" + savedDto);
+        delegatesMailSending.sendEventDetailsToInvitedDelegates(savedDto.getDelegateEmail(), savedDto.getConferenceId(), savedDto.getDelegateName());
 
-//        delegatesMailSending.sendEventDetailsToInvitedDelegates(delegateEmail,sessionConferenceId,delegateName);
+//        System.out.println("saved dtoo :++"+savedDto);
 
         modelAndView.addObject("successMessage", "Invitation sent successfully");
         modelAndView.setViewName("DelegateInviteForm");

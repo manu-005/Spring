@@ -3,6 +3,7 @@ package com.xworkz.conference.dao.conferenceHosterDAO;
 import com.xworkz.conference.entity.admin.AdminEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
+import com.xworkz.conference.entity.tpoDelegates.InvitedDelegatesEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -162,6 +163,28 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
         }else{
             return false;
+        }
+    }
+
+    @Override
+    public InvitedDelegatesEntity saveInvitedDelegates(InvitedDelegatesEntity invitedDelegatesEntity) {
+        try {
+            entityManager.getTransaction().begin();
+
+            entityManager.persist(invitedDelegatesEntity);
+
+            entityManager.getTransaction().commit();
+
+            return invitedDelegatesEntity;
+
+        } catch (Exception e) {
+
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+
+            e.printStackTrace();
+            return null;
         }
     }
 

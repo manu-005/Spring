@@ -5,11 +5,13 @@ import com.xworkz.conference.dao.conferenceHosterDAO.ConferenceHosterDAO;
 import com.xworkz.conference.dto.admin.AdminDTO;
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
+import com.xworkz.conference.dto.tpoDelegates.InvitedDelegatesDTO;
 import com.xworkz.conference.entity.admin.AdminEntity;
 import com.xworkz.conference.entity.bannerEntity.ConferenceBannerEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
 import com.xworkz.conference.entity.promoVideoEntity.ConferencePromoVideoEntity;
+import com.xworkz.conference.entity.tpoDelegates.InvitedDelegatesEntity;
 import lombok.SneakyThrows;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.BeanUtils;
@@ -211,6 +213,24 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
        return conferenceHosterDAO.updateAcceptOrDecline(conferenceId,updateAccept);
 
+    }
+
+    @Override
+    public InvitedDelegatesDTO saveInvitedDelegates(InvitedDelegatesDTO delegateDTO) {
+
+         InvitedDelegatesEntity invitedDelegatesEntity = new InvitedDelegatesEntity();
+
+         BeanUtils.copyProperties(delegateDTO,invitedDelegatesEntity);
+
+        System.out.println("after bean utils +++++++++++++:"+invitedDelegatesEntity);
+
+       InvitedDelegatesEntity savedEntity = conferenceHosterDAO.saveInvitedDelegates(invitedDelegatesEntity);
+
+       InvitedDelegatesDTO savedDTO = new InvitedDelegatesDTO();
+
+       BeanUtils.copyProperties(savedEntity,savedDTO);
+
+        return savedDTO;
     }
 
 

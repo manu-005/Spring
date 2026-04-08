@@ -3,6 +3,7 @@ package com.xworkz.conference.dao.conferenceHosterDAO;
 import com.xworkz.conference.entity.admin.AdminEntity;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 import com.xworkz.conference.entity.delegatesEmailEntity.DelegatesEmailEntity;
+import com.xworkz.conference.entity.tpoDelegates.InvitedDelegatesEntity;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface ConferenceHosterDAO {
     boolean varifyAdmin(AdminEntity adminEntity);
 
     boolean updateAcceptOrDecline(Long conferenceId,boolean updateValue);
+
+    InvitedDelegatesEntity saveInvitedDelegates(InvitedDelegatesEntity invitedDelegatesEntity);
 }

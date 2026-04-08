@@ -4,8 +4,10 @@ package com.xworkz.conference.service.conferenceService;
 import com.xworkz.conference.dto.admin.AdminDTO;
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
+import com.xworkz.conference.dto.tpoDelegates.InvitedDelegatesDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public interface ConferenceHosterService {
@@ -24,4 +26,6 @@ public interface ConferenceHosterService {
     boolean varifyAdmin(AdminDTO adminDTO);
 
     boolean updateAcceptOrDecline(Long conferenceId,boolean updateAccept);
+
+    InvitedDelegatesDTO saveInvitedDelegates(InvitedDelegatesDTO delegateDTO);
 }

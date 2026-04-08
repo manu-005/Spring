@@ -31,4 +31,10 @@ public class InvitedDelegatesDTO {
     private String delegatesOrganizationName;
 
     private boolean delegateAvailability;
+
+    @NotNull(message = "Your Session time out..!")
+    private Long conferenceId;
+
+    @NotBlank(message = "Your Session time out..!")
+    private String tpoEmail;
 }
