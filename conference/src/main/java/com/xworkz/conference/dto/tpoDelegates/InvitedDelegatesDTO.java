@@ -30,4 +30,5 @@ public class InvitedDelegatesDTO {
     @Size(min = 4, max = 50, message = "Organization Name size must be between 4 and 50")
     private String delegatesOrganizationName;
 
+    private boolean delegateAvailability;
 }

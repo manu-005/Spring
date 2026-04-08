@@ -181,6 +181,7 @@ public class TPOController {
 
         System.out.println("____________"+delegateDTO);
 
+
 //        delegatesMailSending.sendEventDetailsToInvitedDelegates(delegateEmail,sessionConferenceId,delegateName);
 
         modelAndView.addObject("successMessage", "Invitation sent successfully");
