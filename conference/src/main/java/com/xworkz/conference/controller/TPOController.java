@@ -2,10 +2,12 @@ package com.xworkz.conference.controller;
 
 import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
+import com.xworkz.conference.dto.tpoDelegates.InvitedDelegatesDTO;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import com.xworkz.conference.utility.DelegatesMailSending;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.*;
 
 @RequestMapping("/")
@@ -72,9 +75,9 @@ public class TPOController {
         session.setAttribute("otpSent", otp);
         session.setAttribute("topEmail", topEmail);
 
-        if (otp != null){
+        if (otp != null) {
             modelAndView.addObject("successMsg", "Success");
-        }else {
+        } else {
             modelAndView.addObject("errorMsg", "Error message");
         }
         modelAndView.setViewName("TPOLoginForm");
@@ -112,12 +115,11 @@ public class TPOController {
                     System.out.println("all emails after split :" + Arrays.toString(emailArray));
 
                     for (String email : emailArray) {
-                        if (topEmail.equals(email))
-                        {
+                        if (topEmail.equals(email)) {
                             conferenceIdList.add(dto.getConferenceHoster().getConferenceId());
 
 //                          ConferenceHosterDTO tpoDTO =  conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId());
-                            tpoDTOList.add(  conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId()));
+                            tpoDTOList.add(conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId()));
                         }
                     }
 
@@ -126,14 +128,65 @@ public class TPOController {
             }
 
             System.out.println("after split conferenceIdList ids :" + conferenceIdList);
-
+            model.addObject("tpoDTOList", tpoDTOList);
             model.setViewName("TPODashBoard");
             return model;
-        }else {
+        } else {
             model.addObject("errorMsg", "Invalid OTP");
             model.setViewName("TPOLoginForm");
         }
         return model;
     }
+
+    @GetMapping("inviteDelegates")
+    public ModelAndView inviteDelegates(Long conferenceId, ModelAndView modelAndView, HttpSession session) {
+
+        String sessionEmail = (String) session.getAttribute("topEmail");
+        session.setAttribute("conferenceId", conferenceId);
+//        modelAndView.addObject("conferenceId", conferenceId + sessionEmail);
+        modelAndView.setViewName("DelegateInviteForm");
+        return modelAndView;
+    }
+
+    @PostMapping("sendDelegateInvitation")
+    public ModelAndView sendDelegateInvitation(@Valid InvitedDelegatesDTO delegateDTO, BindingResult bindingResult,HttpSession session, ModelAndView modelAndView) throws MessagingException {
+
+        Long sessionConferenceId = (Long) session.getAttribute("conferenceId");
+
+        if (bindingResult.hasErrors()) {
+
+            modelAndView.setViewName("DelegateInviteForm");
+
+            modelAndView.addObject("delegateDTO", delegateDTO);
+
+            modelAndView.addObject("delegateNameError",
+                    bindingResult.hasFieldErrors("delegateName") ? bindingResult.getFieldError("delegateName").getDefaultMessage() : "");
+
+            modelAndView.addObject("delegateEmailError",
+                    bindingResult.hasFieldErrors("delegateEmail")
+                            ? bindingResult.getFieldError("delegateEmail").getDefaultMessage()
+                            : "");
+
+            modelAndView.addObject("delegatesMobileNumberError",
+                    bindingResult.hasFieldErrors("delegatesMobileNumber")
+                            ? bindingResult.getFieldError("delegatesMobileNumber").getDefaultMessage()
+                            : "");
+
+            modelAndView.addObject("delegatesOrganizationNameError",
+                    bindingResult.hasFieldErrors("delegatesOrganizationName")
+                            ? bindingResult.getFieldError("delegatesOrganizationName").getDefaultMessage()
+                            : "");
+
+            return modelAndView;
+        }
+
+        System.out.println("____________"+delegateDTO);
+
+//        delegatesMailSending.sendEventDetailsToInvitedDelegates(delegateEmail,sessionConferenceId,delegateName);
+
+        modelAndView.addObject("successMessage", "Invitation sent successfully");
+        return modelAndView;
+    }
+
 
 }
