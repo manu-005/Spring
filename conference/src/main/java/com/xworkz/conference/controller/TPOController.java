@@ -155,8 +155,6 @@ public class TPOController {
 
         if (bindingResult.hasErrors()) {
 
-            modelAndView.setViewName("DelegateInviteForm");
-
             modelAndView.addObject("delegateDTO", delegateDTO);
 
             modelAndView.addObject("delegateNameError",
@@ -177,6 +175,7 @@ public class TPOController {
                             ? bindingResult.getFieldError("delegatesOrganizationName").getDefaultMessage()
                             : "");
 
+            modelAndView.setViewName("DelegateInviteForm");
             return modelAndView;
         }
 
@@ -185,6 +184,7 @@ public class TPOController {
 //        delegatesMailSending.sendEventDetailsToInvitedDelegates(delegateEmail,sessionConferenceId,delegateName);
 
         modelAndView.addObject("successMessage", "Invitation sent successfully");
+        modelAndView.setViewName("DelegateInviteForm");
         return modelAndView;
     }
 
