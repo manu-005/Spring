@@ -187,6 +187,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response) {
 
+        System.out.println("ll {{{{{{{{{{{{{{{detailss"+conferenceId+delegateEmail+response);
         Query query = entityManager.createQuery(
                 "update InvitedDelegatesEntity ent " +
                         "set ent.delegateAvailability = :response " +

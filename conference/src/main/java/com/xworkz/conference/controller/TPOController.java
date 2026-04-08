@@ -221,15 +221,19 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
     }
 
     @PostMapping("delegateResponse")
-    public ModelAndView delegateResponse(ModelAndView modelAndView, Long conferenceId, String delegateEmail, Boolean response) {
+    public ModelAndView delegateResponse(ModelAndView modelAndView, Long conferenceId, String delegatesEmail, Boolean response) {
 
-        boolean updated = conferenceHosterService.updateDelegateResponse( conferenceId,  delegateEmail, response);
+        boolean updated = conferenceHosterService.updateDelegateResponse( conferenceId,  delegatesEmail, response);
 
         if (updated) {
 
             modelAndView.addObject("successMsg","Thank you for your response.");
+        }else{
+            modelAndView.addObject("errorMsg","Session time out...!");
+
         }
 
+        modelAndView.setViewName("ResponseReceiver");
         return modelAndView;
     }
 }

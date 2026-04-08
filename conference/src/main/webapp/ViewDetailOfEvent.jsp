@@ -158,6 +158,8 @@
 
         </div>
     </nav>
+
+
 <div class="container events-section mt-4">
 
     <c:choose>
@@ -233,8 +235,8 @@
                                    value="${viewDetails.conferenceId}">
 
                             <input type="hidden"
-                                   name="delegateEmail"
-                                   value="${delegateEmail}">
+                                   name="delegatesEmail"
+                                   value="${delegatesEmail}">
 
                             <div class="d-flex justify-content-center gap-5 mb-4">
 
