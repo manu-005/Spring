@@ -182,15 +182,9 @@ public class TPOController {
                             ? bindingResult.getFieldError("delegatesOrganizationName").getDefaultMessage()
                             : "");
 
-            String sessionError = "";
-
-            if (bindingResult.hasFieldErrors("conferenceId")) {
-                sessionError = bindingResult.getFieldError("conferenceId").getDefaultMessage();
-            } else if (bindingResult.hasFieldErrors("tpoEmail")) {
-                sessionError = bindingResult.getFieldError("tpoEmail").getDefaultMessage();
+            if (sessionConferenceId == null || sessionEmail == null){
+                modelAndView.addObject("sessionTimeOut","Your Session time out..!");
             }
-
-            modelAndView.addObject("sessionTimeOut", sessionError);
 
             modelAndView.setViewName("DelegateInviteForm");
             return modelAndView;
