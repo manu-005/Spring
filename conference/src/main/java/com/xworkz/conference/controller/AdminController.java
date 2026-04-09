@@ -334,15 +334,28 @@ public class AdminController {
 
     @GetMapping("viewDelegates")
     public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId) {
-        System.out.println("conference Id in view delegates :" + conferenceId);
+        System.out.println("Conference ID received: " + conferenceId);
 
-        conferenceHosterService.getAllConferenceHosterById(conferenceId);
+        ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
 
-//         4-view invitation, all events, pending (approve ,decline), approved(send to delegates ),  already sent (status for all) (view participants-->list of stds)
-//        tpo login, view invitations
+        modelAndView.addObject("conference", dto);
+        System.out.println("delegates ====================:" + dto.getDelegates());
 
-        modelAndView.addObject("conferenceId", conferenceId);
-        modelAndView.setViewName("EventDelegates");
+        List<String> emailList = new ArrayList<>();
+
+        for (DelegatesEmailEntity email : dto.getDelegates()) {
+
+            String[] emailArray = email.getDelegatesEmail().split(",");
+
+            System.out.println("email array in delegates ::...:" + Arrays.toString(emailArray));
+
+            emailList.addAll(Arrays.asList(emailArray));
+        }
+        System.out.println("email list ====:" + emailList);
+
+        modelAndView.addObject("emailList", emailList);
+        modelAndView.setViewName("AllDelegates"); // JSP page name
+
         return modelAndView;
     }
 

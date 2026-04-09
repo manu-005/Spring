@@ -457,6 +457,56 @@ html, body {
     color: white;
     transform: translateX(5px);
 }
+
+.fixed-back-btn,
+.fixed-next-btn {
+    position: fixed;
+    top: 90%;
+    transform: translateY(-50%);
+    z-index: 9999;
+}
+
+.fixed-back-btn {
+    left: 20px;
+}
+
+.fixed-next-btn {
+    right: 20px;
+}
+
+.fixed-back-btn .btn,
+.fixed-next-btn .btn {
+    border-radius: 50px;
+    padding: 12px 22px;
+    box-shadow: 0 8px 20px rgba(0,89,255,0.25);
+}
+
+.fixed-back-btn .btn:hover,
+.fixed-next-btn .btn:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .fixed-back-btn,
+    .fixed-next-btn {
+        top: auto;
+        bottom: 20px;
+        transform: none;
+    }
+
+    .fixed-back-btn {
+        left: 10px;
+    }
+
+    .fixed-next-btn {
+        right: 10px;
+    }
+}
+
+.action-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+}
 </style>
 </head>
 
@@ -570,13 +620,13 @@ html, body {
                                         <!-- Button at bottom right -->
                                         <div class="mt-auto text-end">
                                             <a href="sendConference?conferenceId=${event.conferenceId}"
-                                               class="btn btn-primary btn-sm"
+                                               class="btn btn-primary action-btn"
                                                onclick="event.stopPropagation();">
                                                 Invite
                                             </a>
 
                                             <a href="viewDelegates?conferenceId=${event.conferenceId}"
-                                               class="btn btn-primary btn-sm"
+                                               class="btn btn-primary action-btn"
                                                onclick="event.stopPropagation();">
                                                 View TPO Details
                                             </a>
@@ -719,5 +769,16 @@ VanillaTilt.init(document.querySelectorAll(".glass, .event-card"), {
 });
 </script>
 
+<div class="fixed-back-btn">
+    <button type="button" class="btn btn-modern" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> Back
+    </button>
+</div>
+
+<div class="fixed-next-btn">
+    <button type="button" class="btn btn-modern" onclick="history.forward()">
+        Next <i class="bi bi-arrow-right"></i>
+    </button>
+</div>
 </body>
 </html>

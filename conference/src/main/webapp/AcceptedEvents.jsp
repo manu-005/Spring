@@ -717,5 +717,18 @@ VanillaTilt.init(document.querySelectorAll(".glass, .event-card"), {
 });
 </script>
 
+
+<div class="fixed-back-btn">
+    <button type="button" class="btn btn-modern" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> Back
+    </button>
+</div>
+
+<div class="fixed-next-btn">
+    <button type="button" class="btn btn-modern" onclick="history.forward()">
+        Next <i class="bi bi-arrow-right"></i>
+    </button>
+</div>
+
 </body>
 </html>
