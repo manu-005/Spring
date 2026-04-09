@@ -457,6 +457,11 @@ html, body {
     color: white;
     transform: translateX(5px);
 }
+
+.action-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+}
 </style>
 </head>
 

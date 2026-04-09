@@ -408,6 +408,12 @@ footer a:hover { color: #00c6ff; }
     border-radius: 4px;
     margin: 14px auto 0;
 }
+
+
+.action-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+}
 </style>
 </head>
 
@@ -572,6 +578,19 @@ VanillaTilt.init(document.querySelectorAll(".glass, .event-card"), {
     "max-glare": 0.08,
 });
 </script>
+
+
+<div class="fixed-back-btn">
+    <button type="button" class="btn btn-modern" onclick="history.back()">
+        <i class="bi bi-arrow-left"></i> Back
+    </button>
+</div>
+
+<div class="fixed-next-btn">
+    <button type="button" class="btn btn-modern" onclick="history.forward()">
+        Next <i class="bi bi-arrow-right"></i>
+    </button>
+</div>
 
 </body>
 </html>
