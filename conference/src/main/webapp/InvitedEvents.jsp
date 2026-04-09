@@ -617,14 +617,14 @@ html, body {
 
                                         <!-- Button at bottom right -->
                                         <div class="mt-auto text-end">
-                                            <a href="sendConference?conferenceId=${event.conferenceId}"
+                                            <!-- <a href="sendConference?conferenceId=${event.conferenceId}"
                                                class="btn btn-primary btn-sm"
                                                onclick="event.stopPropagation();">
                                                 Invite
-                                            </a>
+                                            </a> -->
 
                                             <a href="viewDelegates?conferenceId=${event.conferenceId}"
-                                               class="btn btn-primary btn-sm"
+                                               class="btn btn-primary action-btn"
                                                onclick="event.stopPropagation();">
                                                 View TPO Details
                                             </a>

@@ -228,6 +228,27 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
             return null;
         }
     }
+
+    @Override
+    public boolean updateSentToDelegates(Long conferenceId) {
+
+        Query query = entityManager.createQuery(
+                "update ConferenceHosterEntity ent " +
+                        "set ent.sentToDelegates = :sentToDelegates " +
+                        "where ent.conferenceId = :conferenceId "
+        );
+        query.setParameter("sentToDelegates", true);
+        query.setParameter("conferenceId", conferenceId);
+
+        int updatedRows = query.executeUpdate();
+        System.out.println("updated " + updatedRows);
+
+        if (updatedRows == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 

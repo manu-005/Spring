@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -231,6 +232,58 @@ public class AdminController {
 
         modelAndView.setViewName("AllDelegates");
 
+        return modelAndView;
+    }
+
+    @PostMapping("tpoDetailsInAdmin")
+    public ModelAndView tpoDetailsInAdmin(ModelAndView modelAndView, String email, HttpSession session){
+
+        List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
+
+        List<ConferenceHosterDTO> tpoDTOList = new ArrayList<>();
+        List<Long> conferenceIdList = new ArrayList<>();
+
+        for (DelegatesEmailDTO dto : allDelegates) {
+
+            if (dto.getDelegatesEmail() != null && !dto.getDelegatesEmail().isEmpty()) {
+
+                String[] emailArray = dto.getDelegatesEmail().split(",");
+
+//                System.out.println("Split Emails: " + Arrays.toString(emailArray));
+
+                for (String e : emailArray) {
+
+                    if (email.trim().equalsIgnoreCase(e.trim())) {
+
+                        Long conferenceId = dto.getConferenceHoster().getConferenceId();
+
+                        // avoid duplicate conference ids
+                        if (!conferenceIdList.contains(conferenceId)) {
+
+                            conferenceIdList.add(conferenceId);
+
+                            ConferenceHosterDTO conferenceDTO =
+                                    conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+                            if (conferenceDTO != null) {
+                                tpoDTOList.add(conferenceDTO);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Matched Conference IDs: " + conferenceIdList);
+
+        modelAndView.addObject("tpoDTOList", tpoDTOList);
+//        modelAndView.addObject("conferenceIdList", conferenceIdList);
+        modelAndView.addObject("email", email);
+
+        session.setAttribute("topEmail",email);
+
+        modelAndView.setViewName("TPODetailsInAdmin");
         return modelAndView;
     }
 

@@ -45,10 +45,15 @@ public class TPOController {
 
             delegatesMailSending.sendEventDetailsToDelegates(e, conferenceId);
         }
-        modelAndView.addObject("successMsg", "Invited Successfully..");
 
-//        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
-        modelAndView.setViewName("AllEventsDetails"); // JSP page name
+      boolean  updatedSentToDelegates = conferenceHosterService.updateSentToDelegates(conferenceId);
+
+      if (updatedSentToDelegates){
+          modelAndView.addObject("successMsg", "Invited Successfully..");
+      }else{
+        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
+        }
+        modelAndView.setViewName("AllNewEvents"); // JSP page name
         return modelAndView;
     }
 
@@ -134,7 +139,6 @@ public class TPOController {
                                     tpoDTOList.add(conferenceDTO);
                                 }
                             }
-
                             break;
                         }
                     }
@@ -229,6 +233,7 @@ public class TPOController {
         String sessionEmail = (String) session.getAttribute("topEmail");
         System.out.println(">>>>>>>>>>>>>session email :"+sessionEmail);
 
+        System.out.println(conferenceId);
        List<InvitedDelegatesDTO> availableDtoList = conferenceHosterService.getAvailableTpoDelegates(sessionEmail,conferenceId);
 
        if (availableDtoList != null){

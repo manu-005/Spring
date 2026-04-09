@@ -32,4 +32,6 @@ public interface ConferenceHosterService {
     boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response);
 
     List<InvitedDelegatesDTO> getAvailableTpoDelegates(String sessionEmail, Long conferenceId);
+
+    boolean updateSentToDelegates(Long conferenceId);
 }

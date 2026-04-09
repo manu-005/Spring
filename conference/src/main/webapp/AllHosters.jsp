@@ -166,8 +166,12 @@ body {
     margin-top: 14px;
 }
 
+
 /* ===== SECTIONS ===== */
 section { padding: 110px 0; }
+#hosters {
+    padding-top: 10px !important;
+}
 section:nth-child(even) { background: #eef1f9; }
 
 section h2 {

@@ -14,112 +14,110 @@
           rel="stylesheet">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+    :root {
+        --accent: #0059ff;
+        --light-bg: #f4f6fb;
+        --card-bg: #ffffff;
+        --border: #e2e6f0;
+        --shadow: 0 8px 40px rgba(0, 89, 255, 0.08);
+    }
 
-    <style>
-        :root {
-            --accent: #0059ff;
-            --light-bg: #f4f6fb;
-            --card-bg: #ffffff;
-            --border: #e2e6f0;
-            --shadow: 0 8px 40px rgba(0, 89, 255, 0.08);
-        }
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--light-bg);
+        margin: 0;
+        padding-top: 110px;
+    }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--light-bg);
-            margin: 0;
-            padding-top: 110px;
-        }
+    /* Navbar */
+    .navbar {
+        background: #000 !important;
+        padding: 5px 0;
+    }
 
-        /* Navbar */
-        .navbar {
-            background: #000 !important;
-            padding: 5px 0;
-        }
+    .nav-logo {
+        max-height: 80px;
+    }
 
-        .nav-logo {
-            max-height: 65px;
-        }
+    .navbar-nav .nav-link {
+        color: #fff !important;
+        font-weight: 500;
+    }
 
-        .navbar-nav .nav-link {
-            color: #fff !important;
-            font-weight: 500;
-        }
+    /* Form Card */
+    .invite-card {
+        width: 100%;
+        max-width: 450px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: none;
+    }
 
-        /* Form Card */
-        .invite-card {
-            width: 100%;
-            max-width: 450px;
-            border-radius: 18px;
-            overflow: hidden;
-            border: none;
-        }
+    /* Footer */
+    footer {
+        background: #000;
+        color: #fff;
+        margin-top: 80px;
+        padding: 60px 0 0;
+    }
 
-        /* Footer */
-        footer {
-            background: #000;
-            color: #fff;
-            margin-top: 80px;
-            padding: 60px 0 0;
-        }
+    .footer-bottom {
+        margin-top: 50px;
+        padding: 18px 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+        font-size: 13px;
+        color: rgba(255,255,255,0.4);
+    }
 
-        .footer-bottom {
-            margin-top: 50px;
-            padding: 18px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            font-size: 13px;
-            color: rgba(255,255,255,0.4);
-        }
-.fixed-back-btn,
-.fixed-next-btn {
-    position: fixed;
-    top: 90%;
-    transform: translateY(-50%);
-    z-index: 9999;
-}
-
-.fixed-back-btn {
-    left: 20px;
-}
-
-.fixed-next-btn {
-    right: 20px;
-}
-
-.fixed-back-btn .btn,
-.fixed-next-btn .btn {
-    border-radius: 50px;
-    padding: 12px 22px;
-    box-shadow: 0 8px 20px rgba(0,89,255,0.25);
-}
-
-.fixed-back-btn .btn:hover,
-.fixed-next-btn .btn:hover {
-    transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
+    /* Fixed Back & Next Buttons */
     .fixed-back-btn,
     .fixed-next-btn {
-        top: auto;
+        position: fixed;
         bottom: 20px;
-        transform: none;
+        z-index: 9999;
     }
 
     .fixed-back-btn {
-        left: 10px;
+        left: 20px;
     }
 
     .fixed-next-btn {
-        right: 10px;
+        right: 20px;
     }
-}
-.action-btn {
-    font-size: 18px;
-    padding: 10px 20px;
-}
-    </style>
+
+    .btn-modern {
+        background: linear-gradient(135deg, #0059ff, #00c6ff);
+        border: none;
+        color: #fff !important;
+        padding: 12px 26px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 15px;
+        box-shadow: 0 8px 20px rgba(0,89,255,0.25);
+        transition: 0.3s ease;
+    }
+
+    .btn-modern:hover {
+        transform: translateY(-2px);
+        color: #fff !important;
+        box-shadow: 0 10px 24px rgba(0,89,255,0.35);
+    }
+
+    @media (max-width: 768px) {
+        .fixed-back-btn {
+            left: 10px;
+            bottom: 15px;
+        }
+
+        .fixed-next-btn {
+            right: 10px;
+            bottom: 15px;
+        }
+    }
+</style>
+
 </head>
 
 <body>
@@ -173,14 +171,6 @@
                </c:if>
 
                <form action="sendDelegateInvitation" method="post">
-
-                    <!-- Back Button -->
-                    <div class="mb-3">
-                        <a href="javascript:history.back()"
-                            class="btn btn-outline-dark rounded-pill px-4">
-                            <i class="bi bi-arrow-left me-2"></i>Back
-                        </a>
-                    </div>
 
                    <!-- Delegate Name -->
                    <div class="mb-3">
@@ -268,6 +258,7 @@
            </div>
        </div>
    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">

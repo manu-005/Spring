@@ -644,9 +644,13 @@ html, body {
                                                                     </td>
 
                                                                     <td>
-                                                                            <button type="button" class="btn btn-primary btn-sm">
-                                                                                View
-                                                                            </button>
+                                                                            <form action="tpoDetailsInAdmin" method="post">
+                                                                                <input type="hidden" name="email" value="${email}">
+
+                                                                                <button type="submit" class="btn btn-modern">
+                                                                                    View
+                                                                                </button>
+                                                                            </form>
                                                                     </td>
                                                                 </tr>
                                                             </c:forEach>

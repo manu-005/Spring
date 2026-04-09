@@ -260,5 +260,11 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
 
     }
 
+    @Override
+    public boolean updateSentToDelegates(Long conferenceId) {
+
+        return conferenceHosterDAO.updateSentToDelegates(conferenceId);
+    }
+
 
 }

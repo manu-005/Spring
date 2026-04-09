@@ -457,6 +457,7 @@ html, body {
     color: white;
     transform: translateX(5px);
 }
+
 .fixed-back-btn,
 .fixed-next-btn {
     position: fixed;
@@ -501,6 +502,7 @@ html, body {
         right: 10px;
     }
 }
+
 .action-btn {
     font-size: 18px;
     padding: 10px 20px;
@@ -586,121 +588,66 @@ html, body {
             </div>
 
             <!-- RIGHT SIDE -->
+            <!-- RIGHT SIDE -->
             <div class="col-md-9 right-panel">
-                <div id="content">
+                <div class="container events-section">
+                    <div class="row g-4">
 
-<c:if test="${not empty acceptMessage}">
-    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-        ${acceptMessage}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-</c:if>
+                        <c:forEach var="event" items="${tpoDTOList}">
+                            <div class="col-md-6 event-col">
 
-<c:if test="${not empty errorMessage}">
-    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-        ${errorMessage}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-</c:if>
-                    <!-- EVENTS -->
-                    <div class="container events-section">
-                        <div class="row g-4">
+                                <div class="event-card"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#eventModal${event.conferenceId}">
 
-                            <c:forEach var="event" items="${newEvents}">
+                                    <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
+                                         alt="Conference Banner"
+                                         class="img-fluid mb-3"
+                                         style="height:220px; width:100%; object-fit:cover;">
 
-                                <div class="col-md-6 event-col">
+                                    <h4>${event.conferenceTitle}</h4>
 
-                                    <div class="event-card"
-                                         data-bs-toggle="modal"
-                                         data-bs-target="#eventModal${event.conferenceId}">
+                                    <p>${event.conferenceDescription}</p>
 
-                                        <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-                                             class="img-fluid mb-3"
-                                             style="height:220px;width:100%;object-fit:cover;">
+                                    <p>
+                                        <strong>Date:</strong> ${event.date}<br>
+                                        <strong>Time:</strong> ${event.time}<br>
+                                        <strong>Mode:</strong> ${event.mode}
+                                    </p>
 
-                                        <h4>${event.conferenceTitle}</h4>
+                                    <div class="mt-3 d-flex flex-wrap gap-2">
 
-                                        <p>${event.conferenceDescription}</p>
+                                        <form action="inviteDelegates" method="get" onclick="event.stopPropagation();">
+                                            <input type="hidden" name="conferenceId" value="${event.conferenceId}">
+                                            <input type="hidden" name="email" value="${event.officialEmail}">
+                                            <button type="submit" class="btn btn-primary action-btn">
+                                                Invite Delegates
+                                            </button>
+                                        </form>
 
-                                        <p>
-                                            <b>Date:</b> ${event.date}<br>
-                                            <b>Time:</b> ${event.time}<br>
-                                            <b>Mode:</b> ${event.mode}
-                                        </p>
-
-                                        <!-- Button at bottom right -->
-                                        <div class="mt-auto text-end">
-                                            <a href="acceptEvent?conferenceId=${event.conferenceId}"
-                                               class="btn btn-primary action-btn"
-                                               onclick="event.stopPropagation();">
-                                                Accept
-                                            </a>
-
-                                         <!--   <a href="viewDelegates?conferenceId=${event.conferenceId}"
-                                               class="btn btn-primary action-btn"
-                                               onclick="event.stopPropagation();">
+                                        <form action="viewTPODelegates" method="get" onclick="event.stopPropagation();">
+                                            <input type="hidden" name="conferenceId" value="${event.conferenceId}">
+                                            <input type="hidden" name="email" value="${event.officialEmail}">
+                                            <button type="submit" class="btn btn-outline-primary action-btn">
                                                 View TPO Details
-                                            </a> -->
-                                        </div>
+                                            </button>
+                                        </form>
+
+                                      <!--  <form action="viewDelegates" method="get" onclick="event.stopPropagation();">
+                                            <input type="hidden" name="conferenceId" value="${event.conferenceId}">
+                                            <input type="hidden" name="email" value="${event.officialEmail}">
+                                            <button type="submit" class="btn btn-outline-primary action-btn">
+                                                View Delegates Details
+                                            </button>
+                                        </form> -->
 
                                     </div>
 
                                 </div>
+                            </div>
+                        </c:forEach>
 
-                            <!-- MODAL -->
-                                <div class="modal fade"
-                                     id="eventModal${event.conferenceId}"
-                                     tabindex="-1">
-
-                                    <div class="modal-dialog modal-lg">
-
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-
-                                                <h5 class="modal-title">
-                                                    ${event.conferenceTitle}
-                                                </h5>
-
-                                                <button type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal">
-                                                </button>
-
-                                            </div>
-
-                                            <div class="modal-body">
-
-                                                <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-                                                     class="img-fluid mb-3">
-
-                                                <p>${event.conferenceDescription}</p>
-
-                                                <p>
-                                                    <b>Date:</b> ${event.date}<br>
-                                                    <b>Time:</b> ${event.time}<br>
-                                                    <b>Mode:</b> ${event.mode}<br>
-                                                    <b>Venue:</b> ${event.venueOrMeetingLink}
-                                                </p>
-
-                                                <video width="100%" controls>
-                                                    <source src="fetchPromoVideo?conferenceId=${event.conferenceId}"
-                                                            type="video/mp4">
-                                                </video>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </c:forEach>
-
-                        </div>
                     </div>
-
                 </div>
             </div>
 
@@ -780,7 +727,6 @@ VanillaTilt.init(document.querySelectorAll(".glass, .event-card"), {
 });
 </script>
 
-
 <div class="fixed-back-btn">
     <button type="button" class="btn btn-modern" onclick="history.back()">
         <i class="bi bi-arrow-left"></i> Back
@@ -792,6 +738,5 @@ VanillaTilt.init(document.querySelectorAll(".glass, .event-card"), {
         Next <i class="bi bi-arrow-right"></i>
     </button>
 </div>
-
 </body>
 </html>

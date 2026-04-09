@@ -616,7 +616,7 @@ html, body {
                                         </p>
 
                                         <!-- Button at bottom right -->
-                                        <div class="mt-auto text-end">
+                                       <!-- <div class="mt-auto text-end">
                                             <a href="sendConference?conferenceId=${event.conferenceId}"
                                                class="btn btn-primary btn-sm"
                                                onclick="event.stopPropagation();">
@@ -628,7 +628,7 @@ html, body {
                                                onclick="event.stopPropagation();">
                                                 View TPO Details
                                             </a>
-                                        </div>
+                                        </div> -->
 
                                     </div>
 
