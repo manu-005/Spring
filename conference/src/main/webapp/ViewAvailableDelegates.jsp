@@ -159,62 +159,98 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
-    <div class="container events-section">
-        <div class="row g-4">
+<!-- MAIN CONTENT -->
+<div class="container py-5">
 
-            <c:forEach var="event" items="${tpoDTOList}">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
-                <div class="col-md-6 event-col">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3 px-4">
+            <div>
+                <h3 class="mb-1 fw-bold">Delegate Attendance Status</h3>
+                <p class="mb-0 text-light small">
+                    List of invited delegates and their response status
+                </p>
+            </div>
 
-                    <div class="event-card"
-                         data-bs-toggle="modal"
-                         data-bs-target="#eventModal${event.conferenceId}">
+            <a href="javascript:history.back()"
+               class="btn btn-outline-light rounded-pill px-4">
+                <i class="bi bi-arrow-left me-2"></i>Back
+            </a>
+        </div>
 
-                        <img src="fetchBannerImages?conferenceId=${event.conferenceId}"
-                             alt="Conference Banner"
-                             class="img-fluid mb-3"
-                             style="height:220px; width:100%; object-fit:cover;">
+        <div class="card-body p-4">
 
-                        <h4>${event.conferenceTitle}</h4>
+            <c:choose>
 
-                        <p>${event.conferenceDescription}</p>
+                <c:when test="${not empty availableDtoList}">
 
-                        <p>
-                            <strong>Date:</strong> ${event.date}<br>
-                            <strong>Time:</strong> ${event.time}<br>
-                            <strong>Mode:</strong> ${event.mode}
-                        </p>
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover">
 
-                        <div class="mt-auto text-end">
+                            <thead class="table-dark">
+                            <tr>
+                                <th class="text-center" style="width:80px;">Sl No</th>
+                                <th>Delegate Name</th>
+                                <th>Email</th>
+                                <th>Mobile No</th>
+                                <th class="text-center" style="width:180px;">Status</th>
+                            </tr>
+                            </thead>
 
-                            <a href="inviteDelegates?conferenceId=${event.conferenceId}"
-                               class="btn btn-primary btn-sm me-2"
-                               onclick="event.stopPropagation();">
-                                Invite Delegates
-                            </a>
+                            <tbody>
+                            <c:forEach var="delegate" items="${availableDtoList}" varStatus="loop">
+                                <tr>
+                                    <td class="text-center fw-bold">
+                                        ${loop.index + 1}
+                                    </td>
 
-                            <a href="viewTPODelegates?conferenceId=${event.conferenceId}"
-                               class="btn btn-outline-primary btn-sm"
-                               onclick="event.stopPropagation();">
-                                View Delegates Details
-                            </a>
+                                    <td class="fw-semibold">
+                                        ${delegate.delegateName}
+                                    </td>
 
-                            <a href="viewDelegates?conferenceId=${event.conferenceId}"
-                                class="btn btn-outline-primary btn-sm"
-                                onclick="event.stopPropagation();">
-                                View Delegates Details
-                            </a>
+                                    <td>
+                                        ${delegate.delegateEmail}
+                                    </td>
 
-                        </div>
+                                    <td>
+                                        ${delegate.delegatesMobileNumber}
+                                    </td>
 
+                                    <td class="text-center">
+                                        <c:choose>
+                                            <c:when test="${delegate.delegateAvailability == true}">
+                                                <span class="btn btn-success rounded-pill px-4 disabled">
+                                                    Attend
+                                                </span>
+                                            </c:when>
+
+                                            <c:when test="${delegate.delegateAvailability == false}">
+                                                <span class="btn btn-danger rounded-pill px-4 disabled">
+                                                    Not Attending
+                                                </span>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <span class="btn btn-warning rounded-pill px-4 disabled text-dark">
+                                                    Pending
+                                                </span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+
+                        </table>
                     </div>
-                </div>
 
-            </c:forEach>
+                </c:when>
+            </c:choose>
 
         </div>
     </div>
+
+</div>
 
     <!-- FOOTER -->
     <footer>

@@ -27,4 +27,6 @@ public interface ConferenceHosterDAO {
     InvitedDelegatesEntity saveInvitedDelegates(InvitedDelegatesEntity invitedDelegatesEntity);
 
     boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response);
+
+    List<InvitedDelegatesEntity> getAvailableTpoDelegates(String sessionEmail, Long conferenceId);
 }

@@ -126,6 +126,14 @@
 
                <form action="sendDelegateInvitation" method="post">
 
+                    <!-- Back Button -->
+                    <div class="mb-3">
+                        <a href="javascript:history.back()"
+                            class="btn btn-outline-dark rounded-pill px-4">
+                            <i class="bi bi-arrow-left me-2"></i>Back
+                        </a>
+                    </div>
+
                    <!-- Delegate Name -->
                    <div class="mb-3">
                        <label class="form-label fw-semibold">Delegate Name</label>

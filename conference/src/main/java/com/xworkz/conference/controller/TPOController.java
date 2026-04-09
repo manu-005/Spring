@@ -7,6 +7,7 @@ import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
 import com.xworkz.conference.utility.DelegatesMailSending;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -129,6 +130,8 @@ public class TPOController {
 
             System.out.println("after split conferenceIdList ids :" + conferenceIdList);
             model.addObject("tpoDTOList", tpoDTOList);
+            model.addObject("topEmail",topEmail);
+
             model.setViewName("TPODashBoard");
             return model;
         } else {
@@ -202,6 +205,21 @@ public class TPOController {
 
         modelAndView.addObject("successMessage", "Invitation sent successfully");
         modelAndView.setViewName("DelegateInviteForm");
+        return modelAndView;
+    }
+
+    @GetMapping("viewTPODelegates")
+    public ModelAndView viewDelegates(ModelAndView modelAndView,HttpSession session, Long conferenceId){
+
+        String sessionEmail = (String) session.getAttribute("topEmail");
+        System.out.println(">>>>>>>>>>>>>session email :"+sessionEmail);
+
+       List<InvitedDelegatesDTO> availableDtoList = conferenceHosterService.getAvailableTpoDelegates(sessionEmail,conferenceId);
+
+       if (availableDtoList != null){
+           modelAndView.addObject("availableDtoList",availableDtoList);
+           modelAndView.setViewName("ViewAvailableDelegates");
+       }
         return modelAndView;
     }
 

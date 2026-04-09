@@ -187,7 +187,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response) {
 
-        System.out.println("ll {{{{{{{{{{{{{{{detailss"+conferenceId+delegateEmail+response);
+        System.out.println("ll {{{{{{{{{{{{{{{detailss" + conferenceId + delegateEmail + response);
         Query query = entityManager.createQuery(
                 "update InvitedDelegatesEntity ent " +
                         "set ent.delegateAvailability = :response " +
@@ -210,4 +210,24 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
     }
 
+    @Override
+    public List<InvitedDelegatesEntity> getAvailableTpoDelegates(String sessionEmail, Long conferenceId) {
+
+        Query query = entityManager.createQuery(
+                "select entity from InvitedDelegatesEntity entity " +
+                        "where entity.conferenceId = :conferenceId " +
+                        "and entity.tpoEmail = :sessionEmail"
+        );
+        query.setParameter("conferenceId", conferenceId);
+        query.setParameter("sessionEmail", sessionEmail);
+        List<InvitedDelegatesEntity> availableEntityList = query.getResultList();
+
+        if (availableEntityList != null) {
+            return availableEntityList;
+        } else {
+            return null;
+        }
+    }
 }
+
+

@@ -239,5 +239,26 @@ public class ConferenceHosterServiceImpl implements ConferenceHosterService {
         return conferenceHosterDAO.updateDelegateResponse(conferenceId,delegateEmail,response);
     }
 
+    @Override
+    public List<InvitedDelegatesDTO> getAvailableTpoDelegates(String sessionEmail, Long conferenceId) {
+
+      List<InvitedDelegatesEntity> availableENtityList =  conferenceHosterDAO.getAvailableTpoDelegates(sessionEmail,conferenceId);
+
+      List<InvitedDelegatesDTO> dtoList = new ArrayList<>();
+      if (availableENtityList != null) {
+          for (InvitedDelegatesEntity entity : availableENtityList) {
+              InvitedDelegatesDTO availableDTO = new InvitedDelegatesDTO();
+
+              BeanUtils.copyProperties(entity, availableDTO);
+              dtoList.add(availableDTO);
+          }
+          System.out.println(".............:available list :"+dtoList);
+          return dtoList;
+      }else{
+          return null;
+      }
+
+    }
+
 
 }
