@@ -86,7 +86,10 @@ public class TPOController {
     }
 
     @PostMapping("verifyOTP")
-    public ModelAndView verifyOTP(String enteredOtp, String topEmail, HttpSession session, ModelAndView model) {
+    public ModelAndView verifyOTP(String enteredOtp,
+                                  String topEmail,
+                                  HttpSession session,
+                                  ModelAndView model) {
 
         String sentOtp = (String) session.getAttribute("otpSent");
         String sessionEmail = (String) session.getAttribute("topEmail");
@@ -100,44 +103,56 @@ public class TPOController {
 
             List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
 
-            List<DelegatesEmailDTO> sameDelegates = new ArrayList<>();
-
             List<ConferenceHosterDTO> tpoDTOList = new ArrayList<>();
-            Set<Long> conferenceIdList = new HashSet<>();
+            List<Long> conferenceIdList = new ArrayList<>();
 
-            System.out.println("all delegates in controller :" + allDelegates);
+            System.out.println("All delegates: " + allDelegates);
 
             for (DelegatesEmailDTO dto : allDelegates) {
 
-                if (true) {
+                if (dto.getDelegatesEmail() != null && !dto.getDelegatesEmail().isEmpty()) {
 
                     String[] emailArray = dto.getDelegatesEmail().split(",");
 
-                    System.out.println("all emails after split :" + Arrays.toString(emailArray));
+                    System.out.println("Split Emails: " + Arrays.toString(emailArray));
 
                     for (String email : emailArray) {
-                        if (topEmail.equals(email)) {
-                            conferenceIdList.add(dto.getConferenceHoster().getConferenceId());
 
-//                          ConferenceHosterDTO tpoDTO =  conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId());
-                            tpoDTOList.add(conferenceHosterService.getAllConferenceHosterById(dto.getConferenceHoster().getConferenceId()));
+                        if (topEmail.equalsIgnoreCase(email.trim())) {
+
+                            Long conferenceId = dto.getConferenceHoster().getConferenceId();
+
+                            // avoid duplicate conference ids
+                            if (!conferenceIdList.contains(conferenceId)) {
+
+                                conferenceIdList.add(conferenceId);
+
+                                ConferenceHosterDTO conferenceDTO =
+                                        conferenceHosterService.getAllConferenceHosterById(conferenceId);
+
+                                if (conferenceDTO != null) {
+                                    tpoDTOList.add(conferenceDTO);
+                                }
+                            }
+
+                            break;
                         }
                     }
-
-                    sameDelegates.add(dto);
                 }
             }
 
-            System.out.println("after split conferenceIdList ids :" + conferenceIdList);
+            System.out.println("Matched Conference IDs: " + conferenceIdList);
+
             model.addObject("tpoDTOList", tpoDTOList);
-            model.addObject("topEmail",topEmail);
+            model.addObject("conferenceIdList", conferenceIdList);
+            model.addObject("topEmail", topEmail);
 
             model.setViewName("TPODashBoard");
             return model;
-        } else {
-            model.addObject("errorMsg", "Invalid OTP");
-            model.setViewName("TPOLoginForm");
         }
+
+        model.addObject("errorMsg", "Invalid OTP");
+        model.setViewName("TPOLoginForm");
         return model;
     }
 

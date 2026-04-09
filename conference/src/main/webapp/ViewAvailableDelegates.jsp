@@ -193,7 +193,7 @@
                                 <th>Delegate Name</th>
                                 <th>Email</th>
                                 <th>Mobile No</th>
-                                <th class="text-center" style="width:180px;">Status</th>
+                                <th class="text-center" style="width:260px;">Status</th>
                             </tr>
                             </thead>
 
@@ -216,7 +216,7 @@
                                         ${delegate.delegatesMobileNumber}
                                     </td>
 
-                                    <td class="text-center">
+                                    <td class="text-center" style="min-width:260px;">
                                         <c:choose>
                                             <c:when test="${delegate.delegateAvailability == true}">
                                                 <span class="btn btn-success rounded-pill px-4 disabled">
