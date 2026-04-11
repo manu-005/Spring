@@ -629,7 +629,7 @@ html, body {
                                             <input type="hidden" name="conferenceId" value="${event.conferenceId}">
                                             <input type="hidden" name="email" value="${event.officialEmail}">
                                             <button type="submit" class="btn btn-outline-primary action-btn">
-                                                View TPO Details
+                                                View Delegates Details
                                             </button>
                                         </form>
 

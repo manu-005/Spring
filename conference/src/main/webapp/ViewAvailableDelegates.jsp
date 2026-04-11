@@ -116,6 +116,20 @@
             bottom: 15px;
         }
     }
+    .profile-circle {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: #fff;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        font-weight: 700;
+        margin-left: 15px;
+        text-transform: uppercase;
+    }
 </style>
 
 </head>
@@ -145,6 +159,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"></a>
                     </li>
+
+                     <c:set var="firstLetter" value="${topEmail.substring(0,1)}" />
+
+                                         <li class="nav-item">
+                                                    <div class="profile-circle">
+                                                        ${firstLetter}
+                                                    </div>
+                                         </li>
                 </ul>
             </div>
 

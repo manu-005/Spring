@@ -138,6 +138,7 @@ public class DelegatesMailSending {
     /* Generate 6-digit random OTP */
     private String generateOtp() {
         int otp = new Random().nextInt(900000) + 100000;
+        System.out.println(String.valueOf(otp));
         return String.valueOf(otp);
     }
 

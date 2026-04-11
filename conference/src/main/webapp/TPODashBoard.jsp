@@ -34,7 +34,7 @@
         .navbar {
             background: #000 !important;
             padding: 2px 0;
-            min-height: 55px;
+            min-height: 75px;
         }
 
         .nav-logo {
@@ -126,11 +126,9 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-.fixed-back-btn,
-.fixed-next-btn {
+.fixed-back-btn, .fixed-next-btn {
     position: fixed;
-    top: 90%;
-    transform: translateY(-50%);
+    bottom: 20px;
     z-index: 9999;
 }
 
@@ -174,6 +172,38 @@
     font-size: 18px;
     padding: 10px 20px;
 }
+
+.profile-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 15px;
+    text-transform: uppercase;
+}
+.btn-modern {
+    background: linear-gradient(135deg, #0059ff, #00c6ff);
+    border: none;
+    color: #fff !important;
+    padding: 12px 26px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 8px 20px rgba(0,89,255,0.25);
+    transition: 0.3s ease;
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+    color: #fff !important;
+    box-shadow: 0 10px 24px rgba(0,89,255,0.35);
+}
     </style>
 </head>
 
@@ -197,11 +227,21 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="logout">Log Out</a>
+                        <a class="nav-link" href="tpoLogOut">Log Out</a>
                     </li>
+
+                    <c:set var="firstLetter" value="${topEmail.substring(0,1)}" />
+
+                     <li class="nav-item">
+                                <div class="profile-circle">
+                                    ${firstLetter}
+                                </div>
+                     </li>
+
                 </ul>
             </div>
 
@@ -249,11 +289,11 @@
                                 View Delegates Details
                             </a>
 
-                            <a href="viewDelegates?conferenceId=${event.conferenceId}"
+                          <!--  <a href="viewDelegates?conferenceId=${event.conferenceId}"
                                 class="btn btn-outline-primary btn-sm"
                                 onclick="event.stopPropagation();">
                                 View Delegates Details
-                            </a>
+                            </a> -->
 
                         </div>
 

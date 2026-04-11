@@ -238,6 +238,8 @@ public class TPOController {
 
        if (availableDtoList != null){
            modelAndView.addObject("availableDtoList",availableDtoList);
+           modelAndView.addObject("topEmail", sessionEmail);
+
            modelAndView.setViewName("ViewAvailableDelegates");
        }
         return modelAndView;
@@ -273,5 +275,13 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
 
         modelAndView.setViewName("ResponseReceiver");
         return modelAndView;
+    }
+
+    @RequestMapping("tpoLogOut")
+    public String tpoLogOut(HttpSession session) {
+        session.invalidate();   // destroy session
+
+        System.out.println("destroyeddd????????????????");
+        return "redirect:/tpoLogIn";
     }
 }
