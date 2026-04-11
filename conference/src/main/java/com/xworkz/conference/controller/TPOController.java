@@ -141,6 +141,10 @@ public class TPOController {
                             }
                             break;
                         }
+                        else{
+                            model.addObject("errorMsg", "Invalid TPO..!");
+                            model.setViewName("TPOLoginForm");
+                        }
                     }
                 }
             }
@@ -277,8 +281,8 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
         return modelAndView;
     }
 
-    @RequestMapping("tpoLogOut")
-    public String tpoLogOut(HttpSession session) {
+    @GetMapping("tpoLogOut")
+    public String tpoLogOut(HttpSession session,Model model) {
         session.invalidate();   // destroy session
 
         System.out.println("destroyeddd????????????????");

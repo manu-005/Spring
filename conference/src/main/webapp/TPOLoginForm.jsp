@@ -177,7 +177,7 @@
                                value="${topEmail}"
                                class="form-control border-start-0"
                                placeholder="Enter your email address"
-                               readonly>
+                               required>
                     </div>
                 </div>
 
@@ -200,6 +200,12 @@
             <c:if test="${not empty errorMsg}">
                 <div class="alert alert-danger text-center">
                     ${errorMsg}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty logoutMsg}">
+                <div class="alert alert-danger text-center">
+                    ${logoutMsg}
                 </div>
             </c:if>
 
