@@ -280,7 +280,13 @@
                             <a href="inviteDelegates?conferenceId=${event.conferenceId}"
                                class="btn btn-primary btn-sm me-2"
                                onclick="event.stopPropagation();">
-                                Invite Delegates
+                                Invite Delegate
+                            </a>
+
+                            <a href="inviteByExcelSheet?conferenceId=${event.conferenceId}"
+                               class="btn btn-primary btn-sm me-2"
+                               onclick="event.stopPropagation();">
+                                Invite More Delegates
                             </a>
 
                             <a href="viewTPODelegates?conferenceId=${event.conferenceId}"
