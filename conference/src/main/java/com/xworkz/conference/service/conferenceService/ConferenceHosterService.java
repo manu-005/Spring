@@ -6,6 +6,7 @@ import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.dto.tpoDelegates.InvitedDelegatesDTO;
 import com.xworkz.conference.entity.conference.ConferenceHosterEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -34,4 +35,6 @@ public interface ConferenceHosterService {
     List<InvitedDelegatesDTO> getAvailableTpoDelegates(String sessionEmail, Long conferenceId);
 
     boolean updateSentToDelegates(Long conferenceId);
+
+
 }

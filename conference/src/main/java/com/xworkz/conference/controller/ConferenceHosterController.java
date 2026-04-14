@@ -39,7 +39,7 @@ public class ConferenceHosterController {
         System.out.println("conference hoster controller object created ..");
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ModelAndView loadIndex() {
 
         ModelAndView mv = new ModelAndView("index");

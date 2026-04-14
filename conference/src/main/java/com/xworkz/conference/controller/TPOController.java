@@ -4,6 +4,7 @@ import com.xworkz.conference.dto.organizer.ConferenceHosterDTO;
 import com.xworkz.conference.dto.organizer.DelegatesEmailDTO;
 import com.xworkz.conference.dto.tpoDelegates.InvitedDelegatesDTO;
 import com.xworkz.conference.service.conferenceService.ConferenceHosterService;
+//import com.xworkz.conference.service.excelSerevice.ExcelIService;
 import com.xworkz.conference.utility.DelegatesMailSending;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -291,9 +292,19 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
         return "redirect:/tpoLogIn";
     }
 
-    @PostMapping("uploadDelegates")
-    public String uploadDelegates(@RequestParam("file") MultipartFile file) {
-//        conferenceHosterService.saveExcel(file);
-        return "success"; // JSP page
-    }
+//
+//    @Autowired
+////    ExcelIService excelIService;
+//
+//    @PostMapping("uploadDelegates")
+//    public String uploadDelegates(@RequestParam("file") MultipartFile file) {
+//
+//        if (file.isEmpty()) {
+//            return "error"; // handle empty file
+//        }
+//
+////        excelIService.saveExcel(file);
+//
+//        return "success"; // JSP page
+//    }
 }

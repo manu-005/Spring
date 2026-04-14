@@ -413,8 +413,9 @@ public class AdminController {
     }
 
     @GetMapping("logOut")
-    public ModelAndView logOut(ModelAndView modelAndView){
+    public ModelAndView logOut(ModelAndView modelAndView,HttpSession session){
 
+        session.invalidate();
         System.out.println("log out");
         modelAndView.setViewName("index");
         return modelAndView;
