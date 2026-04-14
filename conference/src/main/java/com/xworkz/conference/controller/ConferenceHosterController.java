@@ -55,6 +55,7 @@ public class ConferenceHosterController {
             }
         }
 
+        System.out.println("future events :"+futureEvents.size());
         mv.addObject("events", futureEvents);
 
         return mv;

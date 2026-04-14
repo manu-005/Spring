@@ -293,7 +293,7 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
 
     @PostMapping("uploadDelegates")
     public String uploadDelegates(@RequestParam("file") MultipartFile file) {
-        conferenceHosterService.saveExcel(file);
+//        conferenceHosterService.saveExcel(file);
         return "success"; // JSP page
     }
 }

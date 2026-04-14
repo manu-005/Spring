@@ -505,6 +505,7 @@ pageEncoding="UTF-8"%>
         <div class="row g-4" id="eventsContainer"></div>
     </div>
 </section>
+
 <c:forEach var="event" items="${events}">
   <h4>${event.conferenceTitle}</h4>
  </c:forEach>
@@ -564,7 +565,7 @@ pageEncoding="UTF-8"%>
                     <div class="event-badge">Technology</div>
                     <h4>Tech Summit 2026</h4>
                     <p>Innovation &amp; leadership conference for global technology leaders.</p>
-                    ${allDTOList}
+
                     <div class="event-meta">
                         <i class="bi bi-calendar3"></i>March 15, 2026 &nbsp;·&nbsp;
                         <i class="bi bi-geo-alt"></i>Bengaluru
