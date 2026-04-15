@@ -46,7 +46,7 @@ public class AdminController {
     }
 
     @PostMapping("adminLogin")
-    public ModelAndView adminLogin(ModelAndView modelAndView, AdminDTO adminDTO) {
+    public ModelAndView adminLogin(ModelAndView modelAndView, AdminDTO adminDTO,HttpSession session) {
 
         System.out.println("email :" + adminDTO.getUserName());
         System.out.println("password :" + adminDTO.getPassword());
@@ -61,6 +61,7 @@ public class AdminController {
 
             modelAndView.setViewName("AdminDashBoard");
 
+            session.setAttribute("admin",adminDTO.getUserName());
         } else {
             modelAndView.addObject("error", "Invallid credential");
             modelAndView.setViewName("AdminLoginForm");
@@ -278,6 +279,8 @@ public class AdminController {
         System.out.println("Matched Conference IDs: " + conferenceIdList);
 
         modelAndView.addObject("tpoDTOList", tpoDTOList);
+
+        System.out.println("tpoDTOList========= :"+tpoDTOList);
 //        modelAndView.addObject("conferenceIdList", conferenceIdList);
         modelAndView.addObject("email", email);
 
@@ -415,9 +418,16 @@ public class AdminController {
     @GetMapping("logOut")
     public ModelAndView logOut(ModelAndView modelAndView,HttpSession session){
 
-        session.invalidate();
-        System.out.println("log out");
-        modelAndView.setViewName("index");
+       String email = session.getAttribute("admin").toString();
+       if (email ==null){
+           modelAndView.setViewName("AdminLoginForm");
+
+       }else {
+
+           session.invalidate();
+           System.out.println("log out");
+           modelAndView.setViewName("index");
+       }
         return modelAndView;
     }
 }

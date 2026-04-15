@@ -49,14 +49,14 @@ public class TPOController {
             delegatesMailSending.sendEventDetailsToDelegates(e, conferenceId);
         }
 
-      boolean  updatedSentToDelegates = conferenceHosterService.updateSentToDelegates(conferenceId);
+        boolean updatedSentToDelegates = conferenceHosterService.updateSentToDelegates(conferenceId);
 
-      if (updatedSentToDelegates){
-          modelAndView.addObject("successMsg", "Invited Successfully..");
-      }else{
-        modelAndView.addObject("errorMsg", "Please try again after sometimes..");
+        if (updatedSentToDelegates) {
+            modelAndView.addObject("successMsg", "Invited Successfully..");
+        } else {
+            modelAndView.addObject("errorMsg", "Please try again after sometimes..");
         }
-        modelAndView.setViewName("AllNewEvents"); // JSP page name
+        modelAndView.setViewName("AllEventsDetails"); // JSP page name
         return modelAndView;
     }
 
@@ -126,10 +126,11 @@ public class TPOController {
 
                     for (String email : emailArray) {
 
-                        if (topEmail.equalsIgnoreCase(email.trim())) {
+                        if (topEmail.trim().equalsIgnoreCase(email.trim())) {
 
                             Long conferenceId = dto.getConferenceHoster().getConferenceId();
 
+                            System.out.println("all ids printing .."+conferenceId);
                             // avoid duplicate conference ids
                             if (!conferenceIdList.contains(conferenceId)) {
 
@@ -143,8 +144,7 @@ public class TPOController {
                                 }
                             }
                             break;
-                        }
-                        else{
+                        } else {
                             model.addObject("errorMsg", "Invalid TPO..!");
                             model.setViewName("TPOLoginForm");
                         }
@@ -235,32 +235,31 @@ public class TPOController {
     }
 
     @GetMapping("viewTPODelegates")
-    public ModelAndView viewDelegates(ModelAndView modelAndView,HttpSession session, Long conferenceId){
+    public ModelAndView viewDelegates(ModelAndView modelAndView, HttpSession session, Long conferenceId) {
 
         String sessionEmail = (String) session.getAttribute("topEmail");
-        System.out.println(">>>>>>>>>>>>>session email :"+sessionEmail);
+        System.out.println(">>>>>>>>>>>>>session email :" + sessionEmail);
 
         System.out.println(conferenceId);
-       List<InvitedDelegatesDTO> availableDtoList = conferenceHosterService.getAvailableTpoDelegates(sessionEmail,conferenceId);
+        List<InvitedDelegatesDTO> availableDtoList = conferenceHosterService.getAvailableTpoDelegates(sessionEmail, conferenceId);
 
-       if (availableDtoList != null){
-           modelAndView.addObject("availableDtoList",availableDtoList);
-           modelAndView.addObject("topEmail", sessionEmail);
+        if (availableDtoList != null) {
+            modelAndView.addObject("availableDtoList", availableDtoList);
+            modelAndView.addObject("topEmail", sessionEmail);
 
-           modelAndView.setViewName("ViewAvailableDelegates");
-       }
+            modelAndView.setViewName("ViewAvailableDelegates");
+        }
         return modelAndView;
     }
 
     @GetMapping("viewEventDetails")
-    public ModelAndView viewEventDetails(ModelAndView modelAndView,String delegatesEmail,Long conferenceId) {
+    public ModelAndView viewEventDetails(ModelAndView modelAndView, String delegatesEmail, Long conferenceId) {
 
-ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterById(conferenceId);
+        ConferenceHosterDTO viewDetails = conferenceHosterService.getAllConferenceHosterById(conferenceId);
+        System.out.println("????????????:" + delegatesEmail + conferenceId);
 
-        System.out.println("????????????:"+delegatesEmail+conferenceId);
-
-        modelAndView.addObject("viewDetails",viewDetails);
-        modelAndView.addObject("delegatesEmail",delegatesEmail);
+        modelAndView.addObject("viewDetails", viewDetails);
+        modelAndView.addObject("delegatesEmail", delegatesEmail);
 
         modelAndView.setViewName("ViewDetailOfEvent");
         return modelAndView;
@@ -270,13 +269,13 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
     @PostMapping("delegateResponse")
     public ModelAndView delegateResponse(ModelAndView modelAndView, Long conferenceId, String delegatesEmail, Boolean response) {
 
-        boolean updated = conferenceHosterService.updateDelegateResponse( conferenceId,  delegatesEmail, response);
+        boolean updated = conferenceHosterService.updateDelegateResponse(conferenceId, delegatesEmail, response);
 
         if (updated) {
 
-            modelAndView.addObject("successMsg","Thank you for your response.");
-        }else{
-            modelAndView.addObject("errorMsg","Session time out...!");
+            modelAndView.addObject("successMsg", "Thank you for your response.");
+        } else {
+            modelAndView.addObject("errorMsg", "Session time out...!");
 
         }
 
@@ -285,7 +284,7 @@ ConferenceHosterDTO viewDetails =conferenceHosterService.getAllConferenceHosterB
     }
 
     @GetMapping("tpoLogOut")
-    public String tpoLogOut(HttpSession session,Model model) {
+    public String tpoLogOut(HttpSession session, Model model) {
         session.invalidate();   // destroy session
 
         System.out.println("destroyeddd????????????????");
