@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedInputStream;
@@ -46,7 +47,8 @@ public class AdminController {
     }
 
     @PostMapping("adminLogin")
-    public ModelAndView adminLogin(ModelAndView modelAndView, AdminDTO adminDTO,HttpSession session) {
+    public ModelAndView adminLogin(ModelAndView modelAndView, AdminDTO adminDTO, HttpServletRequest request) {
+
 
         System.out.println("email :" + adminDTO.getUserName());
         System.out.println("password :" + adminDTO.getPassword());
@@ -61,7 +63,8 @@ public class AdminController {
 
             modelAndView.setViewName("AdminDashBoard");
 
-            session.setAttribute("admin",adminDTO.getUserName());
+            HttpSession session = request.getSession(true);
+            session.setAttribute("admin", adminDTO.getUserName());
         } else {
             modelAndView.addObject("error", "Invallid credential");
             modelAndView.setViewName("AdminLoginForm");
@@ -70,7 +73,11 @@ public class AdminController {
     }
 
     @GetMapping("getAllEvents")
-    public ModelAndView getAllEvents(ModelAndView modelAndView) {
+    public ModelAndView getAllEvents(ModelAndView modelAndView,HttpSession session) {
+
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
 
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
@@ -81,8 +88,11 @@ public class AdminController {
     }
 
     @GetMapping("getNewEvents")
-    public ModelAndView getNewEvents(ModelAndView modelAndView) {
+    public ModelAndView getNewEvents(ModelAndView modelAndView,HttpSession session) {
 
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
         List<ConferenceHosterDTO> newEvents = new ArrayList<>();
@@ -99,14 +109,17 @@ public class AdminController {
     }
 
     @GetMapping("acceptEvent")
-    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView) {
+    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView,HttpSession session) {
 
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
         boolean updateAccept = true;
         boolean accepted = conferenceHosterService.updateAcceptOrDecline(conferenceId, updateAccept);
 
         if (accepted) {
             modelAndView.addObject("acceptMessage", "Event accepted..!");
-        }else{
+        } else {
             modelAndView.addObject("errorMessage", "Try again after sometimes..!");
         }
         modelAndView.setViewName("AllNewEvents");
@@ -114,14 +127,17 @@ public class AdminController {
     }
 
     @GetMapping("declineEvent")
-    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView) {
+    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView,HttpSession session) {
 
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
         boolean updateAccept = false;
         boolean declined = conferenceHosterService.updateAcceptOrDecline(conferenceId, updateAccept);
 
         if (declined) {
             modelAndView.addObject("declineMessage", "Event declined..!");
-        }else{
+        } else {
             modelAndView.addObject("errorMessage", "Try again after sometimes..!");
         }
 
@@ -143,8 +159,11 @@ public class AdminController {
     }
 
     @GetMapping("acceptedEvents")
-    public ModelAndView acceptedEvents(ModelAndView modelAndView){
+    public ModelAndView acceptedEvents(ModelAndView modelAndView,HttpSession session) {
 
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
         List<ConferenceHosterDTO> acceptedEvents = new ArrayList<>();
@@ -153,7 +172,7 @@ public class AdminController {
             System.out.println("status of accepting:" + dto.isAcceptOrDecline());
             if (dto.isAcceptOrDecline()) {
                 acceptedEvents.add(dto);
-                System.out.println("accepted events :"+dto);
+                System.out.println("accepted events :" + dto);
             }
         }
         modelAndView.addObject("acceptedEvents", acceptedEvents);
@@ -163,8 +182,11 @@ public class AdminController {
     }
 
     @GetMapping("invitedEvents")
-    public ModelAndView invitedEvents(ModelAndView modelAndView){
+    public ModelAndView invitedEvents(ModelAndView modelAndView,HttpSession session) {
 
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
         List<ConferenceHosterDTO> allEvents = conferenceHosterService.getAllConferenceHoster();
 
         List<ConferenceHosterDTO> invitedEvents = new ArrayList<>();
@@ -173,7 +195,7 @@ public class AdminController {
             System.out.println("status of accepting:" + invitedDto.isSentToDelegates());
             if (invitedDto.isSentToDelegates()) {
                 invitedEvents.add(invitedDto);
-                System.out.println("accepted events :"+invitedDto);
+                System.out.println("accepted events :" + invitedDto);
             }
         }
         modelAndView.addObject("invitedEvents", invitedEvents);
@@ -181,8 +203,13 @@ public class AdminController {
         modelAndView.setViewName("InvitedEvents");
         return modelAndView;
     }
+
     @GetMapping("getAllHosters")
-    public ModelAndView getAllHosters(ModelAndView modelAndView) {
+    public ModelAndView getAllHosters(ModelAndView modelAndView,HttpSession session) {
+
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
 
         System.out.println("getting all hoster in admin");
         List<ConferenceHosterDTO> allHosters = conferenceHosterService.getAllConferenceHoster();
@@ -201,7 +228,11 @@ public class AdminController {
     }
 
     @GetMapping("getAllDelegates")
-    public ModelAndView getAllDelegates(ModelAndView modelAndView) {
+    public ModelAndView getAllDelegates(ModelAndView modelAndView,HttpSession session) {
+
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
 
         List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
 
@@ -237,7 +268,11 @@ public class AdminController {
     }
 
     @PostMapping("tpoDetailsInAdmin")
-    public ModelAndView tpoDetailsInAdmin(ModelAndView modelAndView, String email, HttpSession session){
+    public ModelAndView tpoDetailsInAdmin(ModelAndView modelAndView, String email, HttpSession session) {
+
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
 
         List<DelegatesEmailDTO> allDelegates = conferenceHosterService.getAllDelegates();
 
@@ -280,11 +315,11 @@ public class AdminController {
 
         modelAndView.addObject("tpoDTOList", tpoDTOList);
 
-        System.out.println("tpoDTOList========= :"+tpoDTOList);
+        System.out.println("tpoDTOList========= :" + tpoDTOList);
 //        modelAndView.addObject("conferenceIdList", conferenceIdList);
         modelAndView.addObject("email", email);
 
-        session.setAttribute("topEmail",email);
+        session.setAttribute("topEmail", email);
 
         modelAndView.setViewName("TPODetailsInAdmin");
         return modelAndView;
@@ -361,7 +396,11 @@ public class AdminController {
     }
 
     @GetMapping("sendConference")
-    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId, ModelAndView modelAndView) {
+    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId, ModelAndView modelAndView,HttpSession session) {
+
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
 
         System.out.println("Conference ID received: " + conferenceId);
 
@@ -389,7 +428,12 @@ public class AdminController {
     }
 
     @GetMapping("viewDelegates")
-    public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId) {
+    public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId,HttpSession session) {
+
+        if (session.getAttribute("admin") == null) {
+            return new ModelAndView("redirect:/adminLoginForm");
+        }
+
         System.out.println("Conference ID received: " + conferenceId);
 
         ConferenceHosterDTO dto = conferenceHosterService.getAllConferenceHosterById(conferenceId);
@@ -416,18 +460,19 @@ public class AdminController {
     }
 
     @GetMapping("logOut")
-    public ModelAndView logOut(ModelAndView modelAndView,HttpSession session){
+    public ModelAndView logOut(ModelAndView modelAndView, HttpSession session, HttpServletRequest request) {
 
-       String email = session.getAttribute("admin").toString();
-       if (email ==null){
-           modelAndView.setViewName("AdminLoginForm");
+//        String email = session.getAttribute("admin").toString();
+        session = request.getSession(false);
 
-       }else {
+        if (session != null) {
+            session.invalidate();
 
-           session.invalidate();
-           System.out.println("log out");
-           modelAndView.setViewName("index");
-       }
+            System.out.println("log out");
+//            modelAndView.setViewName("index");
+            modelAndView.setViewName("redirect:/adminLoginForm");
+
+        }
         return modelAndView;
     }
 }

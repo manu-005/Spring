@@ -283,6 +283,16 @@ html, body {
 
 <body>
 
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session.getAttribute("admin") == null) {
+        response.sendRedirect("AdminLoginForm.jsp");
+    }
+%>
+
 <!-- NAVBAR -->
 
 <nav class="navbar navbar-expand-lg fixed-top">
