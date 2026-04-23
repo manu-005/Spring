@@ -592,7 +592,6 @@ html, body {
                         Conference Hoster Details
                     </button>
                 </form>
-
             </div>
 
             <!-- RIGHT SIDE -->
