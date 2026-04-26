@@ -73,7 +73,7 @@ public class AdminController {
     }
 
     @GetMapping("getAllEvents")
-    public ModelAndView getAllEvents(ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView getAllEvents(ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -88,7 +88,7 @@ public class AdminController {
     }
 
     @GetMapping("getNewEvents")
-    public ModelAndView getNewEvents(ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView getNewEvents(ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -109,7 +109,7 @@ public class AdminController {
     }
 
     @GetMapping("acceptEvent")
-    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView acceptEvent(Long conferenceId, ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -127,7 +127,7 @@ public class AdminController {
     }
 
     @GetMapping("declineEvent")
-    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView declineEvent(Long conferenceId, ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -159,7 +159,7 @@ public class AdminController {
     }
 
     @GetMapping("acceptedEvents")
-    public ModelAndView acceptedEvents(ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView acceptedEvents(ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -182,7 +182,7 @@ public class AdminController {
     }
 
     @GetMapping("invitedEvents")
-    public ModelAndView invitedEvents(ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView invitedEvents(ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -205,7 +205,7 @@ public class AdminController {
     }
 
     @GetMapping("getAllHosters")
-    public ModelAndView getAllHosters(ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView getAllHosters(ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -228,7 +228,7 @@ public class AdminController {
     }
 
     @GetMapping("getAllDelegates")
-    public ModelAndView getAllDelegates(ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView getAllDelegates(ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -396,7 +396,7 @@ public class AdminController {
     }
 
     @GetMapping("sendConference")
-    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId, ModelAndView modelAndView,HttpSession session) {
+    public ModelAndView sendConference(@RequestParam("conferenceId") Long conferenceId, ModelAndView modelAndView, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
@@ -428,7 +428,7 @@ public class AdminController {
     }
 
     @GetMapping("viewDelegates")
-    public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId,HttpSession session) {
+    public ModelAndView viewDelegates(ModelAndView modelAndView, Long conferenceId, HttpSession session) {
 
         if (session.getAttribute("admin") == null) {
             return new ModelAndView("redirect:/adminLoginForm");
