@@ -45,10 +45,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
         try {
             manager = managerFactory.createEntityManager();
 
-            Query query = manager.createQuery(
-                    "select distinct hoster from ConferenceHosterEntity hoster LEFT JOIN FETCH hoster.delegates",
-                    ConferenceHosterEntity.class
-            );
+            Query query = manager.createQuery("select distinct hoster from ConferenceHosterEntity hoster LEFT JOIN FETCH hoster.delegates", ConferenceHosterEntity.class);
 
             List<ConferenceHosterEntity> listOfHosterEntity = query.getResultList();
 
@@ -102,10 +99,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
 
             entityManager = managerFactory.createEntityManager();
 
-            Query query =
-                    entityManager.createQuery(
-                            "SELECT d FROM DelegatesEmailEntity d",
-                            DelegatesEmailEntity.class);
+            Query query = entityManager.createQuery("SELECT d FROM DelegatesEmailEntity d", DelegatesEmailEntity.class);
 
             List<DelegatesEmailEntity> allDelegates = query.getResultList();
 
@@ -188,12 +182,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     public boolean updateDelegateResponse(Long conferenceId, String delegateEmail, Boolean response) {
 
         System.out.println("ll {{{{{{{{{{{{{{{detailss" + conferenceId + delegateEmail + response);
-        Query query = entityManager.createQuery(
-                "update InvitedDelegatesEntity ent " +
-                        "set ent.delegateAvailability = :response " +
-                        "where ent.conferenceId = :conferenceId " +
-                        "and ent.delegateEmail = :delegateEmail"
-        );
+        Query query = entityManager.createQuery("update InvitedDelegatesEntity ent " + "set ent.delegateAvailability = :response " + "where ent.conferenceId = :conferenceId " + "and ent.delegateEmail = :delegateEmail");
 
         query.setParameter("response", response);
         query.setParameter("conferenceId", conferenceId);
@@ -213,11 +202,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public List<InvitedDelegatesEntity> getAvailableTpoDelegates(String sessionEmail, Long conferenceId) {
 
-        Query query = entityManager.createQuery(
-                "select entity from InvitedDelegatesEntity entity " +
-                        "where entity.conferenceId = :conferenceId " +
-                        "and entity.tpoEmail = :sessionEmail"
-        );
+        Query query = entityManager.createQuery("select entity from InvitedDelegatesEntity entity " + "where entity.conferenceId = :conferenceId " + "and entity.tpoEmail = :sessionEmail");
         query.setParameter("conferenceId", conferenceId);
         query.setParameter("sessionEmail", sessionEmail);
         List<InvitedDelegatesEntity> availableEntityList = query.getResultList();
@@ -232,11 +217,7 @@ public class ConferenceHosterDAOImpl implements ConferenceHosterDAO {
     @Override
     public boolean updateSentToDelegates(Long conferenceId) {
 
-        Query query = entityManager.createQuery(
-                "update ConferenceHosterEntity ent " +
-                        "set ent.sentToDelegates = :sentToDelegates " +
-                        "where ent.conferenceId = :conferenceId "
-        );
+        Query query = entityManager.createQuery("update ConferenceHosterEntity ent " + "set ent.sentToDelegates = :sentToDelegates " + "where ent.conferenceId = :conferenceId ");
         query.setParameter("sentToDelegates", true);
         query.setParameter("conferenceId", conferenceId);
 
