@@ -130,7 +130,7 @@ public class TPOController {
 
                             Long conferenceId = dto.getConferenceHoster().getConferenceId();
 
-                            System.out.println("all ids printing .."+conferenceId);
+                            System.out.println("all ids printing .." + conferenceId);
                             // avoid duplicate conference ids
                             if (!conferenceIdList.contains(conferenceId)) {
 

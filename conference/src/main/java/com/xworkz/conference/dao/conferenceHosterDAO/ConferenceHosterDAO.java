@@ -22,7 +22,7 @@ public interface ConferenceHosterDAO {
 
     boolean varifyAdmin(AdminEntity adminEntity);
 
-    boolean updateAcceptOrDecline(Long conferenceId,boolean updateValue);
+    boolean updateAcceptOrDecline(Long conferenceId, boolean updateValue);
 
     InvitedDelegatesEntity saveInvitedDelegates(InvitedDelegatesEntity invitedDelegatesEntity);
 
