@@ -151,22 +151,31 @@ public class ConferenceHosterController {
 
     @GetMapping("fetchAllConference")
     @ResponseBody
-    public List<ConferenceHosterDTO> fetchAllConference(HttpSession session) {
+    public List<ConferenceHosterDTO> fetchAllConference() {
+
         System.out.println("fetch conference called..");
 
-        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+        List<ConferenceHosterDTO> allHosterDTO =
+                conferenceHosterService.getAllConferenceHoster();
 
         LocalDate currentDate = LocalDate.now();
+
         List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
 
         for (ConferenceHosterDTO dto : allHosterDTO) {
-            if (dto.getDate().isAfter(currentDate)) {
+
+            System.out.println(dto);
+
+            if (dto.getDate() != null &&
+                    (dto.getDate().isAfter(currentDate)
+                            || dto.getDate().isEqual(currentDate))) {
+
                 futureEvents.add(dto);
             }
         }
 
-        System.out.println(futureEvents);
-        session.setAttribute("events", futureEvents);
+        System.out.println("Future Events : " + futureEvents);
+
         return futureEvents;
     }
 
