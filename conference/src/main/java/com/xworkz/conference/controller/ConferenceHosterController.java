@@ -150,8 +150,10 @@ public class ConferenceHosterController {
     //    full data return
 
     @GetMapping("fetchAllConference")
-    public String fetchAllConference(ModelAndView modelAndView, Model model,HttpSession session) {
+    @ResponseBody
+    public List<ConferenceHosterDTO> fetchAllConference(HttpSession session) {
         System.out.println("fetch conference called..");
+
         List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
 
         LocalDate currentDate = LocalDate.now();
@@ -163,13 +165,9 @@ public class ConferenceHosterController {
             }
         }
 
-        modelAndView.addObject("events", futureEvents);
-        modelAndView.setViewName("index");
-        System.out.println("Future events: " + futureEvents);
-
-        session.setAttribute("events",futureEvents);
-        model.addAttribute("events",futureEvents);
-        return "index";
+        System.out.println(futureEvents);
+        session.setAttribute("events", futureEvents);
+        return futureEvents;
     }
 
 //    @GetMapping("")

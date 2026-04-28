@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Data
 @Setter
 @Getter
@@ -43,11 +46,14 @@ public class ConferenceHosterDTO {
     @NotNull(message = "Please select valid date")
     @Future(message = "Conference date must be a future date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @NotNull(message = "Please select time")
     @DateTimeFormat(pattern = "HH:mm")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
+
 
     @NotBlank(message = "Please select your conference mode")
     private String mode;
@@ -62,9 +68,11 @@ public class ConferenceHosterDTO {
     private String tpoEmails;
     private List<DelegatesEmailEntity> delegates;
     // ⚠ File fields (validated manually in controller using .isEmpty())
+    @JsonIgnore
     private MultipartFile conferenceBanner;
     private String bannerPath;
 
+    @JsonIgnore
     private MultipartFile promoVideo;
     private String promoVideoPath;
 

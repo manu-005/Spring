@@ -506,46 +506,11 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
-<c:forEach var="event" items="${events}">
-  <h4>${event.conferenceTitle}</h4>
- </c:forEach>
+
 
 <div class="container mt-4">
     <div class="row">
 
-        <c:choose>
-            <c:when test="${not empty events}">
-
-                <c:forEach var="event" items="${events}">
-                    <div class="col-md-4 mb-4">
-                        <div class="event-card position-relative">
-
-                            <div class="event-badge">
-                                ${event.mode}
-                            </div>
-
-                            <h4>${event.conferenceTitle}</h4>
-
-                            <p>${event.conferenceDescription}</p>
-
-                            <div class="event-meta mt-2">
-                                <i class="bi bi-person"></i> ${event.fullName}<br>
-                                <i class="bi bi-building"></i> ${event.organizationName}<br>
-                                <i class="bi bi-calendar3"></i> ${event.date}<br>
-                                <i class="bi bi-clock"></i> ${event.time}<br>
-                                <i class="bi bi-geo-alt"></i> ${event.venueOrMeetingLink}
-                            </div>
-
-                        </div>
-                    </div>
-                </c:forEach>
-
-            </c:when>
-
-            <c:otherwise>
-                <p class="text-center mt-4">No upcoming events found.</p>
-            </c:otherwise>
-        </c:choose>
 
     </div>
 </div>
@@ -808,13 +773,95 @@ pageEncoding="UTF-8"%>
     </div>
 </footer>
 </section>
-
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-        fetch("/conference/fetchAllConference").catch(() => {});
 
-        console.log("called");
-    });
+document.addEventListener("DOMContentLoaded", () => {
+
+    fetch("/conference/fetchAllConference")
+        .then(response => response.json())
+        .then(data => {
+
+            console.log("Events:", data);
+
+            const container = document.getElementById("eventsContainer");
+            container.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center">
+                        <p>No upcoming events found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            data.forEach(event => {
+
+                const card = `
+                    <div class="col-md-4 mb-4">
+                        <div class="event-card position-relative">
+
+                            <div class="event-badge">
+                                ${event.mode || "N/A"}
+                            </div>
+
+                            <h4>
+                                ${event.conferenceTitle || "No Title"}
+                            </h4>
+
+                            <p>
+                                ${event.conferenceDescription || "No Description"}
+                            </p>
+
+                            <div class="event-meta mt-3">
+
+                                <div class="mb-1">
+                                    <i class="bi bi-person"></i>
+                                    ${event.fullName || "Unknown"}
+                                </div>
+
+                                <div class="mb-1">
+                                    <i class="bi bi-building"></i>
+                                    ${event.organizationName || "N/A"}
+                                </div>
+
+                                <div class="mb-1">
+                                    <i class="bi bi-calendar3"></i>
+                                    ${event.date || "N/A"}
+                                </div>
+
+                                <div class="mb-1">
+                                    <i class="bi bi-clock"></i>
+                                    ${event.time || "N/A"}
+                                </div>
+
+                                <div class="mb-1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    ${event.venueOrMeetingLink || "N/A"}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML("beforeend", card);
+            });
+
+        })
+        .catch(error => {
+
+            console.error("Error fetching events:", error);
+
+            document.getElementById("eventsContainer").innerHTML = `
+                <div class="col-12 text-center text-danger">
+                    Failed to load events.
+                </div>
+            `;
+        });
+
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
