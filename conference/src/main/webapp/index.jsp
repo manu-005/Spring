@@ -506,15 +506,6 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
-
-
-<div class="container mt-4">
-    <div class="row">
-
-
-    </div>
-</div>
-
 <!-- ===== EVENTS =====
 <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
 
@@ -772,117 +763,63 @@ pageEncoding="UTF-8"%>
         © 2026 ConferoNexus | All Rights Reserved
     </div>
 </footer>
-</section><script>
+</section>
 
-          document.addEventListener("DOMContentLoaded", async function () {
+<script>
+
+          window.onload = function () {
+
+              console.log("PAGE LOADED");
 
               const container = document.getElementById("eventsContainer");
 
-              try {
+              console.log("Container :", container);
 
-                  const response = await fetch("/conference/fetchAllConference");
+              if(container == null){
 
-                  const data = await response.json();
+                  alert("eventsContainer NOT FOUND");
 
-                  console.log("Fetched Data:", data);
+                  return;
+              }
 
-                  container.innerHTML = "";
+              fetch("http://localhost:8080/conference/fetchAllConference")
 
-                  // Check empty data
-                  if (!Array.isArray(data) || data.length === 0) {
+              .then(response => response.json())
 
-                      container.innerHTML = `
-                          <div class="col-12 text-center">
-                              <h5>No Events Available</h5>
-                          </div>
-                      `;
+              .then(data => {
 
-                      return;
-                  }
+                  console.log("API DATA :", data);
 
-                  // Loop events
+                  container.innerHTML = "<h1 style='color:red'>DATA LOADED</h1>";
+
                   data.forEach(event => {
 
-                      console.log("Single Event:", event);
+                      container.innerHTML += `
 
-                      const conferenceTitle = event.conferenceTitle ?? "";
-                      const conferenceDescription = event.conferenceDescription ?? "";
-                      const fullName = event.fullName ?? "";
-                      const organizationName = event.organizationName ?? "";
-                      const mode = event.mode ?? "";
-                      const date = event.date ?? "";
-                      const time = event.time ?? "";
-                      const venue = event.venueOrMeetingLink ?? "";
+                          <div style="
+                              background:white;
+                              padding:20px;
+                              margin:20px;
+                              border:2px solid black;
+                          ">
 
-                      const eventCard = document.createElement("div");
-
-                      eventCard.className = "col-md-4 mb-4";
-
-                      eventCard.innerHTML = `
-
-                          <div class="event-card h-100">
-
-                              <div class="event-badge">
-                                  ${mode}
-                              </div>
-
-                              <h4>
-                                  ${conferenceTitle}
-                              </h4>
-
-                              <p>
-                                  ${conferenceDescription}
-                              </p>
-
-                              <div class="event-meta">
-
-                                  <div class="mb-2">
-                                      <i class="bi bi-person"></i>
-                                      ${fullName}
-                                  </div>
-
-                                  <div class="mb-2">
-                                      <i class="bi bi-building"></i>
-                                      ${organizationName}
-                                  </div>
-
-                                  <div class="mb-2">
-                                      <i class="bi bi-calendar3"></i>
-                                      ${date}
-                                  </div>
-
-                                  <div class="mb-2">
-                                      <i class="bi bi-clock"></i>
-                                      ${time}
-                                  </div>
-
-                                  <div class="mb-2">
-                                      <i class="bi bi-geo-alt"></i>
-                                      ${venue}
-                                  </div>
-
-                              </div>
+                              <h1>${event.conferenceTitle}</h1>
 
                           </div>
 
                       `;
-
-                      container.appendChild(eventCard);
 
                   });
 
-              } catch (error) {
+              })
 
-                  console.error("Error:", error);
+              .catch(error => {
 
-                  container.innerHTML = `
-                      <div class="col-12 text-center text-danger">
-                          Failed To Load Events
-                      </div>
-                  `;
-              }
+                  console.log("FETCH ERROR :", error);
 
-          });
+              });
+
+          }
 
           </script>
 
