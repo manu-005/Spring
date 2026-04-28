@@ -149,28 +149,28 @@ public class ConferenceHosterController {
     //    @RequestMapping(apic)
     //    full data return
 
-//    @GetMapping("fetchAllConference")
-//    public String fetchAllConference(ModelAndView modelAndView, Model model,HttpSession session) {
-//        System.out.println("fetch conference called..");
-//        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
-//
-//        LocalDate currentDate = LocalDate.now();
-//        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
-//
-//        for (ConferenceHosterDTO dto : allHosterDTO) {
-//            if (dto.getDate().isAfter(currentDate)) {
-//                futureEvents.add(dto);
-//            }
-//        }
-//
-//        modelAndView.addObject("events", futureEvents);
-//        modelAndView.setViewName("index");
-//        System.out.println("Future events: " + futureEvents);
-//
-//        session.setAttribute("events",futureEvents);
-//        model.addAttribute("events",futureEvents);
-//        return "index";
-//    }
+    @GetMapping("fetchAllConference")
+    public String fetchAllConference(ModelAndView modelAndView, Model model,HttpSession session) {
+        System.out.println("fetch conference called..");
+        List<ConferenceHosterDTO> allHosterDTO = conferenceHosterService.getAllConferenceHoster();
+
+        LocalDate currentDate = LocalDate.now();
+        List<ConferenceHosterDTO> futureEvents = new ArrayList<>();
+
+        for (ConferenceHosterDTO dto : allHosterDTO) {
+            if (dto.getDate().isAfter(currentDate)) {
+                futureEvents.add(dto);
+            }
+        }
+
+        modelAndView.addObject("events", futureEvents);
+        modelAndView.setViewName("index");
+        System.out.println("Future events: " + futureEvents);
+
+        session.setAttribute("events",futureEvents);
+        model.addAttribute("events",futureEvents);
+        return "index";
+    }
 
 //    @GetMapping("")
 //    public ModelAndView loadIndex() {
