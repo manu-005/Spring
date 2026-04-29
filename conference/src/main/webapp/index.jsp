@@ -767,61 +767,112 @@ pageEncoding="UTF-8"%>
 
 <script>
 
-          window.onload = function () {
+window.onload = function () {
 
-              console.log("PAGE LOADED");
+    const container =
+        document.getElementById("eventsContainer");
 
-              const container = document.getElementById("eventsContainer");
+    fetch("http://localhost:8080/conference/fetchAllConference")
 
-              console.log("Container :", container);
+    .then(response => response.json())
 
-              if(container == null){
+    .then(data => {
 
-                  alert("eventsContainer NOT FOUND");
+        console.log("API DATA :", data);
 
-                  return;
-              }
+        container.innerHTML = "";
 
-              fetch("http://localhost:8080/conference/fetchAllConference")
+        data.forEach(event => {
 
-              .then(response => response.json())
+            const title =
+                event.conferenceTitle
+                ? event.conferenceTitle
+                : "No Title";
 
-              .then(data => {
+            const description =
+                event.conferenceDescription
+                ? event.conferenceDescription
+                : "No Description";
 
-                  console.log("API DATA :", data);
+            const name =
+                event.fullName
+                ? event.fullName
+                : "No Name";
 
-                  container.innerHTML = "<h1 style='color:red'>DATA LOADED</h1>";
+            const organization =
+                event.organizationName
+                ? event.organizationName
+                : "No Organization";
 
-                  data.forEach(event => {
+            const mode =
+                event.mode
+                ? event.mode
+                : "No Mode";
 
-                      container.innerHTML += `
+            const date =
+                event.date
+                ? event.date
+                : "No Date";
 
-                          <div style="
-                              background:white;
-                              padding:20px;
-                              margin:20px;
-                              border:2px solid black;
-                          ">
+            const time =
+                event.time
+                ? event.time
+                : "No Time";
 
-                              <h1>${event.conferenceTitle}</h1>
+            const venue =
+                event.venueOrMeetingLink
+                ? event.venueOrMeetingLink
+                : "No Venue";
 
-                          </div>
+            const div = document.createElement("div");
 
-                      `;
+            div.className = "col-md-4";
 
-                  });
+            div.innerHTML = `
 
-              })
+                <div style="
+                    background:white;
+                    padding:20px;
+                    margin:20px;
+                    border-radius:10px;
+                    box-shadow:0 0 10px gray;
+                ">
 
-              .catch(error => {
+                    <h2>${title}</h2>
 
-                  console.log("FETCH ERROR :", error);
+                    <p>${description}</p>
 
-              });
+                    <h5>${name}</h5>
 
-          }
+                    <h6>${organization}</h6>
 
-          </script>
+                    <h6>${mode}</h6>
+
+                    <h6>${date}</h6>
+
+                    <h6>${time}</h6>
+
+                    <h6>${venue}</h6>
+
+                </div>
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+
+    });
+
+}
+
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
