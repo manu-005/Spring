@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
@@ -506,6 +507,9 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
+<div id="conferenceData">
+
+<h2 id="fName"></h2></div>
 <!-- ===== EVENTS =====
 <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
 
@@ -765,113 +769,6 @@ pageEncoding="UTF-8"%>
 </footer>
 </section>
 
-<script>
-
-window.onload = function () {
-
-    const container =
-        document.getElementById("eventsContainer");
-
-    fetch("http://localhost:8080/conference/fetchAllConference")
-
-    .then(response => response.json())
-
-    .then(data => {
-
-        console.log("API DATA :", data);
-
-        container.innerHTML = "";
-
-        data.forEach(event => {
-
-            const title =
-                event.conferenceTitle
-                ? event.conferenceTitle
-                : "No Title";
-
-            const description =
-                event.conferenceDescription
-                ? event.conferenceDescription
-                : "No Description";
-
-            const name =
-                event.fullName
-                ? event.fullName
-                : "No Name";
-
-            const organization =
-                event.organizationName
-                ? event.organizationName
-                : "No Organization";
-
-            const mode =
-                event.mode
-                ? event.mode
-                : "No Mode";
-
-            const date =
-                event.date
-                ? event.date
-                : "No Date";
-
-            const time =
-                event.time
-                ? event.time
-                : "No Time";
-
-            const venue =
-                event.venueOrMeetingLink
-                ? event.venueOrMeetingLink
-                : "No Venue";
-
-            const div = document.createElement("div");
-
-            div.className = "col-md-4";
-
-            div.innerHTML = `
-
-                <div style="
-                    background:white;
-                    padding:20px;
-                    margin:20px;
-                    border-radius:10px;
-                    box-shadow:0 0 10px gray;
-                ">
-
-                    <h2>${title}</h2>
-
-                    <p>${description}</p>
-
-                    <h5>${name}</h5>
-
-                    <h6>${organization}</h6>
-
-                    <h6>${mode}</h6>
-
-                    <h6>${date}</h6>
-
-                    <h6>${time}</h6>
-
-                    <h6>${venue}</h6>
-
-                </div>
-
-            `;
-
-            container.appendChild(div);
-
-        });
-
-    })
-
-    .catch(error => {
-
-        console.log(error);
-
-    });
-
-}
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -914,5 +811,61 @@ window.onload = function () {
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+window.addEventListener("load", function () {
+
+    axios.get("/conference/fetchAllConference")
+        .then(function (response) {
+
+            console.log("DATA:", response.data);
+
+            console.log(response.data[0]);
+
+            document.getElementById("fName").innerText = data[0].fullName;
+
+            const container = document.getElementById("conferenceData");
+
+            let html = "";
+
+            response.data.forEach(function(conf){
+
+            console.log(${conf.fullName});
+
+
+                html += `
+                    <div style="border:1px solid #ccc; padding:15px; margin:10px;">
+
+                        <h2>${conf.conferenceTitle}</h2>
+
+                        <p><b>Name:</b> ${conf.fullName}</p>
+
+                        <p><b>Organization:</b> ${conf.organizationName}</p>
+
+                        <p><b>Date:</b> ${conf.date}</p>
+
+                        <p><b>Time:</b> ${conf.time}</p>
+
+                        <p><b>Mode:</b> ${conf.mode}</p>
+
+                        <p><b>Meeting Link:</b> ${conf.venueOrMeetingLink}</p>
+
+                    </div>
+                `;
+
+            });
+
+            container.innerHTML = html;
+
+        })
+        .catch(function (error) {
+
+            console.error("ERROR:", error);
+
+        });
+
+});
+</script>
 </body>
 </html>

@@ -179,6 +179,8 @@ public class ConferenceHosterController {
         return futureEvents;
     }
 
+
+
 //    @GetMapping("")
 //    public ModelAndView loadIndex() {
 //
