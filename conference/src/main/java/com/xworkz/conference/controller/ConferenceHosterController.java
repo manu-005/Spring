@@ -204,4 +204,34 @@ public class ConferenceHosterController {
 //
 //        return mv;
 //    }
+//
+//       axios.get("/conference/fetchAllConference")
+//               .then(function (response) {
+//
+//        let html = "";
+//
+//        for(let i = 0; i < response.data.length; i++) {
+//
+//            console.log("+++++", response.data[i]);
+//
+//            console.log("+_________+",response.data[i].conferenceTitle);
+//            document.getElementById("conferenceTitle").innerHTML += response.data[i].conferenceTitle;
+//            document.getElementById("conferenceDescription").innerHTML += response.data[i].conferenceDescription;
+//            document.getElementById("date").innerHTML += response.data[i].date;
+//            document.getElementById("time").innerHTML += response.data[i].time;
+//            document.getElementById("organizationName").innerHTML += response.data[i].organizationName;
+//
+//            document.getElementById("venueOrMeetingLink").innerHTML += response.data[i].venueOrMeetingLink;
+//            document.getElementById("mode").innerHTML += response.data[i].mode;
+//
+//        }
+//
+//        document.getElementById("fName").innerHTML = html;
+//
+//    })
+//            .catch(function (error) {
+//
+//        console.log(error);
+//
+//    });
 }

@@ -503,13 +503,64 @@ pageEncoding="UTF-8"%>
         <div class="text-center mb-5">
             <h2>Upcoming <span>Events</span></h2>
         </div>
-        <div class="row g-4" id="eventsContainer"></div>
+        <div class="row g-4" id="eventContainer"></div>
     </div>
 </section>
 
-<div id="conferenceData">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<h2 id="fName"></h2></div>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <!-- Event Title -->
+        <h2 class="fw-bold text-primary mb-4">
+            <i class="fa-solid fa-calendar-days me-2"></i>
+            <span id="conferenceTitle"></span>
+        </h2>
+
+        <!-- Description -->
+        <p class="fs-5 text-secondary">
+            <i class="fa-solid fa-file-lines text-dark me-2"></i>
+            <span id="conferenceDescription"></span>
+        </p>
+
+        <!-- Date -->
+        <p class="fs-5">
+            <i class="fa-solid fa-calendar text-danger me-2"></i>
+            <span id="date"></span>
+        </p>
+
+        <!-- Time -->
+        <p class="fs-5">
+            <i class="fa-solid fa-clock text-warning me-2"></i>
+            <span id="time"></span>
+        </p>
+
+        <!-- Organization -->
+        <p class="fs-5">
+            <i class="fa-solid fa-building text-info me-2"></i>
+            <span id="organizationName"></span>
+        </p>
+
+        <!-- Meeting Link -->
+        <p class="fs-5">
+            <i class="fa-solid fa-link text-success me-2"></i>
+            <span id="venueOrMeetingLink"></span>
+        </p>
+
+        <!-- Mode -->
+        <p class="fs-5">
+            <i class="fa-solid fa-laptop text-primary me-2"></i>
+            <span id="mode"></span>
+        </p>
+
+    </div>
+
+</div>
 <!-- ===== EVENTS =====
 <img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
 
@@ -816,54 +867,52 @@ pageEncoding="UTF-8"%>
 <script>
 window.addEventListener("load", function () {
 
-    axios.get("/conference/fetchAllConference")
-        .then(function (response) {
+axios.get("/conference/fetchAllConference")
+.then(function(response){
 
-            console.log("DATA:", response.data);
+    console.log(response.data);
 
-            console.log(response.data[0]);
+    let cards = "";
 
-            document.getElementById("fName").innerText = data[0].fullName;
+    for(let i = 0; i < response.data.length; i++) {
 
-            const container = document.getElementById("conferenceData");
+        let conf = response.data[i];
 
-            let html = "";
+        cards += `
 
-            response.data.forEach(function(conf){
+            <div class="col-md-6 mb-4">
 
-            console.log(${conf.fullName});
+                <div class="card shadow p-3">
 
+                    <h3>${conf.conferenceTitle}</h3>
 
-                html += `
-                    <div style="border:1px solid #ccc; padding:15px; margin:10px;">
+                    <p>${conf.conferenceDescription}</p>
 
-                        <h2>${conf.conferenceTitle}</h2>
+                    <p>${conf.date}</p>
 
-                        <p><b>Name:</b> ${conf.fullName}</p>
+                    <p>${conf.time}</p>
 
-                        <p><b>Organization:</b> ${conf.organizationName}</p>
+                    <p>${conf.organizationName}</p>
 
-                        <p><b>Date:</b> ${conf.date}</p>
+                    <p>${conf.venueOrMeetingLink}</p>
 
-                        <p><b>Time:</b> ${conf.time}</p>
+                    <p>${conf.mode}</p>
 
-                        <p><b>Mode:</b> ${conf.mode}</p>
+                </div>
 
-                        <p><b>Meeting Link:</b> ${conf.venueOrMeetingLink}</p>
+            </div>
 
-                    </div>
-                `;
+        `;
+    }
 
-            });
+    document.getElementById("eventContainer").innerHTML = cards;
 
-            container.innerHTML = html;
+})
+.catch(function(error){
 
-        })
-        .catch(function (error) {
+    console.log(error);
 
-            console.error("ERROR:", error);
-
-        });
+});
 
 });
 </script>
