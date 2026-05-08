@@ -186,21 +186,24 @@ public class ConferenceHosterController {
 
         return upcoming.stream().map(conf -> new ConferenceHosterDTO(
                 conf.getConferenceId(),
-                conf.getOrganizationName(),
+                conf.getFullName(),
                 conf.getOfficialEmail(),
-                conf.getConferenceDescription(),
+                conf.getOrganizationName(),
                 conf.getConferenceTitle() ,
-                conf.getDate() != null ? conf.getDate().toString() : "",
+                conf.getConferenceDescription(),
+                conf.getDate(),
                 conf.getTime(),
-                conf.isSentToDelegates(),
-                conf.isAcceptOrDecline(),
+                conf.getMode(),
                 conf.getVenueOrMeetingLink(),
                 conf.getDelegateEmails(),
                 conf.getTpoEmails(),
                 conf.getDelegates(),
+                conf.getConferenceBanner(),
                 conf.getBannerPath(),
+                conf.getPromoVideo(),
                 conf.getPromoVideoPath(),
-                conf.getFullName()
+                conf.isAcceptOrDecline(),
+                conf.isSentToDelegates()
         )).collect(java.util.stream.Collectors.toList());
     }
 

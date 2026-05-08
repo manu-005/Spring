@@ -80,6 +80,5 @@ public class ConferenceHosterDTO {
 
     private boolean sentToDelegates;
 
-    public ConferenceHosterDTO(Long conferenceId, @NotBlank(message = "Please enter your organization name") @Size(min = 4, max = 50, message = "Organization Name size must be between 4 and 50") String organizationName, @NotBlank(message = "Please enter your official email") @Email(message = "Invalid email format") String officialEmail, @NotBlank(message = "Please enter conference description") @Size(min = 4, max = 500, message = "Conference description size must be between 4 and 500") String conferenceDescription, @NotBlank(message = "Please enter your conference title") @Size(min = 4, max = 50, message = "Conference title size must be between 4 and 50") String conferenceTitle, String s, @NotNull(message = "Please select time") LocalTime time, boolean sentToDelegates, boolean acceptOrDecline, @NotBlank(message = "Please mention venue or meeting link") @Size(min = 4, max = 500, message = "Venue/Meeting link size must be between 4 and 500") String venueOrMeetingLink, String delegateEmails, String tpoEmails, List<DelegatesEmailEntity> delegates, String bannerPath, String promoVideoPath, @NotBlank(message = "Please enter your full name") @Size(min = 4, max = 20, message = "Full Name size must be between 4 and 20") String fullName) {
-    }
+
 }

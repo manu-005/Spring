@@ -508,7 +508,7 @@ pageEncoding="UTF-8"%>
 </section>
 
 
-<div id="eventTrack"></div>
+<div id="upcomingTrack"></div>
 
 
 
@@ -940,7 +940,7 @@ let t=response.data[i].conferenceTitle;
         console.log("PAGE LOADED ");
 
 <!--        axios.get("/conference/api/upcoming")-->
-axios.get("/api/upcoming")
+axios.get("/conference/api/upcoming")
             .then(function (response) {
 
                 console.log("API RESPONSE:", response);
@@ -966,7 +966,7 @@ axios.get("/api/upcoming")
 
                 data.forEach(function(conf) {
                     html += '<div class="slide-card" onclick="openEventModal(\''
-                        + conf.conferenceTopic + '\', \''
+                        + conf.conferenceTitle + '\', \''
                         + conf.date + '\', \''
                         + conf.time + '\', \''
                         + conf.targetedAudience + '\', \''
@@ -974,10 +974,10 @@ axios.get("/api/upcoming")
                         + '<div class="conf-card">'
                         + '<span class="badge-upcoming"><i class="fas fa-circle me-1" style="font-size:0.5rem;"></i>Upcoming</span>'
                         + '<div class="conf-card-icon"><i class="fas fa-microphone-alt"></i></div>'
-                        + '<h5>' + conf.conferenceTopic + '</h5>'
+                        + '<h5>' + conf.conferenceTitle + '</h5>'
                         + '<p><i class="fas fa-calendar-alt me-1" style="color:var(--orange);"></i>' + conf.date + '</p>'
                         + '<p><i class="fas fa-clock me-1" style="color:var(--orange);"></i>' + conf.time + '</p>'
-                        + '<p><i class="fas fa-users me-1" style="color:var(--orange);"></i>' + conf.targetedAudience + '</p>'
+                        + '<p><i class="fas fa-users me-1" style="color:var(--orange);"></i>' + conf.delegates + '</p>'
                         + '</div></div>';
                 });
 
