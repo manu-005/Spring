@@ -507,6 +507,11 @@ pageEncoding="UTF-8"%>
     </div>
 </section>
 
+
+<div id="eventTrack"></div>
+
+
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet"
@@ -865,56 +870,136 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+
 window.addEventListener("load", function () {
 
-axios.get("/conference/fetchAllConference")
-.then(function(response){
+    axios.get("/conference/fetchAllConference")
+        .then(function (response) {
 
-    console.log(response.data);
+            const data = response.data;
+            const track = document.getElementById("eventTrack");
 
-    let cards = "";
 
-    for(let i = 0; i < response.data.length; i++) {
+console.log("RAW RESPONSE:", response.data);
+console.log("FIRST OBJECT:", response.data[0]);
 
-        let conf = response.data[i];
+            let html = "";
 
-        cards += `
+            if (!data || data.length === 0) {
+                track.innerHTML = "<p>No Events Found</p>";
+                return;
+            }
 
-            <div class="col-md-6 mb-4">
 
-                <div class="card shadow p-3">
+              for(let i = 0; i < response.data.length; i++){
 
-                    <h3>${conf.conferenceTitle}</h3>
+let t=response.data[i].conferenceTitle;
 
-                    <p>${conf.conferenceDescription}</p>
+ console.log("+_________+",t);
+                html += `
+                    <div class="card shadow m-3 p-3">
 
-                    <p>${conf.date}</p>
+                        <h4><i class="fas fa-bullhorn me-2"></i>${t}</h4>
 
-                    <p>${conf.time}</p>
+                    </div>
+                `;
+            };
 
-                    <p>${conf.organizationName}</p>
+            track.innerHTML = html;
 
-                    <p>${conf.venueOrMeetingLink}</p>
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
-                    <p>${conf.mode}</p>
+});
 
-                </div>
+</script>
 
-            </div>
 
-        `;
+
+<script>
+    AOS.init({ duration: 900, once: true, offset: 60 });
+
+    /* Navbar scroll effect — only on desktop */
+    window.addEventListener("scroll", function () {
+        document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    /* AUTO CLONE FOR INFINITE SLIDER (NO BACKEND CHANGE) */
+    function createInfiniteSlider(trackId) {
+        const track = document.getElementById(trackId);
+        if (!track) return;
+        const items = track.innerHTML;
+        track.innerHTML += items;
     }
 
-    document.getElementById("eventContainer").innerHTML = cards;
+    /* LOAD UPCOMING CONFERENCES FROM API */
+    window.addEventListener("load", function () {
 
-})
-.catch(function(error){
+        console.log("PAGE LOADED ");
 
-    console.log(error);
+<!--        axios.get("/conference/api/upcoming")-->
+axios.get("/api/upcoming")
+            .then(function (response) {
 
-});
+                console.log("API RESPONSE:", response);
+                console.log("DATA:", response.data);
 
-});
+                const data = response.data;
+                const track = document.getElementById("upcomingTrack");
+
+                console.log("TRACK:", track);
+
+                let html = "";
+
+                if (!data || data.length === 0) {
+                    document.getElementById("upcomingSliderWrapper").innerHTML = `
+                        <div class="container">
+                            <div class="empty-state">
+                                <i class="fas fa-calendar-times d-block"></i>
+                                <p>No Upcoming Conferences Available</p>
+                            </div>
+                        </div>`;
+                    return;
+                }
+
+                data.forEach(function(conf) {
+                    html += '<div class="slide-card" onclick="openEventModal(\''
+                        + conf.conferenceTopic + '\', \''
+                        + conf.date + '\', \''
+                        + conf.time + '\', \''
+                        + conf.targetedAudience + '\', \''
+                        + conf.id + '\')">'
+                        + '<div class="conf-card">'
+                        + '<span class="badge-upcoming"><i class="fas fa-circle me-1" style="font-size:0.5rem;"></i>Upcoming</span>'
+                        + '<div class="conf-card-icon"><i class="fas fa-microphone-alt"></i></div>'
+                        + '<h5>' + conf.conferenceTopic + '</h5>'
+                        + '<p><i class="fas fa-calendar-alt me-1" style="color:var(--orange);"></i>' + conf.date + '</p>'
+                        + '<p><i class="fas fa-clock me-1" style="color:var(--orange);"></i>' + conf.time + '</p>'
+                        + '<p><i class="fas fa-users me-1" style="color:var(--orange);"></i>' + conf.targetedAudience + '</p>'
+                        + '</div></div>';
+                });
+
+                track.innerHTML = html;
+                createInfiniteSlider("upcomingTrack");
+
+            })
+            .catch(function (error) {
+                console.error("ERROR:", error);
+            });
+
+    });
+
+    function openEventModal(title, date, time, audience, confId) {
+        document.getElementById("modalTitle").innerText = title;
+        document.getElementById("modalDate").innerText = date;
+        document.getElementById("modalTime").innerText = time;
+        document.getElementById("modalAudience").innerText = audience;
+        document.getElementById("registerBtn").href = "onlineParticipants?confId=" + confId;
+        const modal = new bootstrap.Modal(document.getElementById('eventModal'));
+        modal.show();
+    }
 </script>
 </body>
 </html>

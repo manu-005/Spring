@@ -179,7 +179,30 @@ public class ConferenceHosterController {
         return futureEvents;
     }
 
+    @GetMapping(value = "/api/upcoming", produces = "application/json")
+    @ResponseBody
+    public List<ConferenceHosterDTO> loadHome() {
+        List<ConferenceHosterDTO> upcoming = conferenceHosterService.getAllConferenceHoster();
 
+        return upcoming.stream().map(conf -> new ConferenceHosterDTO(
+                conf.getConferenceId(),
+                conf.getOrganizationName(),
+                conf.getOfficialEmail(),
+                conf.getConferenceDescription(),
+                conf.getConferenceTitle() ,
+                conf.getDate() != null ? conf.getDate().toString() : "",
+                conf.getTime(),
+                conf.isSentToDelegates(),
+                conf.isAcceptOrDecline(),
+                conf.getVenueOrMeetingLink(),
+                conf.getDelegateEmails(),
+                conf.getTpoEmails(),
+                conf.getDelegates(),
+                conf.getBannerPath(),
+                conf.getPromoVideoPath(),
+                conf.getFullName()
+        )).collect(java.util.stream.Collectors.toList());
+    }
 
 //    @GetMapping("")
 //    public ModelAndView loadIndex() {
