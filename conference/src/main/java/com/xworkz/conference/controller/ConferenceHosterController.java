@@ -149,7 +149,8 @@ public class ConferenceHosterController {
     //    @RequestMapping(apic)
     //    full data return
 
-    @GetMapping("fetchAllConference")
+//    @GetMapping("fetchAllConference")
+        @GetMapping(value = "/upcoming", produces = "application/json")
     @ResponseBody
     public List<ConferenceHosterDTO> fetchAllConference() {
 
@@ -179,7 +180,7 @@ public class ConferenceHosterController {
         return futureEvents;
     }
 
-    @GetMapping(value = "/api/upcoming", produces = "application/json")
+//    @GetMapping(value = "/api/upcoming", produces = "application/json")
     @ResponseBody
     public List<ConferenceHosterDTO> loadHome() {
         List<ConferenceHosterDTO> upcoming = conferenceHosterService.getAllConferenceHoster();

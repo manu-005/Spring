@@ -503,118 +503,15 @@ pageEncoding="UTF-8"%>
         <div class="text-center mb-5">
             <h2>Upcoming <span>Events</span></h2>
         </div>
-        <div class="row g-4" id="eventContainer"></div>
+        <div class="row g-4" id="upcomingTrack"></div>
     </div>
 </section>
-
-
-<div id="upcomingTrack"></div>
-
-
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-<div class="container mt-5">
-
-    <div class="card shadow-lg border-0 rounded-4 p-4">
-
-        <!-- Event Title -->
-        <h2 class="fw-bold text-primary mb-4">
-            <i class="fa-solid fa-calendar-days me-2"></i>
-            <span id="conferenceTitle"></span>
-        </h2>
-
-        <!-- Description -->
-        <p class="fs-5 text-secondary">
-            <i class="fa-solid fa-file-lines text-dark me-2"></i>
-            <span id="conferenceDescription"></span>
-        </p>
-
-        <!-- Date -->
-        <p class="fs-5">
-            <i class="fa-solid fa-calendar text-danger me-2"></i>
-            <span id="date"></span>
-        </p>
-
-        <!-- Time -->
-        <p class="fs-5">
-            <i class="fa-solid fa-clock text-warning me-2"></i>
-            <span id="time"></span>
-        </p>
-
-        <!-- Organization -->
-        <p class="fs-5">
-            <i class="fa-solid fa-building text-info me-2"></i>
-            <span id="organizationName"></span>
-        </p>
-
-        <!-- Meeting Link -->
-        <p class="fs-5">
-            <i class="fa-solid fa-link text-success me-2"></i>
-            <span id="venueOrMeetingLink"></span>
-        </p>
-
-        <!-- Mode -->
-        <p class="fs-5">
-            <i class="fa-solid fa-laptop text-primary me-2"></i>
-            <span id="mode"></span>
-        </p>
-
-    </div>
-
-</div>
-<!-- ===== EVENTS =====
-<img src="fetchBanner" alt="banner Logo" width="500px" height="500px">
-
-<section id="events">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2>Upcoming <span>Events</span></h2>
-            <div class="section-divider"></div>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="zoom-in">
-                <div class="event-card">
-                    <div class="event-badge">Technology</div>
-                    <h4>Tech Summit 2026</h4>
-                    <p>Innovation &amp; leadership conference for global technology leaders.</p>
-
-                    <div class="event-meta">
-                        <i class="bi bi-calendar3"></i>March 15, 2026 &nbsp;·&nbsp;
-                        <i class="bi bi-geo-alt"></i>Bengaluru
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                <div class="event-card">
-                    <div class="event-badge">Artificial Intelligence</div>
-                    <h4>AI Global Forum</h4>
-                    <p>Exploring the future of artificial intelligence and its global impact.</p>
-                    <div class="event-meta">
-                        <i class="bi bi-calendar3"></i>April 22, 2026 &nbsp;·&nbsp;
-                        <i class="bi bi-camera-video"></i>Online
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="event-card">
-                    <div class="event-badge">Entrepreneurship</div>
-                    <h4>Startup Conclave</h4>
-                    <p>Empowering entrepreneurs and connecting innovators worldwide.</p>
-                    <div class="event-meta">
-                        <i class="bi bi-calendar3"></i>May 10, 2026 &nbsp;·&nbsp;
-                        <i class="bi bi-geo-alt"></i>Mumbai
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
--->
 <!-- ===== REGISTER ===== -->
 <section id="register" style="background:#f0f4ff;">
     <div class="container">
@@ -870,55 +767,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-
-window.addEventListener("load", function () {
-
-    axios.get("/conference/fetchAllConference")
-        .then(function (response) {
-
-            const data = response.data;
-            const track = document.getElementById("eventTrack");
-
-
-console.log("RAW RESPONSE:", response.data);
-console.log("FIRST OBJECT:", response.data[0]);
-
-            let html = "";
-
-            if (!data || data.length === 0) {
-                track.innerHTML = "<p>No Events Found</p>";
-                return;
-            }
-
-
-              for(let i = 0; i < response.data.length; i++){
-
-let t=response.data[i].conferenceTitle;
-
- console.log("+_________+",t);
-                html += `
-                    <div class="card shadow m-3 p-3">
-
-                        <h4><i class="fas fa-bullhorn me-2"></i>${t}</h4>
-
-                    </div>
-                `;
-            };
-
-            track.innerHTML = html;
-
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-});
-
-</script>
-
-
-
-<script>
     AOS.init({ duration: 900, once: true, offset: 60 });
 
     /* Navbar scroll effect — only on desktop */
@@ -939,8 +787,7 @@ let t=response.data[i].conferenceTitle;
 
         console.log("PAGE LOADED ");
 
-<!--        axios.get("/conference/api/upcoming")-->
-axios.get("/conference/api/upcoming")
+        axios.get("/conference/upcoming")
             .then(function (response) {
 
                 console.log("API RESPONSE:", response);
@@ -949,40 +796,52 @@ axios.get("/conference/api/upcoming")
                 const data = response.data;
                 const track = document.getElementById("upcomingTrack");
 
-                console.log("TRACK:", track);
-
                 let html = "";
 
                 if (!data || data.length === 0) {
-                    document.getElementById("upcomingSliderWrapper").innerHTML = `
-                        <div class="container">
-                            <div class="empty-state">
-                                <i class="fas fa-calendar-times d-block"></i>
-                                <p>No Upcoming Conferences Available</p>
-                            </div>
-                        </div>`;
+                    track.innerHTML = "<p>No Upcoming Conferences Available</p>";
                     return;
                 }
 
-                data.forEach(function(conf) {
-                    html += '<div class="slide-card" onclick="openEventModal(\''
+                for (let i = 0; i < data.length; i++) {
+
+                    let conf = data[i];
+
+                    html += '<div class="col-md-4" data-aos="zoom-in">'
+                        + '<div class="event-card" onclick="openEventModal(\''
                         + conf.conferenceTitle + '\', \''
                         + conf.date + '\', \''
                         + conf.time + '\', \''
-                        + conf.targetedAudience + '\', \''
-                        + conf.id + '\')">'
-                        + '<div class="conf-card">'
-                        + '<span class="badge-upcoming"><i class="fas fa-circle me-1" style="font-size:0.5rem;"></i>Upcoming</span>'
-                        + '<div class="conf-card-icon"><i class="fas fa-microphone-alt"></i></div>'
-                        + '<h5>' + conf.conferenceTitle + '</h5>'
-                        + '<p><i class="fas fa-calendar-alt me-1" style="color:var(--orange);"></i>' + conf.date + '</p>'
-                        + '<p><i class="fas fa-clock me-1" style="color:var(--orange);"></i>' + conf.time + '</p>'
-                        + '<p><i class="fas fa-users me-1" style="color:var(--orange);"></i>' + conf.delegates + '</p>'
-                        + '</div></div>';
-                });
+                        + conf.delegates + '\', \''
+                        + conf.conferenceId + '\')">'
+
+                        + '<div class="event-badge">Upcoming</div>'
+
+                        + '<h4>' + conf.conferenceTitle + '</h4>'
+
+                        + '<p>' + (conf.conferenceDescription ? conf.conferenceDescription : 'No description available') + '</p>'
+
+                        + '<div class="event-meta">'
+                        + '<i class="bi bi-calendar3"></i> ' + conf.date + ' &nbsp;·&nbsp;'
+                        + '<i class="bi bi-clock"></i> ' + conf.time
+                        + '</div>'
+
+                        + '<div class="event-meta mt-2">'
+
+                        + '<div class="event-meta mt-2">'
+                        + (conf.mode === 'Online'
+                            ? '<i class="bi bi-camera-video"></i> Online'
+                            : '<i class="bi bi-geo-alt"></i> ' + (conf.venueOrMeetingLink ? conf.venueOrMeetingLink : 'Location Not Available'))
+                        + '</div>'
+
+                        + '</div>'
+
+                        + '</div>'
+                        + '</div>';
+                }
 
                 track.innerHTML = html;
-                createInfiniteSlider("upcomingTrack");
+           <!--     createInfiniteSlider("upcomingTrack"); -->
 
             })
             .catch(function (error) {
@@ -997,6 +856,7 @@ axios.get("/conference/api/upcoming")
         document.getElementById("modalTime").innerText = time;
         document.getElementById("modalAudience").innerText = audience;
         document.getElementById("registerBtn").href = "onlineParticipants?confId=" + confId;
+
         const modal = new bootstrap.Modal(document.getElementById('eventModal'));
         modal.show();
     }
