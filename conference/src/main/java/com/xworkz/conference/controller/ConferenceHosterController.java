@@ -176,7 +176,6 @@ public class ConferenceHosterController {
         }
 
         System.out.println("Future Events : " + futureEvents);
-
         return futureEvents;
     }
 
@@ -261,4 +260,5 @@ public class ConferenceHosterController {
 //        console.log(error);
 //
 //    });
+
 }
